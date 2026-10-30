@@ -23,6 +23,11 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": "/"
+              },
+              {
+                "glob": "*.json",
+                "input": "docs/HairRoutineEngine",
+                "output": "/assets/hair-routine"
               }
             ],
             "styles": ["src/styles.scss"]

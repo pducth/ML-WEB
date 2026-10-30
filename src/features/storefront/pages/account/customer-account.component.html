@@ -1,0 +1,89 @@
+@switch (page()) {
+  @case ('login') {
+    <main class="account-auth-page">
+      <section class="auth-intro">
+        <span class="eyebrow">HAIRCARE INSIGHT · MOROCCANOIL</span>
+        <h1>Your hair ritual, made personal.</h1>
+        <p>Sign in to manage your profile, save your hair routine, and keep track of your orders.</p>
+        <a routerLink="/" class="text-link">← Back to the store</a>
+      </section>
+      <section class="auth-card">
+        <div><p class="eyebrow">{{ activeTab() === 'login' ? 'WELCOME BACK' : 'JOIN OUR COMMUNITY' }}</p><h2>{{ activeTab() === 'login' ? 'Sign in' : 'Create your account' }}</h2></div>
+        <div class="auth-tabs"><button type="button" [class.active]="activeTab() === 'login'" (click)="selectTab('login')">Sign in</button><button type="button" [class.active]="activeTab() === 'register'" (click)="selectTab('register')">Create account</button></div>
+        @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+        <form class="field-list" (ngSubmit)="submitAuth()" #authForm="ngForm">
+          @if (activeTab() === 'register') {
+            <label>Full name<input required name="fullName" autocomplete="name" [ngModel]="form().fullName" (ngModelChange)="updateForm('fullName', $event)" /></label>
+            <label>Phone number<input required name="phone" autocomplete="tel" [ngModel]="form().phone" (ngModelChange)="updateForm('phone', $event)" /></label>
+          }
+          <label>Email address<input required type="email" name="email" autocomplete="email" [ngModel]="form().email" (ngModelChange)="updateForm('email', $event)" /></label>
+          <label>Password<input required [minlength]="activeTab() === 'register' ? 8 : 1" type="password" name="password" [autocomplete]="activeTab() === 'register' ? 'new-password' : 'current-password'" [ngModel]="form().password" (ngModelChange)="updateForm('password', $event)" /></label>
+          @if (activeTab() === 'register') {
+            <label>Confirm password<input required minlength="8" type="password" name="confirmPassword" autocomplete="new-password" [ngModel]="form().confirmPassword" (ngModelChange)="updateForm('confirmPassword', $event)" /></label>
+          }
+          @if (activeTab() === 'login') { <a routerLink="/forgot-password" class="forgot-link">Forgot password?</a> }
+          <button type="submit" class="button primary" [disabled]="authForm.invalid || submitting()">{{ submitting() ? 'Please wait…' : activeTab() === 'login' ? 'Sign in' : 'Create account' }}</button>
+        </form>
+      </section>
+    </main>
+  }
+  @case ('forgot') {
+    <main class="account-auth-page forgot-page">
+      <section class="auth-card">
+        <a routerLink="/login" class="text-link">← Back to sign in</a>
+        <div><p class="eyebrow">ACCOUNT RECOVERY</p><h1>Forgot your password?</h1><p class="muted">Enter the email address linked to your account.</p></div>
+        @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+        @if (forgotNotice()) { <p class="success-message" role="status">If an account exists for this address, reset instructions will be sent.</p> }
+        <form class="field-list" (ngSubmit)="requestPasswordReset()" #forgotForm="ngForm">
+          <label>Email address<input required type="email" name="forgotEmail" [(ngModel)]="forgotEmail" /></label>
+          <button type="submit" class="button primary" [disabled]="forgotForm.invalid">Send reset code</button>
+        </form>
+        <p class="note">Password-reset OTP delivery is not available until an email/OTP backend is connected.</p>
+      </section>
+    </main>
+  }
+  @case ('profile') {
+    <main class="profile-page">
+      <header class="profile-heading"><div><p class="eyebrow">MY ACCOUNT</p><h1>Account dashboard</h1></div><button class="button secondary" type="button" (click)="logout()">Sign out</button></header>
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      <div class="profile-grid">
+        <section class="profile-card summary-card">
+          <div class="customer-identity"><span class="avatar">{{ authService.currentUser()?.fullName?.charAt(0) ?? 'C' }}</span><div><h2>{{ authService.currentUser()?.fullName }}</h2><p>{{ authService.currentUser()?.email }}</p><span class="badge">Registered customer</span></div></div>
+          <div class="hair-profile">
+            <div class="card-title-row"><h3>My Hair Profile</h3><a routerLink="/quiz">Retake quiz →</a></div>
+            @if (hairProfile(); as profile) {
+              <div class="profile-facts"><span><small>Hair pattern</small><strong>{{ profile.hairType }}</strong></span><span><small>Hair texture</small><strong>{{ profile.texture }}</strong></span><span><small>Concerns</small><strong>{{ profile.concerns.join(', ') }}</strong></span><span><small>Color-treated</small><strong>{{ profile.colorTreated ? 'Yes' : 'No' }}</strong></span></div>
+            } @else { <p class="muted">No saved Hair Quiz profile yet. Take the quiz to get a personalized routine.</p> }
+          </div>
+          <a class="profile-link" routerLink="/orders">View order history <span>→</span></a>
+        </section>
+        <div class="profile-content">
+          <form class="profile-card field-list" (ngSubmit)="saveProfile(nameInput.value, phoneInput.value)">
+            <h2>Personal information</h2>
+            <label>Full name<input #nameInput [value]="authService.currentUser()?.fullName ?? ''" required /></label>
+            <label>Email address<input type="email" [value]="authService.currentUser()?.email ?? ''" disabled /></label>
+            <label>Phone number<input #phoneInput [value]="authService.currentUser()?.phone ?? ''" /></label>
+            <button type="submit" class="button primary">Save changes</button>
+          </form>
+          <section class="profile-card">
+            <div class="card-title-row"><h2>Address book</h2><button class="button small secondary" type="button" (click)="toggleAddressForm()">{{ addAddressOpen() ? 'Cancel' : '+ Add address' }}</button></div>
+            @if (loading()) { <p class="muted" role="status">Loading addresses…</p> }
+            @for (address of addresses(); track address.id) { <div class="address-row"><div><strong>{{ address.recipientName }}</strong>@if (address.isDefault) { <span class="badge">Default</span> }<p>{{ address.street }}, {{ address.district }} {{ address.city }} {{ address.postalCode }}</p><small>{{ address.phone }}</small></div><button class="text-button" type="button" (click)="deleteAddress(address)">Remove</button></div> }
+            @if (!loading() && addresses().length === 0 && !addAddressOpen()) { <p class="muted">No saved addresses yet.</p> }
+            @if (addAddressOpen()) {
+              <form class="address-form" (ngSubmit)="saveAddress()" #addressFormElement="ngForm">
+                <label>Recipient<input required name="recipient" [ngModel]="addressForm().recipientName" (ngModelChange)="updateAddress('recipientName', $event)" /></label>
+                <label>Phone<input required name="addressPhone" [ngModel]="addressForm().phone" (ngModelChange)="updateAddress('phone', $event)" /></label>
+                <label>Street address<input required name="street" [ngModel]="addressForm().street" (ngModelChange)="updateAddress('street', $event)" /></label>
+                <label>District / State<input name="district" [ngModel]="addressForm().district" (ngModelChange)="updateAddress('district', $event)" /></label>
+                <label>City<input required name="city" [ngModel]="addressForm().city" (ngModelChange)="updateAddress('city', $event)" /></label>
+                <label>Postal code<input name="postalCode" [ngModel]="addressForm().postalCode" (ngModelChange)="updateAddress('postalCode', $event)" /></label>
+                <button class="button primary" type="submit" [disabled]="addressFormElement.invalid">Save address</button>
+              </form>
+            }
+          </section>
+        </div>
+      </div>
+    </main>
+  }
+}

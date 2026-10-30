@@ -39,6 +39,13 @@ export class OrderService {
     return this.http.post<Order>(this.endpoint, order);
   }
 
+  update(id: string, changes: Partial<Order>) {
+    return this.http.patch<Order>(`${this.endpoint}/${encodeURIComponent(id)}`, {
+      ...changes,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
   updateStatus(id: string, status: OrderStatus) {
     return this.http.patch<Order>(`${this.endpoint}/${encodeURIComponent(id)}`, {
       status,

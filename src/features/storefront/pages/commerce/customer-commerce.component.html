@@ -1,0 +1,145 @@
+@switch (page()) {
+  @case ('cart') {
+    <main class="commerce-page">
+      <header class="page-heading"><div><p class="eyebrow">YOUR EDIT</p><h1>Shopping bag</h1></div><a routerLink="/shop" class="text-link">Continue shopping →</a></header>
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      @if (loading()) { <p class="muted" role="status">Loading your bag…</p> }
+      @else if (lines().length) {
+        <div class="commerce-layout">
+          <section class="cart-lines" aria-label="Items in your shopping bag">
+            @for (line of lines(); track line.cartItem.id) {
+              <article class="cart-line">
+                @if (line.product && line.variant) {
+                  <a [routerLink]="['/products', line.product.id]"><img [src]="line.product.imageUrl" [alt]="line.product.name" /></a>
+                  <div class="line-info"><a [routerLink]="['/products', line.product.id]" class="line-name">{{ line.product.name }}</a><span>{{ line.variant.volume }}{{ line.variant.unit }}</span><strong>{{ line.variant.price | currency:'USD' }}</strong></div>
+                  <div class="quantity-control"><button type="button" [attr.aria-label]="'Decrease ' + line.product.name + ' quantity'" (click)="changeQuantity(line, -1)">−</button><span>{{ line.cartItem.quantity }}</span><button type="button" [attr.aria-label]="'Increase ' + line.product.name + ' quantity'" (click)="changeQuantity(line, 1)">+</button></div>
+                  <strong class="line-total">{{ line.variant.price * line.cartItem.quantity | currency:'USD' }}</strong>
+                } @else {
+                  <div class="unavailable-item"><strong>Unavailable item</strong><span>Product: {{ line.cartItem.productId }}</span><span>Variant: {{ line.cartItem.variantId }}</span></div>
+                  <span class="unavailable-quantity">Qty {{ line.cartItem.quantity }}</span>
+                }
+                <button class="remove-button" type="button" (click)="removeLine(line)">Remove</button>
+              </article>
+            }
+          </section>
+          <aside class="summary-card">
+            <h2>Order summary</h2>
+            <div class="summary-row"><span>Subtotal</span><span>{{ subtotal() | currency:'USD' }}</span></div>
+            <div class="summary-row"><span>Shipping</span><span>{{ shippingFee() ? (shippingFee() | currency:'USD') : 'Complimentary' }}</span></div>
+            <p class="muted">Complimentary shipping on orders over $35.</p>
+            <div class="summary-total"><span>Total</span><strong>{{ total() | currency:'USD' }}</strong></div>
+            @if (unresolvedItemCount()) { <p class="form-error">Remove unavailable items before checkout.</p> }
+            @if (unresolvedItemCount() > 0) {
+              <button class="button primary full-width" type="button" disabled>Proceed to checkout</button>
+            } @else {
+              <a class="button primary full-width" routerLink="/checkout">Proceed to checkout</a>
+            }
+            <a class="text-link center-link" routerLink="/quiz">Not sure what your hair needs? Take the Hair Quiz</a>
+          </aside>
+        </div>
+      } @else if (!loading()) {
+        <section class="empty-state"><span class="empty-icon">✳</span><h2>Your bag is taking a little breather.</h2><p class="muted">Explore our collection or take the Hair Quiz to find your routine.</p><div class="empty-actions"><a class="button primary" routerLink="/shop">Explore the collection</a><a class="button secondary" routerLink="/quiz">Take the Hair Quiz</a></div></section>
+      }
+    </main>
+  }
+  @case ('checkout') {
+    <main class="commerce-page">
+      <header class="page-heading"><div><p class="eyebrow">ALMOST YOURS</p><h1>Checkout</h1></div><a routerLink="/cart" class="text-link">← Back to bag</a></header>
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      @if (loading()) { <p class="muted" role="status">Loading checkout…</p> }
+      @else if (lines().length && unresolvedItemCount() === 0) {
+        <form class="commerce-layout" (ngSubmit)="checkout()" #checkoutForm="ngForm">
+          <div class="checkout-sections">
+            <section class="checkout-card">
+              <p class="eyebrow">01 · DELIVERY</p><h2>Shipping address</h2>
+              @if (addresses().length) {
+                <label class="saved-address">Choose a saved address
+                  <select name="savedAddress" [ngModel]="selectedAddressId()" (ngModelChange)="selectSavedAddress($event)">
+                    @for (address of addresses(); track address.id) { <option [value]="address.id">{{ address.recipientName }} — {{ address.street }}, {{ address.city }}</option> }
+                    <option value="">Use a new address</option>
+                  </select>
+                </label>
+              }
+              <div class="shipping-fields">
+                <label>Recipient name<input required name="recipientName" autocomplete="name" [ngModel]="shipping().recipientName" (ngModelChange)="updateShipping('recipientName', $event)" /></label>
+                <label>Phone number<input required name="shippingPhone" autocomplete="tel" [ngModel]="shipping().phone" (ngModelChange)="updateShipping('phone', $event)" /></label>
+                <label class="wide-field">Street address<input required name="street" autocomplete="street-address" [ngModel]="shipping().street" (ngModelChange)="updateShipping('street', $event)" /></label>
+                <label>District / State<input name="district" [ngModel]="shipping().district" (ngModelChange)="updateShipping('district', $event)" /></label>
+                <label>City<input required name="city" autocomplete="address-level2" [ngModel]="shipping().city" (ngModelChange)="updateShipping('city', $event)" /></label>
+                <label>Postal code<input name="postalCode" autocomplete="postal-code" [ngModel]="shipping().postalCode" (ngModelChange)="updateShipping('postalCode', $event)" /></label>
+                <label>Country<input required name="country" autocomplete="country-name" [ngModel]="shipping().country" (ngModelChange)="updateShipping('country', $event)" /></label>
+              </div>
+            </section>
+            <section class="checkout-card">
+              <p class="eyebrow">02 · PAYMENT</p><h2>Payment method</h2>
+              <div class="payment-options">
+                <label><input type="radio" name="paymentMethod" value="card" [ngModel]="paymentMethod()" (ngModelChange)="updatePaymentMethod($event)" /><span><strong>Credit or debit card</strong><small>Payment processing is not connected yet.</small></span></label>
+                <label><input type="radio" name="paymentMethod" value="bank_transfer" [ngModel]="paymentMethod()" (ngModelChange)="updatePaymentMethod($event)" /><span><strong>Bank transfer</strong><small>Instructions will be shown when payment integration is available.</small></span></label>
+                <label><input type="radio" name="paymentMethod" value="cash_on_delivery" [ngModel]="paymentMethod()" (ngModelChange)="updatePaymentMethod($event)" /><span><strong>Cash on delivery</strong><small>Pay when your order arrives.</small></span></label>
+              </div>
+            </section>
+          </div>
+          <aside class="summary-card">
+            <h2>Your order</h2>
+            @for (line of lines(); track line.cartItem.id) { @if (line.product && line.variant) { <div class="checkout-item"><span>{{ line.product.name }} × {{ line.cartItem.quantity }}</span><strong>{{ line.variant.price * line.cartItem.quantity | currency:'USD' }}</strong></div> } }
+            <div class="voucher-row"><input aria-label="Discount code" placeholder="Discount code" name="voucherCode" [ngModel]="voucherCode()" (ngModelChange)="voucherCode.set($event)" /><button class="button secondary" type="button" (click)="applyVoucher()">Apply</button></div>
+            @if (selectedVoucher(); as voucher) { <div class="applied-voucher"><span>{{ voucher.code }} applied</span><button type="button" (click)="removeVoucher()">Remove</button></div> }
+            <div class="summary-row"><span>Subtotal</span><span>{{ subtotal() | currency:'USD' }}</span></div>
+            @if (discount()) { <div class="summary-row discount"><span>Discount</span><span>−{{ discount() | currency:'USD' }}</span></div> }
+            <div class="summary-row"><span>Shipping</span><span>{{ shippingFee() ? (shippingFee() | currency:'USD') : 'Complimentary' }}</span></div>
+            <div class="summary-total"><span>Total</span><strong>{{ total() | currency:'USD' }}</strong></div>
+            <p class="payment-note">Online card and bank payments are recorded as pending; no payment is taken until a gateway is connected.</p>
+            <button class="button primary full-width" type="submit" [disabled]="checkoutForm.invalid || submitting()">{{ submitting() ? 'Placing order…' : 'Place order' }}</button>
+          </aside>
+        </form>
+      } @else if (lines().length && unresolvedItemCount() > 0) {
+        <section class="empty-state"><h2>Some items need attention.</h2><p class="muted">Remove unavailable items from your bag before placing an order.</p><a class="button secondary" routerLink="/cart">Review your bag</a></section>
+      } @else if (!loading()) {
+        <section class="empty-state"><h2>Your bag is empty.</h2><a class="button primary" routerLink="/shop">Browse products</a></section>
+      }
+    </main>
+  }
+  @case ('pending') {
+    <main class="commerce-page status-page">
+      @if (loading()) { <p class="muted" role="status">Loading order…</p> }
+      @else if (selectedOrder(); as order) {
+        <section class="status-card"><span class="status-icon pending-icon">◷</span><p class="eyebrow">ORDER {{ order.orderNumber }}</p><h1>Payment is pending</h1><p class="muted">Your order is saved. Payment has not been collected; follow the payment provider's instructions when the gateway is connected.</p><span [class]="statusClass(order.status)">{{ order.status }}</span><div class="status-actions"><a class="button primary" routerLink="/orders">View my orders</a><a class="button secondary" routerLink="/shop">Continue shopping</a></div></section>
+      } @else if (errorMessage()) { <section class="empty-state"><h1>We couldn't find this order.</h1><p class="form-error">{{ errorMessage() }}</p><a class="button secondary" routerLink="/orders">Order history</a></section> }
+    </main>
+  }
+  @case ('success') {
+    <main class="commerce-page status-page">
+      @if (loading()) { <p class="muted" role="status">Loading order…</p> }
+      @else if (selectedOrder(); as order) {
+        <section class="status-card"><span class="status-icon success-icon">✓</span><p class="eyebrow">ORDER {{ order.orderNumber }}</p><h1>Thank you for your order.</h1><p class="muted">Your order has been placed with cash on delivery. We'll keep you updated as it moves through fulfillment.</p><span [class]="statusClass(order.status)">{{ order.status }}</span><div class="status-actions"><a class="button primary" [routerLink]="['/orders', order.id]">View order details</a><a class="button secondary" routerLink="/shop">Continue shopping</a></div></section>
+      } @else if (errorMessage()) { <section class="empty-state"><h1>We couldn't find this order.</h1><p class="form-error">{{ errorMessage() }}</p><a class="button secondary" routerLink="/orders">Order history</a></section> }
+    </main>
+  }
+  @case ('orders') {
+    <main class="commerce-page">
+      <header class="page-heading"><div><p class="eyebrow">MY ACCOUNT</p><h1>Order history</h1></div><a routerLink="/profile" class="text-link">← My account</a></header>
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      @if (loading()) { <p class="muted" role="status">Loading your orders…</p> }
+      @else if (orders().length) {
+        <section class="orders-list">
+          @for (order of orders(); track order.id) {
+            <article class="order-card"><div class="order-card-heading"><div><p class="eyebrow">{{ order.orderNumber }}</p><span class="muted">Placed {{ order.createdAt | date:'mediumDate' }}</span></div><span [class]="statusClass(order.status)">{{ order.status }}</span></div><div class="order-card-bottom"><span>{{ order.items.length }} {{ order.items.length === 1 ? 'item' : 'items' }}</span><strong>{{ order.total | currency:'USD' }}</strong><a class="button secondary small-button" [routerLink]="['/orders', order.id]">View details</a></div></article>
+          }
+        </section>
+      } @else if (!loading()) { <section class="empty-state"><h2>No orders yet.</h2><p class="muted">Your next hair ritual is waiting.</p><a class="button primary" routerLink="/shop">Explore products</a></section> }
+    </main>
+  }
+  @case ('order-detail') {
+    <main class="commerce-page">
+      <header class="page-heading"><div><p class="eyebrow">MY ACCOUNT</p><h1>Order details</h1></div><a routerLink="/orders" class="text-link">← Order history</a></header>
+      @if (loading()) { <p class="muted" role="status">Loading order…</p> }
+      @else if (selectedOrder(); as order) {
+        <section class="order-detail-card"><div class="order-card-heading"><div><p class="eyebrow">{{ order.orderNumber }}</p><span class="muted">Placed {{ order.createdAt | date:'medium' }}</span></div><span [class]="statusClass(order.status)">{{ order.status }}</span></div>
+          <div class="detail-items">@for (item of order.items; track item.id) { <article class="detail-item"><img [src]="item.imageUrl" [alt]="item.productName" /><div><strong>{{ item.productName }}</strong><span>{{ item.volumeLabel }} · Qty {{ item.quantity }}</span></div><strong>{{ item.lineTotal | currency:'USD' }}</strong></article> }</div>
+          <div class="detail-totals"><div class="summary-row"><span>Subtotal</span><span>{{ order.subtotal | currency:'USD' }}</span></div>@if (order.discountTotal) { <div class="summary-row discount"><span>Discount</span><span>−{{ order.discountTotal | currency:'USD' }}</span></div> }<div class="summary-row"><span>Shipping</span><span>{{ order.shippingFee ? (order.shippingFee | currency:'USD') : 'Complimentary' }}</span></div><div class="summary-total"><span>Total</span><strong>{{ order.total | currency:'USD' }}</strong></div></div>
+          <p class="payment-note">For returns or order changes, please contact customer support. Self-service returns are not available in this demo.</p>
+        </section>
+      } @else if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+    </main>
+  }
+}

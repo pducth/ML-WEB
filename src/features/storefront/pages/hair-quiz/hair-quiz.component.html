@@ -1,0 +1,86 @@
+<section class="quiz-page">
+  @if (loading()) {
+    <div class="quiz-shell loading" role="status">Preparing your personalized Hair Quiz…</div>
+  } @else if (errorMessage() && !config() && mode() === 'quiz') {
+    <div class="quiz-shell error-panel" role="alert">{{ errorMessage() }}</div>
+  } @else if (mode() === 'quiz' && config(); as quiz) {
+    <div class="quiz-shell">
+      <a routerLink="/" class="back-link">← Back to Home</a>
+      <header class="quiz-heading">
+        <span class="eyebrow">MOROCCANOIL · PERSONALIZED HAIRCARE</span>
+        <h1>Find your hair routine</h1>
+        <p>Answer a few questions about your hair and we’ll recommend a routine tailored to your needs.</p>
+      </header>
+      <div class="progress-label"><span>Step {{ currentStep() + 1 }} of {{ quiz.steps.length }}</span><strong>{{ quiz.steps[currentStep()].title_vi }}</strong></div>
+      <div class="progress-track"><i [style.width.%]="(currentStep() + 1) / quiz.steps.length * 100"></i></div>
+      <section class="question-card" aria-live="polite">
+        @for (question of quiz.steps[currentStep()].questions; track question.id) {
+          <div class="question-block">
+            <h2>{{ question.text_vi }} @if (question.required) { <span aria-label="required">*</span> }</h2>
+            <div class="options" [class.multi]="question.type === 'multi'">
+              @for (option of question.options; track option.id) {
+                <button
+                  type="button"
+                  class="option"
+                  [class.selected]="isSelected(question.id, option.id)"
+                  [attr.aria-pressed]="isSelected(question.id, option.id)"
+                  (click)="setAnswer(question.id, option.id, question.type, option.exclusive ?? false)"
+                >
+                  <span class="choice-mark" aria-hidden="true">{{ isSelected(question.id, option.id) ? '✓' : '' }}</span>
+                  <span class="option-copy"><strong>{{ option.label_vi }}</strong>@if (option.description_vi) { <small>{{ option.description_vi }}</small> }</span>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </section>
+      @if (errorMessage()) { <p class="form-error" role="alert">{{ errorMessage() }}</p> }
+      <footer class="quiz-actions">
+        <button class="button secondary" type="button" [disabled]="currentStep() === 0" (click)="back()">Back</button>
+        <button class="button primary" type="button" (click)="next()">{{ currentStep() === quiz.steps.length - 1 ? 'View My Routine' : 'Next step' }} <span aria-hidden="true">→</span></button>
+      </footer>
+      <p class="privacy-note">Your answers are used to generate recommendations for this session.</p>
+    </div>
+  } @else if (result(); as routine) {
+    <div class="results-shell">
+      <header class="result-hero">
+        <span class="eyebrow">YOUR PERSONALIZED ROUTINE</span>
+        <h1>{{ routine.diagnosis.displayName }}</h1>
+        <p>{{ routine.diagnosis.advice }}</p>
+        @if (routine.secondaryLabel) { <span class="secondary-label">Also addressing: {{ routine.secondaryLabel }}</span> }
+      </header>
+      @if (routine.notes.length) {
+        <div class="routine-notes">@for (note of routine.notes; track note) { <p>{{ note }}</p> }</div>
+      }
+      <div class="routine-grid">
+        @for (step of routine.steps; track step.id) {
+          <article class="routine-card">
+            <span class="step-label">STEP {{ $index + 1 }} · {{ step.title }}</span>
+            @if (step.product; as product) {
+              <img [src]="product.image_url" [alt]="product.name" loading="lazy" />
+              <h2>{{ product.name }}</h2>
+              <p>{{ product.category }}</p>
+              <div class="routine-price"><strong>{{ product.price_usd | currency:'USD' }}</strong>@if (step.substituted) { <span>Equivalent alternative</span> }</div>
+              @if (product.url) { <a class="text-link" [href]="product.url" target="_blank" rel="noopener noreferrer">Product information ↗</a> }
+            } @else {
+              <div class="skipped-step"><strong>This step is unavailable</strong><p>{{ step.note }}</p></div>
+            }
+          </article>
+        }
+      </div>
+      @if (routine.addon; as addon) {
+        <article class="addon-card">
+          <div><span class="eyebrow">OPTIONAL ADD-ON · {{ routine.secondaryLabel }}</span><h2>{{ addon.name }}</h2><p>{{ addon.category }} · {{ addon.price_usd | currency:'USD' }}</p></div>
+          <a class="button secondary" [href]="addon.url" target="_blank" rel="noopener noreferrer">View product</a>
+        </article>
+      }
+      <div class="result-actions"><button class="button primary" type="button" (click)="openShop()">Explore products in our shop</button><button class="button secondary" type="button" (click)="retake()">Retake quiz</button></div>
+      <p class="disclaimer">{{ routine.disclaimer }}</p>
+    </div>
+  } @else {
+    <div class="quiz-shell error-panel">
+      <h1>Routine results unavailable</h1><p>{{ errorMessage() || 'Please complete the quiz to see your recommendations.' }}</p>
+      <a class="button primary" routerLink="/quiz">Start Hair Quiz</a>
+    </div>
+  }
+</section>
