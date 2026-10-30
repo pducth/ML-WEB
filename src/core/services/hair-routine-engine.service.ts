@@ -5,7 +5,9 @@ import { forkJoin, map, shareReplay } from 'rxjs';
 interface QuizOption {
   id: string;
   label_vi: string;
+  label_en?: string;
   description_vi?: string;
+  description_en?: string;
   exclusive?: boolean;
 }
 
@@ -14,6 +16,7 @@ interface QuizQuestion {
   type: 'single' | 'multi';
   required: boolean;
   text_vi: string;
+  text_en?: string;
   options: QuizOption[];
 }
 
@@ -21,6 +24,7 @@ interface QuizStep {
   id: string;
   order: number;
   title_vi: string;
+  title_en?: string;
   questions: QuizQuestion[];
 }
 
@@ -50,7 +54,7 @@ interface Ruleset {
   steps: QuizStep[];
   labels: {
     priority_order: string[];
-    definitions: Record<string, { display_en: string; advice_vi: string }>;
+    definitions: Record<string, { display_en: string; advice_vi: string; advice_en?: string }>;
   };
   rules: QuizRule[];
   fallback: { rule_id: string; label: string; description: string };
@@ -82,6 +86,78 @@ interface ProductCatalog {
   products: CatalogProduct[];
 }
 
+type ProductCatalogResponse = CatalogProduct[] | ProductCatalog;
+
+const ROUTINE_CATEGORY_IMAGES: Readonly<Record<string, string>> = {
+  'Conditioner': '/assets/images/unsplash-photo-1601049541289-9b1b7bbbfe19.jpg',
+  'Dry Shampoo': '/assets/images/unsplash-photo-1598440947619-2c35fc9aa908.jpg',
+  'Hair Masks': '/assets/images/unsplash-photo-1571781926291-c477ebfd024b.jpg',
+  'Shampoo': '/assets/images/unsplash-photo-1535585209827-a15fcdbc4c2d.jpg',
+  'Styling & Finishing': '/assets/images/unsplash-photo-1522337360788-8b13dee7a37e.jpg',
+  'Treatment / Oil': '/assets/images/unsplash-photo-1608248597359-543329158fa9.jpg',
+};
+
+const QUIZ_STEP_GROUPS: ReadonlyArray<{ title: string; stepIds: string[] }> = [
+  { title: 'Hair type', stepIds: ['hair_condition'] },
+  { title: 'Hair concerns', stepIds: ['scalp', 'habits_history'] },
+  { title: 'Your routine goals', stepIds: ['goal'] },
+];
+
+const QUESTION_COPY: Readonly<Record<string, string>> = {
+  scalp_condition: 'How would you describe your scalp?',
+  hair_damage: 'How would you describe your hair’s current condition?',
+  hair_texture: 'What is your natural hair texture?',
+  hair_thickness: 'How thick are your strands?',
+  wash_frequency: 'How often do you wash your hair?',
+  chemical_history: 'Has your hair been chemically treated?',
+  heat_styling: 'How often do you heat-style your hair?',
+  primary_goal: 'What is your primary hair goal?',
+};
+
+const OPTION_COPY: Readonly<Record<string, string>> = {
+  'scalp_condition.normal': 'Normal and comfortable',
+  'scalp_condition.oily': 'Oily quickly',
+  'scalp_condition.dry_sensitive': 'Dry, itchy, or sensitive',
+  'scalp_condition.flaky': 'Dandruff or flaking',
+  'hair_damage.healthy': 'Healthy and smooth',
+  'hair_damage.dry_frizzy': 'Dry, coarse, or frizzy',
+  'hair_damage.damaged': 'Damaged',
+  'hair_texture.straight': 'Straight',
+  'hair_texture.wavy': 'Wavy',
+  'hair_texture.curly': 'Curly',
+  'hair_thickness.fine': 'Fine and limp',
+  'hair_thickness.medium': 'Medium',
+  'hair_thickness.thick': 'Thick and coarse',
+  'wash_frequency.daily': 'Daily',
+  'wash_frequency.every_2_3_days': 'Every 2–3 days',
+  'wash_frequency.weekly': '1–2 times a week',
+  'chemical_history.none': 'No chemical treatments',
+  'chemical_history.dyed': 'Color-treated',
+  'chemical_history.bleached': 'Bleached or lightened',
+  'chemical_history.permed': 'Permed or chemically straightened',
+  'heat_styling.never': 'Rarely or never',
+  'heat_styling.sometimes': 'Sometimes',
+  'heat_styling.often': 'Frequently',
+  'primary_goal.repair': 'Repair damage',
+  'primary_goal.scalp_care': 'Care for my scalp',
+  'primary_goal.color_protect': 'Protect my color',
+  'primary_goal.define_curls': 'Define my curls',
+  'primary_goal.hydrate': 'Add hydration',
+  'primary_goal.volume': 'Add volume',
+  'primary_goal.smooth_style': 'Smooth and style',
+  'primary_goal.maintain': 'Maintain healthy hair',
+};
+
+const ROUTINE_ADVICE: Readonly<Record<string, string>> = {
+  Repair: 'Prioritize a restorative mask once or twice a week and reduce heat styling.',
+  Scalp: 'Choose gentle cleansing, avoid scratching, and use comfortably warm water.',
+  Color: 'Use color-protecting care and limit hot water and UV exposure to help preserve color.',
+  Curl: 'Support curls with moisture and curl-specific styling products to maintain definition and reduce frizz.',
+  Hydration: 'Add moisture to help hair feel softer, smoother, and easier to style.',
+  Volume: 'Choose lightweight formulas that do not weigh down the roots.',
+  Styling: 'Use heat protection and frizz control to style while caring for your hair.',
+};
+
 export interface RoutineStepResult {
   id: string;
   title: string;
@@ -112,23 +188,49 @@ export class HairRoutineEngineService {
   private readonly http = inject(HttpClient);
   private readonly config$ = forkJoin({
     ruleset: this.http.get<Ruleset>('/assets/hair-routine/hair_routine_rules.json'),
-    catalog: this.http.get<ProductCatalog>('/assets/hair-routine/product_quiz_catalog.json'),
+    catalog: this.http.get<ProductCatalogResponse>('/assets/hair-routine/product_quiz_catalog.json'),
   }).pipe(
     map(({ ruleset, catalog }) => {
-      if (!ruleset.steps.length || !catalog.products.length) {
+      const products = Array.isArray(catalog) ? catalog : catalog.products;
+      if (!ruleset.steps.length || !products.length) {
         throw new Error('Hair routine rules or catalog is empty.');
       }
-      return { ruleset, catalog };
+      return {
+        ruleset,
+        catalog: {
+          products: products.map((product) => ({
+            ...product,
+            image_url: ROUTINE_CATEGORY_IMAGES[product.category] ?? ROUTINE_CATEGORY_IMAGES['Treatment / Oil'],
+          })),
+        },
+      };
     }),
     shareReplay({ bufferSize: 1, refCount: true }),
   );
 
   getConfig() {
     return this.config$.pipe(
-      map(({ ruleset }): HairRoutineConfig => ({
-        steps: [...ruleset.steps].sort((a, b) => a.order - b.order),
-        version: ruleset.ruleset_version,
-      })),
+      map(({ ruleset }): HairRoutineConfig => {
+        const sourceSteps = new Map(ruleset.steps.map((step) => [step.id, step]));
+        const steps = QUIZ_STEP_GROUPS.map((group, index) => ({
+          id: `step-${index + 1}`,
+          order: index + 1,
+          title_vi: group.title,
+          title_en: group.title,
+          questions: group.stepIds
+            .flatMap((stepId) => sourceSteps.get(stepId)?.questions ?? [])
+            .map((question) => ({
+              ...question,
+              text_en: QUESTION_COPY[question.id] ?? question.text_vi,
+              options: question.options.map((option) => ({
+                ...option,
+                label_en: OPTION_COPY[`${question.id}.${option.id}`] ?? option.label_vi,
+                description_en: undefined,
+              })),
+            })),
+        }));
+        return { steps, version: ruleset.ruleset_version };
+      }),
     );
   }
 
@@ -220,7 +322,10 @@ export class HairRoutineEngineService {
       rulesetVersion: ruleset.ruleset_version,
       primaryLabel,
       secondaryLabel,
-      diagnosis: { displayName: definition.display_en, advice: definition.advice_vi },
+      diagnosis: {
+        displayName: definition.display_en,
+        advice: ROUTINE_ADVICE[primaryLabel] ?? 'Use a consistent routine tailored to your hair and scalp needs.',
+      },
       fallbackUsed,
       steps,
       addon,

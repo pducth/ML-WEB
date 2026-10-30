@@ -29,53 +29,6 @@ interface HomeProduct {
   previewOnly: boolean;
 }
 
-const PREVIEW_PRODUCTS: HomeProduct[] = [
-  {
-    id: 'moro-009',
-    name: 'Moroccanoil Treatment Original',
-    imageUrl: '/assets/images/unsplash-photo-1608248597359-543329158fa9.jpg',
-    rating: 5,
-    reviewCount: 542,
-    price: 34,
-    variantId: '',
-    available: 0,
-    previewOnly: true,
-  },
-  {
-    id: 'moro-005',
-    name: 'Moisture Repair Shampoo',
-    imageUrl: '/assets/images/unsplash-photo-1535585209827-a15fcdbc4c2d.jpg',
-    rating: 4.9,
-    reviewCount: 388,
-    price: 27,
-    variantId: '',
-    available: 0,
-    previewOnly: true,
-  },
-  {
-    id: 'moro-003',
-    name: 'Intense Hydrating Mask',
-    imageUrl: '/assets/images/unsplash-photo-1571781926291-c477ebfd024b.jpg',
-    rating: 5,
-    reviewCount: 420,
-    price: 37,
-    variantId: '',
-    available: 0,
-    previewOnly: true,
-  },
-  {
-    id: 'moro-001',
-    name: 'Perfect Defense Heat Protectant',
-    imageUrl: '/assets/images/unsplash-photo-1522337360788-8b13dee7a37e.jpg',
-    rating: 4.8,
-    reviewCount: 180,
-    price: 32,
-    variantId: '',
-    available: 0,
-    previewOnly: true,
-  },
-];
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -110,18 +63,21 @@ export class HomeComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
     this.catalogNotice.set('');
-    this.productsApi.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.productsApi.getAll(undefined, true).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (products) => {
         const featured = products
           .filter((product) => Object.values(productRoutes).includes(product.id))
-          .map((product) => this.toHomeProduct(product));
+          .map((product) => this.toHomeProduct(product, this.productsApi.previewCatalog()));
         this.products.set(featured);
+        if (this.productsApi.previewCatalog()) {
+          this.catalogNotice.set('Showing sample catalog data. Shopping is disabled until the product API is connected.');
+        }
         if (featured.length === 0) this.errorMessage.set('No featured products are available in the catalog yet.');
         this.isLoading.set(false);
       },
       error: () => {
-        this.products.set(PREVIEW_PRODUCTS);
-        this.catalogNotice.set('Showing sample products for preview. Connect the catalog API to enable shopping.');
+        this.products.set([]);
+        this.errorMessage.set('We could not load the product catalog or its preview data.');
         this.isLoading.set(false);
       },
     });
@@ -170,7 +126,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private toHomeProduct(product: Product): HomeProduct {
+  private toHomeProduct(product: Product, previewOnly = false): HomeProduct {
     const variant =
       product.variants.filter((candidate) => candidate.available > 0).sort((a, b) => a.price - b.price)[0] ??
       [...product.variants].sort((a, b) => a.price - b.price)[0];
@@ -183,7 +139,7 @@ export class HomeComponent implements OnInit {
       price: variant?.price ?? 0,
       variantId: variant?.id ?? '',
       available: variant?.available ?? 0,
-      previewOnly: false,
+      previewOnly,
     };
   }
 }

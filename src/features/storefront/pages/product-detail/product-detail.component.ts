@@ -43,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
   readonly isAddingToCart = signal(false);
   readonly errorMessage = signal('');
   readonly reviewError = signal('');
+  readonly previewCatalog = this.productsApi.previewCatalog;
   readonly gallery = computed(() => {
     const product = this.product();
     return product ? (product.galleryImages?.length ? product.galleryImages : [product.imageUrl]) : [];
@@ -62,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
     this.product.set(null);
-    this.productsApi.getById(productId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.productsApi.getById(productId, true).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (product) => {
         this.product.set(product);
         const inStockVariant = product.variants.find((variant) => variant.available > 0);
@@ -70,7 +71,12 @@ export class ProductDetailComponent implements OnInit {
         this.selectedImage.set(product.galleryImages?.[0] ?? product.imageUrl);
         this.quantity.set(1);
         this.isLoading.set(false);
-        this.loadReviews(product.id);
+        if (this.productsApi.previewCatalog()) {
+          this.isReviewsLoading.set(false);
+          this.reviews.set([]);
+        } else {
+          this.loadReviews(product.id);
+        }
       },
       error: () => {
         this.errorMessage.set('We could not load this product. Please try again.');
@@ -117,6 +123,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(buyNow = false): void {
+    if (this.previewCatalog()) {
+      this.notification.show('Shopping is unavailable until the product API is connected.');
+      return;
+    }
+
     const product = this.product();
     const variant = this.selectedVariant();
     if (!product || !variant || variant.available <= 0 || this.isAddingToCart()) {

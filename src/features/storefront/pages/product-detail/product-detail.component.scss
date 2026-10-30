@@ -3,6 +3,7 @@
 .breadcrumbs { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-2) 0 var(--space-8); color: var(--color-text-light); font-size: var(--font-size-xs); }
 .breadcrumbs a { color: var(--color-text-muted); text-decoration: none; }
 .breadcrumbs a:hover { color: var(--color-primary-brown); text-decoration: underline; }
+.catalog-notice { margin: 0 0 var(--space-5); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: var(--color-cream-subtle); color: var(--color-text-muted); font-size: var(--font-size-xs); }
 .product-main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr); gap: clamp(var(--space-8), 7vw, var(--space-16)); align-items: start; }
 .gallery { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: var(--space-4); }
 .gallery-thumbnails { display: flex; flex-direction: column; gap: var(--space-3); }

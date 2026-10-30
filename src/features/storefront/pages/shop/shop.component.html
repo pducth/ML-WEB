@@ -20,8 +20,8 @@
       <label class="filter-control">
         <span>Product category</span>
         <select [value]="category()" (change)="setCategory($event)">
-          <option value="">All categories</option>
-          @for (item of categories; track item) { <option [value]="item">{{ item }}</option> }
+          <option value="" [selected]="!category()">All categories</option>
+          @for (item of categories; track item) { <option [value]="item" [selected]="category() === item">{{ item }}</option> }
         </select>
       </label>
       <label class="filter-control">
@@ -71,6 +71,11 @@
     </aside>
 
     <div class="collection">
+      @if (previewCatalog()) {
+        <p class="catalog-notice" role="status">
+          Showing sample catalog data. Shopping is disabled until the product API is connected.
+        </p>
+      }
       <div class="collection-toolbar">
         <p>{{ filteredProducts().length }} products</p>
       </div>
