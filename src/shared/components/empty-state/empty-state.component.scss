@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.empty-state {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.empty-icon {
+  display: grid;
+  width: 64px;
+  aspect-ratio: 1;
+  place-items: center;
+  margin-bottom: var(--space-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-cream-subtle);
+  color: var(--color-primary-brown);
+}
+
+.empty-icon svg {
+  width: 32px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.empty-state h2 {
+  color: var(--color-deep-brown);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.empty-state p {
+  max-width: 420px;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.empty-state app-button {
+  margin-top: var(--space-5);
+}

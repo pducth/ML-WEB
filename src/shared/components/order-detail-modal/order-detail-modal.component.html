@@ -1,0 +1,63 @@
+@if (orderService.selectedOrder(); as order) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <button
+      type="button"
+      (click)="close()"
+      class="absolute inset-0 modal-overlay"
+      aria-label="Đóng chi tiết đơn hàng"
+    ></button>
+    <div
+      class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-lg w-full p-6 sm:p-8 z-10 animate-fadeIn max-h-[90vh] overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="order-modal-title"
+    >
+      <button
+        type="button"
+        (click)="close()"
+        class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]"
+        aria-label="Đóng"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div class="space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-[#E7E3DC]">
+          <div>
+            <h3 id="order-modal-title" class="text-lg font-bold text-[#4A2E2B]">
+              Chi tiết đơn hàng #{{ order.orderNumber }}
+            </h3>
+            <p class="text-xs text-[#9B938B]">{{ order.createdAt | date: 'dd/MM/yyyy' }}</p>
+          </div>
+          <span class="badge-teal">{{ order.status }}</span>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#6B625B] mb-3">Danh sách sản phẩm</h4>
+          <div class="space-y-2">
+            @for (item of order.items; track item.id) {
+              <div class="flex justify-between text-sm py-1">
+                <span class="text-[#4A2E2B]"
+                  >{{ item.productName }} ({{ item.volumeLabel }}) × {{ item.quantity }}</span
+                >
+                <span class="font-bold text-[#6E473B]">{{ item.lineTotal | currency: orderService.detailsCurrency() }}</span>
+              </div>
+            }
+          </div>
+          <div class="pt-3 mt-3 border-t border-[#E7E3DC] space-y-1">
+            <div class="flex justify-between text-xs text-[#6B625B]">
+              <span>Tạm tính</span><span>{{ order.subtotal | currency: orderService.detailsCurrency() }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-[#6B625B]">
+              <span>Phí giao hàng</span><span>{{ order.shippingFee | currency: orderService.detailsCurrency() }}</span>
+            </div>
+            <div class="flex justify-between text-base font-bold text-[#4A2E2B]">
+              <span>Tổng tiền thanh toán</span>
+              <span class="text-[#6E473B]">{{ order.total | currency: orderService.detailsCurrency() }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+
+.skeleton {
+  display: grid;
+  gap: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.card-variant {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface-card);
+}
+
+.skeleton-image,
+.skeleton-line {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-cream-subtle) 25%,
+    var(--color-border-subtle) 50%,
+    var(--color-cream-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 1.25;
+}
+
+.image-only {
+  aspect-ratio: 16 / 9;
+}
+
+.skeleton-lines {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.skeleton-line {
+  height: var(--space-4);
+}
+
+.skeleton-line:last-child:not(:first-child) {
+  width: 65%;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-image,
+  .skeleton-line {
+    animation: none;
+  }
+}

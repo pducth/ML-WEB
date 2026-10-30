@@ -1,0 +1,161 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div
+    class="bg-white p-6 rounded-3xl border border-[#E7E3DC] shadow-sm mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+  >
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-xs uppercase tracking-wider"
+          >PORTAL QUẢN TRỊ</span
+        >
+        <span class="badge-teal">SUPER ADMIN</span>
+      </div>
+      <h1 class="text-2xl font-extrabold text-[#4A2E2B] mt-1">Bảng điều khiển hệ thống Moroccanoil</h1>
+    </div>
+    <div class="flex items-center gap-3">
+      <button type="button" (click)="openAddProductModal()" class="btn-primary text-xs px-4 py-2">
+        + Thêm sản phẩm mới
+      </button>
+      <a routerLink="/" class="btn-secondary text-xs px-4 py-2">Về Storefront</a>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p class="py-12 text-center text-[#6B625B]" role="status">Đang tải dữ liệu...</p>
+  } @else if (errorMessage()) {
+    <div class="py-12 text-center text-red-700" role="alert">
+      <p>{{ errorMessage() }}</p>
+      <button type="button" class="underline font-semibold" (click)="loadDashboard()">Thử lại</button>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+        <span class="text-xs text-[#6B625B] font-semibold uppercase">Doanh thu tháng này</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-2xl font-black text-[#6E473B]">{{ kpi()?.revenue }}</span>
+          <span class="text-xs font-bold text-green-600">{{ kpi()?.revenueGrowth }}</span>
+        </div>
+        <p class="text-[11px] text-[#9B938B] mt-1">Vượt 12% so với chỉ tiêu KPI</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+        <span class="text-xs text-[#6B625B] font-semibold uppercase">Tổng đơn hàng</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-2xl font-black text-[#4A2E2B]">{{ kpi()?.ordersTotal }} đơn</span>
+          <span class="text-xs font-bold text-[#00A3A6]">{{ kpi()?.ordersPending }} đơn mới</span>
+        </div>
+        <p class="text-[11px] text-[#9B938B] mt-1">Tỷ lệ hủy đơn chỉ 0.8%</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+        <span class="text-xs text-[#6B625B] font-semibold uppercase">Khách hàng mới</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-2xl font-black text-[#4A2E2B]">158 khách</span>
+          <span class="text-xs font-bold text-green-600">+24%</span>
+        </div>
+        <p class="text-[11px] text-[#9B938B] mt-1">Từ chiến dịch Hair Quiz 1 phút</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+        <span class="text-xs text-[#6B625B] font-semibold uppercase">Tỷ lệ chuyển đổi</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-2xl font-black text-[#00A3A6]">{{ kpi()?.conversionRate }}</span>
+          <span class="text-xs font-bold text-green-600">+0.6%</span>
+        </div>
+        <p class="text-[11px] text-[#9B938B] mt-1">Trung bình ngành mỹ phẩm: 3.2%</p>
+      </div>
+    </div>
+
+    <div class="space-y-8">
+      <div class="bg-white rounded-3xl border border-[#E7E3DC] shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-[#E7E3DC]">
+          <h2 class="font-bold text-[#4A2E2B] text-lg">Quản lý đơn hàng gần đây</h2>
+          <p class="text-xs text-[#6B625B]">
+            Click "Đổi trạng thái" để luân chuyển: Chờ xử lý → Đang vận chuyển → Hoàn thành.
+          </p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-[#F7F3EC] text-xs font-bold uppercase text-[#6B625B] border-b border-[#E7E3DC]">
+              <tr>
+                <th class="p-3">Mã đơn</th>
+                <th class="p-3">Khách hàng</th>
+                <th class="p-3">Ngày đặt</th>
+                <th class="p-3">Tổng tiền</th>
+                <th class="p-3">Trạng thái</th>
+                <th class="p-3">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of orders(); track order.id) {
+                <tr class="border-b border-[#E7E3DC] hover:bg-[#FDFBF7] transition-colors">
+                  <td class="p-3 font-semibold text-[#4A2E2B]">#{{ order.id }}</td>
+                  <td class="p-3">
+                    <p class="font-medium text-[#4A2E2B] text-sm">{{ order.customerName }}</p>
+                    <p class="text-xs text-[#9B938B]">{{ order.phone }}</p>
+                  </td>
+                  <td class="p-3 text-xs text-[#6B625B]">{{ order.date }}</td>
+                  <td class="p-3 font-bold text-[#6E473B] text-sm">{{ order.total | currency: 'VND' }}</td>
+                  <td class="p-3"><app-status-badge [status]="statusFor(order)" /></td>
+                  <td class="p-3">
+                    <button
+                      type="button"
+                      (click)="showOrderDetails(order)"
+                      class="text-xs text-[#00A3A6] hover:underline font-semibold"
+                    >
+                      Xem
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td class="p-6 text-center text-sm text-[#6B625B]" colspan="6">Chưa có đơn hàng.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-[#E7E3DC] shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-[#E7E3DC]">
+          <h2 class="font-bold text-[#4A2E2B] text-lg">Kho hàng &amp; Danh mục sản phẩm</h2>
+          <p class="text-xs text-[#6B625B]">Quản lý giá, tồn kho và danh mục hiển thị trên storefront.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-[#F7F3EC] text-xs font-bold uppercase text-[#6B625B] border-b border-[#E7E3DC]">
+              <tr>
+                <th class="p-3">Sản phẩm</th>
+                <th class="p-3">Phân loại</th>
+                <th class="p-3">Giá bán</th>
+                <th class="p-3">Tồn kho</th>
+                <th class="p-3">Badge</th>
+                <th class="p-3">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of products(); track product.id) {
+                <tr class="border-b border-[#E7E3DC] hover:bg-[#FDFBF7] transition-colors">
+                  <td class="p-3">
+                    <div class="flex items-center gap-3">
+                      <img [src]="product.imageUrl" [alt]="product.name" class="w-10 h-10 object-cover rounded-lg border border-[#E7E3DC]" />
+                      <span class="font-semibold text-sm text-[#4A2E2B] line-clamp-1">{{ product.name }}</span>
+                    </div>
+                  </td>
+                  <td class="p-3 text-xs text-[#6B625B]">{{ product.category }}</td>
+                  <td class="p-3 text-sm font-bold text-[#6E473B]">
+                    {{ product.variants[0]?.price ?? 0 | currency: 'USD' }}
+                  </td>
+                  <td class="p-3 text-xs font-semibold text-green-600">{{ product.variants[0]?.available ?? 0 }} chai</td>
+                  <td class="p-3"><span class="badge-teal">Tiêu chuẩn</span></td>
+                  <td class="p-3">
+                    <button type="button" (click)="deleteProduct(product)" class="text-xs text-red-500 hover:text-red-700 font-semibold">
+                      Xóa
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td class="p-6 text-center text-sm text-[#6B625B]" colspan="6">Chưa có sản phẩm.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+</section>

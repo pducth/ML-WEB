@@ -1,0 +1,25 @@
+# JavaScript dependencies and generated output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.angular/cache/
+**/.angular/cache/
+out-tsc/
+**/out-tsc/
+
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local IDE state
+.idea/workspace.xml

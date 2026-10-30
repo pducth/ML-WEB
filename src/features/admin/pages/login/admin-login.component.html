@@ -1,0 +1,22 @@
+<main class="login-page">
+  <section class="login-intro">
+    <a class="brand" routerLink="/">MOROCCANOIL <span>HAIRCARE INSIGHT</span></a>
+    <p class="eyebrow">ADMIN PORTAL</p>
+    <h1>Better care starts with better insight.</h1>
+    <p>Manage products, orders, stock, and personalized hair routines in one workspace.</p>
+  </section>
+  <form class="login-card" (ngSubmit)="signIn()" #loginForm="ngForm">
+    <div>
+      <p class="eyebrow">WELCOME BACK</p>
+      <h2>Sign in to your account</h2>
+      <p class="muted">Use your administrator account to continue.</p>
+    </div>
+    @if (errorMessage()) {
+      <p class="error" role="alert">{{ errorMessage() }}</p>
+    }
+    <label>Email address<input type="email" name="email" autocomplete="username" required [ngModel]="email()" (ngModelChange)="email.set($event)" /></label>
+    <label>Password<input type="password" name="password" autocomplete="current-password" required [ngModel]="password()" (ngModelChange)="password.set($event)" /></label>
+    <button class="submit" type="submit" [disabled]="loginForm.invalid || submitting()">{{ submitting() ? 'Signing in…' : 'Sign in' }}</button>
+    <a class="store-link" routerLink="/">← Back to storefront</a>
+  </form>
+</main>

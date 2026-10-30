@@ -1,0 +1,81 @@
+<section class="shop-page">
+  <header class="shop-heading">
+    <span class="eyebrow">The collection</span>
+    <h1>Shop hair care</h1>
+    <p>Discover salon-inspired essentials for your hair ritual.</p>
+  </header>
+
+  <div class="shop-layout">
+    <aside class="filters" aria-label="Product filters">
+      <div class="filter-title"><h2>Filter by</h2><button type="button" (click)="resetFilters()">Reset</button></div>
+      <label class="filter-control">
+        <span>Search products</span>
+        <input type="search" [value]="searchQuery()" (input)="setSearchQuery($event)" placeholder="Name or category" />
+      </label>
+      <label class="filter-control">
+        <span>Category</span>
+        <select [value]="category()" (change)="setCategory($event)">
+          <option value="">All categories</option>
+          @for (item of categories; track item) { <option [value]="item">{{ item }}</option> }
+        </select>
+      </label>
+      <fieldset class="price-filter">
+        <legend>Price range</legend>
+        <div class="price-inputs">
+          <label><span class="visually-hidden">Minimum price</span><input type="number" min="0" step="1" placeholder="Min $" [value]="minimumPrice()" (input)="setPrice($event, 'minimum')" /></label>
+          <span aria-hidden="true">–</span>
+          <label><span class="visually-hidden">Maximum price</span><input type="number" min="0" step="1" placeholder="Max $" [value]="maximumPrice()" (input)="setPrice($event, 'maximum')" /></label>
+        </div>
+      </fieldset>
+      <label class="filter-control">
+        <span>Availability</span>
+        <select [value]="stockFilter()" (change)="setStock($event)">
+          <option value="all">All products</option>
+          <option value="in-stock">In stock</option>
+          <option value="out-of-stock">Out of stock</option>
+        </select>
+      </label>
+    </aside>
+
+    <div class="collection">
+      <div class="collection-toolbar">
+        <p>{{ filteredProducts().length }} products</p>
+        <label>Sort by
+          <select [value]="sortOrder()" (change)="setSort($event)">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="rating">Top rated</option>
+          </select>
+        </label>
+      </div>
+
+      @if (isLoading()) {
+        <div class="collection-grid">
+          @for (_ of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) { <app-skeleton-loader variant="card" /> }
+        </div>
+      } @else if (errorMessage()) {
+        <div class="inline-error" role="alert">
+          <p>{{ errorMessage() }}</p>
+          <button type="button" (click)="loadProducts()">Try again</button>
+        </div>
+      } @else if (filteredProducts().length === 0) {
+        <app-empty-state
+          title="No products found"
+          message="Try adjusting your search or filters to find what you are looking for."
+          actionLabel="Reset filters"
+          (action)="resetFilters()"
+        />
+      } @else {
+        <div class="collection-grid">
+          @for (product of visibleProducts(); track product.id; let index = $index) {
+            <app-product-card [product]="product" [prioritizeImage]="index < 4" (selected)="openProduct($event)" />
+          }
+        </div>
+        @if (totalPages() > 1) {
+          <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()" (pageChange)="setPage($event)" />
+        }
+      }
+    </div>
+  </div>
+</section>

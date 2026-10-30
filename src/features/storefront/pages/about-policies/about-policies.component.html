@@ -1,0 +1,92 @@
+<section class="about-page">
+  <header class="about-heading">
+    <span class="eyebrow">Our story & our promise</span>
+    <h1>Inspired by the restorative power of argan oil</h1>
+    <p>Moroccanoil pioneered the use of argan oil in hair care, bringing salon-inspired rituals to people around the world.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="About and policies">
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'about'" [class.active]="activeTab() === 'about'" (click)="setTab('about')">About Us</button>
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'shipping'" [class.active]="activeTab() === 'shipping'" (click)="setTab('shipping')">Sales &amp; Shipping</button>
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'returns'" [class.active]="activeTab() === 'returns'" (click)="setTab('returns')">Return &amp; Refund</button>
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'privacy'" [class.active]="activeTab() === 'privacy'" (click)="setTab('privacy')">Privacy</button>
+  </nav>
+
+  <div class="tab-panel" role="tabpanel">
+    @switch (activeTab()) {
+      @case ('about') {
+        <div class="story-grid">
+          <div class="story-copy">
+            <span class="eyebrow">Our beginning</span>
+            <h2>A new era for hair care</h2>
+            <p>Moroccanoil began with a transformative experience: founder Carmen Tal discovered the remarkable effects of argan oil after a visit to a salon. Inspired by the way it helped restore the look and feel of her hair, she set out to share this discovery with the world.</p>
+            <p>That first encounter became a movement rooted in performance, sensorial beauty, and a deep appreciation for the traditions behind argan oil.</p>
+          </div>
+          <img class="story-image" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85" alt="Hair care ritual inspired by salon artistry" />
+        </div>
+        <div class="values-grid">
+          <article><span aria-hidden="true">✳</span><h3>Performance first</h3><p>Professional-inspired formulas designed to help hair look healthy, smooth, and radiant.</p></article>
+          <article><span aria-hidden="true">◇</span><h3>Argan oil heritage</h3><p>Our story is connected to the restorative properties and rich heritage of argan oil.</p></article>
+          <article><span aria-hidden="true">○</span><h3>Beauty with purpose</h3><p>We believe a thoughtful hair ritual can be a daily moment of care and confidence.</p></article>
+        </div>
+      }
+      @case ('shipping') {
+        <div class="policy-content">
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">↗</span>
+            <h2>Placing an order</h2>
+            <p>Orders are subject to product availability and successful payment authorization. Product prices and delivery options are shown at checkout before an order is submitted.</p>
+            <p>After placing an order, please check your email for an order confirmation. If you need help with an order, contact our customer care team with your order number.</p>
+          </article>
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">⌁</span>
+            <h2>Delivery</h2>
+            <p>Available delivery methods, estimated delivery windows, and shipping charges are displayed at checkout based on your delivery address.</p>
+            <p>Delivery estimates are provided as a guide and may be affected by carrier operations, weather, or other circumstances outside our control. Please make sure your shipping details are complete and accurate.</p>
+          </article>
+          <article class="policy-note"><strong>Need order assistance?</strong><p>Reach out to customer care and include the email address used at checkout so we can help locate your order.</p></article>
+        </div>
+      }
+      @case ('returns') {
+        <div class="policy-content">
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">↺</span>
+            <h2>Returns and exchanges</h2>
+            <p>Contact customer care within 7 days of receiving your order to request assistance with a return or exchange. Please include your order number and a short description of the issue.</p>
+            <p>Items must be returned in their original packaging and in accordance with the return instructions provided by customer care. Some exclusions may apply for health and hygiene reasons.</p>
+          </article>
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">✓</span>
+            <h2>Damaged or incorrect items</h2>
+            <p>If an item arrives damaged, leaking, or different from what you ordered, contact us as soon as possible. Photos of the item and packaging can help us review your request.</p>
+          </article>
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">＄</span>
+            <h2>Refunds</h2>
+            <p>Once an eligible return is received and reviewed, approved refunds are issued to the original payment method. Processing times may vary depending on your payment provider.</p>
+          </article>
+        </div>
+      }
+      @case ('privacy') {
+        <div class="policy-content">
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">⌑</span>
+            <h2>Information we collect</h2>
+            <p>We use information you provide, such as contact, delivery, and order details, to process purchases, support your account, and respond to customer care requests.</p>
+          </article>
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">⌖</span>
+            <h2>How information is used</h2>
+            <p>Information may be used to fulfill orders, provide service updates, improve the shopping experience, and meet applicable legal requirements. Payment details are handled by the selected payment provider.</p>
+          </article>
+          <article class="policy-card">
+            <span class="policy-icon" aria-hidden="true">⛨</span>
+            <h2>Your choices and data protection</h2>
+            <p>We take reasonable steps to protect personal information and limit access to those who need it to provide services. You may contact customer care to request access, correction, or deletion where applicable.</p>
+            <p>Marketing messages can be unsubscribed from using the link in the message. Essential order and account communications may still be sent.</p>
+          </article>
+        </div>
+      }
+    }
+  </div>
+</section>

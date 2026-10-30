@@ -1,0 +1,10 @@
+@use "./styles/tokens";
+@use "./styles/base";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./styles/globals.css";
+@import "./styles/styleguide.css";
+@import "./styles/style.css";

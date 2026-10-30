@@ -1,0 +1,15 @@
+<div class="storefront-shell">
+  <app-header
+    [cartItemCount]="cartItemCount()"
+    [accountLabel]="accountLabel()"
+    [isAdmin]="isAdmin()"
+    (navigateTo)="navigate($event)"
+    (startQuiz)="navigate('/quiz')"
+    (cartClick)="openCart()"
+    (accountClick)="openAccount()"
+  ></app-header>
+  <main class="storefront-content">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

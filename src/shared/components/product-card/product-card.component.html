@@ -1,0 +1,33 @@
+<article class="product-card" [class.out-of-stock]="isOutOfStock">
+  <button
+    class="product-image-button"
+    type="button"
+    [attr.aria-label]="'View ' + product().name"
+    (click)="selectProduct()"
+  >
+    <img [src]="product().imageUrl" [alt]="product().name" [loading]="prioritizeImage() ? 'eager' : 'lazy'" />
+    @if (isOutOfStock) {
+      <span class="stock-label">Out of Stock</span>
+    }
+  </button>
+
+  <div class="product-info">
+    <span class="product-category">{{ product().category }}</span>
+    <h3>
+      <button type="button" class="product-name" (click)="selectProduct()">{{ product().name }}</button>
+    </h3>
+
+    <div class="product-rating" [attr.aria-label]="product().rating + ' out of 5 stars'">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <span class="rating-value">{{ product().rating.toFixed(1) }}</span>
+      @if (product().reviewCount !== undefined) {
+        <span class="review-count">({{ product().reviewCount }})</span>
+      }
+    </div>
+
+    <div class="product-card-footer">
+      <span class="product-price">{{ startingPrice | currency }}</span>
+      <ng-content select="[product-actions]"></ng-content>
+    </div>
+  </div>
+</article>
