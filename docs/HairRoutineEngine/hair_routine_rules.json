@@ -1,0 +1,1074 @@
+{
+  "schema": "hair_routine_ruleset",
+  "ruleset_id": "hair-routine-quiz",
+  "ruleset_version": "1.0.0",
+  "released_at": "2026-10-29",
+  "locale": "vi-VN",
+  "business_rules": [
+    "BR-QUZ-01",
+    "BR-QUZ-02",
+    "BR-QUZ-03",
+    "BR-QUZ-04",
+    "BR-QUZ-05",
+    "BR-QUZ-06",
+    "BR-QUZ-08",
+    "BR-QUZ-09",
+    "BR-QUZ-10"
+  ],
+  "condition_dsl": {
+    "combinators": [
+      "all",
+      "any",
+      "not"
+    ],
+    "ops_single": [
+      "eq",
+      "in"
+    ],
+    "ops_multi": [
+      "contains_any"
+    ],
+    "note": "Câu chưa trả lời (câu không bắt buộc) có giá trị null: eq/in/contains_any đều trả về false."
+  },
+  "steps": [
+    {
+      "id": "scalp",
+      "order": 1,
+      "title_vi": "Tình trạng da đầu",
+      "questions": [
+        {
+          "id": "scalp_condition",
+          "type": "single",
+          "required": true,
+          "text_vi": "Da đầu của bạn hiện như thế nào?",
+          "options": [
+            {
+              "id": "normal",
+              "label_vi": "Bình thường, thoải mái",
+              "description_vi": "Không đổ dầu, không ngứa, không bong tróc"
+            },
+            {
+              "id": "oily",
+              "label_vi": "Dầu nhờn nhanh",
+              "description_vi": "Bết, đổ dầu chỉ sau khoảng 1 ngày gội"
+            },
+            {
+              "id": "dry_sensitive",
+              "label_vi": "Khô, ngứa hoặc nhạy cảm",
+              "description_vi": "Căng rát, ngứa, dễ kích ứng"
+            },
+            {
+              "id": "flaky",
+              "label_vi": "Gàu / bong tróc",
+              "description_vi": "Xuất hiện vảy trắng hoặc bong tróc trên da đầu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hair_condition",
+      "order": 2,
+      "title_vi": "Tình trạng sợi tóc",
+      "questions": [
+        {
+          "id": "hair_damage",
+          "type": "single",
+          "required": true,
+          "text_vi": "Sợi tóc của bạn đang ở trạng thái nào?",
+          "options": [
+            {
+              "id": "healthy",
+              "label_vi": "Khỏe, mềm mượt",
+              "description_vi": "Ít chẻ ngọn, không xơ rối"
+            },
+            {
+              "id": "dry_frizzy",
+              "label_vi": "Khô, xơ, xù",
+              "description_vi": "Thiếu độ ẩm, dễ xù và rối"
+            },
+            {
+              "id": "damaged",
+              "label_vi": "Hư tổn",
+              "description_vi": "Chẻ ngọn nhiều, gãy rụng, xơ xác"
+            }
+          ]
+        },
+        {
+          "id": "hair_texture",
+          "type": "single",
+          "required": true,
+          "text_vi": "Kiểu tóc tự nhiên của bạn?",
+          "options": [
+            {
+              "id": "straight",
+              "label_vi": "Thẳng",
+              "description_vi": "Sợi tóc thẳng tự nhiên"
+            },
+            {
+              "id": "wavy",
+              "label_vi": "Gợn sóng",
+              "description_vi": "Sóng nhẹ tự nhiên"
+            },
+            {
+              "id": "curly",
+              "label_vi": "Xoăn",
+              "description_vi": "Xoăn lọn hoặc xoăn chặt tự nhiên"
+            }
+          ]
+        },
+        {
+          "id": "hair_thickness",
+          "type": "single",
+          "required": false,
+          "text_vi": "Sợi tóc của bạn mảnh hay dày? (không bắt buộc)",
+          "options": [
+            {
+              "id": "fine",
+              "label_vi": "Mảnh, dễ xẹp",
+              "description_vi": "Sợi nhỏ, tóc thưa hoặc dễ bết"
+            },
+            {
+              "id": "medium",
+              "label_vi": "Trung bình",
+              "description_vi": "Sợi vừa, độ dày bình thường"
+            },
+            {
+              "id": "thick",
+              "label_vi": "Dày, thô cứng",
+              "description_vi": "Sợi to, nhiều tóc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "habits_history",
+      "order": 3,
+      "title_vi": "Thói quen gội & lịch sử hóa chất",
+      "questions": [
+        {
+          "id": "wash_frequency",
+          "type": "single",
+          "required": true,
+          "text_vi": "Bạn gội đầu với tần suất nào?",
+          "options": [
+            {
+              "id": "daily",
+              "label_vi": "Hằng ngày",
+              "description_vi": "Gội mỗi ngày"
+            },
+            {
+              "id": "every_2_3_days",
+              "label_vi": "Cách 2-3 ngày",
+              "description_vi": "Gội 2-3 ngày một lần"
+            },
+            {
+              "id": "weekly",
+              "label_vi": "1-2 lần mỗi tuần",
+              "description_vi": "Gội thưa"
+            }
+          ]
+        },
+        {
+          "id": "chemical_history",
+          "type": "multi",
+          "required": true,
+          "text_vi": "Tóc bạn đã từng uốn / nhuộm / tẩy chưa? (chọn tất cả phù hợp)",
+          "options": [
+            {
+              "id": "none",
+              "label_vi": "Chưa từng",
+              "description_vi": "Tóc nguyên bản, chưa qua hóa chất",
+              "exclusive": true
+            },
+            {
+              "id": "dyed",
+              "label_vi": "Đã nhuộm",
+              "description_vi": "Nhuộm màu thông thường"
+            },
+            {
+              "id": "bleached",
+              "label_vi": "Đã tẩy / lên tông sáng",
+              "description_vi": "Tẩy tóc, highlight, tóc blonde"
+            },
+            {
+              "id": "permed",
+              "label_vi": "Đã uốn hoặc duỗi hóa chất",
+              "description_vi": "Uốn nóng/lạnh, duỗi, ép"
+            }
+          ]
+        },
+        {
+          "id": "heat_styling",
+          "type": "single",
+          "required": false,
+          "text_vi": "Bạn dùng nhiệt tạo kiểu (sấy, kẹp, uốn) thường xuyên không? (không bắt buộc)",
+          "options": [
+            {
+              "id": "never",
+              "label_vi": "Hầu như không",
+              "description_vi": "Để tóc khô tự nhiên"
+            },
+            {
+              "id": "sometimes",
+              "label_vi": "Thỉnh thoảng",
+              "description_vi": "1-2 lần mỗi tuần"
+            },
+            {
+              "id": "often",
+              "label_vi": "Thường xuyên",
+              "description_vi": "Từ 3 lần mỗi tuần trở lên"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "goal",
+      "order": 4,
+      "title_vi": "Mục tiêu chăm sóc",
+      "questions": [
+        {
+          "id": "primary_goal",
+          "type": "single",
+          "required": true,
+          "text_vi": "Mục tiêu chăm sóc tóc quan trọng nhất của bạn?",
+          "options": [
+            {
+              "id": "repair",
+              "label_vi": "Phục hồi hư tổn",
+              "description_vi": "Giảm chẻ ngọn, gãy rụng"
+            },
+            {
+              "id": "scalp_care",
+              "label_vi": "Chăm sóc da đầu",
+              "description_vi": "Cân bằng dầu, giảm bong tróc"
+            },
+            {
+              "id": "color_protect",
+              "label_vi": "Giữ màu tóc nhuộm",
+              "description_vi": "Hạn chế phai màu, lên ánh vàng"
+            },
+            {
+              "id": "define_curls",
+              "label_vi": "Định hình lọn xoăn",
+              "description_vi": "Lọn xoăn rõ nét, ít xù"
+            },
+            {
+              "id": "hydrate",
+              "label_vi": "Cấp ẩm",
+              "description_vi": "Mềm mượt, bớt khô xơ"
+            },
+            {
+              "id": "volume",
+              "label_vi": "Tăng độ phồng",
+              "description_vi": "Chân tóc phồng, tóc dày dặn hơn"
+            },
+            {
+              "id": "smooth_style",
+              "label_vi": "Vào nếp & tạo kiểu",
+              "description_vi": "Mượt, giảm xù, bảo vệ khi dùng nhiệt"
+            },
+            {
+              "id": "maintain",
+              "label_vi": "Duy trì tóc khỏe",
+              "description_vi": "Tóc đang ổn, chỉ muốn giữ nguyên"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "priority_order": [
+      "Repair",
+      "Scalp",
+      "Color",
+      "Curl",
+      "Hydration",
+      "Volume",
+      "Styling"
+    ],
+    "definitions": {
+      "Repair": {
+        "display_vi": "Phục hồi hư tổn",
+        "display_en": "Repair",
+        "advice_vi": "Cấu trúc sợi tóc đang bị tổn thương. Ưu tiên mặt nạ phục hồi 1-2 lần/tuần và giảm tần suất dùng nhiệt."
+      },
+      "Scalp": {
+        "display_vi": "Cân bằng da đầu",
+        "display_en": "Scalp Balance",
+        "advice_vi": "Da đầu là nền tảng của mái tóc khỏe. Dùng dòng làm sạch dịu nhẹ, tránh gãi mạnh và gội nước quá nóng."
+      },
+      "Color": {
+        "display_vi": "Giữ màu tóc nhuộm",
+        "display_en": "Color Care",
+        "advice_vi": "Tóc nhuộm/tẩy cần dòng chăm sóc bảo vệ màu, hạn chế nước nóng và tia UV để màu bền hơn."
+      },
+      "Curl": {
+        "display_vi": "Định hình lọn xoăn",
+        "display_en": "Curl Definition",
+        "advice_vi": "Lọn xoăn cần độ ẩm và sản phẩm tạo nếp riêng để giữ form, giảm xù."
+      },
+      "Hydration": {
+        "display_vi": "Cấp ẩm hằng ngày",
+        "display_en": "Hydrating",
+        "advice_vi": "Tóc cần thêm độ ẩm để mềm mượt và dễ vào nếp hơn."
+      },
+      "Volume": {
+        "display_vi": "Tăng độ phồng",
+        "display_en": "Volume",
+        "advice_vi": "Chọn công thức nhẹ, không làm nặng chân tóc để tóc phồng và có thân hơn."
+      },
+      "Styling": {
+        "display_vi": "Vào nếp & tạo kiểu",
+        "display_en": "Styling",
+        "advice_vi": "Dùng sản phẩm bảo vệ nhiệt và kiểm soát xù để tạo kiểu mà vẫn giữ tóc khỏe."
+      }
+    }
+  },
+  "rules": [
+    {
+      "id": "R-REP-01",
+      "label": "Repair",
+      "description": "Tóc hư tổn (chẻ ngọn, gãy rụng)",
+      "when": {
+        "q": "hair_damage",
+        "op": "eq",
+        "value": "damaged"
+      }
+    },
+    {
+      "id": "R-REP-02",
+      "label": "Repair",
+      "description": "Đã tẩy/uốn hóa chất và tóc có dấu hiệu khô xơ hoặc hư tổn",
+      "when": {
+        "all": [
+          {
+            "q": "chemical_history",
+            "op": "contains_any",
+            "value": [
+              "bleached",
+              "permed"
+            ]
+          },
+          {
+            "q": "hair_damage",
+            "op": "in",
+            "value": [
+              "dry_frizzy",
+              "damaged"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-REP-03",
+      "label": "Repair",
+      "description": "Mục tiêu chính là phục hồi",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "repair"
+      }
+    },
+    {
+      "id": "R-SCA-01",
+      "label": "Scalp",
+      "description": "Da đầu khô/nhạy cảm hoặc bong tróc",
+      "when": {
+        "q": "scalp_condition",
+        "op": "in",
+        "value": [
+          "dry_sensitive",
+          "flaky"
+        ]
+      }
+    },
+    {
+      "id": "R-SCA-02",
+      "label": "Scalp",
+      "description": "Da đầu dầu nhờn",
+      "when": {
+        "q": "scalp_condition",
+        "op": "eq",
+        "value": "oily"
+      }
+    },
+    {
+      "id": "R-SCA-03",
+      "label": "Scalp",
+      "description": "Mục tiêu chính là chăm sóc da đầu",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "scalp_care"
+      }
+    },
+    {
+      "id": "R-COL-01",
+      "label": "Color",
+      "description": "Tóc đã nhuộm hoặc tẩy",
+      "when": {
+        "q": "chemical_history",
+        "op": "contains_any",
+        "value": [
+          "dyed",
+          "bleached"
+        ]
+      }
+    },
+    {
+      "id": "R-COL-02",
+      "label": "Color",
+      "description": "Mục tiêu chính là giữ màu",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "color_protect"
+      }
+    },
+    {
+      "id": "R-CUR-01",
+      "label": "Curl",
+      "description": "Tóc xoăn tự nhiên",
+      "when": {
+        "q": "hair_texture",
+        "op": "eq",
+        "value": "curly"
+      }
+    },
+    {
+      "id": "R-CUR-02",
+      "label": "Curl",
+      "description": "Tóc gợn sóng và muốn định hình lọn",
+      "when": {
+        "all": [
+          {
+            "q": "hair_texture",
+            "op": "eq",
+            "value": "wavy"
+          },
+          {
+            "q": "primary_goal",
+            "op": "eq",
+            "value": "define_curls"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-CUR-03",
+      "label": "Curl",
+      "description": "Tóc đã uốn hóa chất và muốn định hình lọn",
+      "when": {
+        "all": [
+          {
+            "q": "chemical_history",
+            "op": "contains_any",
+            "value": [
+              "permed"
+            ]
+          },
+          {
+            "q": "primary_goal",
+            "op": "eq",
+            "value": "define_curls"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-HYD-01",
+      "label": "Hydration",
+      "description": "Tóc khô, xơ, xù",
+      "when": {
+        "q": "hair_damage",
+        "op": "eq",
+        "value": "dry_frizzy"
+      }
+    },
+    {
+      "id": "R-HYD-02",
+      "label": "Hydration",
+      "description": "Mục tiêu chính là cấp ẩm",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "hydrate"
+      }
+    },
+    {
+      "id": "R-HYD-03",
+      "label": "Hydration",
+      "description": "Gội hằng ngày và tóc đã qua hóa chất (dễ mất ẩm)",
+      "when": {
+        "all": [
+          {
+            "q": "wash_frequency",
+            "op": "eq",
+            "value": "daily"
+          },
+          {
+            "q": "chemical_history",
+            "op": "contains_any",
+            "value": [
+              "dyed",
+              "bleached",
+              "permed"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-VOL-01",
+      "label": "Volume",
+      "description": "Mục tiêu chính là tăng phồng",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "volume"
+      }
+    },
+    {
+      "id": "R-VOL-02",
+      "label": "Volume",
+      "description": "Tóc mảnh và da đầu dầu (dễ xẹp, bết)",
+      "when": {
+        "all": [
+          {
+            "q": "hair_thickness",
+            "op": "eq",
+            "value": "fine"
+          },
+          {
+            "q": "scalp_condition",
+            "op": "eq",
+            "value": "oily"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-STY-01",
+      "label": "Styling",
+      "description": "Mục tiêu chính là vào nếp, tạo kiểu",
+      "when": {
+        "q": "primary_goal",
+        "op": "eq",
+        "value": "smooth_style"
+      }
+    },
+    {
+      "id": "R-STY-02",
+      "label": "Styling",
+      "description": "Dùng nhiệt tạo kiểu thường xuyên",
+      "when": {
+        "q": "heat_styling",
+        "op": "eq",
+        "value": "often"
+      }
+    }
+  ],
+  "fallback": {
+    "rule_id": "R-DEFAULT",
+    "label": "Hydration",
+    "description": "Không khớp luật đặc trị nào thì trả về routine Cấp ẩm hằng ngày (BR-QUZ-06)"
+  },
+  "routine": {
+    "steps": [
+      {
+        "id": "cleanse",
+        "order": 1,
+        "title_en": "Cleanse",
+        "title_vi": "Làm sạch",
+        "category_hint": "Shampoo"
+      },
+      {
+        "id": "condition",
+        "order": 2,
+        "title_en": "Condition",
+        "title_vi": "Dưỡng",
+        "category_hint": "Conditioner"
+      },
+      {
+        "id": "treat",
+        "order": 3,
+        "title_en": "Treat & Nourish",
+        "title_vi": "Điều trị",
+        "category_hint": "Treatment / Mask"
+      },
+      {
+        "id": "style_protect",
+        "order": 4,
+        "title_en": "Style & Protect",
+        "title_vi": "Tạo kiểu & bảo vệ",
+        "category_hint": "Styling & Finishing"
+      }
+    ],
+    "min_steps": 3,
+    "max_addons": 1,
+    "by_label": {
+      "Repair": {
+        "cleanse": [
+          {
+            "product": "moisture-repair-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "moisture-repair-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "moroccanoil-treatment-light",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "restorative-hair-mask"
+          },
+          {
+            "product": "moroccanoil-treatment-original"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "perfect-defense-heat-protectant",
+            "when": {
+              "q": "heat_styling",
+              "op": "in",
+              "value": [
+                "sometimes",
+                "often"
+              ]
+            }
+          },
+          {
+            "product": "mending-infusion"
+          },
+          {
+            "product": "leave-in-conditioner"
+          }
+        ]
+      },
+      "Scalp": {
+        "cleanse": [
+          {
+            "product": "scalp-balancing-shampoo"
+          },
+          {
+            "product": "clarifying-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "scalp-balancing-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "purifying-pre-wash-scalp-scrub"
+          },
+          {
+            "product": "weightless-hydrating-mask",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "intense-hydrating-mask"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "perfect-defense-heat-protectant",
+            "when": {
+              "q": "heat_styling",
+              "op": "in",
+              "value": [
+                "sometimes",
+                "often"
+              ]
+            }
+          },
+          {
+            "product": "leave-in-conditioner"
+          },
+          {
+            "product": "smoothing-lotion"
+          }
+        ]
+      },
+      "Color": {
+        "cleanse": [
+          {
+            "product": "blonde-perfecting-purple-shampoo",
+            "when": {
+              "q": "chemical_history",
+              "op": "contains_any",
+              "value": [
+                "bleached"
+              ]
+            }
+          },
+          {
+            "product": "color-care-shampoo"
+          },
+          {
+            "product": "hydrating-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "blonde-perfecting-purple-conditioner",
+            "when": {
+              "q": "chemical_history",
+              "op": "contains_any",
+              "value": [
+                "bleached"
+              ]
+            }
+          },
+          {
+            "product": "color-care-conditioner"
+          },
+          {
+            "product": "hydrating-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "moroccanoil-treatment-purple",
+            "when": {
+              "q": "chemical_history",
+              "op": "contains_any",
+              "value": [
+                "bleached"
+              ]
+            }
+          },
+          {
+            "product": "moroccanoil-treatment-light",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "moroccanoil-treatment-original"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "perfect-defense-heat-protectant",
+            "when": {
+              "q": "heat_styling",
+              "op": "eq",
+              "value": "often"
+            }
+          },
+          {
+            "product": "protect-prevent-spray"
+          },
+          {
+            "product": "perfect-defense-heat-protectant"
+          }
+        ]
+      },
+      "Curl": {
+        "cleanse": [
+          {
+            "product": "curl-enhancing-shampoo"
+          },
+          {
+            "product": "hydrating-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "curl-enhancing-conditioner"
+          },
+          {
+            "product": "hydrating-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "weightless-hydrating-mask",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "intense-hydrating-mask"
+          },
+          {
+            "product": "moroccanoil-treatment-original"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "intense-curl-cream",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "thick"
+            }
+          },
+          {
+            "product": "curl-defining-cream"
+          },
+          {
+            "product": "curl-control-mousse"
+          }
+        ]
+      },
+      "Hydration": {
+        "cleanse": [
+          {
+            "product": "hydrating-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "hydrating-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "weightless-hydrating-mask",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "intense-hydrating-mask"
+          },
+          {
+            "product": "overnight-leave-in-mask"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "leave-in-conditioner"
+          },
+          {
+            "product": "hydrating-styling-cream"
+          },
+          {
+            "product": "smoothing-lotion"
+          }
+        ]
+      },
+      "Volume": {
+        "cleanse": [
+          {
+            "product": "extra-volume-shampoo"
+          },
+          {
+            "product": "clarifying-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "extra-volume-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "moroccanoil-treatment-light"
+          },
+          {
+            "product": "weightless-hydrating-mask"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "volumizing-mousse"
+          },
+          {
+            "product": "volumizing-mist"
+          },
+          {
+            "product": "root-boost"
+          },
+          {
+            "product": "thickening-lotion"
+          }
+        ]
+      },
+      "Styling": {
+        "cleanse": [
+          {
+            "product": "frizz-control-shampoo"
+          },
+          {
+            "product": "hydrating-shampoo"
+          }
+        ],
+        "condition": [
+          {
+            "product": "frizz-control-conditioner"
+          },
+          {
+            "product": "hydrating-conditioner"
+          }
+        ],
+        "treat": [
+          {
+            "product": "moroccanoil-treatment-light",
+            "when": {
+              "q": "hair_thickness",
+              "op": "eq",
+              "value": "fine"
+            }
+          },
+          {
+            "product": "moroccanoil-treatment-original"
+          },
+          {
+            "product": "moroccanoil-treatment-mist"
+          }
+        ],
+        "style_protect": [
+          {
+            "product": "perfect-defense-heat-protectant",
+            "when": {
+              "q": "heat_styling",
+              "op": "in",
+              "value": [
+                "sometimes",
+                "often"
+              ]
+            }
+          },
+          {
+            "product": "frizz-shield-spray"
+          },
+          {
+            "product": "intense-smoothing-serum"
+          },
+          {
+            "product": "smoothing-lotion"
+          }
+        ]
+      }
+    },
+    "addons_by_label": {
+      "Scalp": [
+        {
+          "product": "purifying-pre-wash-scalp-scrub"
+        },
+        {
+          "product": "clarifying-shampoo"
+        }
+      ],
+      "Color": [
+        {
+          "product": "blonde-perfecting-purple-shampoo",
+          "when": {
+            "q": "chemical_history",
+            "op": "contains_any",
+            "value": [
+              "bleached"
+            ]
+          }
+        },
+        {
+          "product": "protect-prevent-spray"
+        }
+      ],
+      "Curl": [
+        {
+          "product": "curl-defining-cream"
+        },
+        {
+          "product": "curl-control-mousse"
+        }
+      ],
+      "Hydration": [
+        {
+          "product": "weightless-hydrating-mask",
+          "when": {
+            "q": "hair_thickness",
+            "op": "eq",
+            "value": "fine"
+          }
+        },
+        {
+          "product": "intense-hydrating-mask"
+        },
+        {
+          "product": "overnight-leave-in-mask"
+        }
+      ],
+      "Volume": [
+        {
+          "product": "root-boost"
+        },
+        {
+          "product": "volumizing-mist"
+        },
+        {
+          "product": "thickening-lotion"
+        }
+      ],
+      "Styling": [
+        {
+          "product": "frizz-shield-spray"
+        },
+        {
+          "product": "intense-smoothing-serum"
+        },
+        {
+          "product": "perfect-defense-heat-protectant",
+          "when": {
+            "q": "heat_styling",
+            "op": "in",
+            "value": [
+              "sometimes",
+              "often"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "inventory_policy": {
+    "require_active": true,
+    "require_available_greater_than": 0,
+    "substitution_order": [
+      "explicit_candidates",
+      "tag_equivalents"
+    ],
+    "tag_equivalent_rule": "cùng step, quiz.needs chứa nhãn chính, tương thích da đầu, allow_auto_substitute=true; ưu tiên sản phẩm chuyên biệt hơn (ít nhãn hơn), hòa thì theo key",
+    "on_no_substitute": "skip_step_with_note"
+  },
+  "messages": {
+    "substituted_vi": "{original} tạm hết hàng, được thay bằng {replacement} có công dụng tương đương.",
+    "skipped_out_of_stock_vi": "Bước {step}: {original} tạm hết hàng và chưa có sản phẩm thay thế tương đương nên bước này được bỏ qua.",
+    "skipped_no_match_vi": "Bước {step}: chưa có sản phẩm phù hợp với tình trạng của bạn nên bước này được bỏ qua.",
+    "fallback_vi": "Câu trả lời của bạn không khớp luật đặc trị nào, Moroccanoil gợi ý routine cấp ẩm hằng ngày an toàn cho mọi loại tóc.",
+    "min_steps_vi": "Routine hiện chỉ có {n}/4 bước do một số sản phẩm đang hết hàng."
+  },
+  "disclaimer": {
+    "rule": "BR-QUZ-09",
+    "text_en": "Results are for cosmetic beauty consultation purposes and do not replace professional dermatological diagnosis or medical treatment",
+    "text_vi": "Kết quả chỉ mang tính tư vấn làm đẹp, không thay thế chẩn đoán da liễu hay điều trị y khoa chuyên nghiệp."
+  }
+}

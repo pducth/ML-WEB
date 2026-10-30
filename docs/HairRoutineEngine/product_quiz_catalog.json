@@ -1,0 +1,1785 @@
+[
+  {
+    "product_id": "8161092731097",
+    "active": true,
+    "name": "Hydrating Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/hydrating-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/18_SHAMPOO_HYDRATING_250mL_v2_1.jpg?v=1683502939",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Hydration",
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "hydrating-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Curl"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093255385",
+    "active": true,
+    "name": "Moisture Repair Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/moisture-repair-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/19_SHAMPOO_MOISTURE-REPAIR_250mL_v2.jpg?v=1682818169",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moisture-repair-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091977433",
+    "active": true,
+    "name": "Extra Volume Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/extra-volume-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/20_SHAMPOO_EXTRA-VOLUME_250mL_v2_d9a8b907-190a-4535-8818-b24032a17079.jpg?v=1719874884",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "extra-volume-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8513169162457",
+    "active": true,
+    "name": "Frizz Control Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/frizz-control-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/84_SHAMPOO_FRIZZ-CONTROL_250mL_v2.jpg?v=1708441722",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "frizz-control-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091485913",
+    "active": true,
+    "name": "Color Care Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/color-care-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/25_SHAMPOO_COLOR-CARE_250mL_v2.jpg?v=1682817869",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 0,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "color-care-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8210592465113",
+    "active": true,
+    "name": "Curl Enhancing Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/curl-enhancing-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/products/24_SHAMPOO_CURL-ENHANCING_250mL_v3.jpg?v=1689189650",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "curl-enhancing-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Curl"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091289305",
+    "active": true,
+    "name": "Clarifying Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/clarifying-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/23_SHAMPOO_CLARIFYING_250mL_v2.jpg?v=1682817828",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Scalp",
+      "Volume"
+    ],
+    "scalp_labels": [
+      "normal",
+      "oily"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "clarifying-shampoo",
+    "quiz": {
+      "scalp": [
+        "normal",
+        "oily"
+      ],
+      "needs": [
+        "Scalp",
+        "Volume"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true,
+    "quiz_note": "Tẩy sạch sâu, không dành cho da đầu khô/nhạy cảm hoặc đang bong tróc"
+  },
+  {
+    "product_id": "8957916152025",
+    "active": true,
+    "name": "Scalp Balancing Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/scalp-balancing-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/SHAMPOO_SCALP_250mL_v3_sRGB190.jpg?v=1722883320",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Scalp"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "scalp-balancing-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Scalp"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8957889020121",
+    "active": true,
+    "name": "Purifying Pre-Wash Scalp Scrub",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/purifying-pre-wash-scalp-scrub",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/D3271-MO.Com_Packshot_Scalp-Collection_SCALP_PURIFYING-SCRUB.jpg?v=1722881284",
+    "price_usd": 33.0,
+    "quiz_labels": [
+      "Scalp"
+    ],
+    "scalp_labels": [
+      "normal",
+      "oily",
+      "flaky"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "purifying-pre-wash-scalp-scrub",
+    "quiz": {
+      "scalp": [
+        "normal",
+        "oily",
+        "flaky"
+      ],
+      "needs": [
+        "Scalp"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true,
+    "quiz_note": "Dùng trước khi gội 1-2 lần/tuần (thuộc danh mục Shampoo nhưng vai trò là Treat da đầu); loại trừ da đầu khô/nhạy cảm"
+  },
+  {
+    "product_id": "8161090633945",
+    "active": true,
+    "name": "Blonde Perfecting Purple Shampoo",
+    "category": "Shampoo",
+    "url": "https://www.moroccanoil.com/products/purple-shampoo",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/products/21_SHAMPOO_BLONDE-PERFECTING_200mL_v2_1.jpg?v=1683755398",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Cleanse",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "blonde-perfecting-purple-shampoo",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "cleanse"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Chỉ dành cho tóc tẩy/sáng màu; chỉ chọn qua luật có điều kiện chemical_history chứa bleached"
+  },
+  {
+    "product_id": "9820045770969",
+    "active": true,
+    "name": "Overnight Leave-in Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/overnight-leave-in-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/D4831-MO.Com_Packshots_ONH-Resize_FINAL_Full.jpg?v=1787921684",
+    "price_usd": 44.0,
+    "quiz_labels": [
+      "Hydration"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "overnight-leave-in-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161092894937",
+    "active": true,
+    "name": "Intense Hydrating Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/intense-hydrating-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/121_MASK_INTENSE-HYDRATING_250mL_v3.jpg?v=1682737044",
+    "price_usd": 46.0,
+    "quiz_labels": [
+      "Hydration",
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "intense-hydrating-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Curl"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161095155929",
+    "active": true,
+    "name": "Weightless Hydrating Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/weightless-hydrating-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/137_MASK_WEIGHTLESS-HYDRATING_250mL_v3.jpg?v=1682737957",
+    "price_usd": 46.0,
+    "quiz_labels": [
+      "Hydration",
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "weightless-hydrating-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Volume"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161094336729",
+    "active": true,
+    "name": "Restorative Hair Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/restorative-hair-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/134_MASK_RESTORATIVE_250mL_v2.jpg?v=1682736702",
+    "price_usd": 46.0,
+    "quiz_labels": [
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "restorative-hair-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8173172064473",
+    "active": true,
+    "name": "High Shine Gloss Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/high-shine-gloss-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/MASK_HIGH-SHINE-GLOSS-MASK_200ML_v3_CROP.jpg?v=1745841740",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "high-shine-gloss-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mô tả trống trong products.json: nhãn suy từ tên sản phẩm, Admin cần xác nhận lại"
+  },
+  {
+    "product_id": "8161091322073",
+    "active": true,
+    "name": "Cocoa Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/cocoa-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/36_COLOR-DEPOSITING-MASK_COCOA_200mL_v3.jpg?v=1683621900",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "cocoa-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161091223769",
+    "active": true,
+    "name": "Bordeaux Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/bordeaux-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/37_COLOR-DEPOSITING-MASK_BORDEAUX_200mL_v2.jpg?v=1682818453",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "bordeaux-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161091453145",
+    "active": true,
+    "name": "Copper Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/copper-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/38_COLOR-DEPOSITING-MASK_COPPER_200mL_v2.jpg?v=1682818483",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "copper-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161093517529",
+    "active": true,
+    "name": "Platinum Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/platinum-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/34_COLOR-DEPOSITING-MASK_PLATINUM_200mL_v2.jpg?v=1682818715",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "platinum-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161094402265",
+    "active": true,
+    "name": "Rose Gold Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/rose-gold-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/35_COLOR-DEPOSITING-MASK_ROSE-GOLD_200mL_v2.jpg?v=1682818604",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "rose-gold-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161091551449",
+    "active": true,
+    "name": "Coral Color Depositing Mask",
+    "category": "Hair Masks",
+    "url": "https://www.moroccanoil.com/products/coral-color-depositing-mask",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/40_COLOR-DEPOSITING-MASK_CORAL_200mL_v2.jpg?v=1682818743",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "coral-color-depositing-mask",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Mặt nạ phủ màu theo tông, cần khách tự chọn tông nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161093353689",
+    "active": true,
+    "name": "Moroccanoil Treatment Original",
+    "category": "Treatment / Oil",
+    "url": "https://www.moroccanoil.com/products/moroccanoil-treatment-original",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/153_TREATMENT_ORIGINAL_100mL_v3.jpg?v=1774983361",
+    "price_usd": 50.0,
+    "quiz_labels": [
+      "Repair",
+      "Hydration",
+      "Color",
+      "Curl",
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moroccanoil-treatment-original",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair",
+        "Hydration",
+        "Color",
+        "Curl",
+        "Styling"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093288153",
+    "active": true,
+    "name": "Moroccanoil Treatment Light",
+    "category": "Treatment / Oil",
+    "url": "https://www.moroccanoil.com/products/moroccanoil-treatment-light",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/124_TREATMENT_LIGHT_100mL_v3_1.jpg?v=1774983318",
+    "price_usd": 50.0,
+    "quiz_labels": [
+      "Repair",
+      "Hydration",
+      "Color",
+      "Curl",
+      "Volume",
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moroccanoil-treatment-light",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair",
+        "Hydration",
+        "Color",
+        "Curl",
+        "Volume",
+        "Styling"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true,
+    "quiz_note": "Dành cho tóc mảnh và tóc sáng màu"
+  },
+  {
+    "product_id": "8672695582937",
+    "active": true,
+    "name": "Moroccanoil Treatment Purple",
+    "category": "Treatment / Oil",
+    "url": "https://www.moroccanoil.com/products/moroccanoil-treatment-purple",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/TREATMENT_PURPLE_50mL_v3_sRGB190.jpg?v=1774983445",
+    "price_usd": 38.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moroccanoil-treatment-purple",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Chứa sắc tố tím khử ánh vàng, chỉ dành cho tóc tẩy/highlight/bạc"
+  },
+  {
+    "product_id": "9280645595353",
+    "active": true,
+    "name": "Moroccanoil Treatment Mist",
+    "category": "Treatment / Oil",
+    "url": "https://www.moroccanoil.com/products/moroccanoil-treatment-mist",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/TREATMENT-MIST_100ML_v3.jpg?v=1754920313",
+    "price_usd": 50.0,
+    "quiz_labels": [
+      "Hydration",
+      "Styling",
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Treat",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moroccanoil-treatment-mist",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Styling",
+        "Volume"
+      ],
+      "step": "treat"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091780825",
+    "active": true,
+    "name": "Dry Shampoo Light Tones",
+    "category": "Dry Shampoo",
+    "url": "https://www.moroccanoil.com/products/dry-shampoo-light-tones",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/46_DRY-SHAMPOO_LIGHT-TONES_205mL_v2.jpg?v=1682737167",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "normal",
+      "oily"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "dry-shampoo-light-tones",
+    "quiz": {
+      "scalp": [
+        "normal",
+        "oily"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Cần chọn tông theo màu tóc nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161091748057",
+    "active": true,
+    "name": "Dry Shampoo Dark Tones",
+    "category": "Dry Shampoo",
+    "url": "https://www.moroccanoil.com/products/dry-shampoo-dark-tones",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/45_DRY-SHAMPOO_DARK-TONES_205mL_v2.jpg?v=1682737243",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "normal",
+      "oily"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "dry-shampoo-dark-tones",
+    "quiz": {
+      "scalp": [
+        "normal",
+        "oily"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Cần chọn tông theo màu tóc nên không tự động gợi ý"
+  },
+  {
+    "product_id": "8161092763865",
+    "active": true,
+    "name": "Hydrating Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/hydrating-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/26_CONDITIONER_HYDRATING_250mL_v2.jpg?v=1682817924",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Hydration",
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "hydrating-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Curl"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093189849",
+    "active": true,
+    "name": "Moisture Repair Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/moisture-repair-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/27_CONDITIONER_MOISTURE-REPAIR_250mL_v2.jpg?v=1682818093",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "moisture-repair-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091911897",
+    "active": true,
+    "name": "Extra Volume Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/extra-volume-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/28_CONDITIONER_EXTRA-VOLUME_250mL_v2_1.jpg?v=1682817447",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "extra-volume-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8513170997465",
+    "active": true,
+    "name": "Frizz Control Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/frizz-control-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/83_CONDITIONER_FRIZZ-CONTROL_250mL_v1.jpg?v=1708442683",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "frizz-control-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091354841",
+    "active": true,
+    "name": "Color Care Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/color-care-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/32_CONDITIONER_COLOR-CARE_250mL_v2.jpg?v=1683622419",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "color-care-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091649753",
+    "active": true,
+    "name": "Curl Enhancing Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/curl-enhancing-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/31_CONDITIONER_CURL-ENHANCING_250mL_v2.jpg?v=1682738536",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "curl-enhancing-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Curl"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161090666713",
+    "active": true,
+    "name": "Blonde Perfecting Purple Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/purple-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/29_CONDITIONER_BLONDE-PERFECTING_200mL_v2.jpg?v=1682738050",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "blonde-perfecting-purple-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Chỉ dành cho tóc tẩy/sáng màu; chỉ chọn qua luật có điều kiện chemical_history chứa bleached"
+  },
+  {
+    "product_id": "8957917987033",
+    "active": true,
+    "name": "Scalp Balancing Conditioner",
+    "category": "Conditioner",
+    "url": "https://www.moroccanoil.com/products/scalp-balancing-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/CONDITIONER_SCALP_250mL_v3_sRGB190.jpg?v=1722883430",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Scalp"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Condition",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "scalp-balancing-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Scalp"
+      ],
+      "step": "condition"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093451993",
+    "active": true,
+    "name": "Perfect Defense Heat Protectant",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/perfect-defense",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/48_STYLE-FINISHER_PERFECT-DEFENSE_225mL_v3.jpg?v=1683622808",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Styling",
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "perfect-defense-heat-protectant",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling",
+        "Repair"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091616985",
+    "active": true,
+    "name": "Curl Defining Cream",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/curl-defining-cream",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/106_STYLE-FINISHER_CURL-DEFINING-CREAM_250mL_v2.jpg?v=1682737780",
+    "price_usd": 36.0,
+    "quiz_labels": [
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "curl-defining-cream",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Curl"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161115275481",
+    "active": true,
+    "name": "Leave-in Conditioner",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/leave-in-conditioner",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/111_STYLE-FINISHER_LEAVE-IN-CONDITIONER_160mL_v3.jpg?v=1682737022",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Hydration",
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "leave-in-conditioner",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Repair"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161092796633",
+    "active": true,
+    "name": "Hydrating Styling Cream",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/hydrating-styling-cream",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/104_STYLE-FINISHER_HYDRATING-STYLE-CREAM_300mL_v3.jpg?v=1682737730",
+    "price_usd": 36.0,
+    "quiz_labels": [
+      "Hydration",
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "hydrating-styling-cream",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Hydration",
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8229545836761",
+    "active": true,
+    "name": "Frizz Shield Spray",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/frizz-shield-spray",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/109_STYLE-FINISHER_FRIZZ-SHIELD-SPRAY_160mL_v3_1.jpg?v=1692116524",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "frizz-shield-spray",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161094795481",
+    "active": true,
+    "name": "Smoothing Lotion",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/smoothing-lotion",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/43_STYLE-FINISHER_SMOOTHING-LOTION-FRIZZ_300mL_v1.jpg?v=1692721774",
+    "price_usd": 36.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "smoothing-lotion",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093058777",
+    "active": true,
+    "name": "Luminous Hairspray Medium",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/hairspray-medium",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/49_HAIR-SPRAY_MEDIUM_330mL_v2.jpg?v=1682737496",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "luminous-hairspray-medium",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sản phẩm giữ nếp/hoàn thiện, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161093091545",
+    "active": true,
+    "name": "Luminous Hairspray Strong",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/hairspray-strong",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/50_HAIR-SPRAY_STRONG_330mL_v2.jpg?v=1682737435",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "luminous-hairspray-strong",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sản phẩm giữ nếp/hoàn thiện, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161093026009",
+    "active": true,
+    "name": "Luminous Hairspray Extra Strong",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/hairspray-extra-strong",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/51_HAIR-SPRAY_EXTRA-STRONG_330mL_v2.jpg?v=1682737531",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "luminous-hairspray-extra-strong",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sản phẩm giữ nếp/hoàn thiện, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161091813593",
+    "active": true,
+    "name": "Dry Texture Spray",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/dry-texture-spray",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/47_STYLE-FINISHER_DRY-TEXTURE-SPRAY_205mL_v3.jpg?v=1682737130",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "dry-texture-spray",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161094369497",
+    "active": true,
+    "name": "Root Boost",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/root-boost-spray",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/53_STYLE-FINISHER_ROOT-BOOST_250mL_v3.jpg?v=1682737674",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "root-boost",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161092862169",
+    "active": true,
+    "name": "Intense Curl Cream",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/intense-curl-cream",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/103_STYLE-FINISHER_INTENSE-CURL-CREAM_300mL_v3.jpg?v=1683622662",
+    "price_usd": 36.0,
+    "quiz_labels": [
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "intense-curl-cream",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Curl"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161095123161",
+    "active": true,
+    "name": "Volumizing Mousse",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/volumizing-mousse",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/52_STYLE-FINISHER_VOLUMIZING-MOUSSE_250mL_v3.jpg?v=1682737557",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "volumizing-mousse",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "9217377763545",
+    "active": true,
+    "name": "Texture & Volume Hair Powder",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/texture-volume-hair-powder",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/STYLE-FINISHER_TEXTURE-VOLUME-POWDER_v3_CROP_1.jpg?v=1751297006",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "texture-volume-hair-powder",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161095090393",
+    "active": true,
+    "name": "Volumizing Mist",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/volumizing-mist",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/108_STYLE-FINISHER_VOLUMIZING-MIST_160mL_v2.jpg?v=1682737816",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "volumizing-mist",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161093583065",
+    "active": true,
+    "name": "Protect & Prevent Spray",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/protect-prevent-spray",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/112_STYLE-FINISHER_PROTECT-PREVENT-SPRAY_160mL_v3.jpg?v=1682737000",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Color"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "protect-prevent-spray",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Color"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161090765017",
+    "active": true,
+    "name": "Intense Smoothing Serum",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/intense-smoothing-serum",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/125_STYLE-FINISHER_INTENSE-SMOOTHING-SERUM_50mL_v2_2.jpg?v=1692804252",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "intense-smoothing-serum",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161091584217",
+    "active": true,
+    "name": "Curl Control Mousse",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/curl-control-mousse",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/107_STYLE-FINISHER_CURL-CONTROL-MOUSSE_150mL_v3.jpg?v=1683622337",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Curl"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "curl-control-mousse",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Curl"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "9719292690649",
+    "active": true,
+    "name": "Sculpting Pomade",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/sculpting-pomade",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/SCULPTINGPOMADE75ML_v3_CROP_SRGB190.jpg?v=1777924243",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "sculpting-pomade",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sáp tạo kiểu giữ nếp mạnh, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161094959321",
+    "active": true,
+    "name": "Texture Clay",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/texture-clay",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/TEXTURE_CLAY_75ML_v3_CROP_SRGB190.jpg?v=1777925702",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling",
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "texture-clay",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling",
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sáp tạo kiểu giữ nếp mạnh, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161093222617",
+    "active": true,
+    "name": "Molding Cream",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/molding-cream",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/MOLDING_CREAM_75ML_v3_CROP_SRGB190.jpg?v=1777926146",
+    "price_usd": 30.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "molding-cream",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Sáp tạo kiểu giữ nếp mạnh, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161094926553",
+    "active": true,
+    "name": "Styling Gel - Strong",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/styling-gel-strong",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/42_STYLE-FINISHER_STYLING-GEL-STRONG_180mL_v2.jpg?v=1683623011",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Styling"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "styling-gel-strong",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Styling"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": false,
+    "quiz_note": "Gel giữ nếp mạnh, không dùng để thay thế tự động"
+  },
+  {
+    "product_id": "8161093124313",
+    "active": true,
+    "name": "Mending Infusion",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/mending-infusion",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/122_STYLE-FINISHER_MENDING-INFUSION_75mL_v2.jpg?v=1683622283",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Repair"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "mending-infusion",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Repair"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  },
+  {
+    "product_id": "8161094992089",
+    "active": true,
+    "name": "Thickening Lotion",
+    "category": "Styling & Finishing",
+    "url": "https://www.moroccanoil.com/products/thickening-lotion",
+    "image_url": "https://cdn.shopify.com/s/files/1/0647/5540/0921/files/105_STYLE-FINISHER_THICKENING-LOTION_100mL_v4.jpg?v=1683766367",
+    "price_usd": 32.0,
+    "quiz_labels": [
+      "Volume"
+    ],
+    "scalp_labels": [
+      "all"
+    ],
+    "routine_step": "Style & Protect",
+    "inventory_available": 1,
+    "inventory_note": "Catalog source provides availability boolean, not numeric Available quantity; replace inventory_available with live Product_Variant.available.",
+    "key": "thickening-lotion",
+    "quiz": {
+      "scalp": [
+        "all"
+      ],
+      "needs": [
+        "Volume"
+      ],
+      "step": "style_protect"
+    },
+    "allow_auto_substitute": true
+  }
+]

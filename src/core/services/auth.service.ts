@@ -40,7 +40,7 @@ export class AuthService {
       );
   }
 
-  register(input: { fullName: string; email: string; phone: string; password: string }) {
+  register(input: { fullName: string; email: string; phone: string; password?: string }) {
     const now = new Date().toISOString();
     const newUser: MockUser = {
       id: `user-${Date.now()}`,
@@ -48,7 +48,7 @@ export class AuthService {
       fullName: input.fullName.trim(),
       phone: input.phone.trim(),
       role: 'Customer',
-      password: input.password,
+      password: input.password ?? '********',
       createdAt: now,
       updatedAt: now,
     };
@@ -67,6 +67,13 @@ export class AuthService {
 
   setCurrentUser(user: User | null): void {
     this.currentUser.set(user);
+  }
+
+  updateProfile(id: string, changes: Pick<User, 'fullName' | 'phone'>) {
+    return this.http.patch<User>(`${this.usersUrl}/${encodeURIComponent(id)}`, {
+      ...changes,
+      updatedAt: new Date().toISOString(),
+    }).pipe(tap((user) => this.currentUser.set(user)));
   }
 
   openAuthModal(returnUrl?: string): void {
