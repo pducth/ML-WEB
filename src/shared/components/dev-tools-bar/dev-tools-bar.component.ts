@@ -23,7 +23,11 @@ export class DevToolsBarComponent {
 
   readonly enabled = environment.devTools;
   readonly role = computed(() => this.auth.role().toUpperCase());
+  readonly isGuest = computed(() => this.auth.role() === 'Guest');
+  readonly isCustomer = computed(() => this.auth.role() === 'Customer');
+  readonly isAdmin = computed(() => this.auth.role() === 'Admin');
   readonly isLoggedIn = this.auth.isLoggedIn;
+
   readonly screens: DemoScreen[] = [
     { id: 'c01-home', label: 'C01 - Trang chủ (Homepage)', route: '/' },
     { id: 'c02-shop', label: 'C02 - Cửa hàng (Shop + Filters)', route: '/shop' },
@@ -43,6 +47,17 @@ export class DevToolsBarComponent {
 
   logout(): void {
     this.auth.logout().subscribe();
+  }
+
+  setRole(role: 'Guest' | 'Customer' | 'Admin'): void {
+    this.auth.switchRole(role);
+    if (role === 'Admin') {
+      void this.router.navigateByUrl('/admin/dashboard');
+    } else if (role === 'Customer') {
+      void this.router.navigateByUrl('/profile');
+    } else {
+      void this.router.navigateByUrl('/');
+    }
   }
 
   openCart(): void {

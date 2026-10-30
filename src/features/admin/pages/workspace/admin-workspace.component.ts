@@ -12,7 +12,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { combineLatest, forkJoin } from 'rxjs';
+import { catchError, combineLatest, forkJoin, of } from 'rxjs';
 import { environment } from '../../../../core/environment/environment';
 import { OrderStatus } from '../../../../core/models/order-status.model';
 import type { Order } from '../../../../core/models/order.model';
@@ -26,6 +26,7 @@ import { ProductService } from '../../../../core/services/product.service';
 import { ReviewService } from '../../../../core/services/review.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { VoucherService } from '../../../../core/services/voucher.service';
+import { DEMO_USERS } from '../../../../core/services/auth.service';
 
 type AdminPageKey =
   | 'dashboard'
@@ -385,7 +386,13 @@ export class AdminWorkspaceComponent implements OnInit {
         });
         break;
       case 'customers':
-        this.http.get<User[]>(`${environment.apiUrl}/users`).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        this.http
+          .get<User[]>(`${environment.apiUrl}/users`)
+          .pipe(
+            catchError(() => of(DEMO_USERS)),
+            takeUntilDestroyed(this.destroyRef),
+          )
+          .subscribe({
           next: (users) => {
             this.customers.set(users.filter((user) => user.role === 'Customer'));
             this.loading.set(false);
