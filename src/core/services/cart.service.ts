@@ -17,6 +17,10 @@ export class CartService {
     this.drawerOpen.set(true);
   }
 
+  resetItemCount(): void {
+    this.itemCountValue.set(0);
+  }
+
   closeDrawer(): void {
     this.drawerOpen.set(false);
   }

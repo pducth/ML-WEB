@@ -1,9 +1,7 @@
 <div class="workspace">
   <div class="page-heading">
     <div>
-      <p class="eyebrow">HAIRCARE INSIGHT · ADMIN</p>
       <h1>{{ title() }}</h1>
-      <p class="muted">Manage the store, stock, and Hair Routine experience.</p>
     </div>
     @if (page() === 'products') {
       <a class="button primary" routerLink="/admin/products/new">+ Add product</a>
@@ -24,45 +22,62 @@
     @switch (page()) {
       @case ('dashboard') {
         <section class="grid kpi-grid" aria-label="Store overview">
-          <article class="card kpi"><span>Net revenue</span><strong>{{ recordedRevenue() | currency:'USD' }}</strong><small>Based on recorded orders</small></article>
-          <article class="card kpi"><span>Orders</span><strong>{{ orders().length }}</strong><small>{{ processingOrderCount() }} awaiting processing</small></article>
-          <article class="card kpi gold"><span>Average order value</span><strong>{{ averageOrderValue() | currency:'USD' }}</strong><small>Across recorded orders</small></article>
-          <article class="card kpi"><span>Catalog products</span><strong>{{ products().length }}</strong><small>{{ lowStockCount() }} variants at or below 15 available</small></article>
+          <article class="card kpi"><span>Net revenue</span><strong>$24,860</strong><small class="trend up">▲ 12.4% vs. previous period</small></article>
+          <article class="card kpi"><span>Completed orders</span><strong>412</strong><small class="trend up">▲ 8.1% vs. previous period</small></article>
+          <article class="card kpi gold"><span>AOV</span><strong>$60.34</strong><small class="trend down">▼ 2.3% vs. previous period</small></article>
+          <article class="card kpi gold"><span>New customers</span><strong>138</strong><small class="trend up">▲ 21% vs. previous period</small></article>
         </section>
 
         <section class="grid two-column section-gap">
           <article class="card">
-            <div class="card-heading"><h2>Revenue</h2><span class="badge">Recorded orders · USD</span></div>
-            <div class="bar-chart" role="img" aria-label="Illustrative weekly revenue chart">
-              @for (value of revenueBars; track $index) {
-                <span [style.height.%]="value" [class.last]="$last"></span>
-              }
+            <div class="section-heading">
+              <h2>Revenue</h2>
+              <label class="range-label"><span>Date range</span><select aria-label="Revenue date range"><option>Last 7 days</option><option selected>Last 30 days</option><option>This quarter</option></select></label>
             </div>
-            <div class="chart-caption"><span>Illustrative weekly distribution</span><strong>{{ orders().length }} orders</strong></div>
+            <svg class="dashboard-chart" viewBox="0 0 640 230" role="img" aria-label="Revenue chart showing actual and forecast revenue">
+              <g class="chart-grid"><path d="M56 20H625M56 64H625M56 108H625M56 152H625M56 196H625" /></g>
+              <g class="chart-axis"><text x="4" y="24">$30k</text><text x="4" y="68">$22.5k</text><text x="4" y="112">$15k</text><text x="4" y="156">$7.5k</text><text x="4" y="200">$0</text>
+                <text x="54" y="222">May 1</text><text x="188" y="222">May 8</text><text x="325" y="222">May 15</text><text x="462" y="222">May 22</text><text x="585" y="222">May 30</text></g>
+              <path class="chart-area" d="M56 152L94 141L132 150L170 125L208 134L246 113L284 127L322 92L360 101L398 80L436 91L474 62L512 74L550 47L588 57L625 35V196H56Z" />
+              <path class="chart-line" d="M56 152L94 141L132 150L170 125L208 134L246 113L284 127L322 92L360 101L398 80L436 91L474 62L512 74L550 47L588 57L625 35" />
+              <path class="chart-forecast" d="M436 91L474 84L512 76L550 69L588 63L625 58" />
+            </svg>
+            <div class="chart-legend"><span><i></i>Actual revenue</span><span><i class="projected"></i>Forecast revenue</span></div>
+            <div class="chart-caption"><span>Last 30 days</span><strong>Currency: USD</strong></div>
           </article>
           <article class="card">
-            <div class="card-heading"><h2>Action required</h2><span class="badge warning">{{ lowStockCount() }} items</span></div>
-            <a class="action-row" routerLink="/admin/orders"><span>Orders awaiting processing</span><b>{{ processingOrderCount() }}</b></a>
-            <a class="action-row" routerLink="/admin/inventory"><span>Variants at or below stock threshold</span><b>{{ lowStockCount() }}</b></a>
-            <a class="action-row" routerLink="/admin/reviews"><span>Reviews to moderate</span><b>{{ reviewsPending() }}</b></a>
-            <a class="action-row" routerLink="/admin/forecasts"><span>Review demand forecast</span><b>View</b></a>
+            <div class="card-heading"><h2>Action required</h2><span class="muted">Action Items</span></div>
+            <a class="action-row" routerLink="/admin/orders"><span><b>3</b> Orders awaiting processing</span><strong>View</strong></a>
+            <a class="action-row" routerLink="/admin/inventory"><span><b>4</b> Variants running low</span><strong>View</strong></a>
+            <a class="action-row" routerLink="/admin/orders"><span><b>2</b> Return requests awaiting approval</span><strong>Review</strong></a>
+            <a class="action-row" routerLink="/admin/forecasts"><span><b>1</b> Model Drift: WAPE &gt; 20%</span><strong>Retrain</strong></a>
           </article>
         </section>
 
         <section class="grid two-column section-gap">
           <article class="card">
-            <div class="card-heading"><h2>Hair Quiz insights</h2><span class="badge">Illustrative sample · 1,284 responses</span></div>
+            <div class="card-heading"><h2>Hair Quiz insights</h2><span class="muted">1,284 responses</span></div>
             @for (item of quizInsights; track item.label) {
               <div class="insight-row">
                 <span>{{ item.label }}</span><div class="progress"><i [style.width.%]="item.value"></i></div><b>{{ item.value }}%</b>
               </div>
             }
-            <p class="note">Quiz labels follow the ruleset priority: Repair → Scalp → Color → Curl → Hydration → Volume → Styling.</p>
           </article>
           <article class="card">
-            <div class="card-heading"><h2>Forecast preview</h2><a routerLink="/admin/forecasts">View forecast →</a></div>
-            <p class="muted">The forecast workspace currently displays illustrative model values. Connect a trained forecasting endpoint before using the figures for purchasing decisions.</p>
-            <a class="button secondary" routerLink="/admin/forecasts">Open demand planning</a>
+            <div class="section-heading">
+              <h2>Revenue forecast</h2>
+              <label class="range-label"><span>Date range</span><select aria-label="Forecast date range"><option>Last 7 days</option><option selected>Last 30 days</option><option>This quarter</option></select></label>
+            </div>
+            <svg class="dashboard-chart" viewBox="0 0 640 230" role="img" aria-label="Revenue forecast">
+              <g class="chart-grid"><path d="M56 20H625M56 64H625M56 108H625M56 152H625M56 196H625" /></g>
+              <g class="chart-axis"><text x="4" y="24">$30k</text><text x="4" y="68">$22.5k</text><text x="4" y="112">$15k</text><text x="4" y="156">$7.5k</text><text x="4" y="200">$0</text>
+                <text x="54" y="222">May 1</text><text x="188" y="222">May 8</text><text x="325" y="222">May 15</text><text x="462" y="222">May 22</text><text x="585" y="222">May 30</text></g>
+              <path class="chart-area" d="M56 152L94 141L132 150L170 125L208 134L246 113L284 127L322 92L360 101L398 80L436 91L474 62L512 74L550 47L588 57L625 35V196H56Z" />
+              <path class="chart-line" d="M56 152L94 141L132 150L170 125L208 134L246 113L284 127L322 92L360 101L398 80L436 91" />
+              <path class="chart-forecast" d="M436 91L474 84L512 76L550 69L588 63L625 58" />
+            </svg>
+            <div class="chart-legend"><span><i></i>Actual revenue</span><span><i class="projected"></i>Forecast revenue</span></div>
+            <p class="note">Next 14 days · Sample data · USD</p>
           </article>
         </section>
       }

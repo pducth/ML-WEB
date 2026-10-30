@@ -29,6 +29,40 @@ interface HomeProduct {
   previewOnly: boolean;
 }
 
+const referenceFeaturedPreview: Record<
+  string,
+  Pick<HomeProduct, 'imageUrl' | 'rating' | 'reviewCount' | 'price' | 'variantId'>
+> = {
+  'moro-009': {
+    imageUrl: '/assets/images/unsplash-photo-1608248597359-543329158fa9.jpg',
+    rating: 5,
+    reviewCount: 542,
+    price: 34,
+    variantId: 'moro-009-100',
+  },
+  'moro-005': {
+    imageUrl: '/assets/images/unsplash-photo-1535585209827-a15fcdbc4c2d.jpg',
+    rating: 5,
+    reviewCount: 388,
+    price: 27,
+    variantId: 'moro-005-250',
+  },
+  'moro-003': {
+    imageUrl: '/assets/images/unsplash-photo-1571781926291-c477ebfd024b.jpg',
+    rating: 5,
+    reviewCount: 420,
+    price: 37,
+    variantId: 'moro-003-250',
+  },
+  'moro-001': {
+    imageUrl: '/assets/images/unsplash-photo-1522337360788-8b13dee7a37e.jpg',
+    rating: 5,
+    reviewCount: 180,
+    price: 32,
+    variantId: 'moro-001-225',
+  },
+};
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -127,17 +161,19 @@ export class HomeComponent implements OnInit {
   }
 
   private toHomeProduct(product: Product, previewOnly = false): HomeProduct {
+    const referencePreview = previewOnly ? referenceFeaturedPreview[product.id] : undefined;
     const variant =
+      product.variants.find((candidate) => candidate.id === referencePreview?.variantId) ??
       product.variants.filter((candidate) => candidate.available > 0).sort((a, b) => a.price - b.price)[0] ??
       [...product.variants].sort((a, b) => a.price - b.price)[0];
     return {
       id: product.id,
       name: product.name,
-      imageUrl: product.imageUrl,
-      rating: product.rating,
-      reviewCount: product.reviewCount,
-      price: variant?.price ?? 0,
-      variantId: variant?.id ?? '',
+      imageUrl: referencePreview?.imageUrl ?? product.imageUrl,
+      rating: referencePreview?.rating ?? product.rating,
+      reviewCount: referencePreview?.reviewCount ?? product.reviewCount,
+      price: referencePreview?.price ?? variant?.price ?? 0,
+      variantId: referencePreview?.variantId ?? variant?.id ?? '',
       available: variant?.available ?? 0,
       previewOnly,
     };
