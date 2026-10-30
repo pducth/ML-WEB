@@ -1,0 +1,198 @@
+:root {
+  --breakpoint-xs: 480px;
+  --color-primary-brown: #6e473b;
+  --color-primary-brown-light: #8a5b4d;
+  --color-primary-brown-dark: #58372d;
+  --color-deep-brown: #4a2e2b;
+  --color-deep-brown-dark: #37211e;
+  --color-dark-chocolate: #241710;
+
+  --color-cream-sand: #fdfbf7;
+  --color-cream-subtle: #f7f3ec;
+  --color-surface-card: #ffffff;
+  --color-surface-warm: #faf7f2;
+  --color-border-subtle: #e7e3dc;
+  --color-border-strong: #d5cebf;
+
+  --color-moroccan-teal: #00a3a6;
+  --color-moroccan-teal-light: #e0f7f7;
+  --color-moroccan-teal-dark: #008285;
+  --color-warm-gold: #c89b58;
+  --color-warm-gold-light: #fbf4e8;
+  --color-warm-gold-pale: #e0c797;
+  --color-warm-gold-dark: #805719;
+
+  --color-text-main: #2c2420;
+  --color-text-muted: #6b625b;
+  --color-text-light: #9b938b;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+
+  --color-primary-brown-5: rgb(110 71 59 / 5%);
+  --color-primary-brown-10: rgb(110 71 59 / 10%);
+  --color-primary-brown-20: rgb(110 71 59 / 20%);
+  --color-teal-10: rgb(0 163 166 / 10%);
+  --color-teal-20: rgb(0 163 166 / 20%);
+  --color-gold-10: rgb(200 155 88 / 10%);
+  --color-white-10: rgb(255 255 255 / 10%);
+  --color-white-20: rgb(255 255 255 / 20%);
+  --color-white-30: rgb(255 255 255 / 30%);
+  --color-white-40: rgb(255 255 255 / 40%);
+  --color-white-50: rgb(255 255 255 / 50%);
+  --color-white-60: rgb(255 255 255 / 60%);
+  --color-white-70: rgb(255 255 255 / 70%);
+  --color-white-80: rgb(255 255 255 / 80%);
+  --color-white-90: rgb(255 255 255 / 90%);
+  --color-white-95: rgb(255 255 255 / 95%);
+  --color-cream-overlay: rgb(253 251 249 / 18%);
+  --color-focus: var(--color-primary-brown);
+
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-600: #d97706;
+  --color-green-100: #dcfce7;
+  --color-green-600: #16a34a;
+  --color-green-700: #15803d;
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-blue-100: #dbeafe;
+  --color-blue-700: #1d4ed8;
+  --color-purple-100: #f3e8ff;
+  --color-purple-700: #7e22ce;
+  --color-modal-backdrop: rgb(36 23 16 / 55%);
+  --color-overlay-image: rgb(36 23 16 / 66%);
+  --color-overlay-hero: rgb(36 23 16 / 86%);
+  --color-overlay-hero-light: rgb(36 23 16 / 28%);
+
+  --status-payment-pending: #805719;
+  --status-payment-pending-bg: #fffbeb;
+  --status-processing: #1d4ed8;
+  --status-processing-bg: #dbeafe;
+  --status-shipping: #008285;
+  --status-shipping-bg: #e0f7f7;
+  --status-completed: #15803d;
+  --status-completed-bg: #dcfce7;
+  --status-cancelled: #b91c1c;
+  --status-cancelled-bg: #fee2e2;
+  --status-return-pending: #d97706;
+  --status-return-pending-bg: #fef3c7;
+  --status-returned: #7e22ce;
+  --status-returned-bg: #f3e8ff;
+
+  --font-primary: "Plus Jakarta Sans", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-interface: Inter, Helvetica, sans-serif;
+
+  --font-size-9: 9px;
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-xs: 12px;
+  --font-size-13: 13px;
+  --font-size-sm: 14px;
+  --font-size-15: 15px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-32: 32px;
+  --font-size-4xl: 36px;
+  --font-size-56: 56px;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --line-height-normal: normal;
+  --line-height-tight: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-relaxed: 1.5;
+  --line-height-14: 21px;
+  --line-height-16: 24px;
+  --line-height-18: 27px;
+  --line-height-32: 38.4px;
+  --line-height-56: 61.6px;
+  --letter-spacing-normal: 0;
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-4-5: 18px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-18: 72px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-20: 20px;
+  --radius-pill: 9999px;
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 10%),
+    0 1px 2px -1px rgb(0 0 0 / 10%);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%),
+    0 2px 4px -2px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%),
+    0 4px 6px -4px rgb(0 0 0 / 10%);
+  --shadow-soft: 0 4px 20px -2px rgb(110 71 59 / 8%);
+  --shadow-hover: 0 12px 30px -4px rgb(74 46 43 / 15%);
+  --shadow-card: 0 2px 12px rgb(110 71 59 / 5%);
+  --shadow-navbar: 0 8px 24px rgb(0 0 0 / 5%);
+  --shadow-card-raised: 0 12px 32px rgb(0 0 0 / 4%);
+  --shadow-image: 0 20px 40px rgb(0 0 0 / 8%);
+  --shadow-primary-button: 0 10px 24px rgb(0 163 166 / 20%);
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --container-max-width: 1280px;
+  --container-gutter: var(--space-4);
+  --container-gutter-sm: var(--space-6);
+  --container-gutter-lg: var(--space-8);
+}

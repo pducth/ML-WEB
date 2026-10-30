@@ -1,0 +1,136 @@
+@if (auth.authModalOpen()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <button
+      type="button"
+      (click)="close()"
+      class="absolute inset-0 modal-overlay"
+      aria-label="Đóng đăng nhập"
+    ></button>
+    <div
+      class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-md w-full p-8 z-10 animate-fadeIn"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="auth-modal-title"
+    >
+      <button
+        type="button"
+        (click)="close()"
+        class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]"
+        aria-label="Đóng"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="text-center mb-6">
+        <div
+          class="w-12 h-12 mx-auto rounded-full bg-[#6E473B] text-white flex items-center justify-center font-bold text-2xl mb-2"
+        >
+          M
+        </div>
+        <h3 id="auth-modal-title" class="text-xl font-extrabold text-[#4A2E2B]">Đặc quyền Moroccanoil VIP</h3>
+        <p class="text-xs text-[#6B625B]">Đăng nhập để nhận ưu đãi tích điểm và quà tặng độc quyền.</p>
+      </div>
+
+      <div class="flex border-b border-[#E7E3DC] mb-6">
+        <button
+          type="button"
+          (click)="switchTab('login')"
+          class="flex-1 pb-2.5 text-sm font-bold border-b-2 transition-all"
+          [class.border-[#6E473B]]="auth.authTab() === 'login'"
+          [class.text-[#6E473B]]="auth.authTab() === 'login'"
+          [class.border-transparent]="auth.authTab() !== 'login'"
+          [class.text-[#6B625B]]="auth.authTab() !== 'login'"
+        >
+          Đăng nhập
+        </button>
+        <button
+          type="button"
+          (click)="switchTab('register')"
+          class="flex-1 pb-2.5 text-sm font-bold border-b-2 transition-all"
+          [class.border-[#6E473B]]="auth.authTab() === 'register'"
+          [class.text-[#6E473B]]="auth.authTab() === 'register'"
+          [class.border-transparent]="auth.authTab() !== 'register'"
+          [class.text-[#6B625B]]="auth.authTab() !== 'register'"
+        >
+          Tạo tài khoản
+        </button>
+      </div>
+
+      @if (auth.authTab() === 'login') {
+        <form class="space-y-4" (submit)="login($event, email.value, password.value)">
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Email hoặc Số điện thoại</label>
+            <input
+              #email
+              type="text"
+              value="phuongthao.nguyen@gmail.com"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Mật khẩu</label>
+            <input
+              #password
+              type="password"
+              value="********"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+              required
+            />
+          </div>
+          <div class="flex justify-between items-center text-xs">
+            <label class="flex items-center gap-1.5 text-[#6B625B]">
+              <input type="checkbox" checked class="text-[#6E473B] rounded" />
+              <span>Ghi nhớ đăng nhập</span>
+            </label>
+            <a routerLink="/forgot-password" (click)="close()" class="text-[#6E473B] font-semibold hover:underline"
+              >Quên mật khẩu?</a
+            >
+          </div>
+          <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">Đăng nhập ngay</button>
+          <div class="pt-3 border-t border-[#E7E3DC] text-center space-y-2">
+            <p class="text-[11px] text-[#9B938B]">Tài khoản demo: admin@example.com / admin123</p>
+          </div>
+        </form>
+      } @else {
+        <form class="space-y-4" (submit)="register($event, fullName.value, registerEmail.value, phone.value)">
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Họ và tên</label>
+            <input
+              #fullName
+              type="text"
+              placeholder="Nguyễn Văn A"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Email</label>
+            <input
+              #registerEmail
+              type="email"
+              placeholder="example@email.com"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Số điện thoại</label>
+            <input
+              #phone
+              type="tel"
+              placeholder="0901 234 567"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">
+            Tạo tài khoản &amp; Nhận 100 điểm thưởng
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+}

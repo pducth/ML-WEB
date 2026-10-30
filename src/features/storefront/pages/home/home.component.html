@@ -1,0 +1,270 @@
+<section id="page-c01-home" class="app-screen animate-fadeIn">
+  <div
+    class="relative w-full h-[700px] sm:h-[850px] lg:h-[1067px] overflow-hidden bg-[#241710] select-none flex justify-center"
+  >
+    <div class="relative w-[1200px] h-[1067px] shrink-0" style="perspective: 1200px">
+      <div
+        id="hero-parallax-stage"
+        class="relative w-full h-full will-change-transform"
+        [appParallax]="0"
+        [appParallaxStage]="true"
+        style="transform-style: preserve-3d; transition: transform 0.06s ease-out"
+      >
+        <div
+          id="parallax-layer-1"
+          class="absolute top-0 -left-4 -right-0.5 overflow-visible pointer-events-none will-change-transform"
+          [appParallax]="0"
+          [appParallaxLayer]="1"
+          style="aspect-ratio: 1.57598; min-height: 1067px; transform: translate3d(0px, 0px, -100px) scale(1.22); transform-origin: top center"
+        >
+          <img
+            src="/assets/images/framer-oSoiTQN3dsBvDyEhzHYYw63Qggk.png"
+            alt="Mainbg"
+            class="w-full h-full min-h-[1067px] block object-cover"
+            loading="eager"
+          />
+        </div>
+        <div
+          id="parallax-layer-2"
+          class="absolute top-0 left-0 w-[1257px] max-w-none overflow-visible pointer-events-none will-change-transform"
+          [appParallax]="0"
+          [appParallaxLayer]="2"
+          style="aspect-ratio: 1.376; min-height: 1000px; transform: translate3d(0px, 0px, -50px) scale(1.12); transform-origin: top center"
+        >
+          <img
+            src="/assets/images/framer-ZSNSwk4QUIfvIkmhbPea8dFDFc.png"
+            alt="Group 4"
+            class="w-full h-auto block object-cover"
+            loading="eager"
+          />
+        </div>
+        <div
+          id="parallax-layer-3"
+          class="absolute top-0 -left-9 w-[1239px] max-w-none overflow-visible pointer-events-none will-change-transform"
+          [appParallax]="0"
+          [appParallaxLayer]="3"
+          style="aspect-ratio: 1.376; transform: translate3d(0px, 0px, 0px) scale(1.03)"
+        >
+          <img
+            src="/assets/images/framer-9tszH4tp6QFSsJ8Pm6cstmXNA.png"
+            alt="3"
+            class="w-full h-auto block object-cover"
+            loading="eager"
+          />
+        </div>
+        <div
+          id="parallax-layer-4"
+          class="absolute top-0 left-0 w-[1203px] max-w-none overflow-visible pointer-events-none will-change-transform"
+          [appParallax]="0"
+          [appParallaxLayer]="4"
+          style="aspect-ratio: 1.376; transform: translate3d(0px, 0px, 50px) scale(1.04)"
+        >
+          <img
+            src="/assets/images/framer-4dnjNBZUCkL8cOGKIbsAz2bEOpw.png"
+            alt="2"
+            class="w-full h-auto block object-cover"
+            loading="eager"
+          />
+        </div>
+        <div
+          id="parallax-layer-5"
+          class="absolute -bottom-[121px] left-0 -right-[17px] overflow-visible pointer-events-none will-change-transform"
+          [appParallax]="0"
+          [appParallaxLayer]="5"
+          style="aspect-ratio: 2.29333; transform: translate3d(0px, 0px, 100px) scale(1.05)"
+        >
+          <img
+            src="/assets/images/framer-zauzzFLzFOqZiGBlduZu5aKQSE.png"
+            alt="Bgexx"
+            class="w-full h-auto block object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-12 z-20 flex flex-wrap items-center justify-center gap-4 px-4">
+      <button
+        type="button"
+        (click)="navigateToShop()"
+        class="btn-primary text-sm px-8 py-3.5 shadow-2xl backdrop-blur-sm"
+      >
+        <span>Khám phá bộ sưu tập Argan</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+          ></path>
+        </svg>
+      </button>
+      <button
+        type="button"
+        (click)="startQuiz()"
+        class="btn-secondary text-sm px-7 py-3.5 bg-white/10 text-white border-white/40 hover:bg-white hover:text-[#4A2E2B] backdrop-blur-md"
+      >
+        <span>Làm Quiz tư vấn tóc (1 phút)</span>
+      </button>
+    </div>
+
+    <div
+      class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FDFBF7] to-transparent pointer-events-none"
+    ></div>
+  </div>
+
+  <section class="bg-white border-b border-[#E7E3DC] py-6 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <div class="flex flex-col items-center gap-1.5 p-3">
+        <span class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🛡️</span>
+        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">100% Chính Hãng</h4>
+        <p class="text-[11px] text-[#6B625B]">Tem điện tử chống giả từ Moroccanoil Israel</p>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 p-3">
+        <span class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🚚</span>
+        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">Miễn Phí Giao Hàng</h4>
+        <p class="text-[11px] text-[#6B625B]">Đơn hàng từ 800.000₫ toàn quốc</p>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 p-3">
+        <span class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🔄</span>
+        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">Đổi Trả Trong 7 Ngày</h4>
+        <p class="text-[11px] text-[#6B625B]">Cam kết hoàn tiền nếu sản phẩm lỗi</p>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 p-3">
+        <span class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">✨</span>
+        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">Chuẩn Salon Đẳng Cấp</h4>
+        <p class="text-[11px] text-[#6B625B]">Tin dùng tại 80.000+ salon quốc tế</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <div>
+        <span class="text-xs font-bold text-[#6E473B] uppercase tracking-wider">LỰA CHỌN NỔI BẬT</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#4A2E2B] mt-1">Sản phẩm được yêu thích nhất</h2>
+      </div>
+      <button
+        type="button"
+        (click)="navigateToShop()"
+        class="text-sm font-bold text-[#6E473B] hover:text-[#4A2E2B] flex items-center gap-1"
+      >
+        <span>Xem toàn bộ bộ sưu tập</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+
+    @if (isLoading()) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <app-skeleton-loader variant="card" />
+        }
+      </div>
+    } @else if (errorMessage()) {
+      <div class="text-center text-red-700" role="alert">
+        <p>{{ errorMessage() }}</p>
+        <button type="button" class="underline font-semibold" (click)="loadProducts()">Thử lại</button>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (product of bestSellers(); track product.id) {
+          <div class="group product-card flex flex-col justify-between">
+            <div
+              class="relative overflow-hidden aspect-square bg-[#FAF7F2] cursor-pointer"
+              (click)="openProduct(product)"
+              (keydown.enter)="openProduct(product)"
+              tabindex="0"
+              role="link"
+            >
+              <img [src]="product.image" [alt]="product.name" class="card-img w-full h-full object-cover" />
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1.5 mb-1.5 text-xs text-[#00A3A6] font-bold">
+                  ★★★★★ <span class="text-[#9B938B] font-normal">({{ product.reviewsCount }})</span>
+                </div>
+                <h3
+                  class="font-bold text-[#4A2E2B] text-sm hover:text-[#6E473B] cursor-pointer"
+                  (click)="openProduct(product)"
+                  (keydown.enter)="openProduct(product)"
+                  tabindex="0"
+                  role="link"
+                >
+                  {{ product.name }}
+                </h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-[#E7E3DC] flex items-center justify-between">
+                <span class="font-bold text-[#6E473B] text-base">{{ formatVnd(product.price) }}</span>
+                <button type="button" (click)="addToCart(product)" class="btn-primary text-xs py-1.5 px-3">
+                  Thêm vào giỏ
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div
+      class="bg-gradient-to-r from-[#6E473B] to-[#4A2E2B] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl"
+    >
+      <div class="max-w-2xl relative z-10 space-y-4">
+        <span class="badge-teal bg-white/20 text-white border-white/30">CÁ NHÂN HÓA LIỆU TRÌNH</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          Tìm bộ Routine hoàn hảo cho mái tóc của bạn
+        </h2>
+        <p class="text-sm sm:text-base text-[#FDFBF7]/90 leading-relaxed">
+          Chỉ mất 60 giây trả lời 3 câu hỏi nhanh về loại tóc và mức độ hư tổn. Hệ thống chuyên gia Moroccanoil sẽ thiết
+          kế bộ phác đồ nuôi dưỡng tóc độc quyền dành riêng cho bạn.
+        </p>
+        <div class="pt-4 flex flex-wrap items-center gap-4">
+          <button
+            type="button"
+            (click)="startQuiz()"
+            class="px-8 py-3.5 bg-white text-[#4A2E2B] rounded-full font-bold text-sm hover:bg-[#FDFBF7] hover:shadow-lg transition-all active:scale-95"
+          >
+            Bắt đầu bài Quiz ngay
+          </button>
+          <span class="text-xs text-white/80 font-medium">⏱ Miễn phí &amp; Nhận ưu đãi 15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="aspect-[16/10] rounded-3xl overflow-hidden shadow-lg border border-[#E7E3DC]">
+        <img
+          src="/assets/images/unsplash-photo-1522337360788-8b13dee7a37e.jpg"
+          alt="Argan Heritage"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="space-y-5">
+        <span class="text-xs font-bold text-[#6E473B] uppercase tracking-wider">CÂU CHUYỆN THƯƠNG HIỆU</span>
+        <h2 class="text-3xl font-extrabold text-[#4A2E2B]">
+          Tinh túy Argan Oil từ vùng đất Địa Trung Hải
+        </h2>
+        <p class="text-sm sm:text-base text-[#6B625B] leading-relaxed">
+          Moroccanoil ra đời từ một hành trình kỳ diệu khi nhà đồng sáng lập Carmen Tal trải nghiệm hiệu quả phục hồi tức
+          thì của dầu Argan sau sự cố nhuộm tóc. Kể từ đó, chúng tôi không ngừng hoàn thiện công thức độc quyền, kết hợp
+          tinh dầu Argan tinh khiết nhất thế giới với khoa học hiện đại để nâng niu mái tóc của hàng triệu phụ nữ.
+        </p>
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-white border border-[#E7E3DC]">
+            <span class="block text-2xl font-black text-[#6E473B]">100%</span>
+            <span class="text-xs font-medium text-[#6B625B]">Dầu Argan ép lạnh nguyên chất</span>
+          </div>
+          <div class="p-4 rounded-2xl bg-white border border-[#E7E3DC]">
+            <span class="block text-2xl font-black text-[#00A3A6]">70+</span>
+            <span class="text-xs font-medium text-[#6B625B]">Quốc gia phân phối chính hãng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

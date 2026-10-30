@@ -1,0 +1,13 @@
+<span
+  class="status-badge"
+  [class.payment-pending]="status() === OrderStatus.PaymentPending"
+  [class.processing]="status() === OrderStatus.Processing"
+  [class.shipping]="status() === OrderStatus.Shipping"
+  [class.completed]="status() === OrderStatus.Completed"
+  [class.cancelled]="status() === OrderStatus.Cancelled"
+  [class.return-pending]="status() === OrderStatus.ReturnPending"
+  [class.returned]="status() === OrderStatus.Returned"
+  [attr.aria-label]="'Order status: ' + status()"
+>
+  {{ status() }}
+</span>

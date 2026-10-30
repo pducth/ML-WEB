@@ -1,0 +1,65 @@
+@use "../../../styles/breakpoints" as *;
+
+:host {
+  display: contents;
+}
+
+.modal-layer {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-modal-backdrop);
+}
+
+.modal-dialog {
+  position: relative;
+  width: min(100%, 480px);
+  padding: var(--space-8);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface-card);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-dialog h2 {
+  color: var(--color-deep-brown);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.modal-dialog p {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: $breakpoint-xs - 1px) {
+  .modal-dialog {
+    padding: var(--space-6);
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions app-button {
+    width: 100%;
+  }
+}

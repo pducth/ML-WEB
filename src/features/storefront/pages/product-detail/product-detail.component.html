@@ -1,0 +1,109 @@
+<section class="product-page">
+  @if (isLoading()) {
+    <div class="detail-loading">
+      <app-skeleton-loader variant="image" />
+      <app-skeleton-loader variant="text" [lines]="6" />
+    </div>
+  } @else if (errorMessage()) {
+    <div class="page-error" role="alert">
+      <h1>Product unavailable</h1>
+      <p>{{ errorMessage() }}</p>
+      <button type="button" (click)="retryProduct()">Try again</button>
+    </div>
+  } @else if (product(); as item) {
+    <div class="breadcrumbs"><a routerLink="/shop">Shop</a><span>/</span><a routerLink="/shop">{{ item.category }}</a><span>/</span><span>{{ item.name }}</span></div>
+    <div class="product-main">
+      <div class="gallery">
+        <div class="gallery-thumbnails">
+          @for (image of gallery(); track image; let index = $index) {
+            <button type="button" [class.active]="selectedImage() === image" (click)="selectImage(image)" [attr.aria-label]="'View product image ' + (index + 1)">
+              <img [src]="image" [alt]="item.name + ' view ' + (index + 1)" />
+            </button>
+          }
+        </div>
+        <div class="main-image">
+          <img [src]="selectedImage()" [alt]="item.name" />
+          @if (isOutOfStock()) { <span class="stock-label">Out of Stock</span> }
+        </div>
+      </div>
+      <div class="product-info">
+        <span class="category">{{ item.category }}</span>
+        <h1>{{ item.name }}</h1>
+        <div class="rating">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>{{ item.rating.toFixed(1) }}</span>
+          <a href="#reviews">({{ item.reviewCount }} reviews)</a>
+        </div>
+        <p class="description">{{ item.description }}</p>
+
+        <fieldset class="variant-picker">
+          <legend>Size <span>{{ selectedVariant()?.volume }}{{ selectedVariant()?.unit }}</span></legend>
+          <div class="variant-options">
+            @for (variant of item.variants; track variant.id) {
+              <button type="button" [class.selected]="selectedVariant()?.id === variant.id" [class.unavailable]="variant.available <= 0"
+                [attr.aria-pressed]="selectedVariant()?.id === variant.id" (click)="selectVariant(variant)">
+                <span>{{ variant.volume }}{{ variant.unit }}</span>
+                @if (variant.available <= 0) { <small>Out of stock</small> }
+              </button>
+            }
+          </div>
+        </fieldset>
+
+        <div class="buy-row">
+          <label class="quantity-control">Qty
+            <input type="number" min="1" [max]="selectedVariant()?.available ?? 1" [disabled]="isOutOfStock()" [value]="quantity()" (change)="updateQuantity($event)" />
+          </label>
+          <strong class="price">{{ (selectedVariant()?.price ?? 0) | currency }}</strong>
+        </div>
+        @if (isOutOfStock()) {
+          <p class="stock-message">This size is currently out of stock.</p>
+        } @else {
+          <p class="stock-message">{{ selectedVariant()?.available }} available</p>
+        }
+        <div class="actions">
+          <button type="button" class="button button-outline" [disabled]="isOutOfStock() || isAddingToCart()" (click)="addToCart()">
+            {{ isAddingToCart() ? 'Adding...' : 'Add to Cart' }}
+          </button>
+          <button type="button" class="button button-primary" [disabled]="isOutOfStock() || isAddingToCart()" (click)="addToCart(true)">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="details-section">
+      <div class="detail-tabs" role="tablist" aria-label="Product information">
+        <button type="button" role="tab" [attr.aria-selected]="selectedTab() === 'description'" [class.active]="selectedTab() === 'description'" (click)="setTab('description')">Description</button>
+        <button type="button" role="tab" [attr.aria-selected]="selectedTab() === 'benefits'" [class.active]="selectedTab() === 'benefits'" (click)="setTab('benefits')">Benefits</button>
+        <button type="button" role="tab" [attr.aria-selected]="selectedTab() === 'ingredients'" [class.active]="selectedTab() === 'ingredients'" (click)="setTab('ingredients')">Ingredients</button>
+        <button type="button" role="tab" [attr.aria-selected]="selectedTab() === 'how-to-use'" [class.active]="selectedTab() === 'how-to-use'" (click)="setTab('how-to-use')">How to use</button>
+      </div>
+      <div class="tab-content" role="tabpanel">
+        @switch (selectedTab()) {
+          @case ('description') { <p>{{ item.description }}</p> }
+          @case ('benefits') { <ul>@for (benefit of benefits; track benefit) { <li>{{ benefit }}</li> }</ul> }
+          @case ('ingredients') { <p>{{ ingredients.join(', ') }}</p> }
+          @case ('how-to-use') { <p>{{ item.howToUse ?? 'Apply to clean, towel-dried hair and style as desired. Follow the directions on the product packaging.' }}</p> }
+        }
+      </div>
+    </section>
+
+    <section class="reviews-section" id="reviews">
+      <div class="reviews-heading"><span class="eyebrow">From our community</span><h2>Customer reviews</h2></div>
+      @if (isReviewsLoading()) {
+        <app-skeleton-loader variant="text" [lines]="3" />
+      } @else if (reviewError()) {
+        <p class="review-error" role="alert">{{ reviewError() }} <button type="button" (click)="loadReviews(item.id)">Try again</button></p>
+      } @else if (reviews().length === 0) {
+        <p class="no-reviews">No reviews yet</p>
+      } @else {
+        <div class="review-list">
+          @for (review of reviews(); track review.id) {
+            <article class="review-card">
+              <div><span class="stars" aria-label="{{ review.rating }} out of 5 stars">★★★★★</span><time>{{ review.createdAt | date:'mediumDate' }}</time></div>
+              <h3>{{ review.title }}</h3><p>{{ review.comment }}</p><span class="review-author">{{ review.authorName }} @if (review.verifiedPurchase) { <span>· Verified purchase</span> }</span>
+            </article>
+          }
+        </div>
+      }
+    </section>
+  }
+</section>

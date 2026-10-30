@@ -1,0 +1,70 @@
+@if (enabled) {
+  <div
+    class="fixed bottom-4 left-1/2 z-50 flex max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap rounded-xl border border-[#E7E3DC] bg-white/95 px-3 py-2.5 shadow-2xl backdrop-blur"
+    aria-label="Thanh công cụ demo"
+  >
+    <div class="flex shrink-0 items-center gap-1.5 border-r border-[#E7E3DC] pr-2">
+      <span class="h-2.5 w-2.5 animate-pulse rounded-full bg-[#00A3A6]" aria-hidden="true"></span>
+      <span class="hidden text-xs font-bold text-[#4A2E2B] sm:inline">DEMO BAR</span>
+    </div>
+
+    <label class="flex shrink-0 items-center gap-1.5">
+      <span class="hidden text-[11px] font-semibold text-[#6B625B] md:inline">Màn hình:</span>
+      <select
+        class="max-w-[42vw] cursor-pointer rounded-lg border border-[#E7E3DC] bg-[#F7F3EC] px-2.5 py-1.5 text-xs font-bold text-[#4A2E2B] outline-none hover:border-[#6E473B] sm:max-w-none"
+        aria-label="Chọn màn hình demo"
+        (change)="navigateToScreen($event)"
+      >
+        <optgroup label="[GUEST FLOW]">
+          @for (screen of screens.slice(0, 5); track screen.id) {
+            <option [value]="screen.id">{{ screen.label }}</option>
+          }
+        </optgroup>
+        <optgroup label="[CUSTOMER FLOW]">
+          @for (screen of screens.slice(5, 9); track screen.id) {
+            <option [value]="screen.id">{{ screen.label }}</option>
+          }
+        </optgroup>
+        <optgroup label="[ADMIN DASHBOARD]">
+          <option [value]="screens[9].id">{{ screens[9].label }}</option>
+        </optgroup>
+      </select>
+    </label>
+
+    <div class="flex shrink-0 items-center gap-1 border-l border-[#E7E3DC] pl-2">
+      <span class="hidden text-[11px] font-semibold text-[#6B625B] md:inline">Tài khoản:</span>
+      @if (isLoggedIn()) {
+        <button
+          type="button"
+          class="rounded px-2 py-1 text-[11px] font-bold text-[#805719] transition-colors hover:bg-amber-100"
+          (click)="logout()"
+        >
+          Đăng xuất
+        </button>
+      } @else {
+        <button
+          type="button"
+          class="rounded bg-[#6E473B] px-2 py-1 text-[11px] font-bold text-white transition-colors hover:bg-[#4A2E2B]"
+          (click)="openAuth()"
+        >
+          Đăng nhập
+        </button>
+      }
+      <span class="rounded-full border border-[#E7E3DC] bg-[#F7F3EC] px-2 py-0.5 text-xs font-bold text-[#4A2E2B]">
+        {{ role() }}
+      </span>
+    </div>
+
+    <button
+      type="button"
+      class="shrink-0 rounded-lg p-1.5 text-[#6E473B] transition-colors hover:bg-[#E7E3DC] hover:text-[#4A2E2B]"
+      title="Mở giỏ hàng"
+      aria-label="Mở giỏ hàng"
+      (click)="openCart()"
+    >
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+      </svg>
+    </button>
+  </div>
+}

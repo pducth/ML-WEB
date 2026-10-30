@@ -1,0 +1,70 @@
+@if (productsApi.addProductModalOpen()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <button type="button" (click)="close()" class="absolute inset-0 modal-overlay" aria-label="Đóng"></button>
+    <div
+      class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-md w-full p-8 z-10 animate-fadeIn"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-product-title"
+    >
+      <button
+        type="button"
+        (click)="close()"
+        class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]"
+        aria-label="Đóng"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <h3 id="add-product-title" class="text-xl font-bold text-[#4A2E2B] mb-4">Thêm sản phẩm Moroccanoil mới</h3>
+      <form class="space-y-4" (submit)="submit($event, name.value, category.value, price.value, stock.value)">
+        <div>
+          <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Tên sản phẩm *</label>
+          <input
+            #name
+            type="text"
+            placeholder="Ví dụ: Tinh dầu dưỡng tạo sóng xoăn"
+            class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Dòng danh mục</label>
+          <select #category class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]">
+            <option value="oil">Tinh dầu dưỡng</option>
+            <option value="shampoo">Dầu gội &amp; xả</option>
+            <option value="mask">Mặt nạ ủ tóc</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Giá bán (USD)</label>
+            <input
+              #price
+              type="number"
+              value="25"
+              min="0.01"
+              step="0.01"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Số lượng tồn kho</label>
+            <input
+              #stock
+              type="number"
+              value="50"
+              min="0"
+              step="1"
+              class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]"
+              required
+            />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">Lưu &amp; Đăng bán sản phẩm</button>
+      </form>
+    </div>
+  </div>
+}

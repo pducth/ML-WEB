@@ -1,0 +1,23 @@
+<div
+  class="skeleton"
+  [class.text-variant]="variant() === 'text'"
+  [class.card-variant]="variant() === 'card'"
+  [class.image-variant]="variant() === 'image'"
+  role="status"
+  aria-label="Loading content"
+>
+  @if (variant() === 'card') {
+    <span class="skeleton-image"></span>
+  }
+  @if (variant() === 'image') {
+    <span class="skeleton-image image-only"></span>
+  }
+  @if (variant() !== 'image') {
+    <div class="skeleton-lines">
+      @for (_ of placeholders(); track $index) {
+        <span class="skeleton-line"></span>
+      }
+    </div>
+  }
+  <span class="visually-hidden">Loading...</span>
+</div>

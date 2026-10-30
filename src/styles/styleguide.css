@@ -1,0 +1,49 @@
+:root {
+    /* TYPOGRAPHY - MODERN SANS-SERIF (PLUS JAKARTA SANS) */
+    --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* MOROCCANOIL COLOR SYSTEM OVERHAUL */
+    /* Primary Brown - Dầu Argan nguyên chất, sang trọng, ấm áp */
+    --color-primary-brown: #6E473B;
+    --color-primary-brown-light: #8A5B4D;
+    --color-primary-brown-dark: #58372D;
+
+    /* Deep Brown - Text tiêu đề, button hover */
+    --color-deep-brown: #4A2E2B;
+    --color-deep-brown-dark: #37211E;
+
+    /* Soft Cream / Sand - Nền chính toàn trang */
+    --color-cream-sand: #FDFBF7;
+    --color-cream-subtle: #F7F3EC;
+    --color-surface-card: #FFFFFF;
+
+    /* Moroccanoil Teal - Secondary Accent (Điểm xuyết nhẹ: Badge Best Seller, 5 sao, tag) */
+    --color-moroccan-teal: #00A3A6;
+    --color-moroccan-teal-light: #E0F7F7;
+    --color-moroccan-teal-dark: #008285;
+
+    /* Warm Gold - Membership / Luxury accents */
+    --color-warm-gold: #C89B58;
+    --color-warm-gold-light: #FBF4E8;
+
+    /* Border & Divider */
+    --color-border-subtle: #E7E3DC;
+    --color-border-strong: #D5CEBF;
+
+    /* Text colors */
+    --color-text-main: #2C2420;
+    --color-text-muted: #6B625B;
+    --color-text-light: #9B938B;
+
+    /* Radii */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-pill: 9999px;
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px rgba(110, 71, 59, 0.08);
+    --shadow-hover: 0 12px 30px -4px rgba(74, 46, 43, 0.15);
+    --shadow-card: 0 2px 12px rgba(110, 71, 59, 0.05);
+}

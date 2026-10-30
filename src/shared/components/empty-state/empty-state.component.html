@@ -1,0 +1,12 @@
+<section class="empty-state" aria-live="polite">
+  <div class="empty-icon" aria-hidden="true">
+    <svg viewBox="0 0 48 48">
+      <path d="M8 16h32v24H8zM15 16l3-8h12l3 8M18 25h12"></path>
+    </svg>
+  </div>
+  <h2>{{ title() }}</h2>
+  <p>{{ message() }}</p>
+  @if (actionLabel()) {
+    <app-button (click)="action.emit()">{{ actionLabel() }}</app-button>
+  }
+</section>
