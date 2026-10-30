@@ -12,6 +12,9 @@
     </div>
   } @else if (product(); as item) {
     <div class="breadcrumbs"><a routerLink="/shop">Shop</a><span>/</span><a routerLink="/shop">{{ item.category }}</a><span>/</span><span>{{ item.name }}</span></div>
+    @if (previewCatalog()) {
+      <p class="catalog-notice" role="status">Sample product preview. Shopping is disabled until the product API is connected.</p>
+    }
     <div class="product-main">
       <div class="gallery">
         <div class="gallery-thumbnails">
@@ -61,10 +64,10 @@
           <p class="stock-message">{{ selectedVariant()?.available }} available</p>
         }
         <div class="actions">
-          <button type="button" class="button button-outline" [disabled]="isOutOfStock() || isAddingToCart()" (click)="addToCart()">
+          <button type="button" class="button button-outline" [disabled]="previewCatalog() || isOutOfStock() || isAddingToCart()" (click)="addToCart()">
             {{ isAddingToCart() ? 'Adding...' : 'Add to Cart' }}
           </button>
-          <button type="button" class="button button-primary" [disabled]="isOutOfStock() || isAddingToCart()" (click)="addToCart(true)">Buy Now</button>
+          <button type="button" class="button button-primary" [disabled]="previewCatalog() || isOutOfStock() || isAddingToCart()" (click)="addToCart(true)">Buy Now</button>
         </div>
       </div>
     </div>

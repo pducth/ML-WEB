@@ -8,15 +8,15 @@
       <a routerLink="/" class="back-link">← Back to Home</a>
       <header class="quiz-heading">
         <span class="eyebrow">MOROCCANOIL · PERSONALIZED HAIRCARE</span>
-        <h1>Find your hair routine</h1>
+        <h1>Find the Ideal Regimen for Your Hair</h1>
         <p>Answer a few questions about your hair and we’ll recommend a routine tailored to your needs.</p>
       </header>
-      <div class="progress-label"><span>Step {{ currentStep() + 1 }} of {{ quiz.steps.length }}</span><strong>{{ quiz.steps[currentStep()].title_vi }}</strong></div>
+      <div class="progress-label"><span>Step {{ currentStep() + 1 }} of {{ quiz.steps.length }}</span><strong>{{ quiz.steps[currentStep()].title_en }}</strong></div>
       <div class="progress-track"><i [style.width.%]="(currentStep() + 1) / quiz.steps.length * 100"></i></div>
       <section class="question-card" aria-live="polite">
         @for (question of quiz.steps[currentStep()].questions; track question.id) {
           <div class="question-block">
-            <h2>{{ question.text_vi }} @if (question.required) { <span aria-label="required">*</span> }</h2>
+            <h2>{{ question.text_en }} @if (question.required) { <span aria-label="required">*</span> }</h2>
             <div class="options" [class.multi]="question.type === 'multi'">
               @for (option of question.options; track option.id) {
                 <button
@@ -27,7 +27,7 @@
                   (click)="setAnswer(question.id, option.id, question.type, option.exclusive ?? false)"
                 >
                   <span class="choice-mark" aria-hidden="true">{{ isSelected(question.id, option.id) ? '✓' : '' }}</span>
-                  <span class="option-copy"><strong>{{ option.label_vi }}</strong>@if (option.description_vi) { <small>{{ option.description_vi }}</small> }</span>
+                  <span class="option-copy"><strong>{{ option.label_en }}</strong>@if (option.description_en) { <small>{{ option.description_en }}</small> }</span>
                 </button>
               }
             </div>

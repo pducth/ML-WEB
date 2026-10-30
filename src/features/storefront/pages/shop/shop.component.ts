@@ -31,6 +31,7 @@ export class ShopComponent implements OnInit {
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(true);
   readonly errorMessage = signal('');
+  readonly previewCatalog = this.productsApi.previewCatalog;
   readonly searchQuery = signal('');
   readonly category = signal<ProductCategory | ''>('');
   readonly hairConcern = signal<HairConcern>('all');
@@ -90,7 +91,7 @@ export class ShopComponent implements OnInit {
   loadProducts(): void {
     this.isLoading.set(true);
     this.errorMessage.set('');
-    this.productsApi.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.productsApi.getAll(undefined, true).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (products) => {
         this.products.set(products);
         this.isLoading.set(false);
