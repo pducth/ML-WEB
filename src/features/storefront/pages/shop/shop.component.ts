@@ -10,6 +10,7 @@ import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-
 
 type StockFilter = 'all' | 'in-stock' | 'out-of-stock';
 type SortOrder = 'featured' | 'price-asc' | 'price-desc' | 'rating';
+type HairConcern = 'all' | 'dry' | 'damaged' | 'colored' | 'thin';
 const PAGE_SIZE = 8;
 
 @Component({
@@ -32,6 +33,7 @@ export class ShopComponent implements OnInit {
   readonly errorMessage = signal('');
   readonly searchQuery = signal('');
   readonly category = signal<ProductCategory | ''>('');
+  readonly hairConcern = signal<HairConcern>('all');
   readonly minimumPrice = signal('');
   readonly maximumPrice = signal('');
   readonly stockFilter = signal<StockFilter>('all');
@@ -49,6 +51,7 @@ export class ShopComponent implements OnInit {
         const isInStock = product.variants.some((variant) => variant.available > 0);
         return (
           (!this.category() || product.category === this.category()) &&
+          this.matchesHairConcern(product, this.hairConcern()) &&
           (!query || `${product.name} ${product.category} ${product.tags.join(' ')}`.toLowerCase().includes(query)) &&
           (minimum === null || price >= minimum) &&
           (maximum === null || price <= maximum) &&
@@ -113,6 +116,11 @@ export class ShopComponent implements OnInit {
     this.currentPage.set(1);
   }
 
+  setHairConcern(event: Event): void {
+    this.hairConcern.set((event.target as HTMLSelectElement).value as HairConcern);
+    this.currentPage.set(1);
+  }
+
   setPrice(event: Event, field: 'minimum' | 'maximum'): void {
     const value = (event.target as HTMLInputElement).value;
     (field === 'minimum' ? this.minimumPrice : this.maximumPrice).set(value);
@@ -138,14 +146,31 @@ export class ShopComponent implements OnInit {
     void this.router.navigate(['/products', product.id]);
   }
 
+  openQuiz(): void {
+    void this.router.navigate(['/quiz']);
+  }
+
   resetFilters(): void {
     this.searchQuery.set('');
     this.category.set('');
+    this.hairConcern.set('all');
     this.minimumPrice.set('');
     this.maximumPrice.set('');
     this.stockFilter.set('all');
     this.sortOrder.set('featured');
     this.currentPage.set(1);
     void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+  }
+
+  private matchesHairConcern(product: Product, concern: HairConcern): boolean {
+    if (concern === 'all') return true;
+    const tags = `${product.tags.join(' ')} ${product.name} ${product.description}`.toLowerCase();
+    const terms: Record<Exclude<HairConcern, 'all'>, string[]> = {
+      dry: ['dry', 'hydration', 'moisture'],
+      damaged: ['damage', 'repair', 'breakage', 'chemically treated'],
+      colored: ['color', 'colour', 'colored', 'colour-treated'],
+      thin: ['thin', 'fine', 'limp', 'volume'],
+    };
+    return terms[concern].some((term) => tags.includes(term));
   }
 }

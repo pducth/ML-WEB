@@ -1,6 +1,5 @@
 :host {
   display: block;
-  color: #302822;
 }
 
 .workspace {
@@ -180,10 +179,6 @@ small {
   margin-top: 10px;
   color: var(--muted);
   font-size: 12px;
-}
-
-.chart-caption strong {
-  color: #302822;
 }
 
 .action-row {
@@ -625,6 +620,9 @@ textarea {
   --muted: #bfb3ab;
   --line: #433a35;
   --surface: #272321;
+  --teal-light: #213b3d;
+  --brown: #d7b6a8;
+  --brown-light: #3e302b;
   color: #f1ebe6;
 }
 
