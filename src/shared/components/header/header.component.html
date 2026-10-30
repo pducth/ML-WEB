@@ -12,16 +12,16 @@
       aria-label="Moroccanoil home"
     >
       <img
-        src="/assets/brand/moroccanoil-wordmark.png"
+        src="/assets/brand/moroccanoil-emblem-header.png"
         alt="Moroccanoil"
-        class="header-brand-logo object-contain transition-transform duration-200 group-hover:scale-105"
+        class="h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105 sm:h-14 md:h-16"
       />
     </button>
 
     <nav class="hidden items-center space-x-1 md:flex lg:space-x-3" aria-label="Main navigation">
-      <button type="button" (click)="navigateTo.emit('/')" class="header-nav-link active">Home</button>
+      <button type="button" (click)="navigateTo.emit('/')" class="header-nav-link" [class.active]="isActive('home')">Home</button>
       <div class="shop-dropdown-wrapper">
-        <button type="button" (click)="navigateTo.emit('/shop')" class="header-nav-link flex items-center gap-1">
+        <button type="button" (click)="navigateTo.emit('/shop')" class="header-nav-link flex items-center gap-1" [class.active]="isActive('shop')">
           Shop
           <svg class="h-3.5 w-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path>
@@ -36,7 +36,7 @@
           <button type="button" (click)="filterCategory('Dry Shampoo')">Dry Shampoo</button>
         </div>
       </div>
-      <button type="button" (click)="startQuiz.emit()" class="header-nav-link flex items-center gap-1.5">
+      <button type="button" (click)="startQuiz.emit()" class="header-nav-link flex items-center gap-1.5" [class.active]="isActive('quiz')">
         Hair Quiz <span class="rounded-full bg-[#00A3A6] px-1.5 text-[10px] text-white">New</span>
       </button>
       @if (isAdmin()) {

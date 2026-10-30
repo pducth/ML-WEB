@@ -6,10 +6,9 @@
   <aside class="admin-sidebar" [class.sidebar-open]="sidebarOpen()" aria-label="Admin navigation">
     <a class="admin-brand" routerLink="/admin/dashboard" (click)="closeSidebar()">
       <img class="admin-brand-logo" src="/assets/brand/moroccanoil-wordmark.png" alt="Moroccanoil" />
-      <span class="admin-brand-caption">ADMIN PORTAL</span>
+      <span class="admin-brand-caption">HAIRCARE INSIGHT · ADMIN</span>
     </a>
 
-    <p class="nav-caption">WORKSPACE</p>
     <nav>
       @for (item of navItems; track item.route) {
         <a
@@ -26,24 +25,18 @@
     </nav>
 
     <div class="sidebar-profile">
-      <div class="profile-copy"><span class="profile-dot"></span><span><strong>Administrator</strong><small>Store management</small></span></div>
+      <div class="profile-copy"><span class="profile-dot"></span><span><strong>Admin</strong><small>Administrator</small></span></div>
       <button class="logout-button" type="button" (click)="logout()">↪ <span>Log out</span></button>
     </div>
-    <a class="store-link" routerLink="/" (click)="closeSidebar()">← View storefront</a>
   </aside>
 
   <div class="admin-main">
     <header class="admin-topbar">
-      <button class="sidebar-toggle" type="button" aria-label="Open admin menu" (click)="toggleSidebar()">☰</button>
-      <div class="breadcrumb"><span>Admin</span><span aria-hidden="true">/</span><strong>Workspace</strong></div>
+      <button class="sidebar-toggle" type="button" [attr.aria-expanded]="sidebarOpen()" aria-label="Open admin menu" (click)="toggleSidebar()">Menu <span aria-hidden="true">☰</span></button>
       <div class="topbar-actions">
         <button class="theme-toggle" type="button" (click)="toggleTheme()" [attr.aria-pressed]="darkTheme()" aria-label="Toggle dark mode">
           {{ darkTheme() ? '☀' : '☾' }}
         </button>
-        <div class="admin-user" aria-label="Administrator account">
-          <span class="avatar" aria-hidden="true">A</span>
-          <span>Admin</span>
-        </div>
       </div>
     </header>
 

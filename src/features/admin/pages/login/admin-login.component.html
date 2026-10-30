@@ -32,7 +32,7 @@
           type="email"
           name="email"
           autocomplete="username"
-          placeholder="admin@example.com"
+          placeholder="admin@haircare.vn"
           required
           [ngModel]="email()"
           (ngModelChange)="email.set($event)"
@@ -60,7 +60,7 @@
       <button class="submit" type="submit" [disabled]="loginForm.invalid || submitting()">
         {{ submitting() ? 'Signing in…' : 'Sign in' }}
       </button>
-      <small class="login-demo">Demo account: admin@example.com<br />Password: admin123</small>
+      <small class="login-demo">Demo account: admin@haircare.vn<br />Password: admin123</small>
     </form>
   </section>
 </main>

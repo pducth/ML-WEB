@@ -8,3 +8,98 @@
 @import "./styles/globals.css";
 @import "./styles/styleguide.css";
 @import "./styles/style.css";
+
+.admin-shell .workspace .trend {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-shell .workspace .trend.up {
+  color: #2e9e6b;
+}
+
+.admin-shell .workspace .trend.down {
+  color: #d64545;
+}
+
+.admin-shell .workspace .dashboard-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.admin-shell .workspace .chart-grid {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.admin-shell .workspace .chart-axis {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.admin-shell .workspace .chart-area {
+  fill: rgb(75 163 171 / 12%);
+}
+
+.admin-shell .workspace .chart-line,
+.admin-shell .workspace .chart-forecast {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.admin-shell .workspace .chart-line {
+  stroke: var(--teal);
+}
+
+.admin-shell .workspace .chart-forecast {
+  stroke: var(--brown);
+  stroke-dasharray: 7 6;
+}
+
+.admin-shell .workspace .chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.admin-shell .workspace .chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.admin-shell .workspace .chart-legend i {
+  width: 18px;
+  border-top: 3px solid var(--teal);
+}
+
+.admin-shell .workspace .chart-legend .projected {
+  border-top: 3px dashed var(--brown);
+}
+
+.admin-shell .workspace .range-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.admin-shell .workspace .range-label select {
+  min-height: 36px;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.admin-shell .workspace .action-row strong {
+  color: var(--teal-dark);
+  font-size: 12px;
+}
