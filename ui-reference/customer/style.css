@@ -1,0 +1,977 @@
+.trang-ch {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    background-color: var(--moroccanoil-semantic-background-primary);
+}
+
+.trang-ch .sticky-navbar {
+    display: flex;
+    height: 96px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 64px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background-color: #ffffffcc;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+    box-shadow: 0px 8px 24px #0000000d;
+    backdrop-filter: blur(12px) brightness(100%);
+    -webkit-backdrop-filter: blur(12px) brightness(100%);
+}
+
+.trang-ch .div {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .frame {
+    display: flex;
+    flex-direction: column;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--moroccanoil-semantic-accent-primary);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+}
+
+.trang-ch .text-wrapper {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-surface-card);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .frame-2 {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-2 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.trang-ch .p {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .navbar {
+    display: inline-flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-3 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .text-wrapper-4 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .div-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-16);
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .div-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+}
+
+.trang-ch .vector-wrapper {
+    position: relative;
+    width: 18px;
+    height: 18px;
+}
+
+.trang-ch .vector {
+    position: absolute;
+    width: 93.06%;
+    height: 93.06%;
+    top: 6.94%;
+    left: 6.94%;
+}
+
+.trang-ch .img {
+    position: absolute;
+    width: 97.23%;
+    height: 88.96%;
+    top: 11.04%;
+    left: 2.77%;
+}
+
+.trang-ch .vector-2 {
+    position: absolute;
+    width: 93.06%;
+    height: 97.23%;
+    top: 2.77%;
+    left: 6.94%;
+}
+
+.trang-ch .frame-3 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 10px 14px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+}
+
+.trang-ch .img-wrapper {
+    position: relative;
+    width: 16px;
+    height: 16px;
+}
+
+.trang-ch .vector-3 {
+    position: absolute;
+    width: 85.42%;
+    height: 93.75%;
+    top: 6.25%;
+    left: 14.58%;
+}
+
+.trang-ch .text-wrapper-5 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .hero-banner {
+    display: flex;
+    height: 640px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 72px 64px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background: linear-gradient(0deg,
+            rgba(253, 251, 249, 0.18) 0%,
+            rgba(253, 251, 249, 0.18) 100%);
+}
+
+.trang-ch .hero-copy {
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-24);
+    position: relative;
+}
+
+.trang-ch .frame-4 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: var(--moroccanoil-semantic-spacing-8) 12px var(--moroccanoil-semantic-spacing-8) 12px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #ffffffcc;
+    border-radius: 999px;
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+    backdrop-filter: blur(8px) brightness(100%);
+    -webkit-backdrop-filter: blur(8px) brightness(100%);
+}
+
+.trang-ch .text-wrapper-6 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-accent-primary);
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .text-wrapper-7 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 56px;
+    letter-spacing: 0;
+    line-height: 61.6px;
+}
+
+.trang-ch .text-wrapper-8 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27px;
+}
+
+.trang-ch .frame-5 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 14px 20px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-accent-primary);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    box-shadow: 0px 10px 24px #00a3a633;
+}
+
+.trang-ch .text-wrapper-9 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-surface-card);
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.trang-ch .vector-4 {
+    position: absolute;
+    width: 85.42%;
+    height: 85.42%;
+    top: 14.58%;
+    left: 14.58%;
+}
+
+.trang-ch .frame-6 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 14px 20px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+}
+
+.trang-ch .text-wrapper-10 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.trang-ch .frame-7 {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .check {
+    position: relative;
+    width: 14px;
+    height: 14px;
+}
+
+.trang-ch .vector-5 {
+    position: absolute;
+    width: 90.47%;
+    height: 82.14%;
+    top: 17.86%;
+    left: 9.53%;
+}
+
+.trang-ch .text-wrapper-11 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .hero-visual {
+    position: relative;
+    width: 560px;
+    height: 500px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+    border-radius: 24px;
+    box-shadow: 0px 20px 40px #00000014;
+    background-image: url(./img/hero-visual.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .hair-quiz-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--moroccanoil-semantic-spacing-48) 64px var(--moroccanoil-semantic-spacing-48) 64px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-background-primary);
+}
+
+.trang-ch .quiz-card {
+    display: flex;
+    width: 760px;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-24);
+    padding: 32px;
+    position: relative;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: 24px;
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+    box-shadow: 0px 12px 32px #0000000a;
+}
+
+.trang-ch .quiz-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-16);
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.trang-ch .frame-8 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: var(--moroccanoil-semantic-spacing-8) 12px var(--moroccanoil-semantic-spacing-8) 12px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #00a3a61a;
+    border-radius: 999px;
+}
+
+.trang-ch .text-wrapper-12 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 32px;
+    letter-spacing: 0;
+    line-height: 38.4px;
+}
+
+.trang-ch .text-wrapper-13 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+
+.trang-ch .frame-9 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 14px 20px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-accent-primary);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+}
+
+.trang-ch .text-wrapper-14 {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .quiz-visual {
+    position: relative;
+    width: 280px;
+    height: 220px;
+    border-radius: 20px;
+    background-image: url(./img/quiz-visual.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .benefits-card {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-16);
+    padding: var(--moroccanoil-semantic-spacing-24);
+    position: relative;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: 24px;
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+    box-shadow: 0px 12px 32px #0000000a;
+}
+
+.trang-ch .text-wrapper-15 {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .frame-10 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.trang-ch .frame-11 {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    background-color: var(--moroccanoil-semantic-accent-primary);
+    border-radius: 4px;
+}
+
+.trang-ch .text-wrapper-16 {
+    position: relative;
+    flex: 1;
+    margin-top: -1px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.trang-ch .best-sellers-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-24);
+    padding: var(--moroccanoil-semantic-spacing-48) 64px var(--moroccanoil-semantic-spacing-48) 64px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-background-primary);
+}
+
+.trang-ch .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.trang-ch .frame-12 {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-17 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 32px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .text-wrapper-18 {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.trang-ch .frame-13 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 14px 18px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+}
+
+.trang-ch .grid-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-24);
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.trang-ch .product-card {
+    display: flex;
+    flex-direction: column;
+    width: 304px;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-16);
+    padding: var(--moroccanoil-semantic-spacing-16);
+    position: relative;
+    background-color: var(--moroccanoil-semantic-surface-card);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    border: 1px solid;
+    border-color: var(--moroccanoil-semantic-border-subtle);
+    box-shadow: 0px 12px 32px #0000000a;
+}
+
+.trang-ch .image {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-6.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .frame-14 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .frame-15 {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 6px 10px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #00a3a61a;
+    border-radius: 999px;
+}
+
+.trang-ch .frame-16 {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 6px 10px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #c89b581a;
+    border-radius: 999px;
+}
+
+.trang-ch .text-wrapper-19 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-accent-secondary);
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.trang-ch .frame-17 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-20 {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .text-wrapper-21 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--moroccanoil-semantic-text-secondary);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.trang-ch .div-3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-22 {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-text-primary);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .frame-18 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moroccanoil-semantic-spacing-8);
+    padding: 10px 14px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-accent-primary);
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+}
+
+.trang-ch .text-wrapper-23 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-surface-card);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .image-2 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-3 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-2.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-4 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-8.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-5 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-7.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-6 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-3.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-7 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-4.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .image-8 {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--moroccanoil-semantic-radius-card-button);
+    background-image: url(./img/image-5.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.trang-ch .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: var(--moroccanoil-semantic-spacing-48) 64px 32px 64px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: var(--moroccanoil-semantic-text-primary);
+}
+
+.trang-ch .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+    width: 100%;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .brand-column {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-16);
+    position: relative;
+}
+
+.trang-ch .text-wrapper-24 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--moroccanoil-semantic-surface-card);
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.trang-ch .text-wrapper-25 {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffffb2;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .text-wrapper-26 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffffb2;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.trang-ch .frame-19 {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .footer-links {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 64px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .frame-20 {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.trang-ch .text-wrapper-27 {
+    position: relative;
+    width: fit-content;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffffb2;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .rectangle {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff1a;
+}
+
+.trang-ch .text-wrapper-28 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffffb2;
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.trang-ch .frame-21 {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--moroccanoil-semantic-spacing-24);
+    position: relative;
+    flex: 0 0 auto;
+}

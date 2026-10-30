@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HairCare Insight | Official Moroccanoil Authorized Retailer</title>
+    <meta name="description"
+        content="HairCare Insight - Authorized online retailer of genuine Moroccanoil products. Featuring AI-powered Hair Quiz for personalized hair care routines and smart inventory forecasting." />
+    <link rel="icon" type="image/png" href="Moroccanoil-Emblem.png" />
+
+    <!-- Google Fonts: Plus Jakarta Sans (Modern Sans-serif, No Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-brown': '#6E473B',
+                        'primary-brown-light': '#8A5B4D',
+                        'deep-brown': '#4A2E2B',
+                        'cream-sand': '#FDFBF7',
+                        'cream-subtle': '#F7F3EC',
+                        'teal-morocco': '#00A3A6',
+                        'teal-light': '#E0F7F7',
+                        'warm-gold': '#C89B58',
+                        'border-subtle': '#E7E3DC'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="globals.css">
+    <link rel="stylesheet" href="styleguide.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#FDFBF7] text-[#2C2420] font-sans antialiased selection:bg-[#6E473B]/20 selection:text-[#4A2E2B]">
+
+    <!-- ========================================================
+         STICKY HEADER & LUXURY NAVIGATION BAR
+         ======================================================== -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E7E3DC] transition-all">
+        <!-- Top Announcement Bar -->
+        <div
+            class="bg-[#4A2E2B] text-[#FDFBF7] text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2">
+            <span>✨ EXCLUSIVE OFFER: Free shipping on orders over $35 • Use code <strong
+                    class="text-[#00A3A6] font-bold">MOROCCO10</strong> for 10% off</span>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- Brand Logo (Emblem without circular box, sized nicely) -->
+            <div class="flex items-center cursor-pointer select-none group shrink-0 py-1" onclick="App.navigateTo('c01-home')" title="Moroccanoil">
+                <img src="Moroccanoil-Emblem.png" alt="Moroccanoil" class="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-105" />
+            </div>
+
+            <!-- Main Nav Links -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-3">
+                <button onclick="App.navigateTo('c01-home')" data-target="c01-home"
+                    class="nav-link-item px-3 py-2 text-sm font-semibold text-[#6E473B] border-b-2 border-[#6E473B] transition-all hover:text-[#6E473B]">
+                    Home
+                </button>
+                <div class="shop-dropdown-wrapper">
+                    <button onclick="App.navigateTo('c02-shop')" data-target="c02-shop"
+                        class="nav-link-item px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B] flex items-center gap-1">
+                        Shop
+                        <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="shop-mega-menu">
+                        <button onclick="App.filterShopByCategory('styling')">Styling & Finishing</button>
+                        <button onclick="App.filterShopByCategory('mask')">Hair Masks</button>
+                        <button onclick="App.filterShopByCategory('shampoo')">Shampoo</button>
+                        <button onclick="App.filterShopByCategory('conditioner')">Conditioner</button>
+                        <button onclick="App.filterShopByCategory('oil')">Treatment / Oil</button>
+                        <button onclick="App.filterShopByCategory('dry-shampoo')">Dry Shampoo</button>
+                    </div>
+                </div>
+                <button onclick="App.startQuiz()" data-target="c04-quiz"
+                    class="nav-link-item px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B] flex items-center gap-1.5">
+                    <span>Hair Quiz</span>
+                    <span class="badge-teal text-[10px] py-0 px-1.5">New</span>
+                </button>
+                <button id="header-admin-nav" onclick="App.navigateTo('admin-dashboard')" data-target="admin-dashboard"
+                    class="nav-link-item hidden px-3 py-2 text-sm font-bold text-red-700 bg-red-50 rounded-lg hover:bg-red-100 transition-all">
+                    Admin Portal
+                </button>
+            </nav>
+
+            <!-- Center Luxury Search Bar (Enriches the header) -->
+            <div class="hidden lg:flex items-center flex-1 max-w-xs xl:max-w-sm mx-2">
+                <div class="relative w-full">
+                    <input type="text" id="header-search-input"
+                        placeholder="Search argan oil, shampoo, mask..."
+                        onkeydown="if(event.key==='Enter'){ App.handleHeaderSearch(this.value); }"
+                        class="w-full bg-[#F7F3EC] text-[#4A2E2B] text-xs rounded-full pl-9 pr-4 py-2 border border-[#E7E3DC] focus:border-[#6E473B] focus:bg-white focus:outline-none transition-all placeholder:text-[#9B938B]" />
+                    <svg class="w-4 h-4 text-[#9B938B] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Salon Expert Advisory Pill -->
+            <div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F7F3EC] border border-[#E7E3DC] text-[11px] text-[#6B625B] shrink-0">
+                <span class="w-2 h-2 rounded-full bg-[#00A3A6] animate-pulse"></span>
+                <span>Salon Advisor: <a href="tel:19006868" class="font-bold text-[#4A2E2B] hover:text-[#6E473B]">1900 6868</a></span>
+            </div>
+
+            <!-- Actions: Search (Mobile/Tablet), User, Cart Drawer Trigger -->
+            <div class="flex items-center space-x-3 shrink-0">
+                <!-- Search Button (Mobile/Tablet) -->
+                <button onclick="App.navigateTo('c02-shop')"
+                    class="lg:hidden p-2.5 rounded-full text-[#4A2E2B] hover:bg-[#F7F3EC] transition-all" title="Search">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+
+                <!-- Auth / Profile Button -->
+                <button
+                    onclick="STORE_DATA.currentUser.role === 'guest' ? App.openAuthModal() : App.navigateTo('c12-profile')"
+                    class="flex items-center gap-2 px-3.5 py-2 rounded-full border border-[#E7E3DC] hover:border-[#6E473B] text-[#4A2E2B] text-xs font-semibold hover:bg-[#F7F3EC] transition-all">
+                    <svg class="w-4 h-4 text-[#6E473B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span id="header-auth-btn-text">Sign In</span>
+                </button>
+
+                <!-- Cart Button with Dynamic Badge -->
+                <button onclick="App.openCart()"
+                    class="relative p-2.5 rounded-full bg-[#6E473B] text-white hover:bg-[#4A2E2B] hover:scale-105 active:scale-95 transition-all shadow-md"
+                    title="Shopping Bag">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span id="header-cart-badge"
+                        class="absolute -top-1.5 -right-1.5 bg-[#00A3A6] text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow">2</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================
+         MAIN SPA CONTAINER - DYNAMIC SECTION SCREENS
+         ======================================================== -->
+    <main id="app-viewport" class="min-h-[calc(100vh-160px)] pb-24">
+
+        <!-- ====================================================
+             C01 - HOMEPAGE (HERO & FEATURED)
+             ==================================================== -->
+        <section id="page-c01-home" class="app-screen animate-fadeIn">
+            <!-- C01 - Hero Section with 3D Parallax & 3 Iconic Bottles -->
+            <div
+                class="relative w-full h-[700px] sm:h-[850px] lg:h-[1067px] overflow-hidden bg-[#241710] select-none flex justify-center">
+                <!-- 1200px Centered Stage exactly matching the original Framer layout geometry -->
+                <div class="relative w-[1200px] h-[1067px] shrink-0" style="perspective: 1200px;">
+                    <div id="hero-parallax-stage" class="relative w-full h-full will-change-transform"
+                        style="transform-style: preserve-3d; transition: transform 0.06s ease-out;">
+                        <!-- LAYER 1: Mainbg -->
+                        <div id="parallax-layer-1"
+                            class="absolute top-0 -left-0.5 -right-0.5 overflow-visible pointer-events-none will-change-transform"
+                            style="aspect-ratio: 1.57598; min-height: 1067px; transform: translate3d(0px, 0px, 0px) scale(1.22); transform-origin: top center;">
+                            <img src="https://framerusercontent.com/images/oSoiTQN3dsBvDyEhzHYYw63Qggk.png?width=1286&height=816"
+                                alt="Mainbg" class="w-full h-full block object-cover" loading="eager" />
+                        </div>
+
+                        <!-- LAYER 2: Group 4 đá 1 -->
+                        <div id="parallax-layer-2"
+                            class="absolute top-0 left-0 w-[1257px] max-w-none overflow-visible pointer-events-none will-change-transform"
+                            style="aspect-ratio: 1.376; min-height: 1000px; transform: translate3d(0px, 0px, -50px) scale(1.12); transform-origin: top center;">
+                            <img src="https://framerusercontent.com/images/ZSNSwk4QUIfvIkmhbPea8dFDFc.png?width=1376&height=1000"
+                                alt="Group 4" class="w-full h-auto block object-cover" loading="eager" />
+                        </div>
+
+                        <!-- LAYER 3: 3 đá 2 -->
+                        <div id="parallax-layer-3"
+                            class="absolute top-0 -left-9 w-[1239px] max-w-none overflow-visible pointer-events-none will-change-transform"
+                            style="aspect-ratio: 1.376; transform: translate3d(0px, 0px, 0px) scale(1.03);">
+                            <img src="https://framerusercontent.com/images/9tszH4tp6QFSsJ8Pm6cstmXNA.png?width=1376&height=1000"
+                                alt="3" class="w-full h-auto block object-cover" loading="eager" />
+                        </div>
+
+                        <!-- LAYER 4: 2 sp -->
+                        <div id="parallax-layer-4"
+                            class="absolute top-50 left-0 w-[1203px] max-w-none overflow-visible pointer-events-none will-change-transform"
+                            style="aspect-ratio: 1.376; transform: translate3d(0px, 0px, 50px) scale(1.04);">
+                            <img src="https://framerusercontent.com/images/EZDkvBxWChphvysa174ppnUvsY.png?"
+                                alt="2" class="w-full h-auto block object-cover" loading="eager" />
+                        </div>
+
+                        <!-- LAYER 5: Bgexx -->
+                        <div id="parallax-layer-5"
+                            class="absolute -bottom-[121px] left-0 -right-[17px] overflow-visible pointer-events-none will-change-transform"
+                            style="aspect-ratio: 2.29333; transform: translate3d(0px, 0px, 100px) scale(1.05);">
+                            <img src="https://framerusercontent.com/images/zauzzFLzFOqZiGBlduZu5aKQSE.png?width=1376&height=600"
+                                alt="Bgexx" class="w-full h-auto block object-cover" loading="eager" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overlay CTA Buttons -->
+                <div class="absolute bottom-12 z-20 flex flex-wrap items-center justify-center gap-4 px-4">
+                    <button onclick="App.navigateTo('c02-shop')"
+                        class="btn-cta-buy text-sm px-8 py-3.5 shadow-2xl backdrop-blur-sm">
+                        <span>Explore the Argan Collection</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                    <button onclick="App.startQuiz()"
+                        class="btn-secondary text-sm px-7 py-3.5 bg-white/10 text-white border-white/40 hover:bg-white hover:text-[#4A2E2B] backdrop-blur-md">
+                        <span>Take the Hair Quiz (1 min)</span>
+                    </button>
+                </div>
+
+                <!-- Gentle transition shadow at the bottom to blend into Section 2 -->
+                <div
+                    class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FDFBF7] to-transparent pointer-events-none">
+                </div>
+            </div>
+
+            <!-- 4 Brand Commitments Banner -->
+            <section class="bg-white border-b border-[#E7E3DC] py-6 shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="flex flex-col items-center gap-1.5 p-3">
+                        <span
+                            class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🛡️</span>
+                        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">100% Authentic</h4>
+                        <p class="text-[11px] text-[#6B625B]">Verified anti-counterfeit hologram from Moroccanoil Israel</p>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1.5 p-3">
+                        <span
+                            class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🚚</span>
+                        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">Free Shipping</h4>
+                        <p class="text-[11px] text-[#6B625B]">On all orders over $35 nationwide</p>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1.5 p-3">
+                        <span
+                            class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">🔄</span>
+                        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">7-Day Returns</h4>
+                        <p class="text-[11px] text-[#6B625B]">Full refund guarantee for defective products</p>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1.5 p-3">
+                        <span
+                            class="w-9 h-9 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-base">✨</span>
+                        <h4 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">Salon-Grade Quality</h4>
+                        <p class="text-[11px] text-[#6B625B]">Trusted by 80,000+ professional salons worldwide</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-[#6E473B] uppercase tracking-wider">EDITOR'S PICKS</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#4A2E2B] mt-1">Most Loved Products
+                        </h2>
+                    </div>
+                    <button onclick="App.navigateTo('c02-shop')"
+                        class="text-sm font-bold text-[#6E473B] hover:text-[#4A2E2B] flex items-center gap-1">
+                        <span>View full collection</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Product 1 -->
+                    <div class="group product-card flex flex-col justify-between">
+                        <div class="relative overflow-hidden aspect-square bg-[#FAF7F2] cursor-pointer"
+                            onclick="App.navigateTo('c03-pdp', 'm-01')">
+                            <img src="https://images.unsplash.com/photo-1608248597359-543329158fa9?auto=format&fit=crop&w=700&q=80"
+                                alt="Moroccanoil Treatment" class="card-img w-full h-full object-cover" />
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 mb-1.5 text-xs text-[#00A3A6] font-bold">★★★★★
+                                    <span class="text-[#9B938B] font-normal">(542)</span></div>
+                                <h3 class="font-bold text-[#4A2E2B] text-sm hover:text-[#6E473B] cursor-pointer"
+                                    onclick="App.navigateTo('c03-pdp', 'm-01')">Moroccanoil Treatment Original</h3>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-[#E7E3DC] flex items-center justify-between">
+                                <span class="font-bold text-[#6E473B] text-base">$34.00</span>
+                                <button onclick="App.addToCart('m-01')" class="btn-cta-buy text-xs py-1.5 px-3">Add to
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="group product-card flex flex-col justify-between">
+                        <div class="relative overflow-hidden aspect-square bg-[#FAF7F2] cursor-pointer"
+                            onclick="App.navigateTo('c03-pdp', 'm-02')">
+                            <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=700&q=80"
+                                alt="Moisture Repair Shampoo" class="card-img w-full h-full object-cover" />
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 mb-1.5 text-xs text-[#00A3A6] font-bold">★★★★★
+                                    <span class="text-[#9B938B] font-normal">(388)</span></div>
+                                <h3 class="font-bold text-[#4A2E2B] text-sm hover:text-[#6E473B] cursor-pointer"
+                                    onclick="App.navigateTo('c03-pdp', 'm-02')">Moisture Repair Shampoo</h3>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-[#E7E3DC] flex items-center justify-between">
+                                <span class="font-bold text-[#6E473B] text-base">$27.00</span>
+                                <button onclick="App.addToCart('m-02')" class="btn-cta-buy text-xs py-1.5 px-3">Add to
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="group product-card flex flex-col justify-between">
+                        <div class="relative overflow-hidden aspect-square bg-[#FAF7F2] cursor-pointer"
+                            onclick="App.navigateTo('c03-pdp', 'm-04')">
+                            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
+                                alt="Intense Hydrating Mask" class="card-img w-full h-full object-cover" />
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 mb-1.5 text-xs text-[#00A3A6] font-bold">★★★★★
+                                    <span class="text-[#9B938B] font-normal">(420)</span></div>
+                                <h3 class="font-bold text-[#4A2E2B] text-sm hover:text-[#6E473B] cursor-pointer"
+                                    onclick="App.navigateTo('c03-pdp', 'm-04')">Intense Hydrating Mask</h3>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-[#E7E3DC] flex items-center justify-between">
+                                <span class="font-bold text-[#6E473B] text-base">$37.00</span>
+                                <button onclick="App.addToCart('m-04')" class="btn-cta-buy text-xs py-1.5 px-3">Add to
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="group product-card flex flex-col justify-between">
+                        <div class="relative overflow-hidden aspect-square bg-[#FAF7F2] cursor-pointer"
+                            onclick="App.navigateTo('c03-pdp', 'm-05')">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=80"
+                                alt="Heat Protectant" class="card-img w-full h-full object-cover" />
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 mb-1.5 text-xs text-[#00A3A6] font-bold">★★★★★
+                                    <span class="text-[#9B938B] font-normal">(180)</span></div>
+                                <h3 class="font-bold text-[#4A2E2B] text-sm hover:text-[#6E473B] cursor-pointer"
+                                    onclick="App.navigateTo('c03-pdp', 'm-05')">Perfect Defense Heat Protectant</h3>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-[#E7E3DC] flex items-center justify-between">
+                                <span class="font-bold text-[#6E473B] text-base">$32.00</span>
+                                <button onclick="App.addToCart('m-05')" class="btn-cta-buy text-xs py-1.5 px-3">Add to
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hair Quiz Promotional Banner -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div
+                    class="bg-gradient-to-r from-[#6E473B] to-[#4A2E2B] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="max-w-2xl relative z-10 space-y-4">
+                        <span class="badge-teal bg-white/20 text-white border-white/30">PERSONALIZED HAIR DIAGNOSIS</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Find Your Perfect Hair Routine</h2>
+                        <p class="text-sm sm:text-base text-[#FDFBF7]/90 leading-relaxed">
+                            Take our 60-second quiz to diagnose your hair type and damage level. Our Moroccanoil hair specialists will curate a personalized regimen designed just for you.
+                        </p>
+                        <div class="pt-4 flex flex-wrap items-center gap-4">
+                            <button onclick="App.startQuiz()"
+                                class="px-8 py-3.5 bg-white text-[#4A2E2B] rounded-full font-bold text-sm hover:bg-[#FDFBF7] hover:shadow-lg transition-all active:scale-95">
+                                Start Hair Quiz Now
+                            </button>
+                            <span class="text-xs text-white/80 font-medium">⏱ Free & Get 15% Off Your Routine</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Heritage & Argan Story -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="aspect-[16/10] rounded-3xl overflow-hidden shadow-lg border border-[#E7E3DC]">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=80"
+                            alt="Argan Heritage" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="space-y-5">
+                        <span class="text-xs font-bold text-[#6E473B] uppercase tracking-wider">OUR HERITAGE</span>
+                        <h2 class="text-3xl font-extrabold text-[#4A2E2B]">The Pure Essence of Mediterranean Argan Oil</h2>
+                        <p class="text-sm sm:text-base text-[#6B625B] leading-relaxed">
+                            Moroccanoil began with a transformative journey when co-founder Carmen Tal experienced the remarkable restorative power of argan oil after a hair coloring emergency. Since then, we have perfected our iconic formula, infusing the world's finest pure argan oil with modern hair science to empower millions of women worldwide.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-2xl bg-white border border-[#E7E3DC]">
+                                <span class="block text-2xl font-black text-[#6E473B]">100%</span>
+                                <span class="text-xs font-medium text-[#6B625B]">Pure Cold-Pressed Argan Oil</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white border border-[#E7E3DC]">
+                                <span class="block text-2xl font-black text-[#00A3A6]">70+</span>
+                                <span class="text-xs font-medium text-[#6B625B]">Countries Globally Distributed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C02 - SHOP (STOREFRONT & FILTERS)
+             ==================================================== -->
+        <section id="page-c02-shop" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <!-- Breadcrumbs -->
+                <div class="text-xs text-[#9B938B] mb-6 flex items-center gap-2">
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c01-home')">Home</span>
+                    <span>/</span>
+                    <span class="text-[#4A2E2B] font-semibold">Moroccanoil Shop</span>
+                </div>
+
+                <!-- Shop Header -->
+                <div
+                    class="bg-[#F7F3EC] p-8 rounded-3xl border border-[#E7E3DC] mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl font-extrabold text-[#4A2E2B]">Moroccanoil Haircare Collection</h1>
+                        <p class="text-sm text-[#6B625B] mt-1">Explore our complete range of nourishing argan oils, restorative shampoos, conditioners, and intensive hair masks.</p>
+                    </div>
+                    <div
+                        class="text-sm font-semibold text-[#6E473B] bg-white px-4 py-2 rounded-xl border border-[#E7E3DC] shadow-sm">
+                        Showing: <span id="shop-product-count" class="font-bold text-[#4A2E2B]">6 products</span>
+                    </div>
+                </div>
+
+                <!-- Filters & Grid Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <!-- Sidebar Filters -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm space-y-6">
+                            <h3 class="font-bold text-[#4A2E2B] text-base border-b border-[#E7E3DC] pb-3">Filter & Refine</h3>
+
+                            <!-- Category Filter -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-[#6B625B] mb-2">Product Category</label>
+                                <select id="shop-category-filter"
+                                    class="w-full text-sm border border-[#E7E3DC] rounded-xl p-2.5 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B]">
+                                    <option value="all">All Categories (6)</option>
+                                    <option value="styling">Styling & Finishing (24 products)</option>
+                                    <option value="mask">Hair Masks (11 products)</option>
+                                    <option value="shampoo">Shampoo (10 products)</option>
+                                    <option value="conditioner">Conditioner (8 products)</option>
+                                    <option value="oil">Treatment / Oil (4 products)</option>
+                                    <option value="dry-shampoo">Dry Shampoo (2 products)</option>
+                                </select>
+                            </div>
+
+                            <!-- Hair Type Filter -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-[#6B625B] mb-2">Hair Type & Concern</label>
+                                <select id="shop-hairtype-filter"
+                                    class="w-full text-sm border border-[#E7E3DC] rounded-xl p-2.5 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B]">
+                                    <option value="all">All Hair Types</option>
+                                    <option value="dry">Dry & Dehydrated</option>
+                                    <option value="damaged">Damaged & Chemically Treated</option>
+                                    <option value="colored">Color-Treated</option>
+                                    <option value="thin">Fine & Limp Hair</option>
+                                </select>
+                            </div>
+
+                            <!-- Sort Filter -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-[#6B625B] mb-2">Sort By</label>
+                                <select id="shop-sort-filter"
+                                    class="w-full text-sm border border-[#E7E3DC] rounded-xl p-2.5 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B]">
+                                    <option value="best-seller">Best Sellers</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Highest Rated (5.0★)</option>
+                                </select>
+                            </div>
+
+                            <!-- Quiz Suggestion Box -->
+                            <div class="p-4 rounded-xl bg-[#6E473B]/10 border border-[#6E473B]/20 text-center">
+                                <p class="text-xs font-bold text-[#4A2E2B] mb-1">Need product advice?</p>
+                                <p class="text-[11px] text-[#6B625B] mb-3">Take our 1-minute quiz for your personalized routine.</p>
+                                <button onclick="App.startQuiz()"
+                                    class="w-full py-2 bg-[#6E473B] text-white rounded-lg text-xs font-bold hover:bg-[#4A2E2B] transition-colors">Start Hair Quiz</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid Container -->
+                    <div class="lg:col-span-3">
+                        <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Populated by App.renderShopProducts() -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C03 - PRODUCT DETAIL PAGE (PDP)
+             ==================================================== -->
+        <section id="page-c03-pdp" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <!-- Breadcrumb -->
+                <div class="text-xs text-[#9B938B] mb-6 flex items-center gap-2">
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c01-home')">Home</span>
+                    <span>/</span>
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c02-shop')">Shop</span>
+                    <span>/</span>
+                    <span id="pdp-breadcrumb-title" class="text-[#4A2E2B] font-semibold">Product Details</span>
+                </div>
+
+                <!-- 2-Column Product Detail Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Left: Gallery -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div
+                            class="aspect-square rounded-3xl overflow-hidden bg-white border border-[#E7E3DC] shadow-sm relative">
+                            <img id="pdp-main-image"
+                                src="https://images.unsplash.com/photo-1608248597359-543329158fa9?auto=format&fit=crop&w=800&q=80"
+                                alt="Product" class="w-full h-full object-cover" />
+                        </div>
+
+                        <!-- Thumbnail Selectors -->
+                        <div id="pdp-thumbnails" class="flex gap-3">
+                            <!-- Populated by App.renderPDP() -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Info, Price, Sizes & CTA -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="badge-teal">Best Seller</span>
+                                <div class="flex text-[#00A3A6] text-sm">★★★★★</div>
+                                <span class="text-xs font-bold text-[#00A3A6]">5.0</span>
+                                <span class="text-xs text-[#9B938B]">(542 verified reviews)</span>
+                            </div>
+                            <h1 id="pdp-title" class="text-2xl sm:text-3xl font-extrabold text-[#4A2E2B]">Moroccanoil Treatment Original</h1>
+                            <p id="pdp-desc" class="text-sm text-[#6B625B] mt-3 leading-relaxed">The foundational styling product for all hair types. Infused with antioxidant-rich argan oil and shine-boosting vitamins for smooth, nourished hair.</p>
+                        </div>
+
+                        <!-- Price Section -->
+                        <div
+                            class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E7E3DC] flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-[#6B625B] block">Retail Price:</span>
+                                <div class="flex items-center gap-3">
+                                    <span id="pdp-price"
+                                        class="text-2xl sm:text-3xl font-extrabold text-[#6E473B]">$34.00</span>
+                                    <span id="pdp-original-price"
+                                        class="text-sm text-[#9B938B] line-through">$38.00</span>
+                                </div>
+                            </div>
+                            <span id="pdp-stock-status"
+                                class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">In Stock & Ready to Ship</span>
+                        </div>
+
+                        <!-- Capacity Sizes Selection -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-[#4A2E2B] mb-2.5">Select Size:</label>
+                            <div id="pdp-sizes" class="flex flex-wrap gap-2.5">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Quantity & Buttons -->
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center border border-[#E7E3DC] rounded-full bg-white px-2 py-1">
+                                    <button
+                                        onclick="let inp = document.getElementById('pdp-qty-input'); inp.value = Math.max(1, parseInt(inp.value)-1);"
+                                        class="w-8 h-8 flex items-center justify-center text-[#4A2E2B] font-bold">-</button>
+                                    <input id="pdp-qty-input" type="number" value="1" min="1"
+                                        class="w-12 text-center text-sm font-bold bg-transparent outline-none" />
+                                    <button
+                                        onclick="let inp = document.getElementById('pdp-qty-input'); inp.value = parseInt(inp.value)+1;"
+                                        class="w-8 h-8 flex items-center justify-center text-[#4A2E2B] font-bold">+</button>
+                                </div>
+
+                                <button onclick="App.addCurrentPDPToCart()" class="btn-primary flex-1 py-3 text-sm">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                    </svg>
+                                    <span>Add to Bag</span>
+                                </button>
+                            </div>
+
+                            <button
+                                onclick="App.addCurrentPDPToCart(); App.closeCart(); App.navigateTo('c07-checkout');"
+                                class="btn-cta-buy w-full py-3.5 text-sm font-bold shadow-md">
+                                Buy Now - Fast Nationwide Shipping
+                            </button>
+                        </div>
+
+                        <!-- Guarantee Badges -->
+                        <div class="grid grid-cols-3 gap-3 pt-4 border-t border-[#E7E3DC] text-center">
+                            <div class="p-3 bg-white rounded-xl border border-[#E7E3DC]">
+                                <span class="text-base block">🛡️</span>
+                                <span class="text-[11px] font-semibold text-[#4A2E2B] block mt-1">100% Authentic</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-[#E7E3DC]">
+                                <span class="text-base block">🔄</span>
+                                <span class="text-[11px] font-semibold text-[#4A2E2B] block mt-1">7-Day Returns</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-[#E7E3DC]">
+                                <span class="text-base block">🚚</span>
+                                <span class="text-[11px] font-semibold text-[#4A2E2B] block mt-1">Free Ship > $35</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs: Ingredients, Usage, Reviews -->
+                <div class="mt-16 bg-white rounded-3xl border border-[#E7E3DC] p-6 sm:p-10 shadow-sm">
+                    <h3 class="text-xl font-bold text-[#4A2E2B] mb-6 border-b border-[#E7E3DC] pb-4">Product Details & Salon Directions</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-sm font-bold text-[#6E473B] uppercase tracking-wider mb-2">Key Ingredients</h4>
+                            <p id="pdp-tab-ingredients" class="text-sm text-[#6B625B] leading-relaxed">Pure Moroccan Argan Oil, Linseed Extract, Natural Vitamin E, Cyclomethicone, Dimethicone.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-[#6E473B] uppercase tracking-wider mb-2">How to Use</h4>
+                            <p id="pdp-tab-usage" class="text-sm text-[#6B625B] leading-relaxed">Apply 1–2 pumps to clean, towel-dried hair, from mid-lengths to ends. Blow-dry or let dry naturally.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C04 - HAIR DIAGNOSIS QUIZ (3 STEPS)
+             ==================================================== -->
+        <section id="page-c04-quiz" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+                <!-- Progress Header -->
+                <div class="text-center mb-8">
+                    <span class="badge-teal">PERSONALIZED HAIR DIAGNOSIS</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-[#4A2E2B] mt-2">Find the Ideal Regimen for Your Hair</h2>
+                    <div class="w-full bg-[#E7E3DC] h-2 rounded-full mt-6 overflow-hidden max-w-md mx-auto">
+                        <div id="quiz-progress-bar" class="bg-[#00A3A6] h-full transition-all duration-300"
+                            style="width: 33.3%;"></div>
+                    </div>
+                    <span id="quiz-step-number" class="text-xs font-bold text-[#6E473B] block mt-2">Step 1 of 3</span>
+                </div>
+
+                <!-- Step 1: Hair Type -->
+                <div id="quiz-step-1"
+                    class="quiz-step-pane bg-white p-6 sm:p-10 rounded-3xl border border-[#E7E3DC] shadow-md space-y-6">
+                    <h3 class="text-lg font-bold text-[#4A2E2B] text-center">Question 1: What is your natural hair texture?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="App.selectQuizAnswer('hairType', 'fine')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Fine & Limp Hair</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Lacks natural volume, prone to falling flat</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('hairType', 'medium')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Medium Texture Hair</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Manageable, requires balanced moisture retention</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('hairType', 'thick')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Thick & Coarse Hair</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Prone to frizz and puffiness, hard to smooth</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('hairType', 'curly')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Wavy & Curly Hair</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Needs defined bounce, elasticity, and anti-frizz</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Hair Concern -->
+                <div id="quiz-step-2"
+                    class="quiz-step-pane hidden bg-white p-6 sm:p-10 rounded-3xl border border-[#E7E3DC] shadow-md space-y-6">
+                    <h3 class="text-lg font-bold text-[#4A2E2B] text-center">Question 2: What is your primary hair concern?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="App.selectQuizAnswer('concern', 'dry')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Dryness & Split Ends</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Rough texture, lacks healthy shine</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('concern', 'damaged')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Damage from Bleach & Heat</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Weakened structure, prone to breakage</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('concern', 'color-fade')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Color Fade & Dullness</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Needs pigment lock and radiant luminosity</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('concern', 'volume')"
+                            class="p-4 rounded-2xl border border-[#E7E3DC] text-left hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all group">
+                            <span class="font-bold text-sm text-[#4A2E2B] block group-hover:text-[#6E473B]">Flat Hair & Oily Roots</span>
+                            <span class="text-xs text-[#6B625B] mt-1 block">Requires root lifting and sebum balance</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Heat Styling Frequency -->
+                <div id="quiz-step-3"
+                    class="quiz-step-pane hidden bg-white p-6 sm:p-10 rounded-3xl border border-[#E7E3DC] shadow-md space-y-6">
+                    <h3 class="text-lg font-bold text-[#4A2E2B] text-center">Question 3: How often do you heat style your hair?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="App.selectQuizAnswer('heatStyling', 'frequent')"
+                            class="p-5 rounded-2xl border border-[#E7E3DC] text-center hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all">
+                            <span class="text-2xl block mb-2">🔥</span>
+                            <span class="font-bold text-sm text-[#4A2E2B] block">Daily</span>
+                            <span class="text-[11px] text-[#6B625B] mt-1 block">Requires high-temperature heat shield</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('heatStyling', 'occasional')"
+                            class="p-5 rounded-2xl border border-[#E7E3DC] text-center hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all">
+                            <span class="text-2xl block mb-2">💨</span>
+                            <span class="font-bold text-sm text-[#4A2E2B] block">2 - 3 Times / Week</span>
+                            <span class="text-[11px] text-[#6B625B] mt-1 block">Regular blow-drying after washing</span>
+                        </button>
+                        <button onclick="App.selectQuizAnswer('heatStyling', 'rare')"
+                            class="p-5 rounded-2xl border border-[#E7E3DC] text-center hover:border-[#6E473B] hover:bg-[#FDFBF7] transition-all">
+                            <span class="text-2xl block mb-2">🌱</span>
+                            <span class="font-bold text-sm text-[#4A2E2B] block">Rarely or Never</span>
+                            <span class="text-[11px] text-[#6B625B] mt-1 block">Prefers natural towel & air drying</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C05 - PERSONALIZED ROUTINE RECOMMENDATION
+             ==================================================== -->
+        <section id="page-c05-routine" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+                <!-- Routine Diagnosis Header -->
+                <div
+                    class="bg-gradient-to-r from-[#4A2E2B] to-[#6E473B] text-white p-8 sm:p-12 rounded-3xl shadow-xl text-center space-y-3">
+                    <span class="badge-teal bg-white/20 text-white border-white/30">YOUR TAILORED HAIRCARE REGIMEN</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">3-Step Deep Hydration & Repair Routine</h2>
+                    <p class="text-sm sm:text-base text-[#FDFBF7]/90 max-w-2xl mx-auto">
+                        Based on your hair analysis, your strands require intensive moisture replenishment and lipid repair with antioxidant argan oil and keratin infusion.
+                    </p>
+                </div>
+
+                <!-- 3 Steps Routine Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+                    <!-- Step 1 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-[#6E473B] bg-[#6E473B]/10 px-3 py-1 rounded-full">STEP 1: CLEANSE</span>
+                            <h4 class="font-bold text-[#4A2E2B] text-base mt-3">Moisture Repair Shampoo (250ml)</h4>
+                            <p class="text-xs text-[#6B625B] mt-1">Gentle sulfate-free cleanse that restores moisture and elasticity.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[#E7E3DC] flex items-center justify-between">
+                            <span class="font-bold text-[#6E473B]">$27.00</span>
+                            <span class="text-xs text-green-700 font-semibold">Recommended</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-[#00A3A6] bg-[#00A3A6]/10 px-3 py-1 rounded-full">STEP 2: DEEP REPAIR</span>
+                            <h4 class="font-bold text-[#4A2E2B] text-base mt-3">Intense Hydrating Mask (250ml)</h4>
+                            <p class="text-xs text-[#6B625B] mt-1">5-minute rich treatment that improves texture and manageability.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[#E7E3DC] flex items-center justify-between">
+                            <span class="font-bold text-[#6E473B]">$37.00</span>
+                            <span class="text-xs text-green-700 font-semibold">Recommended</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-[#C89B58] bg-[#C89B58]/10 px-3 py-1 rounded-full">STEP 3: NOURISH & SHINE</span>
+                            <h4 class="font-bold text-[#4A2E2B] text-base mt-3">Moroccanoil Treatment Original (100ml)</h4>
+                            <p class="text-xs text-[#6B625B] mt-1">Iconic foundation for styling that controls frizz and locks in moisture.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[#E7E3DC] flex items-center justify-between">
+                            <span class="font-bold text-[#6E473B]">$34.00</span>
+                            <span class="text-xs text-green-700 font-semibold">Recommended</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo Package Box -->
+                <div
+                    class="bg-[#F7F3EC] p-8 rounded-3xl border border-[#E7E3DC] flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <span class="badge-gold">SAVE 15% ON COMPLETE REGIMEN</span>
+                        <h3 class="text-xl font-bold text-[#4A2E2B] mt-1">Moroccanoil 3-Step Full Restorative Routine</h3>
+                        <p class="text-xs text-[#6B625B] mt-1">Includes Shampoo (250ml) + Hydrating Mask (250ml) + Treatment Oil (100ml) + Free Canvas Travel Bag.</p>
+                        <div class="flex items-center gap-3 mt-3">
+                            <span class="text-2xl font-extrabold text-[#6E473B]">$83.30</span>
+                            <span class="text-sm text-[#9B938B] line-through">$98.00</span>
+                            <span
+                                class="text-xs font-bold text-red-600 bg-red-100 px-2.5 py-0.5 rounded-full">-15% OFF</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        <button onclick="App.addCompleteRoutineToCart()" class="btn-primary text-sm px-6 py-3">
+                            <span>Add Full Routine to Bag</span>
+                        </button>
+                        <button onclick="App.startQuiz()" class="btn-secondary text-sm px-5 py-3">
+                            <span>Retake Quiz</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C07 - CHECKOUT (SHIPPING & PAYMENT)
+             ==================================================== -->
+        <section id="page-c07-checkout" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="text-xs text-[#9B938B] mb-6 flex items-center gap-2">
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c01-home')">Home</span>
+                    <span>/</span>
+                    <span class="text-[#4A2E2B] font-semibold">Order Checkout</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <!-- Left: Delivery & Payment Details -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Guest Checkout Banner Notice -->
+                        <div class="bg-[#F7F3EC] p-4 rounded-2xl border border-[#E7E3DC] flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center font-bold text-sm">✓</span>
+                            <div>
+                                <h4 class="text-xs font-bold text-[#4A2E2B]">Guest Checkout Supported</h4>
+                                <p class="text-[11px] text-[#6B625B]">No account required! Simply fill in your delivery details below to complete your order.</p>
+                            </div>
+                        </div>
+
+                        <!-- Customer & Shipping Form -->
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-sm space-y-5">
+                            <h3 class="text-lg font-bold text-[#4A2E2B] flex items-center gap-2">
+                                <span
+                                    class="w-6 h-6 rounded-full bg-[#6E473B] text-white text-xs flex items-center justify-center font-bold">1</span>
+                                <span>Shipping Information</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Recipient Full Name *</label>
+                                    <input id="checkout-name" type="text" value="Nguyen Phuong Thao"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B] outline-none"
+                                        required />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Contact Phone *</label>
+                                    <input id="checkout-phone" type="tel" value="0908 123 456"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B] outline-none"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Delivery Address *</label>
+                                <input id="checkout-address" type="text"
+                                    value="Landmark 81, 720A Dien Bien Phu, Ward 22, Binh Thanh, Ho Chi Minh City"
+                                    class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B] outline-none"
+                                    required />
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Delivery Note (Optional)</label>
+                                <input type="text" placeholder="e.g., Deliver during business hours, call before arrival"
+                                    class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] text-[#4A2E2B] focus:border-[#6E473B] outline-none" />
+                            </div>
+                        </div>
+
+                        <!-- Payment Methods -->
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-sm space-y-4">
+                            <h3 class="text-lg font-bold text-[#4A2E2B] flex items-center gap-2">
+                                <span
+                                    class="w-6 h-6 rounded-full bg-[#6E473B] text-white text-xs flex items-center justify-center font-bold">2</span>
+                                <span>Payment Method</span>
+                            </h3>
+
+                            <div class="space-y-3">
+                                <label
+                                    class="flex items-center gap-3 p-4 rounded-2xl border border-[#6E473B] bg-[#6E473B]/5 cursor-pointer">
+                                    <input type="radio" name="payment-method" value="VietQR Bank Transfer" checked
+                                        class="text-[#6E473B] focus:ring-[#6E473B]" />
+                                    <div class="flex-1">
+                                        <span class="text-sm font-bold text-[#4A2E2B] block">Bank Transfer / VietQR (Fast & Secure)</span>
+                                        <span class="text-xs text-[#6B625B]">Instant QR payment with automated verification in 30 seconds</span>
+                                    </div>
+                                    <span class="badge-teal text-[10px]">Free Gift</span>
+                                </label>
+
+                                <label
+                                    class="flex items-center gap-3 p-4 rounded-2xl border border-[#E7E3DC] hover:border-[#6E473B] bg-white cursor-pointer">
+                                    <input type="radio" name="payment-method" value="Cash on Delivery (COD)"
+                                        class="text-[#6E473B] focus:ring-[#6E473B]" />
+                                    <div>
+                                        <span class="text-sm font-bold text-[#4A2E2B] block">Cash on Delivery (COD)</span>
+                                        <span class="text-xs text-[#6B625B]">Inspect package before making cash payment to courier</span>
+                                    </div>
+                                </label>
+
+                                <label
+                                    class="flex items-center gap-3 p-4 rounded-2xl border border-[#E7E3DC] hover:border-[#6E473B] bg-white cursor-pointer">
+                                    <input type="radio" name="payment-method" value="Credit / Debit Card"
+                                        class="text-[#6E473B] focus:ring-[#6E473B]" />
+                                    <div>
+                                        <span class="text-sm font-bold text-[#4A2E2B] block">Credit / Debit Card (Visa, MasterCard, JCB)</span>
+                                        <span class="text-xs text-[#6B625B]">Encrypted payment gateway complying with PCI-DSS security</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Order Summary -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-sm space-y-5">
+                            <h3 class="text-lg font-bold text-[#4A2E2B] border-b border-[#E7E3DC] pb-3">Order Summary</h3>
+
+                            <!-- Items List -->
+                            <div id="checkout-items-summary" class="space-y-2">
+                                <!-- Populated dynamically by App.renderCheckoutSummary() -->
+                            </div>
+
+                            <!-- Calculations -->
+                            <div class="pt-4 border-t border-[#E7E3DC] space-y-2 text-sm">
+                                <div class="flex justify-between text-[#6B625B]">
+                                    <span>Subtotal</span>
+                                    <span id="checkout-subtotal" class="font-semibold text-[#4A2E2B]">$61.00</span>
+                                </div>
+                                <div class="flex justify-between text-[#00A3A6]">
+                                    <span>Promotional Discount</span>
+                                    <span id="checkout-discount" class="font-semibold">-$6.10</span>
+                                </div>
+                                <div class="flex justify-between text-[#6B625B]">
+                                    <span>Nationwide Shipping</span>
+                                    <span class="font-semibold text-green-700">Free Shipping</span>
+                                </div>
+                                <div
+                                    class="pt-3 border-t border-[#E7E3DC] flex justify-between text-lg font-extrabold text-[#4A2E2B]">
+                                    <span>Total Due</span>
+                                    <span id="checkout-total" class="text-[#6E473B]">$54.90</span>
+                                </div>
+                            </div>
+
+                            <button onclick="App.submitCheckout()"
+                                class="btn-primary w-full py-4 text-base font-bold shadow-lg">
+                                Complete Order Now
+                            </button>
+                            <p class="text-[11px] text-[#9B938B] text-center">By placing your order, you agree to Moroccanoil Vietnam's Terms of Service and Privacy Policy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C08 & C09 - ORDER CONFIRMED & PAYMENT STATUS
+             ==================================================== -->
+        <section id="page-c08-c09-success" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center space-y-8">
+                <!-- Celebration Icon -->
+                <div
+                    class="w-20 h-20 mx-auto rounded-full bg-[#00A3A6]/10 text-[#00A3A6] flex items-center justify-center text-4xl shadow-inner border border-[#00A3A6]/20">
+                    ✓
+                </div>
+
+                <div>
+                    <span class="badge-teal">ORDER CONFIRMED</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#4A2E2B] mt-2">Thank You for Choosing Moroccanoil!</h2>
+                    <p class="text-sm text-[#6B625B] mt-2">Your order reference is <strong id="success-order-id"
+                            class="text-[#6E473B] font-bold text-base">#MC-202688</strong>. A confirmation email has been dispatched.</p>
+                </div>
+
+                <!-- Payment Details Card (VietQR) -->
+                <div
+                    class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-md text-left max-w-lg mx-auto space-y-4">
+                    <h3
+                        class="text-sm font-bold uppercase tracking-wider text-[#6E473B] border-b border-[#E7E3DC] pb-2">
+                        VietQR Payment Information</h3>
+
+                    <div class="flex items-center gap-4 bg-[#FDFBF7] p-4 rounded-2xl border border-[#E7E3DC]">
+                        <!-- VietQR Mock Box -->
+                        <div
+                            class="w-28 h-28 bg-white border border-[#E7E3DC] rounded-xl flex flex-col items-center justify-center p-2 text-center flex-shrink-0">
+                            <div
+                                class="w-full h-full bg-[#4A2E2B] text-white text-[9px] flex items-center justify-center font-mono rounded">
+                                [VietQR Code]
+                            </div>
+                        </div>
+                        <div class="space-y-1 text-xs text-[#4A2E2B]">
+                            <p><strong>Bank:</strong> Techcombank</p>
+                            <p><strong>Account Number:</strong> 1903 8888 6868</p>
+                            <p><strong>Account Name:</strong> MOROCCANOIL VIETNAM CO., LTD.</p>
+                            <p><strong>Amount:</strong> <span id="success-order-total"
+                                    class="font-bold text-[#6E473B] text-sm">$54.90</span></p>
+                            <p><strong>Payment Memo:</strong> <span class="font-mono text-[#00A3A6]">MC-202688</span></p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-[#9B938B] italic">The system will automatically verify and update your order status upon payment receipt.</p>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                    <button onclick="App.navigateTo('c13-orders')" class="btn-primary text-sm px-6 py-3">
+                        Track Order in Account
+                    </button>
+                    <button onclick="App.navigateTo('c02-shop')" class="btn-secondary text-sm px-6 py-3">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C12 - USER ACCOUNT DASHBOARD
+             ==================================================== -->
+        <section id="page-c12-profile" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="text-xs text-[#9B938B] mb-6 flex items-center gap-2">
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c01-home')">Home</span>
+                    <span>/</span>
+                    <span class="text-[#4A2E2B] font-semibold">Account Dashboard</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left: Profile Summary & Hair Profile Card -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <!-- Customer Overview Card (No VIP Tier) -->
+                        <div
+                            class="bg-[#F7F3EC] p-6 rounded-3xl border border-[#E7E3DC] shadow-sm relative overflow-hidden">
+                            <div class="flex items-center gap-4 pb-4 border-b border-[#E7E3DC]">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+                                    class="w-14 h-14 rounded-full object-cover border-2 border-[#6E473B] shadow-sm" alt="User Avatar" />
+                                <div>
+                                    <h4 class="font-bold text-[#4A2E2B] text-lg">Nguyen Phuong Thao</h4>
+                                    <p class="text-xs text-[#6B625B]">phuongthao.nguyen@gmail.com</p>
+                                    <span class="inline-block mt-1 text-[11px] font-semibold text-[#00A3A6] bg-[#00A3A6]/10 px-2.5 py-0.5 rounded-full">Registered Customer</span>
+                                </div>
+                            </div>
+
+                            <!-- Customer Hair Profile Diagnosis -->
+                            <div class="mt-5 space-y-3">
+                                <h5 class="text-xs font-bold text-[#4A2E2B] uppercase tracking-wider">My Hair Profile</h5>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-white p-3 rounded-xl border border-[#E7E3DC]">
+                                        <span class="text-[#9B938B] block text-[10px] uppercase">Hair Texture</span>
+                                        <strong class="text-[#4A2E2B]">Medium Coarse</strong>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-[#E7E3DC]">
+                                        <span class="text-[#9B938B] block text-[10px] uppercase">Main Concern</span>
+                                        <strong class="text-[#4A2E2B]">Chemical Damage</strong>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-[#E7E3DC]">
+                                        <span class="text-[#9B938B] block text-[10px] uppercase">Heat Styling</span>
+                                        <strong class="text-[#4A2E2B]">2-3 Times / Wk</strong>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-[#E7E3DC]">
+                                        <span class="text-[#9B938B] block text-[10px] uppercase">Recommended</span>
+                                        <strong class="text-[#00A3A6]">Moisture Routine</strong>
+                                    </div>
+                                </div>
+                                <button onclick="App.startQuiz()" class="w-full mt-2 text-xs font-bold text-[#6E473B] hover:text-[#4A2E2B] text-center block hover:underline">
+                                    Retake Hair Quiz to Update Profile →
+                                </button>
+                            </div>
+
+                            <div class="space-y-1.5 pt-5 mt-5 border-t border-[#E7E3DC]">
+                                <button onclick="App.navigateTo('c13-orders')"
+                                    class="w-full text-left p-3 rounded-xl bg-white hover:bg-[#FDFBF7] font-semibold text-sm text-[#4A2E2B] border border-[#E7E3DC] flex items-center justify-between transition-colors">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-4 h-4 text-[#6E473B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                        <span>View Order History</span>
+                                    </div>
+                                    <svg class="w-4 h-4 text-[#9B938B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                                <button onclick="App.setRole('guest')"
+                                    class="w-full text-left p-3 rounded-xl hover:bg-red-50 font-semibold text-sm text-red-600 flex items-center justify-between transition-colors">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                        <span>Sign Out</span>
+                                    </div>
+                                    <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Profile Settings & Address Book -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-sm space-y-5">
+                            <h3 class="text-lg font-bold text-[#4A2E2B] border-b border-[#E7E3DC] pb-3">Personal Information</h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Full Name</label>
+                                    <input type="text" value="Nguyen Phuong Thao"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Email</label>
+                                    <input type="email" value="phuongthao.nguyen@gmail.com"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Phone Number</label>
+                                    <input type="tel" value="0908 123 456"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Date of Birth</label>
+                                    <input type="date" value="1996-08-15"
+                                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" />
+                                </div>
+                            </div>
+
+                            <button onclick="App.showToast('Account details saved successfully!')"
+                                class="btn-primary text-xs px-6 py-2.5">
+                                Save Changes
+                            </button>
+                        </div>
+
+                        <!-- Address Book -->
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E7E3DC] shadow-sm space-y-4">
+                            <div class="flex justify-between items-center border-b border-[#E7E3DC] pb-3">
+                                <h3 class="text-lg font-bold text-[#4A2E2B]">Saved Shipping Addresses</h3>
+                                <button onclick="App.showToast('Add new address modal opened.')"
+                                    class="text-xs font-bold text-[#6E473B] hover:underline">+ Add Address</button>
+                            </div>
+
+                            <div
+                                class="p-4 rounded-2xl border border-[#6E473B] bg-[#6E473B]/5 flex justify-between items-start">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-sm text-[#4A2E2B]">Residential Address</span>
+                                        <span class="badge-teal text-[10px]">Default</span>
+                                    </div>
+                                    <p class="text-xs text-[#6B625B] mt-1">Landmark 81, 720A Dien Bien Phu, Ward 22, Binh Thanh, Ho Chi Minh City</p>
+                                    <p class="text-xs text-[#9B938B] mt-0.5">Recipient: Nguyen Phuong Thao • 0908 123 456</p>
+                                </div>
+                                <button class="text-xs text-[#6E473B] font-bold hover:underline">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             C13 - ORDER HISTORY (INSIDE ACCOUNT DASHBOARD)
+             ==================================================== -->
+        <section id="page-c13-orders" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="text-xs text-[#9B938B] mb-6 flex items-center gap-2">
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c01-home')">Home</span>
+                    <span>/</span>
+                    <span class="hover:text-[#6E473B] cursor-pointer" onclick="App.navigateTo('c12-profile')">Account</span>
+                    <span>/</span>
+                    <span class="text-[#4A2E2B] font-semibold">Order History</span>
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#E7E3DC] gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-[#4A2E2B]">Order History</h2>
+                        <p class="text-xs text-[#6B625B] mt-1">Track your past purchases and shipment delivery status.</p>
+                    </div>
+                    <button onclick="App.navigateTo('c02-shop')" class="btn-primary text-xs px-5 py-2.5">
+                        Continue Shopping
+                    </button>
+                </div>
+
+                <!-- Orders List -->
+                <div id="user-orders-list" class="mt-6 space-y-4">
+                    <!-- Populated dynamically by App.renderUserOrders() -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             A01 - A14: ADMIN DASHBOARD
+             ==================================================== -->
+        <section id="page-admin-dashboard" class="app-screen hidden animate-fadeIn">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Admin Header -->
+                <div
+                    class="bg-white p-6 rounded-3xl border border-[#E7E3DC] shadow-sm mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#FDFBF7] border border-[#E7E3DC] p-1.5 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                            <img src="Moroccanoil-Emblem.png" alt="Emblem" class="w-full h-full object-contain" />
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-xs uppercase tracking-wider">ADMIN PORTAL</span>
+                                <span class="badge-teal">SUPER ADMIN</span>
+                            </div>
+                            <h2 class="text-2xl font-extrabold text-[#4A2E2B] mt-1">Moroccanoil Management Dashboard</h2>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="App.openAddProductModal()" class="btn-primary text-xs px-4 py-2">
+                            + Add New Product
+                        </button>
+                        <button onclick="App.navigateTo('c01-home')" class="btn-secondary text-xs px-4 py-2">
+                            View Storefront
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Metric Cards (A01 - A05) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+                        <span class="text-xs text-[#6B625B] font-semibold uppercase">Monthly Revenue</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-2xl font-black text-[#6E473B]">$7,460.00</span>
+                            <span class="text-xs font-bold text-green-600">+18.4%</span>
+                        </div>
+                        <p class="text-[11px] text-[#9B938B] mt-1">12% above monthly forecast target</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+                        <span class="text-xs text-[#6B625B] font-semibold uppercase">Total Orders</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-2xl font-black text-[#4A2E2B]">432 orders</span>
+                            <span class="text-xs font-bold text-[#00A3A6]">18 new</span>
+                        </div>
+                        <p class="text-[11px] text-[#9B938B] mt-1">Low cancellation rate of 0.8%</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+                        <span class="text-xs text-[#6B625B] font-semibold uppercase">New Customers</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-2xl font-black text-[#4A2E2B]">158 users</span>
+                            <span class="text-xs font-bold text-green-600">+24%</span>
+                        </div>
+                        <p class="text-[11px] text-[#9B938B] mt-1">Via 60s Hair Routine Quiz</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-[#E7E3DC] shadow-sm">
+                        <span class="text-xs text-[#6B625B] font-semibold uppercase">Conversion Rate</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-2xl font-black text-[#00A3A6]">4.8%</span>
+                            <span class="text-xs font-bold text-green-600">+0.6%</span>
+                        </div>
+                        <p class="text-[11px] text-[#9B938B] mt-1">Industry benchmark: 3.2%</p>
+                    </div>
+                </div>
+
+                <!-- Admin Management Tables -->
+                <div class="space-y-8">
+                    <!-- Orders Management Table -->
+                    <div class="bg-white rounded-3xl border border-[#E7E3DC] shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-[#E7E3DC] flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-[#4A2E2B] text-lg">Order Management & Fulfillment</h3>
+                                <p class="text-xs text-[#6B625B]">Click "Update Status" to advance order lifecycle: Pending → In Transit → Delivered.</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead
+                                    class="bg-[#F7F3EC] text-xs font-bold uppercase text-[#6B625B] border-b border-[#E7E3DC]">
+                                    <tr>
+                                        <th class="p-3">Order ID</th>
+                                        <th class="p-3">Customer</th>
+                                        <th class="p-3">Date</th>
+                                        <th class="p-3">Total Amount</th>
+                                        <th class="p-3">Status</th>
+                                        <th class="p-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-orders-table">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Products Inventory Table -->
+                    <div class="bg-white rounded-3xl border border-[#E7E3DC] shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-[#E7E3DC] flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-[#4A2E2B] text-lg">Inventory & Catalog Management</h3>
+                                <p class="text-xs text-[#6B625B]">Control product pricing in USD, stock quantities, and storefront visibility.</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead
+                                    class="bg-[#F7F3EC] text-xs font-bold uppercase text-[#6B625B] border-b border-[#E7E3DC]">
+                                    <tr>
+                                        <th class="p-3">Product</th>
+                                        <th class="p-3">Category</th>
+                                        <th class="p-3">Price</th>
+                                        <th class="p-3">In Stock</th>
+                                        <th class="p-3">Badge</th>
+                                        <th class="p-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-products-table">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================================
+         LUXURY FOOTER WITH COMPANY INFO & POLICIES
+         ======================================================== -->
+    <footer class="bg-[#4A2E2B] text-[#FDFBF7] pt-16 pb-12 border-t border-[#6E473B]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <!-- Col 1: Brand Info & Legal Details -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white border border-white/20 p-1 flex items-center justify-center shadow-md overflow-hidden shrink-0">
+                        <img src="Moroccanoil-Emblem.png" alt="Emblem" class="w-full h-full object-contain" />
+                    </div>
+                </div>
+                <div class="text-xs text-[#FDFBF7]/80 leading-relaxed space-y-1.5">
+                    <p class="font-bold text-white text-sm">HAIRCARE INSIGHT VIETNAM CO., LTD.</p>
+                    <p><strong class="text-white">Business Registration No.:</strong> 0318291011</p>
+                    <p><strong class="text-white">Business License:</strong> Issued by the Department of Planning and Investment of Ho Chi Minh City on January 11, 2024.</p>
+                    <div class="pt-2">
+                        <span class="badge-teal bg-white/10 text-white border-white/20">100% Genuine Authorized Distributor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Col 2: Contact Information -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Contact Information</h4>
+                <div class="space-y-2 text-xs text-[#FDFBF7]/80 leading-relaxed">
+                    <p><strong class="text-white">Address:</strong> 123 Le Loi Street, Ben Nghe Ward, District 1, Ho Chi Minh City, Vietnam.</p>
+                    <p><strong class="text-white">Hotline:</strong> (+84) 1900 6868</p>
+                    <p><strong class="text-white">Email:</strong> support@haircareinsight.com</p>
+                    <p><strong class="text-white">Hours:</strong> Mon - Sat: 8:30 AM - 9:00 PM</p>
+                </div>
+            </div>
+
+            <!-- Col 3: Customer Policies -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Customer Policies</h4>
+                <ul class="space-y-2 text-xs text-[#FDFBF7]/80">
+                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Payment Information & Terms</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Shipping & Delivery Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Return & Refund Policy (7 Days)</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Newsletter -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Exclusive Newsletter</h4>
+                <p class="text-xs text-[#FDFBF7]/80">Subscribe to receive 10% off your first order and expert salon haircare tips.</p>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Enter your email..."
+                        class="bg-white/10 border border-white/20 rounded-full px-4 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:border-[#00A3A6] flex-1" />
+                    <button onclick="App.showToast('Thank you for subscribing to Moroccanoil news!')"
+                        class="px-4 py-2 rounded-full bg-[#00A3A6] text-white text-xs font-bold hover:bg-[#008285] transition-all">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-white/10 text-center text-xs text-[#FDFBF7]/60">
+            © 2026 HAIRCARE INSIGHT VIETNAM CO., LTD. All Rights Reserved. Official Authorized Moroccanoil Partner.
+        </div>
+    </footer>
+
+    <!-- ========================================================
+         C06 - CART DRAWER (SLIDE-OVER PANEL)
+         ======================================================== -->
+    <div id="drawer-c06-cart" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div onclick="App.closeCart()" class="absolute inset-0 modal-overlay cursor-pointer"></div>
+
+        <!-- Slide-over Panel -->
+        <div id="drawer-cart-panel"
+            class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-in-out">
+            <!-- Drawer Header -->
+            <div class="p-5 border-b border-[#E7E3DC] flex items-center justify-between bg-[#FDFBF7]">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-white border border-[#E7E3DC] p-0.5 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                        <img src="Moroccanoil-Emblem.png" alt="Emblem" class="w-full h-full object-contain" />
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-[#4A2E2B] text-base leading-tight">Your Shopping Bag</h3>
+                        <span class="text-[10px] text-[#8A5B4D] font-medium uppercase tracking-wider block">Official Moroccanoil Partner</span>
+                    </div>
+                    <span id="drawer-cart-count"
+                        class="text-xs font-bold text-[#6E473B] bg-[#6E473B]/10 px-2 py-0.5 rounded-full ml-1">(2)</span>
+                </div>
+                <button onclick="App.closeCart()"
+                    class="p-2 text-[#9B938B] hover:text-[#4A2E2B] rounded-full hover:bg-[#E7E3DC]/50 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Free Shipping Progress -->
+            <div class="px-5 py-3 bg-[#F7F3EC] border-b border-[#E7E3DC]">
+                <p id="cart-freeship-text" class="text-xs text-[#6B625B] mb-1.5">Add more items for Free Nationwide Shipping</p>
+                <div class="w-full bg-[#E7E3DC] h-1.5 rounded-full overflow-hidden">
+                    <div id="cart-freeship-bar" class="bg-[#00A3A6] h-full transition-all duration-300"
+                        style="width: 70%;"></div>
+                </div>
+            </div>
+
+            <!-- Items List Container -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-3">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Coupon Input & Footer Checkout -->
+            <div class="p-5 border-t border-[#E7E3DC] bg-white space-y-4">
+                <!-- Coupon Form -->
+                <div class="flex gap-2">
+                    <input id="cart-coupon-input" type="text" placeholder="Promo code: MOROCCO10"
+                        class="flex-1 text-xs border border-[#E7E3DC] rounded-xl px-3 py-2 bg-[#FDFBF7] outline-none uppercase font-semibold text-[#4A2E2B]" />
+                    <button onclick="App.applyCoupon(document.getElementById('cart-coupon-input').value)"
+                        class="px-4 py-2 bg-[#6E473B] text-white text-xs font-bold rounded-xl hover:bg-[#4A2E2B] transition-colors">Apply</button>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between text-[#6B625B]">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal" class="font-semibold text-[#4A2E2B]">$61.00</span>
+                    </div>
+                    <div class="flex justify-between text-[#00A3A6]">
+                        <span>Discount</span>
+                        <span id="cart-discount" class="font-semibold">-$0.00</span>
+                    </div>
+                    <div
+                        class="pt-2 border-t border-[#E7E3DC] flex justify-between text-base font-extrabold text-[#4A2E2B]">
+                        <span>Estimated Total</span>
+                        <span id="cart-total" class="text-[#6E473B]">$61.00</span>
+                    </div>
+                </div>
+
+                <!-- Checkout CTA -->
+                <button onclick="App.closeCart(); App.renderCheckoutSummary(); App.navigateTo('c07-checkout');"
+                    class="btn-cta-buy w-full py-3.5 text-sm font-bold shadow-lg">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         C10 & C11 - AUTH MODAL (SIGN IN / REGISTER)
+         ======================================================== -->
+    <div id="modal-c10-auth" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="App.closeAuthModal()" class="absolute inset-0 modal-overlay"></div>
+        <div
+            class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-md w-full p-8 z-10 animate-fadeIn">
+            <button onclick="App.closeAuthModal()" class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Brand Header -->
+            <div class="text-center mb-6">
+                <div
+                    class="w-14 h-14 mx-auto rounded-full bg-white border border-[#E7E3DC] p-1.5 shadow-sm flex items-center justify-center overflow-hidden mb-2">
+                    <img src="Moroccanoil-Emblem.png" alt="Emblem" class="w-full h-full object-contain" />
+                </div>
+                <h3 class="text-xl font-extrabold text-[#4A2E2B]">Account Sign In</h3>
+                <p class="text-xs text-[#6B625B]">Sign in to track orders, save personalized hair routines, and manage delivery addresses.</p>
+            </div>
+
+            <!-- Tab Headers -->
+            <div class="flex border-b border-[#E7E3DC] mb-6">
+                <button id="auth-btn-login" onclick="App.switchAuthTab('login')"
+                    class="auth-tab-btn flex-1 pb-2.5 text-sm font-bold border-b-2 border-[#6E473B] text-[#6E473B] transition-all">Sign In</button>
+                <button id="auth-btn-register" onclick="App.switchAuthTab('register')"
+                    class="auth-tab-btn flex-1 pb-2.5 text-sm font-bold border-b-2 border-transparent text-[#6B625B] transition-all">Create Account</button>
+            </div>
+
+            <!-- Tab 1: Login Form -->
+            <form id="auth-tab-login" class="auth-tab-content space-y-4" onsubmit="App.submitLogin(event)">
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Email or Phone Number</label>
+                    <input type="text" value="phuongthao.nguyen@gmail.com"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+                        required />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Password</label>
+                    <input type="password" value="********"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+                        required />
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                    <label class="flex items-center gap-1.5 text-[#6B625B]">
+                        <input type="checkbox" checked class="text-[#6E473B] rounded" />
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="text-[#6E473B] font-semibold hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">
+                    Sign In
+                </button>
+
+                <!-- Quick Demo Role Switches -->
+                <div class="pt-3 border-t border-[#E7E3DC] text-center space-y-2">
+                    <p class="text-[11px] text-[#9B938B]">Quick Demo Switcher:</p>
+                    <div class="flex gap-2">
+                        <button type="button" onclick="App.setRole('customer'); App.closeAuthModal();"
+                            class="flex-1 py-1.5 px-2 bg-amber-50 text-[#805719] border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100">
+                            Customer
+                        </button>
+                        <button type="button" onclick="App.setRole('admin'); App.closeAuthModal();"
+                            class="flex-1 py-1.5 px-2 bg-red-50 text-red-700 border border-red-200 rounded-lg text-xs font-bold hover:bg-red-100">
+                            Administrator
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Tab 2: Register Form -->
+            <form id="auth-tab-register" class="auth-tab-content hidden space-y-4" onsubmit="App.submitLogin(event)">
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Full Name</label>
+                    <input type="text" placeholder="Jane Doe"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+                        required />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Email Address</label>
+                    <input type="email" placeholder="example@email.com"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+                        required />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Phone Number</label>
+                    <input type="tel" placeholder="0901 234 567"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7] outline-none focus:border-[#6E473B]"
+                        required />
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">
+                    Create Account & Save Hair Profile
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         C14 - ORDER DETAILS MODAL
+         ======================================================== -->
+    <div id="modal-c14-order-detail" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="App.closeOrderDetailModal()" class="absolute inset-0 modal-overlay"></div>
+        <div
+            class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-lg w-full p-6 sm:p-8 z-10 animate-fadeIn max-h-[90vh] overflow-y-auto">
+            <button onclick="App.closeOrderDetailModal()"
+                class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <div id="order-detail-modal-body">
+                <!-- Populated dynamically by App.openOrderDetailModal() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         ADMIN MODAL: ADD NEW PRODUCT
+         ======================================================== -->
+    <div id="modal-admin-add-product" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="App.closeAddProductModal()" class="absolute inset-0 modal-overlay"></div>
+        <div
+            class="relative bg-white rounded-3xl border border-[#E7E3DC] shadow-2xl max-w-md w-full p-8 z-10 animate-fadeIn">
+            <button onclick="App.closeAddProductModal()"
+                class="absolute top-5 right-5 text-[#9B938B] hover:text-[#4A2E2B]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <h3 class="text-xl font-bold text-[#4A2E2B] mb-4">Add New Moroccanoil Product</h3>
+            <form onsubmit="App.submitNewProduct(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Product Title *</label>
+                    <input id="admin-new-name" type="text" placeholder="e.g. Smoothing Hair Oil Treatment"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" required />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Category</label>
+                    <select id="admin-new-category"
+                        class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]">
+                        <option value="styling">Styling & Finishing</option>
+                        <option value="mask">Hair Masks</option>
+                        <option value="shampoo">Shampoo</option>
+                        <option value="conditioner">Conditioner</option>
+                        <option value="oil">Treatment / Oil</option>
+                        <option value="dry-shampoo">Dry Shampoo</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Price (USD $)</label>
+                        <input id="admin-new-price" type="number" step="0.01" value="34.00"
+                            class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" required />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#4A2E2B] mb-1">Inventory Stock</label>
+                        <input id="admin-new-stock" type="number" value="50"
+                            class="w-full text-sm border border-[#E7E3DC] rounded-xl p-3 bg-[#FDFBF7]" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 text-sm font-bold">Save & Publish to Storefront</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         TESTING FLOATING BAR (QUICK NAVIGATION AT BOTTOM)
+         ======================================================== -->
+    <div id="floating-nav-bar"
+        class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-2.5 shadow-2xl">
+        <!-- Brand indicator -->
+        <div class="flex items-center gap-2 pr-2 border-r border-[#E7E3DC]">
+            <div class="w-5 h-5 rounded-full overflow-hidden bg-white border border-[#E7E3DC] flex items-center justify-center shrink-0">
+                <img src="Moroccanoil-Emblem.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+            <span class="text-xs font-bold text-[#4A2E2B] hidden sm:inline">HAIRCARE INSIGHT</span>
+        </div>
+
+        <!-- Screen Select Dropdown -->
+        <div class="flex items-center gap-1.5">
+            <span class="text-[11px] text-[#6B625B] font-semibold hidden md:inline">Screen:</span>
+            <select id="floating-screen-select"
+                class="text-xs font-bold text-[#4A2E2B] bg-[#F7F3EC] border border-[#E7E3DC] rounded-lg py-1.5 px-2.5 outline-none cursor-pointer hover:border-[#6E473B]">
+                <optgroup label="[GUEST FLOW]">
+                    <option value="c01-home">C01 - Homepage</option>
+                    <option value="c02-shop">C02 - Storefront (Shop + Filters)</option>
+                    <option value="c03-pdp">C03 - Product Details (PDP)</option>
+                    <option value="c04-quiz">C04 - Hair Quiz (3 Steps)</option>
+                    <option value="c05-routine">C05 - Recommended Routine</option>
+                </optgroup>
+                <optgroup label="[CUSTOMER FLOW]">
+                    <option value="c07-checkout">C07 - Checkout</option>
+                    <option value="c08-c09-success">C08/C09 - Order Confirmed</option>
+                    <option value="c12-profile">C12 - Account Dashboard</option>
+                    <option value="c13-orders">C13 - Order History</option>
+                </optgroup>
+                <optgroup label="[ADMIN DASHBOARD]">
+                    <option value="admin-dashboard">A01-A14 - Admin Portal</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <!-- Role Switcher -->
+        <div class="flex items-center gap-1 pl-2 border-l border-[#E7E3DC]">
+            <span class="text-[11px] text-[#6B625B] font-semibold hidden md:inline">Role:</span>
+            <button onclick="App.setRole('guest')"
+                class="px-2 py-1 text-[11px] font-bold rounded hover:bg-[#E7E3DC] transition-colors"
+                title="Switch to Guest">Guest</button>
+            <button onclick="App.setRole('customer')"
+                class="px-2 py-1 text-[11px] font-bold text-[#805719] bg-amber-50 hover:bg-amber-100 rounded transition-colors"
+                title="Switch to Customer">Customer</button>
+            <button onclick="App.setRole('admin')"
+                class="px-2 py-1 text-[11px] font-bold text-red-700 bg-red-50 hover:bg-red-100 rounded transition-colors"
+                title="Switch to Administrator">Admin</button>
+            <span id="floating-role-badge"
+                class="px-2 py-0.5 text-xs font-bold rounded-full bg-gray-100 text-gray-700 border border-gray-300">GUEST</span>
+        </div>
+
+        <!-- Quick Cart Trigger -->
+        <button onclick="App.openCart()" class="p-1.5 text-[#6E473B] hover:text-[#4A2E2B] rounded-lg hover:bg-[#E7E3DC]"
+            title="Open Shopping Bag">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- App Logic Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
