@@ -1,22 +1,66 @@
 <main class="login-page">
-  <section class="login-intro">
-    <a class="brand" routerLink="/">MOROCCANOIL <span>HAIRCARE INSIGHT</span></a>
-    <p class="eyebrow">ADMIN PORTAL</p>
-    <h1>Better care starts with better insight.</h1>
-    <p>Manage products, orders, stock, and personalized hair routines in one workspace.</p>
-  </section>
-  <form class="login-card" (ngSubmit)="signIn()" #loginForm="ngForm">
-    <div>
-      <p class="eyebrow">WELCOME BACK</p>
-      <h2>Sign in to your account</h2>
-      <p class="muted">Use your administrator account to continue.</p>
+  <section class="login-shell" aria-label="Administrator sign-in">
+    <div class="login-intro">
+      <img
+        class="login-intro-logo"
+        src="/assets/brand/admin-login-illustration.png"
+        alt="Moroccanoil"
+        width="1000"
+        height="482"
+      />
+      <h1>Welcome back.</h1>
+      <p>Sign in to manage your store and track business performance.</p>
     </div>
-    @if (errorMessage()) {
-      <p class="error" role="alert">{{ errorMessage() }}</p>
-    }
-    <label>Email address<input type="email" name="email" autocomplete="username" required [ngModel]="email()" (ngModelChange)="email.set($event)" /></label>
-    <label>Password<input type="password" name="password" autocomplete="current-password" required [ngModel]="password()" (ngModelChange)="password.set($event)" /></label>
-    <button class="submit" type="submit" [disabled]="loginForm.invalid || submitting()">{{ submitting() ? 'Signing in…' : 'Sign in' }}</button>
-    <a class="store-link" routerLink="/">← Back to storefront</a>
-  </form>
+
+    <form class="login-card" (ngSubmit)="signIn()" #loginForm="ngForm">
+      <img
+        class="brand-logo"
+        src="/assets/brand/moroccanoil-wordmark.png"
+        alt="Moroccanoil"
+        width="540"
+        height="47"
+      />
+      <div class="login-heading">
+        <h2>Admin sign-in</h2>
+        <p>Enter your account details to continue.</p>
+      </div>
+
+      <label for="admin-email">
+        Email
+        <input
+          id="admin-email"
+          type="email"
+          name="email"
+          autocomplete="username"
+          placeholder="admin@example.com"
+          required
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+        />
+      </label>
+
+      <label for="admin-password">
+        Password
+        <input
+          id="admin-password"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          required
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+        />
+      </label>
+
+      @if (errorMessage()) {
+        <p class="login-error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      <button class="submit" type="submit" [disabled]="loginForm.invalid || submitting()">
+        {{ submitting() ? 'Signing in…' : 'Sign in' }}
+      </button>
+      <small class="login-demo">Demo account: admin@example.com<br />Password: admin123</small>
+    </form>
+  </section>
 </main>
