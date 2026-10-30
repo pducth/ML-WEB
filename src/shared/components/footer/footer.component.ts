@@ -15,6 +15,6 @@ export class FooterComponent {
   readonly currentYear = new Date().getFullYear();
 
   subscribe(): void {
-    this.toast.show('Cảm ơn bạn đã đăng ký nhận bản tin VIP!', 'success');
+    this.toast.show('Newsletter subscriptions are not available yet.', 'error');
   }
 }

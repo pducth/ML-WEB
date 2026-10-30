@@ -21,7 +21,7 @@ export class AdminLayoutComponent {
   private readonly router = inject(Router);
 
   readonly sidebarOpen = signal(false);
-  readonly darkTheme = signal(false);
+  readonly darkTheme = signal(this.readDarkTheme());
   readonly navItems: readonly AdminNavItem[] = [
     { label: 'Overview', route: '/admin/dashboard', icon: '▦' },
     { label: 'Revenue forecast', route: '/admin/forecasts', icon: '⌁' },
@@ -43,11 +43,27 @@ export class AdminLayoutComponent {
   }
 
   toggleTheme(): void {
-    this.darkTheme.update((dark) => !dark);
+    const dark = !this.darkTheme();
+    this.darkTheme.set(dark);
+    try {
+      localStorage.setItem('haircare-theme', dark ? 'dark' : 'light');
+    } catch {
+      // Theme switching remains available when browser storage is disabled.
+    }
   }
 
   logout(): void {
     this.auth.logout();
     void this.router.navigateByUrl('/admin/login');
+  }
+
+  private readDarkTheme(): boolean {
+    try {
+      const savedTheme = localStorage.getItem('haircare-theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme === 'dark';
+    } catch {
+      return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 }

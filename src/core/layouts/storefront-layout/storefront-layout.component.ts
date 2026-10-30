@@ -23,7 +23,7 @@ export class StorefrontLayoutComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly cartItemCount = this.cartService.itemCount;
-  readonly accountLabel = computed(() => this.authService.currentUser()?.fullName ?? 'Đăng nhập');
+  readonly accountLabel = computed(() => this.authService.currentUser()?.fullName ?? 'Sign In');
   readonly isAdmin = computed(() => this.authService.role() === 'Admin');
 
   ngOnInit(): void {

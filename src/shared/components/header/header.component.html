@@ -1,136 +1,109 @@
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E7E3DC] transition-all">
-  <div
-    class="bg-[#4A2E2B] text-[#FDFBF7] text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2"
-  >
-    <span>✨ ƯU ĐÃI ĐỘC QUYỀN: Miễn phí vận chuyển toàn quốc cho đơn hàng từ 800.000₫ • Nhập mã <strong
-        class="text-[#00A3A6] font-bold">MOROCCO10</strong> giảm ngay 10%</span>
+<header class="sticky top-0 z-40 border-b border-[#E7E3DC] bg-white/95 backdrop-blur-md">
+  <div class="bg-[#4A2E2B] px-4 py-2 text-center text-xs font-medium tracking-wide text-[#FDFBF7]">
+    ✨ EXCLUSIVE OFFER: Free shipping on orders over $35 · Use code
+    <strong class="text-[#00A3A6]">MOROCCO10</strong> for 10% off
   </div>
 
-  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2 sm:gap-4">
-    <div
-      class="flex items-center gap-3 cursor-pointer select-none group"
-      role="link"
-      tabindex="0"
+  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+    <button
+      type="button"
+      class="group shrink-0 py-1"
       (click)="navigateTo.emit('/')"
-      (keydown.enter)="navigateTo.emit('/')"
+      aria-label="Moroccanoil home"
     >
-      <div
-        class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#6E473B] text-white flex items-center justify-center font-black text-xl sm:text-2xl tracking-tighter shadow-md group-hover:bg-[#4A2E2B] group-hover:scale-105 transition-all"
-      >
-        M
-      </div>
-      <div>
-        <span
-          class="block text-base sm:text-xl font-bold tracking-wider text-[#4A2E2B] group-hover:text-[#6E473B] transition-colors uppercase"
-          >MOROCCANOIL</span
-        >
-        <span class="hidden sm:block text-[11px] font-semibold text-[#8A5B4D] tracking-widest uppercase"
-          >ARGAN HAIRCARE LUXURY</span
-        >
-      </div>
-    </div>
+      <img
+        src="/assets/brand/moroccanoil-wordmark.png"
+        alt="Moroccanoil"
+        class="header-brand-logo object-contain transition-transform duration-200 group-hover:scale-105"
+      />
+    </button>
 
-    <nav class="hidden lg:flex items-center space-x-1 lg:space-x-4" aria-label="Điều hướng chính">
-      <button
-        type="button"
-        (click)="navigateTo.emit('/')"
-        class="px-3 py-2 text-sm font-semibold text-[#6E473B] border-b-2 border-[#6E473B] transition-all hover:text-[#6E473B]"
-      >
-        Trang chủ
-      </button>
-      <button
-        type="button"
-        (click)="navigateTo.emit('/shop')"
-        class="px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B]"
-      >
-        Cửa hàng
-      </button>
-      <button
-        type="button"
-        (click)="startQuiz.emit()"
-        class="px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B] flex items-center gap-1.5"
-      >
-        <span>Quiz tư vấn tóc</span>
-        <span class="bg-[#00A3A6] text-white rounded-full text-[10px] py-0 px-1.5">Mới</span>
-      </button>
-      <button
-        type="button"
-        (click)="accountClick.emit()"
-        class="px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B]"
-      >
-        Tài khoản VIP
-      </button>
-      <button
-        type="button"
-        (click)="navigateTo.emit('/orders')"
-        class="px-3 py-2 text-sm font-medium text-[#4A2E2B]/80 transition-all hover:text-[#6E473B]"
-      >
-        Đơn hàng
+    <nav class="hidden items-center space-x-1 md:flex lg:space-x-3" aria-label="Main navigation">
+      <button type="button" (click)="navigateTo.emit('/')" class="header-nav-link active">Home</button>
+      <div class="shop-dropdown-wrapper">
+        <button type="button" (click)="navigateTo.emit('/shop')" class="header-nav-link flex items-center gap-1">
+          Shop
+          <svg class="h-3.5 w-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="shop-mega-menu">
+          <button type="button" (click)="filterCategory('Styling & Finishing')">Styling &amp; Finishing</button>
+          <button type="button" (click)="filterCategory('Hair Masks')">Hair Masks</button>
+          <button type="button" (click)="filterCategory('Shampoo')">Shampoo</button>
+          <button type="button" (click)="filterCategory('Conditioner')">Conditioner</button>
+          <button type="button" (click)="filterCategory('Treatment/Oil')">Treatment / Oil</button>
+          <button type="button" (click)="filterCategory('Dry Shampoo')">Dry Shampoo</button>
+        </div>
+      </div>
+      <button type="button" (click)="startQuiz.emit()" class="header-nav-link flex items-center gap-1.5">
+        Hair Quiz <span class="rounded-full bg-[#00A3A6] px-1.5 text-[10px] text-white">New</span>
       </button>
       @if (isAdmin()) {
         <button
           type="button"
           (click)="navigateTo.emit('/admin/dashboard')"
-          class="px-3 py-2 text-sm font-bold text-red-700 bg-red-50 rounded-lg hover:bg-red-100 transition-all"
+          class="rounded-lg bg-red-50 px-3 py-2 text-sm font-bold text-red-700 transition-colors hover:bg-red-100"
         >
           Admin Portal
         </button>
       }
     </nav>
 
-    <div class="flex items-center space-x-1 sm:space-x-3">
+    <form class="header-search hidden lg:flex" (submit)="$event.preventDefault(); submitSearch()">
+      <svg class="h-4 w-4 shrink-0 text-[#9B938B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"></path>
+      </svg>
+      <input
+        type="search"
+        aria-label="Search products"
+        placeholder="Search argan oil, shampoo, mask..."
+        [value]="searchQuery()"
+        (input)="updateSearch($event)"
+      />
+    </form>
+
+    <div class="hidden shrink-0 items-center gap-2 rounded-full border border-[#E7E3DC] bg-[#F7F3EC] px-3 py-1.5 text-[11px] text-[#6B625B] xl:flex">
+      <span class="h-2 w-2 animate-pulse rounded-full bg-[#00A3A6]"></span>
+      <span>Salon Advisor: <a href="tel:19006868" class="font-bold text-[#4A2E2B]">1900 6868</a></span>
+    </div>
+
+    <div class="flex shrink-0 items-center space-x-1 sm:space-x-3">
       <button
         type="button"
         (click)="navigateTo.emit('/shop')"
-        class="p-2.5 rounded-full text-[#4A2E2B] hover:bg-[#F7F3EC] transition-all"
-        title="Tìm kiếm"
-        aria-label="Tìm kiếm sản phẩm"
+        class="rounded-full p-2.5 text-[#4A2E2B] transition-colors hover:bg-[#F7F3EC] lg:hidden"
+        title="Search"
+        aria-label="Search products"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          ></path>
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"></path>
         </svg>
       </button>
       <button
         type="button"
         (click)="accountClick.emit()"
-        class="flex items-center gap-2 px-2 sm:px-3.5 py-2 rounded-full border border-[#E7E3DC] hover:border-[#6E473B] text-[#4A2E2B] text-xs font-semibold hover:bg-[#F7F3EC] transition-all"
+        class="flex items-center gap-2 rounded-full border border-[#E7E3DC] px-2 py-2 text-xs font-semibold text-[#4A2E2B] transition-colors hover:border-[#6E473B] hover:bg-[#F7F3EC] sm:px-3.5"
       >
-        <svg class="w-4 h-4 text-[#6E473B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          ></path>
+        <svg class="h-4 w-4 text-[#6E473B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z"></path>
         </svg>
         <span class="hidden sm:inline">{{ accountLabel() }}</span>
       </button>
       <button
         type="button"
         (click)="cartClick.emit()"
-        class="relative p-2.5 rounded-full bg-[#6E473B] text-white hover:bg-[#4A2E2B] hover:scale-105 active:scale-95 transition-all shadow-md"
-        title="Giỏ hàng"
-        aria-label="Mở giỏ hàng"
+        class="relative rounded-full bg-[#6E473B] p-2.5 text-white shadow-md transition-all hover:scale-105 hover:bg-[#4A2E2B] active:scale-95"
+        title="Shopping bag"
+        aria-label="Open shopping bag"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-          ></path>
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 0 0-8 0v4M5 9h14l1 12H4L5 9Z"></path>
         </svg>
         @if (cartItemCount() > 0) {
-          <span
-            class="absolute -top-1.5 -right-1.5 bg-[#00A3A6] text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow"
-            aria-live="polite"
-            >{{ cartItemCount() }}</span
-          >
+          <span class="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-[#00A3A6] px-1 text-[11px] font-bold text-white" aria-live="polite">
+            {{ cartItemCount() }}
+          </span>
         }
       </button>
     </div>

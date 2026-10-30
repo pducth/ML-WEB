@@ -2,54 +2,48 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
     <div class="space-y-4">
       <div class="flex items-center gap-3">
-        <div
-          class="w-10 h-10 rounded-full bg-[#6E473B] text-white flex items-center justify-center font-bold text-xl"
-        >
-          M
-        </div>
-        <span class="text-lg font-bold tracking-widest uppercase">MOROCCANOIL</span>
+        <img src="/assets/brand/moroccanoil-wordmark.png" alt="Moroccanoil" class="h-auto w-[190px] object-contain" />
       </div>
       <p class="text-xs text-[#FDFBF7]/80 leading-relaxed">
-        Thương hiệu chăm sóc tóc chuyên nghiệp số 1 thế giới với tinh dầu Argan nguyên chất. Mang trải nghiệm salon đẳng
-        cấp vào từng khoảnh khắc đời thường.
+        Professional hair care powered by argan oil. Bring a salon-inspired ritual to every day.
       </p>
       <div class="flex items-center gap-2 pt-2">
         <span class="bg-white/10 text-white border border-white/20 rounded-full px-2.5 py-1 text-[10px] font-bold"
-          >Chứng nhận chính hãng 100%</span
+          >100% authentic products</span
         >
       </div>
     </div>
 
     <div class="space-y-3">
-      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Khám phá</h2>
+      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Explore</h2>
       <ul class="space-y-2 text-xs text-[#FDFBF7]/80">
-        <li><a routerLink="/shop" class="hover:text-white transition-colors">Bộ sưu tập Tinh Dầu Dưỡng</a></li>
-        <li><a routerLink="/shop" class="hover:text-white transition-colors">Dầu gội &amp; Dầu xả phục hồi</a></li>
-        <li><a routerLink="/shop" class="hover:text-white transition-colors">Mặt nạ ủ tóc chuyên sâu</a></li>
-        <li><a routerLink="/quiz" class="hover:text-white transition-colors">Trắc nghiệm tư vấn Routine</a></li>
+        <li><a routerLink="/shop" class="hover:text-white transition-colors">Treatments &amp; oils</a></li>
+        <li><a routerLink="/shop" class="hover:text-white transition-colors">Shampoo &amp; conditioner</a></li>
+        <li><a routerLink="/shop" class="hover:text-white transition-colors">Hair masks</a></li>
+        <li><a routerLink="/quiz" class="hover:text-white transition-colors">Personalized Hair Quiz</a></li>
       </ul>
     </div>
 
     <div class="space-y-3">
-      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Chăm sóc khách hàng</h2>
+      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Customer care</h2>
       <ul class="space-y-2 text-xs text-[#FDFBF7]/80">
-        <li><a routerLink="/orders" class="hover:text-white transition-colors">Tra cứu vận chuyển đơn hàng</a></li>
-        <li><a routerLink="/profile" class="hover:text-white transition-colors">Quyền lợi thành viên VIP</a></li>
-        <li><a routerLink="/about" class="hover:text-white transition-colors">Chính sách đổi trả trong 7 ngày</a></li>
-        <li><a routerLink="/about" class="hover:text-white transition-colors">Hệ thống Salon ủy quyền</a></li>
+        <li><a routerLink="/orders" class="hover:text-white transition-colors">Track your order</a></li>
+        <li><a routerLink="/profile" class="hover:text-white transition-colors">VIP member benefits</a></li>
+        <li><a routerLink="/about" class="hover:text-white transition-colors">Shipping &amp; returns</a></li>
+        <li><a routerLink="/about" class="hover:text-white transition-colors">About Moroccanoil</a></li>
       </ul>
     </div>
 
     <div class="space-y-3">
-      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Đăng ký nhận ưu đãi VIP</h2>
+      <h2 class="text-sm font-bold tracking-wider uppercase text-[#C89B58]">Join our community</h2>
       <p class="text-xs text-[#FDFBF7]/80">
-        Nhận ngay voucher giảm 10% cho đơn hàng đầu tiên và cẩm nang chăm sóc tóc chuẩn salon.
+        Get updates, hair care inspiration, and exclusive offers from Moroccanoil.
       </p>
       <div class="flex gap-2">
         <input
           type="email"
-          placeholder="Email của bạn..."
-          aria-label="Email của bạn"
+          placeholder="Your email address"
+          aria-label="Your email address"
           class="bg-white/10 border border-white/20 rounded-full px-4 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:border-[#00A3A6] flex-1"
         />
         <button
@@ -57,7 +51,7 @@
           (click)="subscribe()"
           class="px-4 py-2 rounded-full bg-[#00A3A6] text-white text-xs font-bold hover:bg-[#008285] transition-all"
         >
-          Gửi
+          Subscribe
         </button>
       </div>
     </div>
@@ -66,6 +60,6 @@
   <div
     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-white/10 text-center text-xs text-[#FDFBF7]/60"
   >
-    © 2026 Moroccanoil Vietnam. All Rights Reserved. Hệ thống phân phối chính hãng độc quyền.
+    © {{ currentYear }} Moroccanoil. All rights reserved.
   </div>
 </footer>
