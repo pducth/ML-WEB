@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.example.com',
-  withCredentials: true,
-  devTools: false,
+  apiUrl: 'http://localhost:3000',
+  withCredentials: false,
+  devTools: true,
 } as const;

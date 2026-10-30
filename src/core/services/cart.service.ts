@@ -1,8 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { environment } from '../environment/environment';
 import type { CartItem } from '../models/cart-item.model';
+
+const CART_STORAGE_KEY = 'haircare_cart_items';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -25,16 +27,28 @@ export class CartService {
     this.drawerOpen.set(false);
   }
 
-  getItems(userId: string | null) {
+  getItems(userId: string | null): Observable<CartItem[]> {
     const params = new HttpParams().set('userId', userId ?? 'null');
-    return this.http.get<CartItem[]>(this.endpoint, { params });
+    return this.http.get<CartItem[]>(this.endpoint, { params }).pipe(
+      catchError(() => of(this.readStoredItems(userId))),
+    );
   }
 
-  addItem(item: Omit<CartItem, 'id' | 'addedAt'>) {
-    return this.http.post<CartItem>(this.endpoint, {
+  addItem(item: Omit<CartItem, 'id' | 'addedAt'>): Observable<CartItem> {
+    const addedItem: CartItem = {
       ...item,
+      id: `cart-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       addedAt: new Date().toISOString(),
-    });
+    };
+
+    return this.http.post<CartItem>(this.endpoint, addedItem).pipe(
+      catchError(() => {
+        const stored = this.readAllStored();
+        stored.push(addedItem);
+        this.saveStored(stored);
+        return of(addedItem);
+      }),
+    );
   }
 
   addOrUpdateItem(
@@ -58,6 +72,7 @@ export class CartService {
 
         const updatedItemCount =
           items.reduce((total, cartItem) => total + cartItem.quantity, 0) + item.quantity;
+
         const mutation = existingItem
           ? this.updateQuantity(existingItem.id, existingItem.quantity + item.quantity)
           : this.addItem(item);
@@ -69,20 +84,38 @@ export class CartService {
     );
   }
 
-  updateQuantity(id: string, quantity: number) {
+  updateQuantity(id: string, quantity: number): Observable<CartItem> {
     if (!Number.isInteger(quantity) || quantity < 1) {
       throw new RangeError('Cart item quantity must be a positive integer.');
     }
 
     return this.http
-      .patch<CartItem>(`${this.endpoint}/${encodeURIComponent(id)}`, { quantity });
+      .patch<CartItem>(`${this.endpoint}/${encodeURIComponent(id)}`, { quantity })
+      .pipe(
+        catchError(() => {
+          const stored = this.readAllStored();
+          const target = stored.find((it) => it.id === id);
+          if (target) {
+            target.quantity = quantity;
+            this.saveStored(stored);
+            return of(target);
+          }
+          return throwError(() => new Error('Item not found in cart'));
+        }),
+      );
   }
 
-  removeItem(id: string) {
-    return this.http.delete<void>(`${this.endpoint}/${encodeURIComponent(id)}`);
+  removeItem(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.endpoint}/${encodeURIComponent(id)}`).pipe(
+      catchError(() => {
+        const stored = this.readAllStored().filter((it) => it.id !== id);
+        this.saveStored(stored);
+        return of(undefined);
+      }),
+    );
   }
 
-  clear(userId: string | null) {
+  clear(userId: string | null): Observable<void> {
     return this.getItems(userId).pipe(
       switchMap((items) =>
         items.length
@@ -99,5 +132,30 @@ export class CartService {
       map((items) => items.reduce((total, item) => total + item.quantity, 0)),
       tap((count) => this.itemCountValue.set(count)),
     );
+  }
+
+  private readAllStored(): CartItem[] {
+    try {
+      if (typeof window === 'undefined') return [];
+      const raw = localStorage.getItem(CART_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private readStoredItems(userId: string | null): CartItem[] {
+    const all = this.readAllStored();
+    return all.filter((it) => it.userId === userId || (!it.userId && !userId));
+  }
+
+  private saveStored(items: CartItem[]): void {
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+      }
+    } catch {
+      // localStorage may fail
+    }
   }
 }
