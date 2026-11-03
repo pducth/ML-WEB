@@ -1,0 +1,11 @@
+﻿metric,value
+mapping_rows,59
+unique_mapped_StockCode,59
+source_cleaned_transaction_rows,1019654
+mapped_transaction_rows,126981
+mapped_quantity,1721039
+mapped_revenue_gbp,3626460.44
+mapped_unique_invoice_count,29001
+mapping_labels_are_simulated,True
+source_SKU_set_matches_mapping,True
+revenue_target_currency,GBP source Price × Quantity; not HairCare catalogue USD price

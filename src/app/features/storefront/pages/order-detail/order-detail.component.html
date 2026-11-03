@@ -1,0 +1,219 @@
+<section class="app-screen animate-fadeIn">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2">
+      <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
+      <span>/</span>
+      <a routerLink="/orders" class="hover:text-[#19594A] cursor-pointer">Order History</a>
+      <span>/</span>
+      <span class="text-[#0F3D32] font-semibold">Order Details</span>
+    </div>
+
+    @if (order(); as o) {
+      <div class="bg-white rounded-3xl border border-[#DCE5E0] shadow-sm p-6 sm:p-8 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#DCE5E0]">
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-[#0F3D32]">Order Details #{{ o.code }}</h1>
+            <p class="text-xs text-[#85968E]">Placed {{ o.createdAt | date: 'medium' }}</p>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <app-order-status-pill [status]="o.status" />
+            @if (o.status === 'Payment Pending') { <a [routerLink]="['/payment', o.id]" class="btn-cta-buy text-xs px-4 py-2">Pay Now</a> }
+            @if (canCancel()) { <button type="button" (click)="openCancel()" class="text-xs font-bold text-red-600 px-4 py-2 rounded-full border border-red-200 hover:bg-red-50">Cancel Order</button> }
+            @if (canReturn()) { <button type="button" (click)="openReturn()" class="btn-secondary text-xs px-4 py-2">Request Return</button> }
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="flex flex-wrap gap-2">
+          @for (step of steps(); track step.status) {
+            <span class="flex-1 min-w-[110px] text-center px-2 py-2 rounded-xl text-[11px] font-bold"
+              [ngClass]="step.current ? 'bg-[#19594A] text-white' : step.done ? 'bg-[#4F7F72] text-white' : 'bg-[#EEF3EF] text-[#85968E]'">{{ step.done && !step.current ? '✓ ' : '' }}{{ step.status }}</span>
+          }
+        </div>
+
+        @if (o.returnRequest; as rr) {
+          <div class="p-4 rounded-2xl border" [ngClass]="rr.rejectReason ? 'border-red-200 bg-red-50' : o.status === 'Returned' ? 'border-green-200 bg-green-50' : 'border-orange-200 bg-orange-50'">
+            <p class="text-sm font-bold text-[#0F3D32]">
+              @if (rr.rejectReason) { Return request declined } @else if (o.status === 'Returned') { Return approved — refunded {{ o.refundAmount | usd }} } @else { Return request under review }
+            </p>
+            <p class="text-xs text-[#5E6F68] mt-1">Reason: {{ rr.reason }} · requested {{ rr.requestedAt | date: 'medium' }}</p>
+            @if (rr.rejectReason) { <p class="text-xs text-red-700 mt-1">Store response: {{ rr.rejectReason }}</p> }
+          </div>
+        }
+        @if (o.status === 'Cancelled') {
+          <div class="p-4 rounded-2xl border border-gray-200 bg-gray-50">
+            <p class="text-sm font-bold text-[#0F3D32]">This order was cancelled</p>
+            <p class="text-xs text-[#5E6F68] mt-1">Reason: {{ o.cancelReason }}@if (o.paymentStatus === 'Refunded') { · {{ o.refundAmount | usd }} refunded to your original payment method }</p>
+          </div>
+        }
+        @if (canReturn() && returnDeadline()) {
+          <p class="text-xs text-[#5E6F68] bg-[#EEF3EF] rounded-xl p-3">You can request a return of the whole order until <strong>{{ returnDeadline() | date: 'medium' }}</strong> (products must be unopened with the original seal, unless they arrived defective or wrong).</p>
+        }
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-3">Shipping Timeline</h4>
+            <div class="space-y-4 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#DCE5E0]">
+              @for (entry of timeline(); track $index) {
+                <div class="flex items-start gap-3 relative">
+                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold z-10" [ngClass]="$first ? 'bg-[#4F7F72] text-white shadow' : 'bg-gray-200 text-gray-500'">{{ $first ? '✓' : '•' }}</div>
+                  <div>
+                    <p class="text-sm font-semibold text-[#0F3D32]">{{ entry.status }}@if (entry.note) { <span class="font-normal text-[#5E6F68]"> — {{ entry.note }}</span> }</p>
+                    <p class="text-xs text-[#85968E]">{{ entry.at | date: 'medium' }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="bg-[#F7F8F4] p-4 rounded-xl border border-[#DCE5E0]">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Shipping Address</h4>
+              <p class="text-sm font-semibold text-[#0F3D32]">{{ o.shipping.recipientName }} - {{ o.shipping.phone }}</p>
+              <p class="text-xs text-[#5E6F68] mt-1">{{ o.shipping.addressLine }}</p>
+              @if (o.shipping.note) { <p class="text-xs text-[#85968E] mt-1 italic">Note: {{ o.shipping.note }}</p> }
+            </div>
+            <div class="bg-[#F7F8F4] p-4 rounded-xl border border-[#DCE5E0]">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Payment</h4>
+              <p class="text-sm font-semibold text-[#0F3D32]">{{ o.paymentMethod === 'COD' ? 'Cash on Delivery (COD)' : 'Bank Transfer' }} · {{ o.paymentStatus }}</p>
+              @if (o.paymentRef) { <p class="text-xs text-[#5E6F68] mt-1">Reference: <span class="font-mono text-[#4F7F72]">{{ o.paymentRef }}</span></p> }
+            </div>
+          </div>
+        </div>
+
+        <div id="review" class="scroll-mt-28">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Order Items</h4>
+          <div class="divide-y divide-[#DCE5E0] border border-[#DCE5E0] rounded-2xl">
+            @for (item of o.items; track item.variantId) {
+              <div class="p-4 space-y-3">
+                <div class="flex items-center gap-3">
+                  <a [routerLink]="['/products', item.productId]"><img [src]="item.imageUrl" [alt]="item.productName" class="w-14 h-14 rounded-xl object-cover border border-[#DCE5E0]" /></a>
+                  <div class="flex-1 min-w-0">
+                    <a [routerLink]="['/products', item.productId]" class="text-sm font-semibold text-[#0F3D32] hover:text-[#19594A] line-clamp-1">{{ item.productName }}</a>
+                    <p class="text-xs text-[#5E6F68]">{{ item.sizeLabel }} {{ item.volume }} · {{ item.unitPrice | usd }} × {{ item.quantity }}</p>
+                  </div>
+                  <span class="font-bold text-[#19594A]">{{ item.lineTotal | usd }}</span>
+                </div>
+
+                @if (canReview()) {
+                  @let review = myReview(item);
+                  @if (review && !isEditing(item)) {
+                    <div class="bg-[#F7F8F4] rounded-xl p-3 border border-[#DCE5E0] flex items-start justify-between gap-3">
+                      <div>
+                        <p class="text-sm text-[#4F7F72]">{{ '★'.repeat(review.rating) }}<span class="text-[#DCE5E0]">{{ '★'.repeat(5 - review.rating) }}</span>
+                          @if (review.status === 'Hidden') { <span class="ml-2 text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full align-middle">Hidden by store</span> }
+                        </p>
+                        @if (review.comment) { <p class="text-xs text-[#5E6F68] mt-1">{{ review.comment }}</p> }
+                        @if (review.media.length) {
+                          <div class="flex flex-wrap gap-1.5 mt-2">
+                            @for (m of review.media; track $index) {
+                              <span class="relative w-12 h-12 overflow-hidden border border-[#DCE5E0] bg-white">
+                                <img [src]="m.type === 'video' ? (m.poster ?? item.imageUrl) : m.src" alt="" class="w-full h-full object-cover" />
+                                @if (m.type === 'video') { <span class="absolute inset-0 flex items-center justify-center bg-[#0F3D32]/40 text-white text-[10px]">▶</span> }
+                              </span>
+                            }
+                          </div>
+                        }
+                      </div>
+                      <button type="button" (click)="startEditing(item)" class="text-xs font-bold text-[#19594A] hover:underline shrink-0">Edit review</button>
+                    </div>
+                  } @else {
+                    @let draft = draftFor(item);
+                    <div class="bg-[#F7F8F4] rounded-xl p-3 border border-[#DCE5E0] space-y-2">
+                      <div class="flex items-center gap-1" role="radiogroup" [attr.aria-label]="'Rate ' + item.productName">
+                        <span class="text-xs font-bold text-[#0F3D32] mr-2">Your rating:</span>
+                        @for (n of [1, 2, 3, 4, 5]; track n) {
+                          <button type="button" role="radio" [attr.aria-checked]="draft.rating === n" [attr.aria-label]="n + ' stars'" (click)="setDraft(item, { rating: n })"
+                            class="text-xl leading-none" [ngClass]="n <= draft.rating ? 'text-[#4F7F72]' : 'text-[#DCE5E0] hover:text-[#4F7F72]/50'">★</button>
+                        }
+                      </div>
+                      <textarea rows="2" [maxlength]="maxLength" [ngModel]="draft.comment" (ngModelChange)="setDraft(item, { comment: $event })" placeholder="Share how it worked for your hair (optional)"
+                        class="w-full text-sm border border-[#DCE5E0] rounded-xl p-3 bg-white outline-none focus:border-[#19594A]"></textarea>
+                      <div class="flex flex-wrap items-center gap-2">
+                        @for (m of draft.media; track $index) {
+                          <span class="relative w-14 h-14 overflow-hidden border border-[#DCE5E0] bg-white">
+                            @if (m.type === 'video') {
+                              <video [src]="m.src" class="w-full h-full object-cover" muted playsinline></video>
+                              <span class="absolute bottom-0 left-0 bg-[#0F3D32] text-white text-[9px] font-bold px-1">VIDEO</span>
+                            } @else {
+                              <img [src]="m.src" alt="" class="w-full h-full object-cover" />
+                            }
+                            <button type="button" (click)="removeMedia(item, $index)" aria-label="Remove attachment"
+                              class="absolute top-0 right-0 w-5 h-5 bg-[#0F3D32] text-white text-xs leading-none">×</button>
+                          </span>
+                        }
+                        <label class="w-14 h-14 border border-dashed border-[#85968E] text-[#5E6F68] hover:border-[#19594A] hover:text-[#19594A] cursor-pointer flex flex-col items-center justify-center text-center text-[9px] font-semibold uppercase tracking-wider leading-tight">
+                          <span class="text-base leading-none">+</span>Photo / video
+                          <input type="file" accept="image/*,video/*" multiple class="sr-only" (change)="attach(item, $event)" />
+                        </label>
+                        <span class="text-[10px] text-[#85968E]">Up to {{ maxPhotos }} photos and 1 short video (under 1.5 MB)</span>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <span class="text-[10px] text-[#85968E]">{{ draft.comment.length }}/{{ maxLength }}</span>
+                        <button type="button" (click)="submitReview(item)" [disabled]="!draft.rating" class="btn-primary text-xs px-4 py-2">{{ review ? 'Update Review' : 'Submit Review' }}</button>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+          @if (o.status === 'Return Pending' || o.status === 'Returned') {
+            <p class="text-[11px] text-[#85968E] mt-2">Reviews are locked while an order is being returned.</p>
+          }
+        </div>
+
+        <div class="pt-3 border-t border-[#DCE5E0] space-y-1.5 text-sm max-w-sm ml-auto">
+          <div class="flex justify-between text-[#5E6F68]"><span>Subtotal</span><span>{{ o.subtotal | usd }}</span></div>
+          <div class="flex justify-between text-[#4F7F72]"><span>Voucher {{ o.voucherCode ?? '' }}</span><span>-{{ o.discount | usd }}</span></div>
+          <div class="flex justify-between text-[#5E6F68]"><span>Shipping</span><span>{{ o.shippingFee | usd }}</span></div>
+          <div class="pt-2 border-t border-[#DCE5E0] flex justify-between text-base font-bold text-[#0F3D32]"><span>Order Total</span><span class="text-[#19594A]">{{ o.total | usd }}</span></div>
+          @if (o.refundAmount) { <div class="flex justify-between text-xs text-green-700 font-semibold"><span>Refunded</span><span>{{ o.refundAmount | usd }}</span></div> }
+        </div>
+      </div>
+
+      <app-store-modal [open]="cancelOpen()" title="Cancel this order?" (closed)="cancelOpen.set(false)">
+        <p class="text-sm text-[#5E6F68]">Reserved stock will be released@if (o.voucherCode) {, your code {{ o.voucherCode }} becomes usable again} @if (o.paymentStatus === 'Paid') { and {{ o.total | usd }} will be refunded in full}.</p>
+        <label for="cancel-reason" class="block text-xs font-bold text-[#0F3D32] mt-4 mb-1">Reason for cancelling *</label>
+        <select id="cancel-reason" (change)="cancelReason.set($any($event.target).value)" class="field-input">
+          <option value="" [selected]="!cancelReason()">Select a reason…</option>
+          @for (reason of cancelReasons; track reason) { <option [value]="reason" [selected]="cancelReason() === reason">{{ reason }}</option> }
+        </select>
+        @if (modalError()) { <p class="text-xs font-semibold text-red-600 mt-3" role="alert">{{ modalError() }}</p> }
+        <div class="flex gap-3 justify-end mt-6">
+          <button type="button" (click)="cancelOpen.set(false)" class="btn-secondary text-sm px-5 py-2.5">Keep order</button>
+          <button type="button" (click)="confirmCancel()" [disabled]="!cancelReason()" class="btn-primary text-sm px-5 py-2.5 !bg-red-600 !border-red-600">Cancel order</button>
+        </div>
+      </app-store-modal>
+
+      <app-store-modal [open]="returnOpen()" title="Request a return" size="lg" (closed)="returnOpen.set(false)">
+        <p class="text-sm text-[#5E6F68]">Returns apply to the whole order. Once approved, items are restocked and you are refunded the order total minus the {{ o.shippingFee | usd }} shipping fee — or in full if the store made a mistake.</p>
+        <label for="return-reason" class="block text-xs font-bold text-[#0F3D32] mt-4 mb-1">Reason *</label>
+        <select id="return-reason" (change)="returnReason.set($any($event.target).value)" class="field-input">
+          <option value="" [selected]="!returnReason()">Select a reason…</option>
+          @for (reason of returnReasons; track reason.label) { <option [value]="reason.label" [selected]="returnReason() === reason.label">{{ reason.label }}</option> }
+        </select>
+        @if (selectedReturnReason(); as reason) {
+          @if (!reason.storeFault) {
+            <label class="flex items-start gap-2 text-xs text-[#0F3D32] mt-4">
+              <input type="checkbox" [checked]="sealIntact()" (change)="sealIntact.set($any($event.target).checked)" class="mt-0.5 text-[#19594A] rounded" />
+              <span>I confirm all products are unopened with their original seal intact.</span>
+            </label>
+          } @else {
+            <p class="text-xs text-[#3B6B5E] bg-[#4F7F72]/10 rounded-xl p-3 mt-4">Store error — the seal requirement does not apply and shipping is refunded too.</p>
+          }
+          <p class="text-sm font-bold text-[#0F3D32] mt-4">Estimated refund: <span class="text-[#19594A]">{{ refundPreview() | usd }}</span></p>
+        }
+        @if (modalError()) { <p class="text-xs font-semibold text-red-600 mt-3" role="alert">{{ modalError() }}</p> }
+        <div class="flex gap-3 justify-end mt-6">
+          <button type="button" (click)="returnOpen.set(false)" class="btn-secondary text-sm px-5 py-2.5">Close</button>
+          <button type="button" (click)="confirmReturn()" [disabled]="!returnReason() || (!selectedReturnReason()?.storeFault && !sealIntact())" class="btn-primary text-sm px-5 py-2.5">Submit Return Request</button>
+        </div>
+      </app-store-modal>
+    } @else {
+      <div class="py-16 text-center bg-white rounded-3xl border border-[#DCE5E0]">
+        <p class="font-bold text-[#0F3D32]">Order not found</p>
+        <a routerLink="/orders" class="btn-primary text-sm px-6 py-2.5 mt-5">Back to Order History</a>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<footer class="fm-surface-forest text-[#F7F8F4] pt-10 pb-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Membership strip -->
+    @if (!user()) {
+      <div class="pb-8 border-b border-white/10 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-left">
+        <div>
+          <h2 class="fm-eyebrow fm-eyebrow--light">The ritual club</h2>
+          <p class="mt-2 font-display text-2xl leading-tight text-white">Nature, felt <i>in every ritual.</i></p>
+          <p class="mt-1.5 text-xs text-white/65">Create an account for 10% off your first order, new arrivals and expert haircare notes.</p>
+        </div>
+        <a routerLink="/register" class="h-11 px-8 inline-flex items-center justify-center bg-[#F7F8F4] text-[#0F3D32] text-xs font-semibold uppercase tracking-[0.12em] hover:bg-[#E0EAE5] transition-colors duration-300 shrink-0">Register</a>
+      </div>
+    }
+
+    <!-- Link columns -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-6 pt-8">
+      <div class="col-span-2 md:col-span-1 space-y-3">
+        <img src="/assets/folmare/logo/png/folmare-horizontal-white.png" alt="FOLMARÉ Botanical Haircare Edit" class="h-7 w-auto" loading="lazy" />
+        <p class="text-xs text-white/60 leading-relaxed">A curated botanical haircare edit for healthy scalps and calm daily rituals.</p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="fm-eyebrow fm-eyebrow--light">The curated edit</h2>
+        <ul class="space-y-1.5 text-xs text-white/75">
+          <li>AROMATICA <span class="block text-[10px] text-white/45">Scalp care &amp; aromatherapy</span></li>
+          <li>Rahua <span class="block text-[10px] text-white/45">Amazon botanicals</span></li>
+          <li>Davines <span class="block text-[10px] text-white/45">Conscious professional care</span></li>
+          <li>Moroccanoil <span class="block text-[10px] text-white/45">Argan oil &amp; radiance</span></li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="fm-eyebrow fm-eyebrow--light">Customer care</h2>
+        <ul class="space-y-1.5 text-xs text-white/75">
+          <li><a routerLink="/about" [queryParams]="{ tab: 'about' }" class="hover:text-white transition-colors">About FOLMARÉ</a></li>
+          <li><a routerLink="/about" [queryParams]="{ tab: 'privacy' }" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a routerLink="/about" [queryParams]="{ tab: 'shipping' }" class="hover:text-white transition-colors">Sales &amp; Shipping Policy</a></li>
+          <li><a routerLink="/about" [queryParams]="{ tab: 'returns' }" class="hover:text-white transition-colors">Return &amp; Refund Policy (7 Days)</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="fm-eyebrow fm-eyebrow--light">Contact</h2>
+        <ul class="space-y-1.5 text-xs text-white/75 leading-relaxed">
+          <li>123 Le Loi Street, Ben Nghe Ward, District 1, Ho Chi Minh City</li>
+          <li>Hotline (+84) 1900 6868</li>
+          <li>hello&#64;folmare.vn</li>
+          <li>Mon – Sat · 8:30 AM – 9:00 PM</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="fm-eyebrow fm-eyebrow--light">Company</h2>
+        <div class="space-y-1.5 text-[11px] text-white/60 leading-relaxed">
+          <p class="text-xs font-semibold text-white">FOLMARÉ VIETNAM CO., LTD.</p>
+          <p>Business Registration No. 0318291011</p>
+          <p>Issued by the Department of Planning and Investment of Ho Chi Minh City on January 11, 2024.</p>
+          <span class="inline-block mt-1 border border-white/20 bg-white/5 px-3 py-1 text-[10px] font-semibold tracking-wider text-white">100% genuine products</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/50">
+      <p>© {{ currentYear }} FOLMARÉ VIETNAM CO., LTD. All rights reserved.</p>
+      <p>Featured brands are independent trademarks of their respective owners.</p>
+    </div>
+  </div>
+</footer>

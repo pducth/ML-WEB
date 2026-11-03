@@ -1,0 +1,5 @@
+/* C01 — Home. Layout is Tailwind; FOLMARÉ hero, tiles and textures come from styles/folmare.css. */
+:host {
+  display: block;
+}
+

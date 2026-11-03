@@ -1,0 +1,119 @@
+﻿sale_date,product_id,forecast_quantity_sold,forecast_revenue_gbp,category,product_name,quantity_model,revenue_model
+2011-12-18,8161090633945,535.6910240895803,2391.367760483783,shampoo,Blonde Perfecting Purple Shampoo,CatBoost,Linear Regression
+2011-12-18,8161090666713,200.53349549837506,219.90915852397416,conditioner,Blonde Perfecting Purple Conditioner,CatBoost,Linear Regression
+2011-12-18,8161090765017,102.36253832761186,503.5021538249597,treatment,Intense Smoothing Serum,CatBoost,Linear Regression
+2011-12-18,8161091223769,146.80927510752264,614.1732215944618,hairmask,Bordeaux Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161091289305,642.7316299690618,1639.8725609844532,shampoo,Clarifying Shampoo,CatBoost,Linear Regression
+2011-12-18,8161091322073,954.556870391947,2748.0685000185395,hairmask,Cocoa Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161091354841,102.0332946947785,851.9503601058408,conditioner,Color Care Conditioner,CatBoost,Linear Regression
+2011-12-18,8161091453145,195.23711497357345,624.0187958503876,hairmask,Copper Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161091485913,168.3196916934773,4096.990554746228,shampoo,Color Care Shampoo,CatBoost,Linear Regression
+2011-12-18,8161091551449,182.77229472045073,712.0221256119344,hairmask,Coral Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161091584217,409.91062615022247,1032.692915190998,hairstyling,Curl Control Mousse,CatBoost,Linear Regression
+2011-12-18,8161091616985,304.5694925959169,961.5701275284061,hairstyling,Curl Defining Cream,CatBoost,Linear Regression
+2011-12-18,8161091649753,104.04745526595794,365.7508526417973,conditioner,Curl Enhancing Conditioner,CatBoost,Linear Regression
+2011-12-18,8161091748057,792.9442220838727,4038.038752588037,dry shampoo,Dry Shampoo Dark Tones,CatBoost,Linear Regression
+2011-12-18,8161091780825,107.40521696344452,505.2202281548376,dry shampoo,Dry Shampoo Light Tones,CatBoost,Linear Regression
+2011-12-18,8161091813593,386.0729173483806,745.4119828446017,hairstyling,Dry Texture Spray,CatBoost,Linear Regression
+2011-12-18,8161091911897,131.48729585925818,871.6380226351,conditioner,Extra Volume Conditioner,CatBoost,Linear Regression
+2011-12-18,8161091977433,240.39982528870442,686.0834873912487,shampoo,Extra Volume Shampoo,CatBoost,Linear Regression
+2011-12-18,8161092731097,87.90592760579918,982.5004320249252,shampoo,Hydrating Shampoo,CatBoost,Linear Regression
+2011-12-18,8161092763865,259.41957361377865,405.0777373714844,conditioner,Hydrating Conditioner,CatBoost,Linear Regression
+2011-12-18,8161092796633,149.67116951464237,453.39618046818816,hairstyling,Hydrating Styling Cream,CatBoost,Linear Regression
+2011-12-18,8161092862169,378.9740156382435,1124.312027278528,hairstyling,Intense Curl Cream,CatBoost,Linear Regression
+2011-12-18,8161092894937,174.46203050507935,669.4047602007457,hairmask,Intense Hydrating Mask,CatBoost,Linear Regression
+2011-12-18,8161093026009,229.8668131406461,1656.498212645303,hairstyling,Luminous Hairspray Extra Strong,CatBoost,Linear Regression
+2011-12-18,8161093058777,44.31407038566393,352.85676469989886,hairstyling,Luminous Hairspray Medium,CatBoost,Linear Regression
+2011-12-18,8161093091545,23.796636531831727,281.9282437763522,hairstyling,Luminous Hairspray Strong,CatBoost,Linear Regression
+2011-12-18,8161093124313,204.71653046875335,1090.4507065530806,hairstyling,Mending Infusion,CatBoost,Linear Regression
+2011-12-18,8161093189849,199.85346831935556,614.5768046555626,conditioner,Moisture Repair Conditioner,CatBoost,Linear Regression
+2011-12-18,8161093222617,39.924080248290224,448.2173369016601,hairstyling,Molding Cream,CatBoost,Linear Regression
+2011-12-18,8161093255385,205.56047018714318,496.3736190295312,shampoo,Moisture Repair Shampoo,CatBoost,Linear Regression
+2011-12-18,8161093288153,27.626499230254225,387.38695167633716,treatment,Moroccanoil Treatment Light,CatBoost,Linear Regression
+2011-12-18,8161093353689,196.54773712162697,1241.445178747833,treatment,Moroccanoil Treatment Original,CatBoost,Linear Regression
+2011-12-18,8161093451993,180.53076229987934,622.0598703535659,hairstyling,Perfect Defense Heat Protectant,CatBoost,Linear Regression
+2011-12-18,8161093517529,128.75851065791926,218.7945593049664,hairmask,Platinum Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161093583065,154.01611977284873,930.6372967551437,hairstyling,Protect & Prevent Spray,CatBoost,Linear Regression
+2011-12-18,8161094336729,88.21897489155468,324.17960337685287,hairmask,Restorative Hair Mask,CatBoost,Linear Regression
+2011-12-18,8161094369497,104.8802821449273,423.92835754468956,hairstyling,Root Boost,CatBoost,Linear Regression
+2011-12-18,8161094402265,111.51991109650052,810.8354782304409,hairmask,Rose Gold Color Depositing Mask,CatBoost,Linear Regression
+2011-12-18,8161094795481,295.20688664953593,2046.4490801066231,hairstyling,Smoothing Lotion,CatBoost,Linear Regression
+2011-12-18,8161094926553,207.77466304632532,485.46527846756806,hairstyling,Styling Gel - Strong,CatBoost,Linear Regression
+2011-12-18,8161094959321,135.6091697024131,459.5247950708173,hairstyling,Texture Clay,CatBoost,Linear Regression
+2011-12-18,8161094992089,237.70540186169578,642.2848756516518,hairstyling,Thickening Lotion,CatBoost,Linear Regression
+2011-12-18,8161095090393,45.10457715844993,785.7483053466719,hairstyling,Volumizing Mist,CatBoost,Linear Regression
+2011-12-18,8161095123161,121.65927836723893,258.78793775454113,hairstyling,Volumizing Mousse,CatBoost,Linear Regression
+2011-12-18,8161095155929,103.93223799149045,388.9454087094108,hairmask,Weightless Hydrating Mask,CatBoost,Linear Regression
+2011-12-18,8161115275481,41.260429565270464,657.8628791536466,hairstyling,Leave-in Conditioner,CatBoost,Linear Regression
+2011-12-18,8173172064473,112.74998591982846,351.75993242475323,hairmask,High Shine Gloss Mask,CatBoost,Linear Regression
+2011-12-18,8210592465113,346.04353933901143,438.1494301056149,shampoo,Curl Enhancing Shampoo,CatBoost,Linear Regression
+2011-12-18,8229545836761,182.0301002659279,721.5368810858838,hairstyling,Frizz Shield Spray,CatBoost,Linear Regression
+2011-12-18,8513169162457,713.0574889165019,1479.8733621975282,shampoo,Frizz Control Shampoo,CatBoost,Linear Regression
+2011-12-18,8513170997465,34.65412098659065,104.02499850895663,conditioner,Frizz Control Conditioner,CatBoost,Linear Regression
+2011-12-18,8672695582937,329.06871814198956,772.1981093037532,treatment,Moroccanoil Treatment Purple,CatBoost,Linear Regression
+2011-12-18,8957889020121,105.97483767060052,404.7025925433135,shampoo,Purifying Pre-Wash Scalp Scrub,CatBoost,Linear Regression
+2011-12-18,8957916152025,150.69807873212395,481.9963691027148,shampoo,Scalp Balancing Shampoo,CatBoost,Linear Regression
+2011-12-18,8957917987033,75.19834225088668,436.8943570078088,conditioner,Scalp Balancing Conditioner,CatBoost,Linear Regression
+2011-12-18,9217377763545,47.311123834272685,290.78330425525184,hairstyling,Texture & Volume Hair Powder,CatBoost,Linear Regression
+2011-12-18,9280645595353,136.96736799803,627.1863398466148,treatment,Moroccanoil Treatment Mist,CatBoost,Linear Regression
+2011-12-18,9719292690649,164.06256987617223,374.52415834790304,hairstyling,Sculpting Pomade,CatBoost,Linear Regression
+2011-12-18,9820045770969,158.49446987274843,187.57087252545244,hairmask,Overnight Leave-in Mask,CatBoost,Linear Regression
+2011-12-25,8161090633945,180.9318011133295,2623.5945024530793,shampoo,Blonde Perfecting Purple Shampoo,CatBoost,Linear Regression
+2011-12-25,8161090666713,67.01673546860894,239.1443986445417,conditioner,Blonde Perfecting Purple Conditioner,CatBoost,Linear Regression
+2011-12-25,8161090765017,37.102521428338214,525.1528965839151,treatment,Intense Smoothing Serum,CatBoost,Linear Regression
+2011-12-25,8161091223769,53.361915598909,623.4450351453727,hairmask,Bordeaux Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161091289305,190.2029963919171,1762.9070142761611,shampoo,Clarifying Shampoo,CatBoost,Linear Regression
+2011-12-25,8161091322073,307.094070425214,2587.9631480867893,hairmask,Cocoa Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161091354841,52.374255019868215,820.7021595567961,conditioner,Color Care Conditioner,CatBoost,Linear Regression
+2011-12-25,8161091453145,86.55573772794557,622.1819304251051,hairmask,Copper Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161091485913,61.73682490671244,4094.5152845192197,shampoo,Color Care Shampoo,CatBoost,Linear Regression
+2011-12-25,8161091551449,68.31748950545314,698.0273970939535,hairmask,Coral Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161091584217,161.9124337854105,942.8435375153535,hairstyling,Curl Control Mousse,CatBoost,Linear Regression
+2011-12-25,8161091616985,103.59430760804327,847.3821655315231,hairstyling,Curl Defining Cream,CatBoost,Linear Regression
+2011-12-25,8161091649753,33.927113728879945,382.66126956997414,conditioner,Curl Enhancing Conditioner,CatBoost,Linear Regression
+2011-12-25,8161091748057,280.6010166722009,3936.5403454000907,dry shampoo,Dry Shampoo Dark Tones,CatBoost,Linear Regression
+2011-12-25,8161091780825,42.6900072240139,524.3198332720386,dry shampoo,Dry Shampoo Light Tones,CatBoost,Linear Regression
+2011-12-25,8161091813593,144.30633018381312,779.9077627597355,hairstyling,Dry Texture Spray,CatBoost,Linear Regression
+2011-12-25,8161091911897,50.919162032338626,800.785544646088,conditioner,Extra Volume Conditioner,CatBoost,Linear Regression
+2011-12-25,8161091977433,81.97819880719062,732.0760102179711,shampoo,Extra Volume Shampoo,CatBoost,Linear Regression
+2011-12-25,8161092731097,36.32909099324355,1056.911039549669,shampoo,Hydrating Shampoo,CatBoost,Linear Regression
+2011-12-25,8161092763865,99.28841447515697,423.38753950484124,conditioner,Hydrating Conditioner,CatBoost,Linear Regression
+2011-12-25,8161092796633,55.69693714992509,453.7349661646945,hairstyling,Hydrating Styling Cream,CatBoost,Linear Regression
+2011-12-25,8161092862169,148.59784997676405,1024.1682394948728,hairstyling,Intense Curl Cream,CatBoost,Linear Regression
+2011-12-25,8161092894937,78.30196131449549,698.9375319607094,hairmask,Intense Hydrating Mask,CatBoost,Linear Regression
+2011-12-25,8161093026009,92.38098545668245,1551.8183840321185,hairstyling,Luminous Hairspray Extra Strong,CatBoost,Linear Regression
+2011-12-25,8161093058777,18.479001149760908,382.2456914519288,hairstyling,Luminous Hairspray Medium,CatBoost,Linear Regression
+2011-12-25,8161093091545,17.327276620529254,304.9418413377114,hairstyling,Luminous Hairspray Strong,CatBoost,Linear Regression
+2011-12-25,8161093124313,67.85547092671086,974.5641350023479,hairstyling,Mending Infusion,CatBoost,Linear Regression
+2011-12-25,8161093189849,65.33018831312141,642.4744700952947,conditioner,Moisture Repair Conditioner,CatBoost,Linear Regression
+2011-12-25,8161093222617,19.33529005067003,514.737811606948,hairstyling,Molding Cream,CatBoost,Linear Regression
+2011-12-25,8161093255385,62.645251430769555,517.3767382052206,shampoo,Moisture Repair Shampoo,CatBoost,Linear Regression
+2011-12-25,8161093288153,20.363758215150543,416.94603345108214,treatment,Moroccanoil Treatment Light,CatBoost,Linear Regression
+2011-12-25,8161093353689,75.12573001273326,1105.309823844038,treatment,Moroccanoil Treatment Original,CatBoost,Linear Regression
+2011-12-25,8161093451993,66.22174592333313,605.540443500993,hairstyling,Perfect Defense Heat Protectant,CatBoost,Linear Regression
+2011-12-25,8161093517529,43.15679750216775,225.98351687309622,hairmask,Platinum Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161093583065,71.28019763916862,813.7001223261166,hairstyling,Protect & Prevent Spray,CatBoost,Linear Regression
+2011-12-25,8161094336729,30.517541947132663,349.0779167283386,hairmask,Restorative Hair Mask,CatBoost,Linear Regression
+2011-12-25,8161094369497,39.660262307083265,457.25958784338934,hairstyling,Root Boost,CatBoost,Linear Regression
+2011-12-25,8161094402265,33.786772973491196,769.8556311281892,hairmask,Rose Gold Color Depositing Mask,CatBoost,Linear Regression
+2011-12-25,8161094795481,114.3563903993446,1818.7804078713386,hairstyling,Smoothing Lotion,CatBoost,Linear Regression
+2011-12-25,8161094926553,78.9615192879112,457.31337887105803,hairstyling,Styling Gel - Strong,CatBoost,Linear Regression
+2011-12-25,8161094959321,48.57191507419152,466.7506381355156,hairstyling,Texture Clay,CatBoost,Linear Regression
+2011-12-25,8161094992089,84.89531784074406,654.3637419969875,hairstyling,Thickening Lotion,CatBoost,Linear Regression
+2011-12-25,8161095090393,18.231907125205122,755.01699610236,hairstyling,Volumizing Mist,CatBoost,Linear Regression
+2011-12-25,8161095123161,44.568691967577,252.5916102540636,hairstyling,Volumizing Mousse,CatBoost,Linear Regression
+2011-12-25,8161095155929,38.1374524481289,389.92516457847876,hairmask,Weightless Hydrating Mask,CatBoost,Linear Regression
+2011-12-25,8161115275481,17.780307373233693,658.397753176018,hairstyling,Leave-in Conditioner,CatBoost,Linear Regression
+2011-12-25,8173172064473,45.04274816585543,378.76759436074326,hairmask,High Shine Gloss Mask,CatBoost,Linear Regression
+2011-12-25,8210592465113,117.1605749906734,473.15905360016427,shampoo,Curl Enhancing Shampoo,CatBoost,Linear Regression
+2011-12-25,8229545836761,72.4318435760343,715.7896067211934,hairstyling,Frizz Shield Spray,CatBoost,Linear Regression
+2011-12-25,8513169162457,214.13364785924864,1554.229252341798,shampoo,Frizz Control Shampoo,CatBoost,Linear Regression
+2011-12-25,8513170997465,15.335285965037137,101.47117707150107,conditioner,Frizz Control Conditioner,CatBoost,Linear Regression
+2011-12-25,8672695582937,125.0955022389726,699.5733083782328,treatment,Moroccanoil Treatment Purple,CatBoost,Linear Regression
+2011-12-25,8957889020121,39.30806177337632,419.05890752433265,shampoo,Purifying Pre-Wash Scalp Scrub,CatBoost,Linear Regression
+2011-12-25,8957916152025,53.487399540274595,483.34848544508463,shampoo,Scalp Balancing Shampoo,CatBoost,Linear Regression
+2011-12-25,8957917987033,38.505814342912366,463.06520042483373,conditioner,Scalp Balancing Conditioner,CatBoost,Linear Regression
+2011-12-25,9217377763545,20.009753003832763,285.4900965929694,hairstyling,Texture & Volume Hair Powder,CatBoost,Linear Regression
+2011-12-25,9280645595353,54.80537829619087,619.2875299574056,treatment,Moroccanoil Treatment Mist,CatBoost,Linear Regression
+2011-12-25,9719292690649,68.41345739838029,351.9927681135719,hairstyling,Sculpting Pomade,CatBoost,Linear Regression
+2011-12-25,9820045770969,57.35589163308114,207.6299376380805,hairmask,Overnight Leave-in Mask,CatBoost,Linear Regression

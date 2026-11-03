@@ -1,0 +1,284 @@
+<section class="app-screen animate-fadeIn">
+  @if (product(); as p) {
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2 flex-wrap">
+        <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
+        <span>/</span>
+        <a routerLink="/shop" class="hover:text-[#19594A] cursor-pointer">Shop</a>
+        <span>/</span>
+        <a routerLink="/shop" [queryParams]="{ category: p.category }" class="hover:text-[#19594A] cursor-pointer">{{ p.category }}</a>
+        <span>/</span>
+        <span class="text-[#0F3D32] font-semibold">{{ p.name }}</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14">
+        <!-- Left: thumbnails in a column next to the main image -->
+        <div class="lg:col-span-6 flex flex-col-reverse sm:flex-row gap-3 lg:self-start">
+          @if (p.images.length > 1) {
+            <div class="flex sm:flex-col gap-2.5 sm:w-[72px] shrink-0 overflow-x-auto sm:overflow-visible" role="group" aria-label="Product images">
+              @for (image of p.images; track image) {
+                <button type="button" (click)="selectedImage.set(image)" [attr.aria-label]="'Show image ' + ($index + 1)" [attr.aria-pressed]="image === mainImage()"
+                  class="w-16 h-16 sm:w-[72px] sm:h-[72px] shrink-0 border overflow-hidden bg-white transition-all"
+                  [ngClass]="image === mainImage() ? 'border-[#19594A]' : 'border-[#DCE5E0] hover:border-[#4F7F72]'">
+                  <img [src]="image" alt="" class="w-full h-full object-cover" />
+                </button>
+              }
+            </div>
+          }
+          <div class="flex-1 min-w-0 max-w-[520px] aspect-[4/5] overflow-hidden bg-white border border-[#DCE5E0] relative">
+            <img [src]="mainImage()" [alt]="p.name" class="w-full h-full object-cover" />
+            @if (!available()) {
+              <span class="absolute top-4 left-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-white bg-[#C9503A] px-2.5 py-1">Sold out</span>
+            }
+            <button type="button" (click)="openZoom()" aria-label="View all photos"
+              class="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-white/90 border border-[#DCE5E0] text-[#0F3D32] hover:bg-white hover:border-[#19594A] transition-colors">
+              <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path stroke-linecap="round" d="m20 20-4.2-4.2M11 8.5v5M8.5 11h5" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Info, Price, Sizes & CTA -->
+        <div class="lg:col-span-6 space-y-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2 flex-wrap">
+              @if (isNew()) { <span class="badge-gold">New</span> }
+              @if (isBestSeller()) { <span class="inline-flex items-center px-3 py-1 text-[11px] font-bold uppercase tracking-[0.08em] bg-[#0F3D32] text-white border border-[#0F3D32]">Best Seller</span> }
+              @if (stats().count) {
+                <app-stars [rating]="stats().average" class="text-sm" />
+                <span class="text-xs font-bold text-[#4F7F72]">{{ stats().average }}</span>
+                <a href="#reviews" class="text-xs text-[#85968E] hover:underline">{{ stats().count | compact }} {{ stats().count === 1 ? 'rating' : 'ratings' }}</a>
+              } @else {
+                <span class="text-xs text-[#85968E]">No ratings yet</span>
+              }
+              @if (p.soldTotal) { <span class="text-xs font-semibold text-[#0F3D32]"><span class="font-normal text-[#85968E]">·</span> {{ p.soldTotal | compact }} sold</span> }
+            </div>
+            <h1 class="text-3xl sm:text-4xl text-[#0F3D32]">{{ p.name }}</h1>
+            <p class="fm-eyebrow mt-2">{{ p.brand }} · {{ p.category }}</p>
+          </div>
+
+          <div class="flex items-end justify-between gap-4 flex-wrap border-y border-[#DCE5E0] py-5">
+            <div>
+              <p class="fm-display text-[32px] leading-none text-[#0F3D32]">{{ variant()?.price ?? 0 | usd }}</p>
+              <p class="text-xs text-[#85968E] mt-2">{{ variant()?.sizeLabel }} · {{ variant()?.volume }}</p>
+            </div>
+            @if (available() === 0) {
+              <p class="text-xs font-medium text-[#85968E]">Out of stock</p>
+            } @else if (available() <= settings().lowStockThreshold) {
+              <p class="text-xs font-medium text-[#C9503A]">Only {{ available() }} left</p>
+            }
+          </div>
+
+          <div>
+            <span class="fm-eyebrow block mb-2.5">Select Size:</span>
+            <div class="flex flex-wrap gap-2.5" role="radiogroup" aria-label="Size">
+              @for (v of variants(); track v.id) {
+                <button type="button" role="radio" [attr.aria-checked]="v.id === variant()?.id" (click)="selectVariant(v)"
+                  class="px-4 py-2.5 text-sm font-semibold border transition-all"
+                  [ngClass]="v.id === variant()?.id ? 'border-[#19594A] bg-[#19594A]/10 text-[#19594A]' : 'border-[#DCE5E0] text-[#0F3D32] hover:border-[#19594A]'">
+                  {{ v.sizeLabel }} {{ v.volume }}
+                  @if (!availableFor(v)) { <span class="text-[10px] text-red-600 font-bold ml-1">Sold out</span> }
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-center gap-4">
+              <div class="flex items-center border border-[#DCE5E0] bg-white px-2 py-1">
+                <button type="button" (click)="changeQuantity(-1)" [disabled]="quantity() <= 1 || !available()" class="w-8 h-8 flex items-center justify-center text-[#0F3D32] font-bold disabled:opacity-30" aria-label="Decrease quantity">-</button>
+                <input type="number" min="1" [max]="available()" [value]="quantity()" (change)="setQuantity($any($event.target).valueAsNumber)" [disabled]="!available()" aria-label="Quantity"
+                  class="w-12 text-center text-sm font-bold bg-transparent outline-none" />
+                <button type="button" (click)="changeQuantity(1)" [disabled]="quantity() >= available()" class="w-8 h-8 flex items-center justify-center text-[#0F3D32] font-bold disabled:opacity-30" aria-label="Increase quantity">+</button>
+              </div>
+              <button type="button" (click)="addToBag()" [disabled]="!available()" class="btn-primary flex-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <span>{{ available() ? 'Add to Bag' : 'Out of Stock' }}</span>
+              </button>
+            </div>
+            <button type="button" (click)="buyNow()" [disabled]="!available()" class="btn-cta-buy w-full py-3.5">Buy Now - Fast Nationwide Shipping</button>
+            @if (available() && available() <= quantity()) {
+              <p class="text-[11px] text-[#805719]">You've selected all {{ available() }} available units of this size.</p>
+            }
+          </div>
+
+          <!-- Details, Ingredients, How to use -->
+          <div class="border-t border-[#DCE5E0]">
+            @for (section of sections; track section.id) {
+              <div class="border-b border-[#DCE5E0]">
+                <button type="button" (click)="toggleSection(section.id)" [attr.aria-expanded]="isOpen(section.id)" [attr.aria-controls]="'panel-' + section.id"
+                  class="w-full flex items-center justify-between py-4 text-left text-xs font-bold uppercase tracking-[0.14em] text-[#0F3D32]">
+                  {{ section.label }}
+                  <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isOpen(section.id)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" /></svg>
+                </button>
+                @if (isOpen(section.id)) {
+                  <div [id]="'panel-' + section.id" class="pb-5 text-sm text-[#2C3E37] leading-relaxed space-y-2.5">
+                    @switch (section.id) {
+                      @case ('details') {
+                        @for (block of detailBlocks(); track $index) {
+                          @switch (block.kind) {
+                            @case ('bullet') { <p class="flex gap-2.5"><span class="text-[#19594A] shrink-0" aria-hidden="true">•</span><span>{{ block.text }}</span></p> }
+                            @case ('note') { <p class="text-xs text-[#5E6F68]">{{ block.text }}</p> }
+                            @case ('heading') { <p class="fm-eyebrow pt-2">{{ block.text }}</p> }
+                            @default { <p>{{ block.text }}</p> }
+                          }
+                        }
+                      }
+                      @case ('ingredients') { <p class="text-xs leading-relaxed">{{ p.ingredients }}</p> }
+                      @default {
+                        @for (line of directions(); track $index) {
+                          <p [ngClass]="line.startsWith('Tip') ? 'text-[#0F3D32] font-medium' : ''">{{ line }}</p>
+                        }
+                      }
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Customer reviews: summary on top, a toolbar, then one row per review -->
+      <div id="reviews" class="mt-20 scroll-mt-28">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 items-center">
+          <div>
+            <h2 class="text-3xl text-[#0F3D32]">Customer Reviews</h2>
+            @if (stats().count) {
+              <div class="mt-3 flex items-center gap-2">
+                <app-stars [rating]="stats().average" class="text-xl" />
+                <span class="text-lg font-semibold text-[#0F3D32]">{{ stats().average }}</span>
+              </div>
+              <p class="text-xs text-[#5E6F68] mt-1.5">{{ stats().count | compact }} ratings · {{ reviews().length }} written {{ reviews().length === 1 ? 'review' : 'reviews' }}</p>
+            } @else {
+              <p class="text-sm text-[#3F524B] mt-2">No ratings yet. Be the first to share your experience after your order is delivered.</p>
+            }
+            <p class="text-[11px] text-[#5E6F68] mt-4">Only customers who received this product in a completed order can review it.</p>
+          </div>
+          @if (stats().count) {
+            <div class="w-full max-w-md md:ml-auto space-y-2.5">
+              @for (bar of ratingBars(); track bar.stars) {
+                <div class="flex items-center gap-3 text-sm font-medium text-[#0F3D32]">
+                  <span class="w-6">{{ bar.stars }}★</span>
+                  <div class="flex-1 bg-[#D3E0D9] h-3 overflow-hidden"><div class="bg-[#19594A] h-full" [style.width.%]="bar.share"></div></div>
+                  <span class="w-10 text-right font-semibold">{{ bar.count | compact }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Toolbar: filters on the left, write a review on the right -->
+        <div class="mt-10 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-[#0F3D32] pb-3">
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2" role="group" aria-label="Filter reviews">
+            @for (k of kindCounts(); track k.kind) {
+              <button type="button" (click)="setKindFilter(k.kind)" [attr.aria-pressed]="kindFilter() === k.kind"
+                class="pb-1.5 -mb-[13px] text-[11px] font-bold uppercase tracking-[0.1em] border-b-2 transition-colors"
+                [ngClass]="kindFilter() === k.kind ? 'border-[#0F3D32] text-[#0F3D32]' : 'border-transparent text-[#3F524B] hover:text-[#0F3D32]'">
+                {{ kindLabels[k.kind] }} <span class="ml-0.5 px-1.5 py-0.5 text-[10px]" [ngClass]="kindFilter() === k.kind ? 'bg-[#0F3D32] text-white' : 'bg-[#D3E0D9] text-[#0F3D32]'">{{ k.count }}</span>
+              </button>
+            }
+          </div>
+          @if (reviewableOrder(); as order) {
+            <a [routerLink]="['/orders', order.id]" fragment="review" class="text-[11px] font-bold uppercase tracking-[0.1em] text-[#0F3D32] border-b border-[#0F3D32] hover:text-[#4F7F72] hover:border-[#4F7F72]">Write a review</a>
+          }
+        </div>
+        <div class="flex flex-wrap items-center gap-2 pt-4" role="group" aria-label="Filter reviews by stars">
+          <span class="text-xs font-semibold text-[#3F524B] mr-1">Stars</span>
+          @for (s of starCounts(); track s.stars) {
+            <button type="button" (click)="setStarFilter(s.stars)" [attr.aria-pressed]="starFilter() === s.stars"
+              class="px-3 py-1.5 text-[11px] font-semibold border transition-all"
+              [ngClass]="starFilter() === s.stars ? 'border-[#19594A] bg-[#19594A]/10 text-[#19594A]' : 'border-[#B5C8BD] text-[#0F3D32] hover:border-[#19594A]'">
+              {{ s.stars }} ★ ({{ s.count }})
+            </button>
+          }
+        </div>
+
+        <!-- One row per review: reviewer on the left, review on the right -->
+        <div class="mt-2">
+          @for (review of pageReviews(); track review.id) {
+            <article class="grid grid-cols-1 md:grid-cols-[230px_1fr] gap-x-10 gap-y-3 py-7 border-b border-[#DCE5E0]">
+              <div>
+                <p class="text-base font-semibold text-[#0F3D32]">{{ review.authorName }}</p>
+                <app-stars [rating]="review.rating" class="text-lg mt-2" />
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-start justify-between gap-4">
+                  @if (review.comment) { <p class="text-[15px] leading-relaxed text-[#1D302C]">{{ review.comment }}</p> } @else { <p class="text-sm italic text-[#5E6F68]">Rated without a written review.</p> }
+                  <span class="text-xs text-[#5E6F68] shrink-0">{{ review.createdAt | date: 'MM/dd/yy' }}</span>
+                </div>
+                @if (review.media.length) {
+                  <div class="flex flex-wrap gap-2 mt-4">
+                    @for (m of review.media; track $index) {
+                      <button type="button" (click)="openMedia(review, $index)" [attr.aria-label]="m.type === 'video' ? 'Play review video' : 'Open review photo'"
+                        class="relative w-20 h-20 overflow-hidden border border-[#DCE5E0] bg-white">
+                        <img [src]="m.type === 'video' ? (m.poster ?? p.images[0]) : m.src" alt="" class="w-full h-full object-cover" loading="lazy" />
+                        @if (m.type === 'video') {
+                          <span class="absolute inset-0 flex items-center justify-center bg-[#0F3D32]/40 text-white">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+                          </span>
+                        }
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            </article>
+          } @empty {
+            <div class="py-14 text-center border-b border-[#DCE5E0]">
+              <p class="text-sm text-[#3F524B]">{{ reviews().length ? 'No written reviews match these filters.' : 'No written reviews yet.' }}</p>
+              @if (reviews().length) { <button type="button" (click)="clearFilters()" class="btn-secondary mt-4">Clear filters</button> }
+            </div>
+          }
+        </div>
+        @if (filtered().length > perPage) {
+          <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+            @if (filtered().length > pageReviews().length) {
+              <button type="button" (click)="shown.set(shown() + perPage)" class="btn-secondary">Show more reviews ({{ filtered().length - pageReviews().length }})</button>
+            }
+            @if (shown() > perPage) {
+              <button type="button" (click)="collapseReviews()" class="btn-secondary">Show less</button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="max-w-3xl mx-auto px-4 py-24 text-center">
+      <p class="fm-eyebrow">Unavailable</p>
+      <h1 class="mt-3 text-3xl text-[#0F3D32]">This product is not available</h1>
+      <p class="text-sm text-[#5E6F68] mt-3">It may have been discontinued. Explore the rest of our collection instead.</p>
+      <a routerLink="/shop" class="btn-primary mt-6">Back to Shop</a>
+    </div>
+  }
+</section>
+
+@if (zoomOpen() && product(); as p) {
+  <div class="fixed inset-0 z-[70] bg-[#0A2A22]/95 overflow-y-auto overscroll-contain" role="dialog" aria-modal="true" aria-label="Product photos" (click)="zoomOpen.set(false)">
+    <div class="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-8 py-3 bg-[#0A2A22]/90 backdrop-blur text-white" (click)="$event.stopPropagation()">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] truncate pr-4">{{ p.name }} · {{ zoomImages().length }} photos</p>
+      <button type="button" (click)="zoomOpen.set(false)" class="w-10 h-10 text-2xl leading-none shrink-0" aria-label="Close">×</button>
+    </div>
+    <div class="max-w-[960px] mx-auto px-4 pb-16 space-y-4">
+      @for (image of zoomImages(); track image) {
+        <img [id]="'zoom-image-' + $index" [src]="image" [alt]="p.name + ' photo ' + ($index + 1)" class="block w-full h-auto bg-white" (click)="$event.stopPropagation()" />
+      }
+    </div>
+  </div>
+}
+
+@if (lightbox(); as box) {
+  <div class="fixed inset-0 z-[70] bg-[#0A2A22]/90 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Review media" (click)="lightbox.set(null)">
+    <button type="button" (click)="lightbox.set(null)" class="absolute top-4 right-4 w-10 h-10 text-white text-2xl leading-none" aria-label="Close">×</button>
+    @if (box.media.length > 1) {
+      <button type="button" (click)="$event.stopPropagation(); stepMedia(-1)" class="absolute left-3 sm:left-8 w-10 h-10 text-white text-3xl leading-none" aria-label="Previous">‹</button>
+      <button type="button" (click)="$event.stopPropagation(); stepMedia(1)" class="absolute right-3 sm:right-8 w-10 h-10 text-white text-3xl leading-none" aria-label="Next">›</button>
+    }
+    @let current = box.media[box.index];
+    @if (current.type === 'video') {
+      <video [src]="current.src" controls autoplay loop playsinline class="max-h-[85vh] max-w-full" (click)="$event.stopPropagation()"></video>
+    } @else {
+      <img [src]="current.src" alt="Review photo" class="max-h-[85vh] max-w-full object-contain" (click)="$event.stopPropagation()" />
+    }
+  </div>
+}

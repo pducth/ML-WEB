@@ -1,0 +1,65 @@
+@let s = stats();
+<div class="section-heading">
+  <span class="muted">Figures exclude shipping fees and returned orders · {{ periodLabel() }}</span>
+  <label class="range-label"><span>Date range</span>
+    <select aria-label="Dashboard date range" (change)="period.set($any($event.target).value)">
+      @for (p of periods; track p[0]) { <option [value]="p[0]" [selected]="period() === p[0]">{{ p[1] }}</option> }
+    </select>
+  </label>
+</div>
+
+<div class="grid g4">
+  <div class="card kpi"><div class="l">Net revenue</div><div class="v">{{ s.netRevenue.value | usd }}</div><div [class]="delta(s.netRevenue).up ? 'up' : 'dn'">{{ delta(s.netRevenue).text }}</div></div>
+  <div class="card kpi"><div class="l">Completed orders</div><div class="v">{{ s.completedOrders.value }}</div><div [class]="delta(s.completedOrders).up ? 'up' : 'dn'">{{ delta(s.completedOrders).text }}</div></div>
+  <div class="card kpi o"><div class="l">AOV</div><div class="v">{{ s.aov.value | usd }}</div><div [class]="delta(s.aov).up ? 'up' : 'dn'">{{ delta(s.aov).text }}</div></div>
+  <div class="card kpi o"><div class="l">New customers</div><div class="v">{{ s.newCustomers.value }}</div><div [class]="delta(s.newCustomers).up ? 'up' : 'dn'">{{ delta(s.newCustomers).text }}</div></div>
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+  <div class="card revenue-card">
+    <div class="section-heading"><h3>Revenue</h3><em class="muted" style="font-style:normal;font-size:12px">Net revenue trend</em></div>
+    <app-line-chart [actual]="s.revenueSeries" [height]="190" label="Net revenue over time" />
+    <div class="chart-caption"><span>{{ s.revenueSeries[0]?.label }} – {{ s.revenueSeries[s.revenueSeries.length - 1]?.label }}</span><span>Currency: USD</span></div>
+  </div>
+  <div class="card">
+    <h3>Action required <em>Action Items</em></h3>
+    <div class="row"><span><span class="b w">{{ s.processingCount }}</span> Orders awaiting processing</span><a class="btn sm gh" routerLink="/admin/orders" [queryParams]="{ status: 'Processing' }">View</a></div>
+    <div class="row"><span><span class="b r">{{ lowStock().length }}</span> Variants running low (≤ threshold)</span><a class="btn sm gh" routerLink="/admin/inventory" [queryParams]="{ filter: 'low' }">View</a></div>
+    <div class="row"><span><span class="b w">{{ s.returnPendingCount }}</span> Return requests awaiting approval</span><a class="btn sm gh" routerLink="/admin/orders" [queryParams]="{ status: 'Return Pending' }">Review</a></div>
+    <div class="row"><span><span class="b r">{{ forecast.driftCategories().length }}</span> Model Drift: WAPE &gt; threshold</span><a class="btn sm or" routerLink="/admin/forecast">Review</a></div>
+    @if (lowStock().length) {
+      <p class="muted" style="font-size:12px;margin:10px 0 0">Lowest: @for (row of lowStock().slice(0, 3); track row.variant.id) { {{ row.variant.sku }} ({{ row.available }})@if (!$last) {, } }</p>
+    }
+  </div>
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+  <div class="card">
+    <h3>Gross sales by category <em>{{ periodLabel() }}</em></h3>
+    <app-donut-chart [data]="categoryDonut()" label="Gross sales share by category" />
+  </div>
+  <div class="card">
+    <h3>Hair Quiz insights <em>{{ s.quiz.total | number }} responses</em></h3>
+    @for (row of s.quiz.distribution; track row.label) {
+      <div class="row"><span style="width:90px">{{ row.label }}</span><div style="flex:1"><div class="bar"><i [style.width.%]="row.share"></i></div></div><b>{{ row.share | number: '1.0-0' }}%</b></div>
+    }
+    <div class="row"><span><b>Quiz → full routine added to cart</b></span><span class="b g">{{ s.quiz.conversion | number: '1.0-1' }}% ({{ s.quiz.addedToCart }})</span></div>
+  </div>
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+  <div class="card forecast-card">
+    <div class="section-heading"><h3>Demand forecast</h3><a class="btn sm gh" routerLink="/admin/forecast">Open forecast</a></div>
+    <app-line-chart [actual]="demand().actual" [forecast]="demand().forecast" [forecastOffset]="demand().offset" [height]="190" label="Weekly units: actual and forecast" />
+    <div class="chart-legend"><span><i></i>Actual units</span><span><i class="projected"></i>Forecast units</span></div>
+    <p class="chart-note">Next 14 days: <b>{{ demand().next | number }}</b> units across 6 categories · see A03 for SKU reorder suggestions</p>
+  </div>
+  <div class="card">
+    <h3>Low stock alerts <em>Available ≤ threshold</em></h3>
+    @for (row of lowStock().slice(0, 6); track row.variant.id) {
+      <div class="row"><span>{{ row.product.name }} <small class="muted">{{ row.variant.sizeLabel }} · {{ row.variant.sku }}</small></span><span [class]="row.available ? 'b w' : 'b r'">{{ row.available }} left</span></div>
+    } @empty {
+      <p class="muted">All variants are above the low-stock threshold.</p>
+    }
+  </div>
+</div>

@@ -1,0 +1,157 @@
+{
+  "brand": "FOLMARÉ",
+  "purpose": "Exact original image assets packaged without redrawing the artwork. PNG originals retained. PNG and WebP are raster images, not editable vector paths.",
+  "palette": {
+    "forest": "#0F3D32",
+    "sage": "#A8C3B6",
+    "mint": "#E0EAE5",
+    "coral": "#FF8068",
+    "cream": "#F7F8F4"
+  },
+  "assets": [
+    {
+      "file": "01_primary/folmare-primary-dark.png",
+      "width": 1242,
+      "height": 749,
+      "variant": "source matched"
+    },
+    {
+      "file": "01_primary/folmare-primary-dark.webp",
+      "width": 1242,
+      "height": 749,
+      "variant": "lossless WebP"
+    },
+    {
+      "file": "01_primary/folmare-primary-white.png",
+      "width": 1242,
+      "height": 749,
+      "variant": "white monochrome"
+    },
+    {
+      "file": "02_horizontal/folmare-horizontal-dark.png",
+      "width": 1595,
+      "height": 318,
+      "variant": "source matched"
+    },
+    {
+      "file": "02_horizontal/folmare-horizontal-dark.webp",
+      "width": 1595,
+      "height": 318,
+      "variant": "lossless WebP"
+    },
+    {
+      "file": "02_horizontal/folmare-horizontal-white.png",
+      "width": 1595,
+      "height": 318,
+      "variant": "white monochrome"
+    },
+    {
+      "file": "03_wordmark/folmare-wordmark-dark.png",
+      "width": 1573,
+      "height": 247,
+      "variant": "source matched"
+    },
+    {
+      "file": "03_wordmark/folmare-wordmark-dark.webp",
+      "width": 1573,
+      "height": 247,
+      "variant": "lossless WebP"
+    },
+    {
+      "file": "03_wordmark/folmare-wordmark-white.png",
+      "width": 1573,
+      "height": 247,
+      "variant": "white monochrome"
+    },
+    {
+      "file": "04_monogram/folmare-monogram-dark.png",
+      "width": 1144,
+      "height": 818,
+      "variant": "source matched"
+    },
+    {
+      "file": "04_monogram/folmare-monogram-dark.webp",
+      "width": 1144,
+      "height": 818,
+      "variant": "lossless WebP"
+    },
+    {
+      "file": "04_monogram/folmare-monogram-white.png",
+      "width": 1144,
+      "height": 818,
+      "variant": "white monochrome"
+    },
+    {
+      "file": "05_app_icon/folmare-app-icon-gradient.png",
+      "width": 1101,
+      "height": 1133,
+      "variant": "source matched"
+    },
+    {
+      "file": "05_app_icon/folmare-app-icon-gradient.webp",
+      "width": 1101,
+      "height": 1133,
+      "variant": "lossless WebP"
+    },
+    {
+      "file": "06_favicon/favicon-16.png",
+      "width": 16,
+      "height": 16,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-32.png",
+      "width": 32,
+      "height": 32,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-48.png",
+      "width": 48,
+      "height": 48,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-64.png",
+      "width": 64,
+      "height": 64,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-96.png",
+      "width": 96,
+      "height": 96,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-180.png",
+      "width": 180,
+      "height": 180,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-192.png",
+      "width": 192,
+      "height": 192,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-256.png",
+      "width": 256,
+      "height": 256,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-512.png",
+      "width": 512,
+      "height": 512,
+      "variant": "favicon"
+    },
+    {
+      "file": "06_favicon/favicon-1024.png",
+      "width": 1024,
+      "height": 1024,
+      "variant": "favicon"
+    }
+  ]
+}

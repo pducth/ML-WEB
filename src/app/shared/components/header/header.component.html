@@ -1,0 +1,127 @@
+<header class="top-0 z-40" [ngClass]="overlay() ? 'fixed inset-x-0' : 'sticky'">
+  <!-- Announcement strip · welcome offer for new customers -->
+  <div class="fm-announcement overflow-hidden transition-[max-height] duration-500"
+    [class]="compact() ? 'max-h-0' : 'max-h-10'" role="region" aria-label="Welcome offer">
+    <p class="max-w-7xl mx-auto px-4 h-10 flex items-center justify-center gap-3 text-center">
+      <svg class="fm-announcement__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linejoin="round" d="M3 12.2V4h8.2l9.3 9.3a1.5 1.5 0 0 1 0 2.1l-5.1 5.1a1.5 1.5 0 0 1-2.1 0z"/><circle cx="7.6" cy="8.6" r="1.1"/></svg>
+      <span>New here? Enjoy 10% off your first ritual</span>
+      <span class="fm-announcement__code">WELCOME10</span>
+    </p>
+  </div>
+
+  <!-- Main bar: search left, wordmark centred, account & bag right; navigation on its own row below -->
+  <div class="fm-header-bar" [class.fm-header-bar--overlay]="overlay() && !compact()">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-0 flex flex-wrap items-center gap-x-6 gap-y-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-y-0">
+      <!-- Search -->
+      <form class="order-3 w-full lg:w-full lg:max-w-[360px] lg:order-none lg:col-start-1 lg:row-start-1 relative lg:my-5" role="search" (submit)="$event.preventDefault(); search(searchBox.value)">
+        <input #searchBox type="search" aria-label="Search products" placeholder="Search products, ingredients…" class="fm-search" />
+        <button type="submit" aria-label="Search" class="absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center text-[#0F3D32] hover:bg-[#E0EAE5] transition-colors">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+        </button>
+      </form>
+
+      <!-- Wordmark -->
+      <a routerLink="/" class="order-1 lg:order-none lg:col-start-2 lg:row-start-1 shrink-0 flex items-center justify-center lg:py-5" aria-label="FOLMARÉ home">
+        <img src="/assets/folmare/logo/png/folmare-wordmark-dark.png" alt="FOLMARÉ" width="1573" height="247" class="h-[18px] sm:h-[22px] lg:h-[30px] w-auto" />
+      </a>
+
+      <!-- Actions -->
+      <div class="order-2 lg:order-none lg:col-start-3 lg:row-start-1 ml-auto shrink-0 flex items-center justify-end gap-6 lg:gap-8">
+        <!-- Account -->
+        <div class="relative group flex items-center">
+          <a [routerLink]="user() ? '/profile' : '/login'" class="fm-nav-link h-10 gap-2 leading-none" [attr.aria-label]="user() ? 'My account' : 'Sign in or register'">
+            <svg class="w-[20px] h-[20px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path stroke-linecap="round" d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>
+            <span class="hidden xl:inline">@if (user()) { Hi, {{ firstName() }} } @else { Account }</span>
+          </a>
+          @if (user()) {
+            <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-all duration-500 absolute right-0 top-full pt-3 z-50">
+              <div class="w-60 bg-white text-[#1D302C] shadow-[-15px_0_45px_rgba(0,0,0,0.04)] border border-[#DCE5E0] p-2 text-sm">
+                <p class="px-3 pt-2 pb-2.5 mb-1 border-b border-[#DCE5E0]">
+                  <span class="block font-display text-base text-[#0F3D32]">Hi, {{ firstName() }}</span>
+                  <span class="block text-[11px] text-[#85968E]">Welcome back to your ritual</span>
+                </p>
+                <a routerLink="/profile" class="block px-3 py-2 hover:bg-[#EEF3EF]">Profile &amp; addresses</a>
+                <a routerLink="/orders" class="block px-3 py-2 hover:bg-[#EEF3EF]">My orders</a>
+                <a routerLink="/profile" class="block px-3 py-2 hover:bg-[#EEF3EF]">Hair Profile</a>
+                <button type="button" (click)="signOut()" class="w-full text-left px-3 py-2 mt-1 text-[#C9503A] hover:bg-[#FFF1EC]">Sign out</button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Bag -->
+        <button type="button" (click)="cart.openDrawer()" class="fm-nav-link h-10 gap-2 p-0 leading-none" aria-label="Open shopping bag">
+          <svg class="w-[20px] h-[20px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linejoin="round" d="M5 8h14l-1.2 12H6.2L5 8Z"/><path stroke-linecap="round" d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>
+          <span aria-live="polite">({{ cart.itemCount() }})</span>
+        </button>
+      </div>
+
+      <!-- Shop navigation -->
+      <nav class="order-4 w-full lg:col-span-3 lg:row-start-2 min-w-0 flex items-center gap-3 lg:gap-10 lg:justify-center lg:border-t lg:border-[#DCE5E0]" aria-label="Main navigation">
+        <!-- Category mega menu -->
+        <div class="relative shrink-0" data-category-menu (pointerenter)="hover($event, true)" (pointerleave)="hover($event, false)">
+          <button type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-controls="category-menu"
+            class="inline-flex items-center gap-2 h-9 px-4 bg-[#0F3D32] text-white text-[12px] font-semibold lg:h-12 lg:rounded-none lg:px-0 lg:bg-transparent lg:text-[12px] lg:font-semibold lg:tracking-[0.14em] lg:uppercase transition-colors"
+            [ngClass]="active() === 'shop' || active()?.startsWith('category:') ? 'lg:text-[#0F3D32] lg:font-semibold' : 'lg:text-[#1D302C] lg:hover:text-[#0F3D32]'">
+            <svg class="w-4 h-4 lg:hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10" /></svg>
+            <span class="whitespace-nowrap"><span class="lg:hidden">Shop by category</span><span class="hidden lg:inline">Shop</span></span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-300" [class.rotate-180]="menuOpen()" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" /></svg>
+          </button>
+
+          <div id="category-menu" class="absolute left-0 lg:-left-0 top-full z-50 pt-2 lg:pt-0 transition-all duration-300 origin-top"
+            [ngClass]="menuOpen() ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'">
+            <div class="w-[calc(100vw-2rem)] sm:w-[500px] lg:w-[640px] grid lg:grid-cols-[1fr_200px] bg-white border border-[#DCE5E0] shadow-[-15px_0_45px_rgba(0,0,0,0.04)] overflow-hidden">
+              <div class="p-4 sm:p-5 pb-0 sm:pb-0 flex flex-col">
+                <p class="fm-eyebrow mb-2 px-1">Shop by category</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-1">
+                  @for (tile of categoryTiles(); track tile.category) {
+                    <a routerLink="/shop" [queryParams]="{ category: tile.category }"
+                      class="group flex items-center px-3 py-2.5 hover:bg-[#EEF3EF] transition-colors"
+                      [ngClass]="active() === 'category:' + tile.category ? 'bg-[#EEF3EF]' : ''">
+                      <span class="min-w-0">
+                        <span class="block text-[13px] font-semibold text-[#0F3D32] leading-tight">{{ tile.category }}</span>
+                        <span class="block text-[11px] uppercase tracking-[0.08em] text-[#85968E] mt-1">{{ tile.count }} products</span>
+                      </span>
+                    </a>
+                  }
+                </div>
+                <a routerLink="/shop" class="mt-auto -mx-4 sm:-mx-5 px-4 sm:px-5 h-12 flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.12em] text-[#0F3D32] hover:bg-[#EEF3EF] border-t border-[#DCE5E0]">
+                  View All Products
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+                </a>
+              </div>
+              <a routerLink="/quiz" class="hidden lg:flex flex-col justify-between fm-surface-forest text-white p-5 pb-0">
+                <span>
+                  <span class="fm-eyebrow fm-eyebrow--light">Not sure where to start?</span>
+                  <span class="block mt-2 font-display text-[19px] leading-snug">Find a ritual <i>made for your hair</i></span>
+                  <span class="block mt-2 text-[11px] text-white/70 leading-relaxed">Four questions, one personalised routine.</span>
+                </span>
+                <span class="mt-4 -mx-5 px-5 h-12 flex items-center justify-between border-t border-white/15 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
+                  Take the Quiz
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary links -->
+        <div class="flex-1 lg:flex-none min-w-0 flex items-center gap-5 lg:gap-7 overflow-x-auto lg:overflow-visible py-1 [scrollbar-width:none]">
+          @for (link of [
+            { key: 'home', label: 'Home', path: '/', params: null },
+            { key: 'best', label: 'Best Sellers', path: '/shop', params: { sort: 'best-sellers' } },
+            { key: 'new', label: 'New Arrivals', path: '/shop', params: { sort: 'newest' } },
+            { key: 'quiz', label: 'Hair Quiz', path: '/quiz', params: null },
+            { key: 'story', label: 'About', path: '/about', params: null }
+          ]; track link.key) {
+            <a [routerLink]="link.path" [queryParams]="link.params" class="fm-nav-link" [class.is-active]="active() === link.key">
+              {{ link.label }}
+              @if (link.key === 'quiz') { <span class="bg-[#0F3D32] text-white px-1.5 py-px text-[9px] font-bold tracking-wider">NEW</span> }
+            </a>
+          }
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</header>

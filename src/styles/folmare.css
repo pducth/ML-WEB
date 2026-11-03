@@ -1,0 +1,431 @@
+/*
+ * FOLMARÉ — Botanical Haircare Edit.
+ * Brand layer adapted from the FOLMARÉ brand kit CSS (tokens, components, motion); see docs/brand-kit/README.md.
+ * The kit's element reset (base.css) is intentionally left out so Tailwind utilities keep control
+ * of page layout; only class-scoped components and the editorial heading face are applied here.
+ */
+:root {
+  --fm-forest: #0F3D32;
+  --fm-forest-hover: #19594A;
+  --fm-teal: #4F7F72;
+  --fm-sage: #4F7F72;
+  --fm-sea-mist: #A8C3B6;
+  --fm-pearl-mist: #E0EAE5;
+  --fm-sand: #D8C5AE;
+  --fm-pearl: #F7F8F4;
+  --fm-coral: #FF7F64;
+  --fm-coral-deep: #C9503A;
+  --fm-peach: #FFAD8C;
+  --fm-ink: #1D302C;
+  --fm-muted: #5E6F68;
+  --fm-outline: #DCE5E0;
+
+  --fm-font-body: 'Montserrat', 'Inter', 'Segoe UI', Arial, sans-serif;
+  --fm-font-display: 'Lora', Georgia, serif;
+
+  --fm-gradient-hero: linear-gradient(112deg, #D7E7DF 0%, #F6DED0 44%, #FF987E 78%, #FF7F64 100%);
+  --fm-gradient-soft: linear-gradient(125deg, #EFF5F0 0%, #F8F6F1 58%, #F4DED3 100%);
+  --fm-gradient-icon: linear-gradient(145deg, #0F3D32 9%, #4F7F72 58%, #FF7F64 100%);
+  --fm-gradient-brand: linear-gradient(115deg, #0F3D32 0%, #4F7F72 34%, #CE9788 67%, #FF7F64 87%, #F7F8F4 100%);
+
+  --fm-shadow-card: 0 8px 32px rgb(15 61 50 / 8%);
+  --fm-shadow-float: 0 16px 48px rgb(15 61 50 / 13%);
+  --fm-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ---------- Typography: Lora for editorial headlines, Montserrat for UI ---------- */
+app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow),
+.fm-display {
+  font-family: var(--fm-font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Heavy sans weights from the old theme read as a different typeface in Lora — soften them. */
+app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow):is(.font-extrabold, .font-bold, .font-black, .font-semibold) {
+  font-weight: 500;
+}
+
+.fm-italic {
+  font-style: italic;
+}
+
+.fm-eyebrow {
+  font-family: var(--fm-font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fm-teal);
+}
+
+.fm-eyebrow--light {
+  color: var(--fm-sea-mist);
+}
+
+.fm-rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fm-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--fm-outline);
+}
+
+/* ---------- Announcement + header ---------- */
+.fm-announcement {
+  background: var(--fm-forest);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.fm-announcement__icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--fm-coral);
+}
+
+.fm-announcement__code {
+  padding: 0.22rem 0.6rem;
+  border: 1px solid rgb(255 255 255 / 55%);
+  letter-spacing: 0.18em;
+  font-weight: 700;
+}
+
+@media (max-width: 639px) {
+  .fm-announcement { letter-spacing: 0.08em; font-size: 0.625rem; }
+}
+
+.fm-header-bar {
+  background: rgb(247 248 244 / 92%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--fm-outline);
+  transition: background-color 0.5s var(--fm-ease), border-color 0.5s var(--fm-ease);
+}
+
+/* Home: the bar floats transparently over the hero until the page scrolls */
+.fm-header-bar--overlay {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
+.fm-header-bar--overlay nav {
+  border-color: rgb(15 61 50 / 14%);
+}
+
+.fm-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fm-ink);
+  transition: color 0.35s var(--fm-ease);
+}
+
+.fm-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  border-radius: 0;
+  background: var(--fm-forest);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--fm-ease);
+}
+
+.fm-nav-link:hover {
+  color: var(--fm-forest);
+}
+
+.fm-nav-link.is-active {
+  color: var(--fm-forest);
+  font-weight: 600;
+}
+
+.fm-nav-link.is-active::after,
+.fm-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.fm-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 0;
+  color: var(--fm-forest);
+  transition: background-color 0.2s ease;
+}
+
+.fm-icon-button:hover {
+  background: var(--fm-pearl-mist);
+}
+
+.fm-search {
+  width: 100%;
+  height: 42px;
+  border-radius: 0;
+  border: 1px solid var(--fm-outline);
+  background: #fff;
+  padding: 0 2.75rem 0 1.1rem;
+  font-size: 0.8125rem;
+  color: var(--fm-ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fm-search::placeholder {
+  color: #85968E;
+}
+
+.fm-search:focus {
+  border-color: var(--fm-sage);
+  box-shadow: 0 0 0 3px rgb(79 127 114 / 16%);
+}
+
+/* ---------- Hero ---------- */
+.fm-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--fm-gradient-hero);
+}
+
+/* Soft blurred light and the thin halo ring from the brand board */
+.fm-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 60%;
+  aspect-ratio: 1;
+  left: 32%;
+  top: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 245 227 / 75%) 0%, rgb(255 245 227 / 0%) 65%);
+  filter: blur(10px);
+}
+
+.fm-hero::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  right: -140px;
+  top: -150px;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 50%;
+}
+
+/* Rolling hills echoing the forest/sage dunes of the approved hero graphic */
+.fm-hero__hills {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 34%;
+  pointer-events: none;
+}
+
+.fm-arch {
+  border-radius: 999px 999px 1.25rem 1.25rem;
+  overflow: hidden;
+  background: #F0F3EF;
+  box-shadow: var(--fm-shadow-float);
+  border: 6px solid rgb(255 255 255 / 70%);
+}
+
+.fm-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fm-sparkle {
+  color: var(--fm-forest);
+}
+
+/* ---------- Brand tiles ---------- */
+.fm-brand-tile {
+  position: relative;
+  display: flex;
+  min-height: 340px;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  overflow: hidden;
+  border-radius: 0;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  isolation: isolate;
+  transition: transform 0.45s var(--fm-ease), box-shadow 0.45s var(--fm-ease);
+}
+
+.fm-brand-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--fm-shadow-float);
+}
+
+.fm-brand-tile__product {
+  position: absolute;
+  left: 50%;
+  top: 7%;
+  height: 58%;
+  width: auto;
+  max-width: 70%;
+  object-fit: contain;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 14px 14px rgb(15 61 50 / 18%));
+  transition: transform 0.9s var(--fm-ease);
+}
+
+.fm-brand-tile:hover .fm-brand-tile__product {
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.fm-brand-tile strong {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--fm-forest);
+}
+
+.fm-brand-tile span {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--fm-muted);
+}
+
+/* ---------- Texture cards ---------- */
+.fm-texture {
+  overflow: hidden;
+  border-radius: 0;
+  aspect-ratio: 4 / 5;
+}
+
+.fm-texture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--fm-ease);
+}
+
+.fm-texture:hover img {
+  transform: scale(1.05);
+}
+
+/* ---------- Surfaces ---------- */
+.fm-surface-soft {
+  background: var(--fm-gradient-soft);
+}
+
+.fm-surface-forest {
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgb(255 127 100 / 22%) 0%, rgb(255 127 100 / 0%) 55%),
+    radial-gradient(70% 90% at 0% 100%, rgb(79 127 114 / 45%) 0%, rgb(79 127 114 / 0%) 60%),
+    var(--fm-forest);
+}
+
+.fm-brand-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fm-teal);
+}
+
+/* ---------- Motion ---------- */
+@keyframes fm-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fm-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fm-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.55; transform: scale(0.82) rotate(20deg); }
+}
+
+.fm-animate-in { animation: fm-rise 0.65s var(--fm-ease) both; }
+.fm-delay-1 { animation-delay: 0.08s; }
+.fm-delay-2 { animation-delay: 0.16s; }
+.fm-delay-3 { animation-delay: 0.24s; }
+.fm-float { animation: fm-breathe 6s ease-in-out infinite; }
+.fm-float--slow { animation-duration: 8s; animation-delay: -2s; }
+.fm-twinkle { animation: fm-twinkle 3.6s ease-in-out infinite; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-animate-in, .fm-float, .fm-twinkle { animation: none; }
+}
+
+/* ---------- Editorial layout helpers (Crown Affair-style rhythm) ---------- */
+.fm-section {
+  padding-top: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .fm-section { padding-top: 4.5rem; }
+}
+
+.fm-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fm-forest);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: gap 0.35s var(--fm-ease), color 0.35s var(--fm-ease);
+}
+
+.fm-text-link:hover {
+  gap: 0.85rem;
+  color: var(--fm-teal);
+}
+
+.fm-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--fm-outline);
+  background: transparent;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fm-muted);
+  transition: color 0.35s var(--fm-ease), border-color 0.35s var(--fm-ease), background-color 0.35s var(--fm-ease);
+}
+
+.fm-pill:hover { color: var(--fm-forest); border-color: var(--fm-forest); }
+.fm-pill.is-active { color: #fff; background: var(--fm-forest); border-color: var(--fm-forest); }

@@ -1,0 +1,65 @@
+<section class="app-screen animate-fadeIn">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center space-y-8">
+    @if (order(); as o) {
+      @if (expired()) {
+        <div>
+          <span class="badge-teal">Order cancelled</span>
+          <h2 class="text-3xl font-extrabold text-[#0F3D32] mt-3">The payment window has closed</h2>
+          <p class="text-sm text-[#5E6F68] mt-2">Order <strong class="text-[#19594A]">#{{ o.code }}</strong> was cancelled because no transfer was received within {{ settings().paymentTimeoutMinutes }} minutes. Reserved stock and any discount code have been released.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a routerLink="/shop" class="btn-primary text-sm px-6 py-3">Shop again</a>
+          <a [routerLink]="['/orders', o.id]" class="btn-secondary text-sm px-6 py-3">View order</a>
+        </div>
+      } @else if (o.status === 'Payment Pending') {
+        <div>
+          <span class="badge-gold">AWAITING PAYMENT</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F3D32] mt-2">Complete your bank transfer</h2>
+          <p class="text-sm text-[#5E6F68] mt-2">Your order <strong class="text-[#19594A] font-bold text-base">#{{ o.code }}</strong> is reserved. Transfer the exact amount with the reference below.</p>
+        </div>
+
+        <div class="inline-flex flex-col items-center gap-1 px-8 py-4 rounded-2xl border" [class]="urgent() ? 'inline-flex flex-col items-center gap-1 px-8 py-4 rounded-2xl border bg-red-50 border-red-200' : 'inline-flex flex-col items-center gap-1 px-8 py-4 rounded-2xl border bg-white border-[#DCE5E0]'" role="timer" aria-live="off">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-[#5E6F68]">Time remaining</span>
+          <span class="text-4xl font-extrabold font-mono" [class]="urgent() ? 'text-4xl font-extrabold font-mono text-red-600' : 'text-4xl font-extrabold font-mono text-[#0F3D32]'">{{ countdown() }}</span>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE5E0] shadow-md text-left max-w-lg mx-auto space-y-4">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-[#19594A] border-b border-[#DCE5E0] pb-2">Bank Transfer Information</h3>
+          <div class="flex items-center gap-4 bg-[#F7F8F4] p-4 rounded-2xl border border-[#DCE5E0]">
+            <div class="w-28 h-28 bg-white border border-[#DCE5E0] rounded-xl flex flex-col items-center justify-center p-2 text-center flex-shrink-0">
+              <div class="w-full h-full bg-[#0F3D32] text-white text-[9px] flex flex-col items-center justify-center font-mono rounded gap-1 px-1">
+                <span>[QR Code]</span><span class="break-all">{{ o.paymentRef }}</span>
+              </div>
+            </div>
+            <div class="space-y-1 text-xs text-[#0F3D32] min-w-0">
+              <p><strong>Bank:</strong> {{ settings().bank.bankName }}</p>
+              <p><strong>Account Number:</strong> {{ settings().bank.accountNumber }}</p>
+              <p><strong>Account Name:</strong> {{ settings().bank.accountName }}</p>
+              <p><strong>Amount:</strong> <span class="font-bold text-[#19594A] text-sm">{{ o.total | usd }}</span></p>
+              <p class="flex items-center gap-2 flex-wrap"><strong>Payment Memo:</strong> <span class="font-mono text-[#4F7F72] font-bold">{{ o.paymentRef }}</span>
+                <button type="button" (click)="copy(o.paymentRef!)" class="text-[10px] font-bold text-[#19594A] border border-[#19594A]/30 rounded px-1.5 py-0.5 hover:bg-[#19594A]/5">Copy</button></p>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#85968E] italic">The system verifies the reference and exact amount automatically and updates your order as soon as the transfer arrives (checked every 5 seconds).</p>
+        </div>
+
+        @if (settings().paymentSimulation) {
+          <div class="max-w-lg mx-auto p-4 rounded-2xl border border-dashed border-[#4F7F72]/50 bg-[#4F7F72]/5 space-y-2">
+            <p class="text-[11px] font-bold text-[#3B6B5E] uppercase tracking-wider">Sandbox · Payment simulation</p>
+            <button type="button" (click)="simulatePayment()" [disabled]="simulating()" class="btn-cta-buy w-full py-3 text-sm">Simulate Successful Payment</button>
+          </div>
+        }
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <a routerLink="/orders" class="btn-secondary text-sm px-6 py-3">Pay later from Order History</a>
+        </div>
+      } @else {
+        <p class="text-sm text-[#5E6F68]">This order no longer needs payment.</p>
+        <a [routerLink]="['/orders', o.id]" class="btn-primary text-sm px-6 py-3">View order</a>
+      }
+    } @else {
+      <h2 class="text-2xl font-extrabold text-[#0F3D32]">Order not found</h2>
+      <a routerLink="/orders" class="btn-primary text-sm px-6 py-3">Go to Order History</a>
+    }
+  </div>
+</section>
