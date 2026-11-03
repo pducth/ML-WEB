@@ -1,0 +1,269 @@
+<section class="bg-[#F7F8F4] flex flex-col" [ngClass]="phase() === 'intro' ? '' : 'min-h-[calc(100vh-120px)]'" aria-labelledby="quiz-title">
+  <!-- 4-step progress (questions only) -->
+  @if (phase() === 'questions') {
+    <header class="shrink-0 bg-white border-b border-[#DCE5E0]">
+      <nav class="max-w-5xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-4 gap-3 sm:gap-6" aria-label="Quiz progress">
+        @for (step of steps; track step.id; let i = $index) {
+          <button type="button" (click)="goTo(i)" class="text-left disabled:cursor-default" [disabled]="segments()[i] === 0"
+            [attr.aria-current]="current().stepIndex === i ? 'step' : null">
+            <span class="flex items-baseline gap-2">
+              <span class="fm-display text-lg sm:text-xl leading-none" [ngClass]="segments()[i] > 0 ? 'text-[#0F3D32]' : 'text-[#B5C8BD]'">{{ i < 9 ? '0' : '' }}{{ i + 1 }}</span>
+              <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] truncate" [ngClass]="current().stepIndex === i ? 'text-[#0F3D32]' : segments()[i] > 0 ? 'text-[#4F7F72]' : 'text-[#85968E]'">{{ stepShort[step.id] ?? step.title }}</span>
+            </span>
+            <span class="block mt-3 h-[2px] bg-[#DCE5E0]">
+              <span class="block h-full bg-[#0F3D32] transition-all duration-500" [style.width.%]="segments()[i] * 100"></span>
+            </span>
+          </button>
+        }
+      </nav>
+    </header>
+  }
+
+  <div class="flex-1 flex flex-col">
+    @switch (phase()) {
+      <!-- Intro -->
+      @case ('intro') {
+        <div class="animate-fadeIn flex-1 flex flex-col">
+          <div class="relative flex items-center min-h-[460px] md:min-h-[600px] overflow-hidden bg-[#E9DFD2]">
+            <img src="/assets/folmare/about/quiz-hero.jpg" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#F7F8F4]/95 via-[#F7F8F4]/55 to-transparent"></div>
+            <div class="relative w-full max-w-7xl mx-auto px-6 sm:px-10 py-16">
+              <div class="max-w-xl space-y-5">
+                <span class="fm-eyebrow">Personalised hair diagnosis</span>
+                <h1 id="quiz-title" class="fm-display text-4xl sm:text-6xl text-[#0F3D32] leading-[1.05]">Find your perfect hair routine</h1>
+                <p class="text-sm sm:text-lg text-[#0F3D32]/85 text-balance">Answer a few questions about your hair and goals. We'll build a 4-step routine from cleanse to style.</p>
+                <div class="pt-2">
+                  <button type="button" (click)="begin()" class="btn-primary">Start the quiz</button>
+                  <p class="text-[11px] text-[#5E6F68] mt-4">About 1 minute · {{ flow.length }} questions, the last one optional · Cosmetic advice, not a medical diagnosis.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative overflow-hidden bg-gradient-to-br from-[#082A22] via-[#0F3D32] to-[#3F7F6B]">
+            <div class="absolute -top-24 -right-24 w-[26rem] h-[26rem] rounded-full bg-[#9CC3B4]/25 blur-3xl" aria-hidden="true"></div>
+            <ol class="relative max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/20">
+              @for (step of steps; track step.id; let i = $index) {
+                <li class="px-6 sm:px-8 py-10 text-center border-b lg:border-b-0 border-white/20">
+                  <span class="fm-display text-3xl text-[#B7D3C7]">{{ i < 9 ? '0' : '' }}{{ i + 1 }}</span>
+                  <span class="block fm-display text-xl text-white mt-2">{{ step.title }}</span>
+                  <span class="block text-xs text-white/70 mt-1.5 leading-relaxed">{{ step.subtitle }}</span>
+                </li>
+              }
+            </ol>
+          </div>
+
+          <div class="text-center px-6 py-14 flex flex-col items-center gap-4">
+            <h2 class="text-2xl sm:text-3xl fm-display text-[#0F3D32]">Questions? We are happy to help.</h2>
+            <a [href]="'mailto:' + settings().supportEmail" class="inline-flex items-center justify-center px-7 py-3.5 border border-[#0F3D32] text-[#0F3D32] text-[0.8125rem] font-semibold uppercase tracking-[0.12em] hover:bg-[#0F3D32] hover:text-white transition-colors">{{ settings().supportEmail }}</a>
+          </div>
+        </div>
+      }
+
+      <!-- One question per screen -->
+      @case ('questions') {
+        @for (c of [current()]; track c.question.id) {
+          <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 animate-fadeIn">
+            <p class="text-center text-[11px] font-bold text-[#4F7F72] tracking-[0.2em] uppercase">
+              Step {{ c.stepIndex + 1 }} of {{ steps.length }} · {{ c.step.title }}
+              @if (c.countInStep > 1) { <span class="text-[#85968E]"> · {{ c.pos + 1 }}/{{ c.countInStep }}</span> }
+            </p>
+            <h1 id="quiz-title" class="text-center text-2xl sm:text-4xl fm-display font-medium text-[#0F3D32] mt-3 max-w-3xl mx-auto leading-tight">{{ c.question.text }}</h1>
+            <p class="text-center text-sm text-[#5E6F68] mt-2">
+              @if (c.question.type === 'multi') { Select all that apply. } @else if (c.pos === 0) { {{ c.step.subtitle }} } @else if (hasArt(c.question.id)) { Choose the picture that looks most like you. }
+              @if (!c.question.required) { <span class="ml-1 text-[11px] font-bold uppercase tracking-wider text-[#85968E]">Optional</span> }
+            </p>
+
+            @let illustrated = hasArt(c.question.id);
+            <div class="mx-auto mt-8 sm:mt-10 gap-3 sm:gap-4"
+              [ngClass]="(c.question.options.length >= 6 ? 'max-w-4xl ' : illustrated ? 'max-w-xl ' : 'max-w-2xl ') + (illustrated || c.question.options.length === 3 ? 'grid ' + (illustrated ? 'grid-cols-3' : 'grid-cols-1 sm:grid-cols-3') : 'flex flex-wrap justify-center')"
+              [attr.role]="c.question.type === 'single' ? 'radiogroup' : 'group'" [attr.aria-label]="c.question.text">
+              @for (option of c.question.options; track option.id) {
+                @let selected = isSelected(c.question, option);
+                <button type="button" (click)="choose(c.question, option)"
+                  [attr.role]="c.question.type === 'single' ? 'radio' : 'checkbox'" [attr.aria-checked]="selected"
+                  class="group relative text-left bg-white border transition-all duration-200 hover:-translate-y-0.5"
+                  [class]="illustrated || c.question.options.length === 3 ? '' : c.question.options.length === 5 ? 'w-full sm:w-[calc(33.333%-0.67rem)]' : c.question.options.length >= 6 ? 'w-full sm:w-[calc(25%-0.75rem)]' : 'w-full sm:w-[calc(50%-0.5rem)]'"
+                  [ngClass]="selected ? 'border-[#0F3D32] ring-1 ring-[#0F3D32] shadow-[0_10px_30px_rgba(15,61,50,0.14)]' : 'border-[#DCE5E0] hover:border-[#4F7F72]'">
+                  @if (illustrated) {
+                    <span class="block p-3 sm:p-5 pb-0 sm:pb-0">
+                      <span class="block aspect-square">
+                        <app-quiz-option-art class="transition-transform duration-500 group-hover:scale-105" [question]="c.question.id" [option]="option.id" />
+                      </span>
+                    </span>
+                  }
+                  <span class="absolute top-2.5 right-2.5 w-6 h-6 border-2 flex items-center justify-center text-[11px] font-bold transition-colors"
+                    [ngClass]="(c.question.type === 'multi' ? '' : 'rounded-full ') + (selected ? 'bg-[#0F3D32] border-[#0F3D32] text-white' : 'bg-white/90 border-[#B5C8BD] text-transparent')">✓</span>
+                  <span class="block p-3 sm:p-4" [ngClass]="illustrated ? 'text-center' : 'pr-11 sm:pr-12'">
+                    <span class="block fm-display text-base sm:text-lg text-[#0F3D32] leading-snug">{{ option.label }}</span>
+                    @if (option.hint) { <span class="block text-[11px] sm:text-xs text-[#5E6F68] mt-1 leading-snug">{{ option.hint }}</span> }
+                  </span>
+                </button>
+              }
+            </div>
+
+            @if (showError()) {
+              <p class="text-xs font-semibold text-red-600 text-center mt-6" role="alert">Please choose an answer to continue.</p>
+            }
+          </div>
+        }
+      }
+
+      <!-- Analyzing -->
+      @case ('analyzing') {
+        <div class="min-h-full flex flex-col items-center justify-center text-center px-6 py-20 animate-fadeIn" role="status">
+          <span class="w-16 h-16 rounded-full border-4 border-[#DCE5E0] border-t-[#4F7F72] animate-spin"></span>
+          <h1 id="quiz-title" class="text-2xl sm:text-3xl fm-display font-medium text-[#0F3D32] mt-8">Analyzing your hair profile…</h1>
+          <p class="text-sm text-[#5E6F68] mt-2 max-w-md">Matching your answers with our expert rules and checking which products are in stock right now.</p>
+        </div>
+      }
+
+      <!-- Routine result -->
+      @case ('result') {
+        @if (result(); as r) {
+          <div class="animate-fadeIn">
+            <div class="relative overflow-hidden bg-gradient-to-br from-[#082A22] via-[#0F3D32] to-[#3F7F6B]">
+              <div class="absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full bg-[#9CC3B4]/25 blur-3xl" aria-hidden="true"></div>
+              <div class="absolute -bottom-32 left-1/4 w-[24rem] h-[24rem] rounded-full bg-[#E9DFD2]/10 blur-3xl" aria-hidden="true"></div>
+              <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 items-center">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#9CC3B4]">Your results</span>
+                  <h1 id="quiz-title" class="text-4xl sm:text-6xl fm-display font-medium text-white mt-4 leading-[1.05]">Your {{ r.diagnosis.title }} Routine</h1>
+                  <p class="text-sm sm:text-lg text-white/80 mt-6 max-w-xl leading-relaxed">{{ r.diagnosis.advice }}</p>
+                </div>
+                <div class="md:border-l md:border-white/25 md:pl-12">
+                  <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-[#B7D3C7]">Focus areas</span>
+                  <ol class="mt-6 space-y-5">
+                    @for (label of r.activeLabels; track label; let i = $index) {
+                      <li class="flex items-baseline gap-5">
+                        <span class="fm-display italic text-base text-[#B7D3C7] w-6">{{ i + 1 }}.</span>
+                        <span class="fm-display leading-none" [ngClass]="i === 0 ? 'text-4xl text-white' : 'text-2xl text-white/70'">{{ label }}</span>
+                      </li>
+                    }
+                  </ol>
+                  @if (r.diagnosis.secondaryTitle) {
+                    <p class="text-xs text-white/70 mt-8 leading-relaxed max-w-xs">Also: <strong class="text-white/90 font-semibold">{{ r.diagnosis.secondaryTitle }}</strong> — {{ r.diagnosis.secondaryAdvice }}</p>
+                  }
+                </div>
+              </div>
+            </div>
+
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12 sm:pb-16">
+            @if (r.notes.length) {
+              <div class="mt-6 bg-[#EEF3EF] p-4 border border-[#DCE5E0] space-y-1.5" role="status">
+                @for (note of r.notes; track $index) { <p class="text-xs text-[#5E6F68] flex gap-2"><span class="text-[#4F7F72]">•</span>{{ note }}</p> }
+              </div>
+            }
+
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mt-12">
+              <div>
+                <h2 class="text-xl sm:text-2xl fm-display font-medium text-[#0F3D32]">Your {{ r.steps.length }}-step regimen</h2>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+              @for (step of r.steps; track step.id) {
+                <article class="bg-white border border-[#DCE5E0] flex flex-col overflow-hidden" [class.opacity-60]="!step.product">
+                  <div class="px-4 pt-4 flex items-center justify-between gap-2">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-[#19594A]">Step {{ step.order }} · {{ step.title }}</span>
+                    @if (step.status === 'substituted') {
+                      <span class="text-[10px] font-bold text-[#805719] bg-[#FF7F64]/15 px-2 py-0.5" [title]="step.note ?? ''">Substitute</span>
+                    }
+                  </div>
+                  @if (step.product; as p) {
+                    @let v = defaultVariant(p);
+                    <a [routerLink]="['/products', p.id]" class="block m-4 mb-0 aspect-square overflow-hidden bg-[#F0F3EF] group">
+                      <img [src]="p.images[0]" [alt]="p.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                    </a>
+                    <div class="p-4 flex-1 flex flex-col">
+                      <a [routerLink]="['/products', p.id]" class="font-bold text-[#0F3D32] leading-snug hover:text-[#19594A]">{{ p.name }}</a>
+                      <p class="text-xs text-[#5E6F68] mt-1">{{ v?.volume }} · {{ p.category }}</p>
+                      <div class="mt-auto pt-4 flex items-center justify-between gap-3">
+                        <span class="font-extrabold text-[#19594A]">{{ v?.price ?? 0 | usd }}</span>
+                        @if (inBag().has(p.id)) {
+                          <button type="button" (click)="openBag()" class="text-xs font-bold text-[#0F3D32] px-3 py-2 bg-[#EEF3EF] border border-[#4F7F72]">✓ In your bag</button>
+                        } @else {
+                          <button type="button" (click)="addProduct(p)" [disabled]="!v" class="btn-cta-buy text-xs px-4 py-2">Add to bag</button>
+                        }
+                      </div>
+                    </div>
+                  } @else {
+                    <div class="p-4 flex-1">
+                      <p class="text-sm font-semibold text-[#0F3D32] mt-2">Step skipped</p>
+                      <p class="text-xs text-[#5E6F68] mt-1">{{ step.note }}</p>
+                    </div>
+                  }
+                </article>
+              }
+            </div>
+
+            @if (r.addon; as addon) {
+              <div class="mt-6 bg-white p-4 sm:p-5 border border-[#DCE5E0] flex items-center gap-4 sm:gap-6">
+                <a [routerLink]="['/products', addon.id]" class="block w-20 h-20 sm:w-24 sm:h-24 shrink-0 bg-[#F0F3EF] overflow-hidden">
+                  <img [src]="addon.images[0]" [alt]="addon.name" class="w-full h-full object-cover" />
+                </a>
+                <div class="flex-1 min-w-0">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#19594A]">Optional add-on</span>
+                  <a [routerLink]="['/products', addon.id]" class="block font-bold text-[#0F3D32] mt-1 leading-snug hover:text-[#19594A]">{{ addon.name }}</a>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="block font-extrabold text-[#19594A] mb-2">{{ defaultVariant(addon)?.price ?? 0 | usd }}</span>
+                  @if (inBag().has(addon.id)) {
+                    <button type="button" (click)="openBag()" class="text-xs font-bold text-[#0F3D32] px-3 py-2 bg-[#EEF3EF] border border-[#4F7F72]">✓ In your bag</button>
+                  } @else {
+                    <button type="button" (click)="addProduct(addon)" class="btn-cta-buy text-xs px-4 py-2">Add to bag</button>
+                  }
+                </div>
+              </div>
+            }
+
+            <div class="flex flex-wrap justify-center gap-3 mt-10">
+              <a routerLink="/quiz/results" class="btn-secondary text-sm px-5 py-3">View details & save to Hair Profile</a>
+              <button type="button" (click)="retake()" class="btn-secondary text-sm px-5 py-3">Retake quiz</button>
+              <a routerLink="/shop" class="btn-secondary text-sm px-5 py-3">Continue shopping</a>
+            </div>
+                      </div>
+          </div>
+        }
+      }
+    }
+  </div>
+
+  <!-- Bottom bar: question navigation, or the full-routine bundle -->
+  @if (phase() === 'questions') {
+    <footer class="sticky bottom-0 z-10 bg-white border-t border-[#DCE5E0]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <button type="button" (click)="back()" class="text-sm font-bold text-[#5E6F68] hover:text-[#19594A] px-2 py-2">← Back</button>
+        <div class="flex items-center gap-3">
+          @if (!current().question.required && !answered()) {
+            <button type="button" (click)="skip()" class="text-sm font-bold text-[#5E6F68] hover:text-[#19594A] px-3 py-2">Skip</button>
+          }
+          <button type="button" (click)="next()" [disabled]="!canContinue()" class="btn-primary text-sm px-8 py-3">
+            {{ isLast() ? 'See my routine' : 'Continue →' }}
+          </button>
+        </div>
+      </div>
+    </footer>
+  } @else if (phase() === 'result' && result()) {
+    <footer class="sticky bottom-0 z-10 bg-white border-t border-[#DCE5E0] shadow-[0_-8px_24px_rgba(15,61,50,0.08)]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="hidden sm:flex -space-x-3">
+            @for (p of routineProducts(); track p.id) {
+              <img [src]="p.images[0]" [alt]="p.name" class="w-10 h-10 object-cover border-2 border-white bg-[#F0F3EF]" />
+            }
+          </div>
+          <div class="min-w-0">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-[#5E6F68] truncate">Full routine · {{ routineProducts().length }} products</p>
+            <p class="text-lg font-extrabold text-[#19594A]">{{ routineTotal() | usd }}</p>
+          </div>
+        </div>
+        @if (routineInBag()) {
+          <button type="button" (click)="openBag()" class="btn-secondary text-sm px-6 py-3 shrink-0">✓ Routine in bag · View bag</button>
+        } @else {
+          <button type="button" (click)="addRoutine()" [disabled]="!routineProducts().length" class="btn-primary text-sm px-6 py-3 shrink-0">Add full routine to bag</button>
+        }
+      </div>
+    </footer>
+  }
+</section>

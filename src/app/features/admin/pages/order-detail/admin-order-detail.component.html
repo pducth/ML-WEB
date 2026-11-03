@@ -1,0 +1,90 @@
+<a class="back" routerLink="/admin/orders">← Orders</a>
+@if (order(); as o) {
+  <div class="card">
+    <h3>#{{ o.code }} <span [class]="badge[o.status]">{{ o.status }}</span><em>{{ o.createdAt | date: 'dd/MM/yyyy HH:mm' }} · {{ o.paymentMethod === 'COD' ? 'COD' : 'Bank transfer' }}</em></h3>
+    <div class="steps">
+      @for (s of steps(); track s.status) { <span [class]="s.cls">{{ s.status }}</span> }
+    </div>
+    <p style="margin:14px 0 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      @if (o.status === 'Processing') { <button class="btn" type="button" (click)="open('ship')">Mark as Shipping</button> }
+      @if (o.status === 'Shipping') { <button class="btn" type="button" (click)="open('complete')">Mark as Completed</button> }
+      @if (canCancel()) { <button class="btn gh" type="button" (click)="open('cancel')">Cancel order</button> }
+      <small style="color:var(--mut)">Only orders in Payment Pending or Processing can be cancelled</small>
+    </p>
+    @if (o.status === 'Cancelled') { <p class="muted" style="margin:12px 0 0">Cancelled: {{ o.cancelReason }}</p> }
+  </div>
+
+  @if (o.status === 'Return Pending' && o.returnRequest; as rr) {
+    <div class="card" style="margin-top:16px">
+      <h3>Return request <em>Refund excludes the {{ o.shippingFee | usd }} shipping fee (full refund for store errors)</em></h3>
+      <p style="margin-top:0">Reason: <b>{{ rr.reason }}</b> · requested {{ rr.requestedAt | date: 'dd/MM/yyyy HH:mm' }} · completed {{ o.completedAt | date: 'dd/MM/yyyy' }} · entire order · seals intact: <b>{{ rr.sealIntact ? 'Yes' : 'No' }}</b>@if (rr.storeFault) { · <span class="b w">Reported store error</span> }</p>
+      <button class="btn" type="button" (click)="open('approve')">Approve &amp; Refund</button> <button class="btn gh" type="button" (click)="open('reject')">Reject Return</button>
+    </div>
+  }
+  @if (o.returnRequest?.rejectReason; as rejectReason) {
+    <div class="alert" style="margin-top:16px">Return rejected: {{ rejectReason }}</div>
+  }
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Products</h3>
+      <div class="tw">
+        <table style="min-width:420px">
+          <tr><th>Product</th><th>Size</th><th>Qty</th><th>Amount</th></tr>
+          @for (item of o.items; track item.variantId) {
+            <tr><td class="wrap">{{ item.productName }} <small class="muted">{{ item.sku }}</small></td><td>{{ item.sizeLabel }}</td><td>{{ item.quantity }}</td><td>{{ item.lineTotal | usd }}</td></tr>
+          }
+        </table>
+      </div>
+      <div class="row"><span>Subtotal</span><b>{{ o.subtotal | usd }}</b></div>
+      <div class="row"><span>Voucher</span><b>{{ o.voucherCode ? o.voucherCode + ' −' : '—' }}@if (o.voucherCode) { {{ o.discount | usd }} }</b></div>
+      <div class="row"><span>Shipping fee</span><b>{{ o.shippingFee | usd }}</b></div>
+      <div class="row"><span><b>Total</b></span><b style="font-size:18px;color:var(--teal-d)">{{ o.total | usd }}</b></div>
+      @if (o.refundAmount) { <div class="row"><span>Refunded</span><b style="color:var(--err)">{{ o.refundAmount | usd }}</b></div> }
+    </div>
+    <div class="card">
+      <h3>Customer &amp; shipping</h3>
+      <div class="row"><span>Customer</span><b><a [routerLink]="['/admin/customers', o.userId]" style="color:var(--teal-d)">{{ o.customerName }}</a></b></div>
+      <div class="row"><span>Recipient</span><b>{{ o.shipping.recipientName }}</b></div>
+      <div class="row"><span>Phone</span><b>{{ o.shipping.phone }}</b></div>
+      <div class="row"><span>Address</span><b style="text-align:right;max-width:60%">{{ o.shipping.addressLine }}</b></div>
+      @if (o.shipping.note) { <div class="row"><span>Note</span><b>{{ o.shipping.note }}</b></div> }
+      <div class="row"><span>Payment</span><span><span class="b">{{ o.paymentMethod === 'COD' ? 'COD' : 'Bank transfer' }}</span> <span [class]="paymentBadge[o.paymentStatus]">{{ o.paymentStatus }}</span></span></div>
+      @if (o.paymentRef) { <div class="row"><span>Payment reference</span><b>{{ o.paymentRef }}</b></div> }
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Timeline</h3>
+    @for (t of timeline(); track $index) {
+      <div class="row"><span><span [class]="badge[t.status]">{{ t.status }}</span> {{ t.note }}</span><span class="muted">{{ t.at | date: 'dd/MM/yyyy HH:mm' }}</span></div>
+    }
+  </div>
+
+  <app-admin-modal [open]="dialog() === 'ship'" title="Mark as Shipping" confirmLabel="Mark as Shipping" (closed)="dialog.set(null)" (confirmed)="confirm()">
+    <p style="margin:0">Hand #{{ o.code }} to the carrier? On Hand and Reserved are both reduced by the shipped quantities.</p>
+    @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
+  </app-admin-modal>
+  <app-admin-modal [open]="dialog() === 'complete'" title="Mark as Completed" confirmLabel="Mark as Completed" (closed)="dialog.set(null)" (confirmed)="confirm()">
+    <p style="margin:0">Confirm delivery of #{{ o.code }}?@if (o.paymentMethod === 'COD') { Cash collected — the payment becomes Paid. } The 7-day return window starts now.</p>
+    @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
+  </app-admin-modal>
+  <app-admin-modal [open]="dialog() === 'cancel'" title="Cancel order" confirmLabel="Cancel order" tone="danger" [confirmDisabled]="!reason()" (closed)="dialog.set(null)" (confirmed)="confirm()">
+    <p style="margin:0">Release Reserved stock and restore voucher usage (if applicable).@if (o.paymentStatus === 'Paid') { The paid amount {{ o.total | usd }} is refunded in full. }</p>
+    <label>Reason *<select (change)="reason.set($any($event.target).value)"><option value="">Select a reason…</option>@for (r of cancelReasons; track r) { <option [value]="r">{{ r }}</option> }</select></label>
+    @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
+  </app-admin-modal>
+  <app-admin-modal [open]="dialog() === 'approve'" title="Approve return" confirmLabel="Approve & Refund" (closed)="dialog.set(null)" (confirmed)="confirm()">
+    <p style="margin:0">Refund excludes the {{ o.shippingFee | usd }} shipping fee (full refund for store errors) and items are restocked.</p>
+    <label>Cause<select (change)="storeFault.set($any($event.target).value === 'store')"><option value="customer" [selected]="!storeFault()">Customer changed their mind</option><option value="store" [selected]="storeFault()">Store error</option></select></label>
+    <p style="margin:0">Refund amount: <b>{{ refundPreview() | usd }}</b></p>
+    @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
+  </app-admin-modal>
+  <app-admin-modal [open]="dialog() === 'reject'" title="Reject return" confirmLabel="Reject" tone="brown" [confirmDisabled]="!reason()" (closed)="dialog.set(null)" (confirmed)="confirm()">
+    <label>Reason *<select (change)="reason.set($any($event.target).value)"><option value="">Select a reason…</option>@for (r of rejectReasons; track r) { <option [value]="r">{{ r }}</option> }</select></label>
+    <small class="muted">The order returns to Completed and the customer sees your reason.</small>
+    @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
+  </app-admin-modal>
+} @else {
+  <div class="alert err">Order not found.</div>
+}

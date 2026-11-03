@@ -1,0 +1,184 @@
+<section class="app-screen animate-fadeIn">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2">
+      <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
+      <span>/</span>
+      <a routerLink="/cart" class="hover:text-[#19594A] cursor-pointer">Shopping Bag</a>
+      <span>/</span>
+      <span class="text-[#0F3D32] font-semibold">Order Checkout</span>
+    </div>
+
+    @if (cart.lines().length) {
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-[#EEF3EF] p-4 rounded-2xl border border-[#DCE5E0] flex items-center gap-3">
+            <div>
+              <h4 class="text-xs font-bold text-[#0F3D32]">Signed in as {{ user()?.fullName }}</h4>
+              <p class="text-[11px] text-[#5E6F68]">Your order will be saved to your account so you can track it, cancel it or request a return.</p>
+            </div>
+          </div>
+
+          <!-- 1. Shipping -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE5E0] shadow-sm space-y-5">
+            <h3 class="text-lg font-bold text-[#0F3D32] flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-[#19594A] text-white text-xs flex items-center justify-center font-bold">1</span>
+              <span>Shipping Information</span>
+            </h3>
+
+            <div class="space-y-3" role="radiogroup" aria-label="Delivery address">
+              @for (address of addresses(); track address.id) {
+                <label class="flex items-start gap-3 p-4 rounded-2xl border cursor-pointer"
+                  [ngClass]="selectedAddressId() === address.id ? 'border-[#19594A] bg-[#19594A]/5' : 'border-[#DCE5E0] hover:border-[#19594A] bg-white'">
+                  <input type="radio" name="address" [checked]="selectedAddressId() === address.id" (change)="selectedAddressId.set(address.id)" class="mt-1 text-[#19594A] focus:ring-[#19594A]" />
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm text-[#0F3D32]">{{ address.label }}</span>
+                      @if (address.isDefault) { <span class="badge-teal text-[10px]">Default</span> }
+                    </div>
+                    <p class="text-xs text-[#5E6F68] mt-1">{{ formatAddress(address) }}</p>
+                    <p class="text-xs text-[#85968E] mt-0.5">Recipient: {{ address.recipientName }} • {{ address.phone }}</p>
+                  </div>
+                </label>
+              }
+              <label class="flex items-center gap-3 p-4 rounded-2xl border cursor-pointer"
+                [ngClass]="selectedAddressId() === 'new' ? 'border-[#19594A] bg-[#19594A]/5' : 'border-[#DCE5E0] hover:border-[#19594A] bg-white'">
+                <input type="radio" name="address" [checked]="selectedAddressId() === 'new'" (change)="selectedAddressId.set('new')" class="text-[#19594A] focus:ring-[#19594A]" />
+                <span class="text-sm font-bold text-[#0F3D32]">+ Deliver to a new address</span>
+              </label>
+            </div>
+
+            @if (selectedAddressId() === 'new') {
+              <div class="space-y-4 animate-fadeIn">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="co-name" class="block text-xs font-bold text-[#0F3D32] mb-1">Recipient Full Name *</label>
+                    <input id="co-name" type="text" autocomplete="name" [ngModel]="draft().recipientName" (ngModelChange)="updateDraft('recipientName', $event)" class="field-input" [attr.aria-invalid]="submitted() && !draft().recipientName.trim()" />
+                  </div>
+                  <div>
+                    <label for="co-phone" class="block text-xs font-bold text-[#0F3D32] mb-1">Contact Phone *</label>
+                    <input id="co-phone" type="tel" autocomplete="tel" [ngModel]="draft().phone" (ngModelChange)="updateDraft('phone', $event)" class="field-input" [attr.aria-invalid]="submitted() && !draft().phone.trim()" />
+                  </div>
+                </div>
+                <div>
+                  <label for="co-street" class="block text-xs font-bold text-[#0F3D32] mb-1">Street Address *</label>
+                  <input id="co-street" type="text" autocomplete="street-address" placeholder="House number, street, building" [ngModel]="draft().street" (ngModelChange)="updateDraft('street', $event)" class="field-input" [attr.aria-invalid]="submitted() && !draft().street.trim()" />
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label for="co-ward" class="block text-xs font-bold text-[#0F3D32] mb-1">Ward</label>
+                    <input id="co-ward" type="text" [ngModel]="draft().ward" (ngModelChange)="updateDraft('ward', $event)" class="field-input" />
+                  </div>
+                  <div>
+                    <label for="co-district" class="block text-xs font-bold text-[#0F3D32] mb-1">District</label>
+                    <input id="co-district" type="text" [ngModel]="draft().district" (ngModelChange)="updateDraft('district', $event)" class="field-input" />
+                  </div>
+                  <div>
+                    <label for="co-city" class="block text-xs font-bold text-[#0F3D32] mb-1">City / Province *</label>
+                    <input id="co-city" type="text" autocomplete="address-level2" [ngModel]="draft().city" (ngModelChange)="updateDraft('city', $event)" class="field-input" [attr.aria-invalid]="submitted() && !draft().city.trim()" />
+                  </div>
+                </div>
+                <label class="flex items-center gap-2 text-xs text-[#5E6F68]">
+                  <input type="checkbox" [checked]="saveAddress()" (change)="saveAddress.set($any($event.target).checked)" class="text-[#19594A] rounded" />
+                  Save this address to my address book
+                </label>
+              </div>
+            }
+
+            <div>
+              <label for="co-note" class="block text-xs font-bold text-[#0F3D32] mb-1">Delivery Note (Optional)</label>
+              <input id="co-note" type="text" maxlength="200" placeholder="e.g., Deliver during business hours, call before arrival" [ngModel]="note()" (ngModelChange)="note.set($event)" class="field-input" />
+            </div>
+          </div>
+
+          <!-- 2. Payment -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE5E0] shadow-sm space-y-4">
+            <h3 class="text-lg font-bold text-[#0F3D32] flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-[#19594A] text-white text-xs flex items-center justify-center font-bold">2</span>
+              <span>Payment Method</span>
+            </h3>
+            <div class="space-y-3" role="radiogroup" aria-label="Payment method">
+              <label class="flex items-center gap-3 p-4 rounded-2xl border cursor-pointer"
+                [ngClass]="paymentMethod() === 'COD' ? 'border-[#19594A] bg-[#19594A]/5' : 'border-[#DCE5E0] hover:border-[#19594A] bg-white'">
+                <input type="radio" name="payment-method" [checked]="paymentMethod() === 'COD'" (change)="paymentMethod.set('COD')" class="text-[#19594A] focus:ring-[#19594A]" />
+                <div>
+                  <span class="text-sm font-bold text-[#0F3D32] block">Cash on Delivery (COD)</span>
+                  <span class="text-xs text-[#5E6F68]">Pay the courier in cash when your package arrives</span>
+                </div>
+              </label>
+              <label class="flex items-center gap-3 p-4 rounded-2xl border cursor-pointer"
+                [ngClass]="paymentMethod() === 'BANK_TRANSFER' ? 'border-[#19594A] bg-[#19594A]/5' : 'border-[#DCE5E0] hover:border-[#19594A] bg-white'">
+                <input type="radio" name="payment-method" [checked]="paymentMethod() === 'BANK_TRANSFER'" (change)="paymentMethod.set('BANK_TRANSFER')" class="text-[#19594A] focus:ring-[#19594A]" />
+                <div class="flex-1">
+                  <span class="text-sm font-bold text-[#0F3D32] block">Bank Transfer / QR (USD)</span>
+                  <span class="text-xs text-[#5E6F68]">Transfer within {{ settings().paymentTimeoutMinutes }} minutes using your unique PAY-HCI reference — confirmed automatically</span>
+                </div>
+                <span class="badge-teal text-[10px]">Fast</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE5E0] shadow-sm space-y-5 lg:sticky lg:top-28">
+            <h3 class="text-lg font-bold text-[#0F3D32] border-b border-[#DCE5E0] pb-3">Order Summary</h3>
+
+            <div class="space-y-2">
+              @for (item of cart.view(); track item.line.variantId) {
+                <div class="flex items-center justify-between text-sm py-2 border-b border-[#DCE5E0] gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <img [src]="item.variant?.image ?? item.product?.images?.[0]" alt="" class="w-12 h-12 object-cover rounded-lg border border-[#DCE5E0] shrink-0" />
+                    <div class="min-w-0">
+                      <p class="font-semibold text-[#0F3D32] line-clamp-1">{{ item.product?.name }}</p>
+                      <span class="text-xs text-[#5E6F68]">{{ item.variant?.sizeLabel }} × {{ item.line.quantity }}</span>
+                      @if (item.issue) { <span class="block text-[11px] text-red-600 font-semibold">Update in bag</span> }
+                    </div>
+                  </div>
+                  <span class="font-bold text-[#19594A] shrink-0">{{ item.lineTotal | usd }}</span>
+                </div>
+              }
+            </div>
+
+            @if (cart.voucherCode(); as code) {
+              <div class="flex items-center justify-between text-xs rounded-xl px-3 py-2" [ngClass]="cart.voucher()?.error ? 'bg-red-50 text-red-700' : 'bg-[#4F7F72]/10 text-[#3B6B5E]'">
+                <span class="font-bold">{{ code }}@if (cart.voucher()?.error) { — {{ cart.voucher()?.error }} }</span>
+                <button type="button" (click)="cart.removeVoucher()" class="font-bold hover:underline">Remove</button>
+              </div>
+            } @else {
+              <div>
+                <div class="flex gap-2">
+                  <input #coupon type="text" placeholder="Discount code" aria-label="Discount code" (keydown.enter)="applyCoupon(coupon.value)"
+                    class="flex-1 text-xs border border-[#DCE5E0] rounded-xl px-3 py-2 bg-[#F7F8F4] outline-none uppercase font-semibold text-[#0F3D32]" />
+                  <button type="button" (click)="applyCoupon(coupon.value)" class="px-4 py-2 bg-[#19594A] text-white text-xs font-bold rounded-xl hover:bg-[#0F3D32]">Apply</button>
+                </div>
+                @if (couponError()) { <p class="text-[11px] text-red-600 font-semibold mt-1.5">{{ couponError() }}</p> }
+              </div>
+            }
+
+            <div class="pt-4 border-t border-[#DCE5E0] space-y-2 text-sm">
+              <div class="flex justify-between text-[#5E6F68]"><span>Subtotal</span><span class="font-semibold text-[#0F3D32]">{{ cart.subtotal() | usd }}</span></div>
+              <div class="flex justify-between text-[#4F7F72]"><span>Promotional Discount</span><span class="font-semibold">-{{ cart.discount() | usd }}</span></div>
+              <div class="flex justify-between text-[#5E6F68]"><span>Nationwide Shipping</span><span class="font-semibold text-[#0F3D32]">{{ cart.shippingFee() | usd }}</span></div>
+              <div class="pt-3 border-t border-[#DCE5E0] flex justify-between text-lg font-extrabold text-[#0F3D32]"><span>Total Due</span><span class="text-[#19594A]">{{ cart.total() | usd }}</span></div>
+            </div>
+
+            @if (error()) { <p class="text-xs font-semibold text-red-600 bg-red-50 rounded-xl p-3" role="alert">{{ error() }}</p> }
+            @if (cart.hasBlockingIssues()) {
+              <p class="text-xs font-semibold text-red-600 text-center">Some items are unavailable. <a routerLink="/cart" class="underline">Review your bag</a>.</p>
+            }
+            <button type="button" (click)="placeOrder()" [disabled]="!canPlace()" class="btn-cta-place-order w-full py-4 text-base font-bold shadow-lg">
+              {{ placing() ? 'Placing your order…' : 'Place Order · ' + (cart.total() | usd) }}
+            </button>
+            <p class="text-[11px] text-[#85968E] text-center">By placing your order, you agree to our <a routerLink="/about" [queryParams]="{ tab: 'shipping' }" class="underline">Terms of Sale</a> and <a routerLink="/about" [queryParams]="{ tab: 'privacy' }" class="underline">Privacy Policy</a>.</p>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="py-16 text-center bg-white rounded-3xl border border-[#DCE5E0]">
+        <p class="font-bold text-[#0F3D32]">Your bag is empty.</p>
+        <p class="text-sm text-[#5E6F68] mt-1">Add products before checking out.</p>
+        <a routerLink="/shop" class="btn-primary text-sm px-6 py-2.5 mt-5">Explore Products</a>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,97 @@
+<a class="back" routerLink="/admin/products">← Product list</a>
+@if (editing() && !existing()) {
+  <div class="alert err">Product not found.</div>
+} @else {
+  @if (error()) { <div class="alert err" role="alert">{{ error() }}</div> }
+  <div class="grid g2">
+    <div class="card">
+      <h3>Basic information</h3>
+      <div class="form">
+        <label>Product name *<input [value]="name()" (input)="name.set($any($event.target).value)" /></label>
+        <label>Category *
+          <select (change)="category.set($any($event.target).value)">
+            @for (c of categories; track c) { <option [value]="c" [selected]="category() === c">{{ c }}</option> }
+          </select>
+        </label>
+        <label style="grid-column:1/-1">Description<textarea rows="3" [value]="description()" (input)="description.set($any($event.target).value)"></textarea></label>
+        <label style="grid-column:1/-1">Key benefits <small class="muted">(one per line)</small><textarea rows="3" [value]="benefits()" (input)="benefits.set($any($event.target).value)"></textarea></label>
+        <label>Full ingredients<textarea rows="3" [value]="ingredients()" (input)="ingredients.set($any($event.target).value)"></textarea></label>
+        <label>How to use<textarea rows="3" [value]="howToUse()" (input)="howToUse.set($any($event.target).value)"></textarea></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Hair Quiz tags <em>Required for Hair Quiz participation</em></h3>
+      <div class="form" style="grid-template-columns:1fr">
+        <div><b style="font-size:13px">Scalp *</b>
+          <div class="check-group" style="margin-top:6px">
+            @for (s of scalpOptions; track s.id) {
+              <label><input type="checkbox" [checked]="scalp().includes(s.id)" (change)="toggleIn(scalp, s.id)" />{{ s.label }}</label>
+            }
+          </div>
+        </div>
+        <div><b style="font-size:13px">Hair needs covered *</b>
+          <div class="check-group" style="margin-top:6px">
+            @for (l of labels; track l) {
+              <label><input type="checkbox" [checked]="needs().includes(l)" (change)="toggleIn(needs, l)" />{{ l }}</label>
+            }
+          </div>
+        </div>
+        <label>Routine step *
+          <select (change)="step.set($any($event.target).value)">
+            @for (s of steps; track s.id) { <option [value]="s.id" [selected]="step() === s.id">{{ s.label }}</option> }
+          </select>
+        </label>
+        <div class="row"><span>Allow as automatic substitute when another product is out of stock</span><button type="button" class="sw" [class.off]="!allowSubstitute()" role="switch" [attr.aria-checked]="allowSubstitute()" aria-label="Allow automatic substitute" (click)="allowSubstitute.set(!allowSubstitute())"></button></div>
+        <div class="row"><span><b>Active</b> — visible on the storefront and in the Hair Quiz</span><button type="button" class="sw" [class.off]="!active()" role="switch" [attr.aria-checked]="active()" aria-label="Active" (click)="active.set(!active())"></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Size variants <em>Price &gt; 0 · stock must be a whole number ≥ 0 @if (editing()) { · stock of existing sizes is adjusted in Inventory }</em></h3>
+    <div class="tw">
+      <table>
+        <tr><th>Use</th><th>Size</th><th>SKU</th><th>Volume</th><th>Price (USD)</th><th>On Hand</th><th>For sale</th></tr>
+        @for (v of variants(); track v.sizeLabel; let i = $index) {
+          <tr [style.opacity]="v.enabled ? 1 : 0.5">
+            <td><input type="checkbox" style="min-height:auto" [checked]="v.enabled" [disabled]="v.enabled && v.reserved > 0" [attr.aria-label]="'Use size ' + v.sizeLabel" (change)="enableVariant(i, $any($event.target).checked)" /></td>
+            <td>{{ v.sizeLabel }}</td>
+            <td><input [value]="v.sku" [disabled]="!v.enabled" style="width:130px" (input)="updateVariant(i, { sku: $any($event.target).value })" /></td>
+            <td><input [value]="v.volume" [disabled]="!v.enabled" (input)="updateVariant(i, { volume: $any($event.target).value })" /></td>
+            <td><input type="number" min="0.01" step="0.01" [value]="v.price ?? ''" [disabled]="!v.enabled" (input)="updateVariant(i, { price: $any($event.target).valueAsNumber })" /></td>
+            <td>
+              @if (v.id) { <span>{{ v.onHand }}</span> <small class="muted">({{ v.available }} avail.)</small> }
+              @else { <input type="number" min="0" step="1" [value]="v.onHand ?? ''" [disabled]="!v.enabled" (input)="updateVariant(i, { onHand: $any($event.target).valueAsNumber })" /> }
+            </td>
+            <td><button type="button" class="sw" [class.off]="!v.forSale" [disabled]="!v.enabled" role="switch" [attr.aria-checked]="v.forSale" [attr.aria-label]="'For sale ' + v.sizeLabel" (click)="updateVariant(i, { forSale: !v.forSale })"></button></td>
+          </tr>
+        }
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Images <em>Up to 6 images · the first is the main image · click an image to make it main</em></h3>
+    <div class="grid g6">
+      @for (slot of [0, 1, 2, 3, 4, 5]; track slot) {
+        @if (images()[slot] !== undefined) {
+          <div class="ph f" (click)="images()[slot] && makeMain(slot)" [title]="slot === 0 ? 'Main image' : 'Make main image'">
+            @if (images()[slot]) { <img [src]="images()[slot]" alt="" /> } @else { <span>Uploading…</span> }
+            <button type="button" class="rm" aria-label="Remove image" (click)="$event.stopPropagation(); removeImage(slot)">×</button>
+          </div>
+        } @else {
+          <label class="ph" style="cursor:pointer">
+            <span>{{ slot === 0 ? '+ Main image *' : '+ Add image' }}</span>
+            <input type="file" accept="image/*" multiple hidden (change)="upload($event)" />
+          </label>
+        }
+      }
+    </div>
+    <div class="tool" style="margin:14px 0 0">
+      <input type="url" placeholder="…or paste an image URL (e.g. /assets/products/…)" aria-label="Image URL" [value]="imageUrl()" (input)="imageUrl.set($any($event.target).value)" (keydown.enter)="addImageUrl()" />
+      <button type="button" class="btn gh" (click)="addImageUrl()">Add URL</button>
+    </div>
+  </div>
+
+  <p style="margin-top:16px"><button class="btn" type="button" (click)="save()">{{ editing() ? 'Save changes' : 'Save product' }}</button> <a class="btn gh" routerLink="/admin/products">Cancel</a></p>
+}

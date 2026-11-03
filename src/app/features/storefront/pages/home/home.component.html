@@ -1,0 +1,199 @@
+<section id="page-c01-home" class="app-screen">
+  <!-- Hero · full-bleed 2.5D botanical diorama with one signature product per brand -->
+  <app-hero-scene [products]="heroProducts()" />
+
+    <!-- Best sellers · centred heading + horizontal carousel (Crown Affair rhythm) -->
+  <section class="fm-section pb-4 lg:pb-8" aria-labelledby="best-heading">
+    <div class="text-center px-6 max-w-[80ch] mx-auto">
+      <h2 id="best-heading" class="text-3xl sm:text-[40px] leading-tight text-[#0F3D32]">Shop <i>best sellers</i></h2>
+      <p class="mt-4 text-[15px] text-[#5E6F68] leading-relaxed">A curated edit of botanical formulas that restore your hair's balance.</p>
+    </div>
+
+    <div class="relative max-w-[1500px] mx-auto mt-10 lg:px-16">
+      <button type="button" (click)="track.scrollBy({ left: -340, behavior: 'smooth' })" aria-label="Previous products" class="hidden lg:flex absolute left-4 top-[34%] z-10 w-10 h-10 items-center justify-center text-[#0F3D32] hover:text-[#4F7F72] transition-colors duration-500">
+        <svg class="w-4 h-7" viewBox="0 0 15 28" fill="none" aria-hidden="true"><path d="M14 1L1 14L14 27" stroke="currentColor"/></svg>
+      </button>
+      <button type="button" (click)="track.scrollBy({ left: 340, behavior: 'smooth' })" aria-label="Next products" class="hidden lg:flex absolute right-4 top-[34%] z-10 w-10 h-10 items-center justify-center text-[#0F3D32] hover:text-[#4F7F72] transition-colors duration-500">
+        <svg class="w-4 h-7" viewBox="0 0 15 28" fill="none" aria-hidden="true"><path d="M1 1L14 14L1 27" stroke="currentColor"/></svg>
+      </button>
+
+      <div #track class="flex gap-3 lg:gap-6 overflow-x-auto snap-x snap-mandatory px-6 lg:px-0 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        @for (item of bestSellers(); track item.product.id) {
+          <div class="group product-card snap-start shrink-0 w-[78%] sm:w-[44%] lg:w-[calc((100%-4.5rem)/4)] flex flex-col">
+            <a [routerLink]="['/products', item.product.id]" class="ca-media relative overflow-hidden aspect-square cursor-pointer block">
+              <app-product-media [product]="item.product" />
+              <span class="absolute top-3 left-3 bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#0F3D32]">Best seller</span>
+            </a>
+            <div class="pt-5 flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <p class="fm-brand-chip">{{ item.product.brand }}</p>
+              <a [routerLink]="['/products', item.product.id]" class="mt-1.5 block font-medium text-[#0F3D32] text-base leading-snug hover:text-[#4F7F72] transition-colors duration-500 cursor-pointer">{{ item.product.name }}</a>
+              <div class="flex items-center gap-1.5 mt-2 text-xs">
+                @if (item.stats.count) {
+                  <app-stars [rating]="item.stats.average" /> <span class="text-[#5E6F68]">({{ item.stats.count | compact }})</span>
+                } @else {
+                  <span class="text-[#85968E]">New in store</span>
+                }
+                @if (item.product.soldTotal) { <span class="font-semibold text-[#0F3D32]"><span class="font-normal text-[#85968E]">·</span> {{ item.product.soldTotal | compact }} sold</span> }
+              </div>
+              <div class="mt-auto pt-5 w-full">
+                <button type="button" (click)="addToCart(item.product)" [disabled]="!item.inStock" class="btn-primary w-full sm:w-auto">
+                  {{ item.inStock ? 'Add to bag' : 'Sold out' }} · {{ item.variant?.price ?? 0 | usd }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <a routerLink="/shop" class="fm-text-link"><span>View the full collection</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6-6 6 6-6 6"></path></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Two boxes · full-width split tiles -->
+  <section class="fm-section">
+    <div class="grid md:grid-cols-2 gap-1">
+      <a routerLink="/shop" [queryParams]="{ category: 'Shampoo' }" class="group relative block overflow-hidden aspect-[5/4]">
+        <img src="/assets/folmare/category/box-shampoo.jpg" alt="Botanical shampoo and conditioner among cucumber slices" class="w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-90" loading="lazy" />
+        <span class="absolute inset-0 bg-gradient-to-t from-[#0A2A22]/60 via-[#0A2A22]/5 to-transparent" aria-hidden="true"></span>
+        <span class="absolute inset-x-0 bottom-0 p-8 lg:p-10 text-center"><span class="font-display text-2xl lg:text-3xl text-white border-b border-white/80 pb-1">Shop shampoo &amp; conditioner</span></span>
+      </a>
+      <a routerLink="/shop" [queryParams]="{ category: 'Treatment / Oil' }" class="group relative block overflow-hidden aspect-[5/4]">
+        <img src="/assets/folmare/category/box-oil.jpg" alt="Ritual hair oil resting on silk" class="w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-90" loading="lazy" />
+        <span class="absolute inset-0 bg-gradient-to-t from-[#0A2A22]/60 via-[#0A2A22]/5 to-transparent" aria-hidden="true"></span>
+        <span class="absolute inset-x-0 bottom-0 p-8 lg:p-10 text-center"><span class="font-display text-2xl lg:text-3xl text-white border-b border-white/80 pb-1">Shop treatments &amp; oils</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Brand story · full-bleed image with a narrow text panel -->
+  <section class="fm-section">
+    <div class="flex flex-col-reverse lg:flex-row-reverse">
+      <div class="relative isolate w-full lg:w-[65%] min-h-[300px] lg:min-h-[420px] flex flex-col items-center justify-center gap-6 px-8 py-14"
+        style="background: radial-gradient(ellipse 60% 55% at 85% 10%, rgb(209 231 223 / 90%) 0%, transparent 70%), radial-gradient(ellipse 70% 60% at 20% 95%, rgb(255 205 185 / 80%) 0%, transparent 70%), linear-gradient(160deg, #FBF3EA 0%, #F7E7DC 100%)">
+        <img src="/assets/folmare/logo/png/folmare-primary-dark.png" alt="FOLMARÉ — Botanical Haircare Edit" width="1242" height="749" class="w-[min(420px,70%)] min-w-[240px] h-auto" loading="lazy" />
+      </div>
+      <div class="w-full lg:w-[35%] flex flex-col justify-center bg-white px-6 py-14 lg:px-16 text-center lg:text-left">
+        <p class="fm-eyebrow">Brand story</p>
+        <h2 class="mt-3 text-4xl sm:text-[48px] text-[#0F3D32] leading-[1.08]"><i>Nature,</i><br />felt in every ritual.</h2>
+        <p class="mt-6 text-[15px] text-[#5E6F68] leading-relaxed">FOLMARÉ — from <i>folium</i>, the leaf, and <i>mare</i>, the sea — is a destination for leading haircare houses where nature, science and gentle rituals meet, for healthy hair and a calmer moment every day.</p>
+        <div class="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-5">
+          <a routerLink="/about" class="btn-secondary">Our story</a>
+          <a routerLink="/shop" class="fm-text-link">Shop now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Shop by category -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fm-section">
+    <div class="text-center mb-8"><p class="fm-eyebrow">Shop by category</p><h2 class="mt-3 text-3xl sm:text-[40px] leading-tight text-[#0F3D32]">Find your <i>formula</i></h2></div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-2 sm:gap-x-3 gap-y-7">
+      @for (tile of categoryTiles(); track tile.category) {
+        <a routerLink="/shop" [queryParams]="{ category: tile.category }" class="group flex flex-col items-start text-left">
+          <span class="w-full aspect-[3/4] overflow-hidden bg-[#F0F3EF]">
+            @if (tile.image) { <img [src]="tile.image" [alt]="tile.category" loading="lazy" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-85" /> }
+          </span>
+          <h3 class="mt-4 text-[13px] font-semibold uppercase tracking-[0.12em] text-[#0F3D32]">{{ tile.category }}</h3>
+          <span class="text-[11px] text-[#85968E]">{{ tile.count }} products</span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <!-- The curated edit · four brands -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fm-section">
+    <div class="flex flex-col items-center text-center gap-3 mb-8">
+      <div>
+        <p class="fm-eyebrow">The curated edit</p>
+        <h2 class="mt-2 text-3xl sm:text-[40px] text-[#0F3D32] leading-tight">Four brands, <i>one thoughtful ritual.</i></h2>
+      </div>
+      <p class="max-w-sm text-sm text-[#5E6F68] leading-relaxed">Each house is chosen for a role in your routine — from aromatic scalp care to the final glossy finish.</p>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+      @for (brand of brands; track brand.name) {
+        <a routerLink="/shop" [queryParams]="{ brand: brand.name.toLowerCase() }" class="fm-brand-tile" [style.background]="brand.background">
+          <img class="fm-brand-tile__product" [src]="brand.image" [alt]="brand.name + ' signature product'" loading="lazy" />
+          <strong>{{ brand.name }}</strong>
+          <span>{{ brand.role }}</span>
+        </a>
+      }
+    </div>
+  </div>
+
+    <!-- Houses + quote strip (press-logo style) -->
+  <section class="fm-section">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <ul class="grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-6 items-center text-center" aria-label="Featured houses">
+        @for (brand of brands; track brand.name) {
+          <li class="flex items-center justify-center h-12">
+            @if (failedLogos().has(brand.name)) {
+              <span class="font-display text-2xl sm:text-3xl tracking-[0.18em] text-[#0F3D32]">{{ brand.name }}</span>
+            } @else {
+              <img [src]="brand.logo" [alt]="brand.name" (error)="logoFailed(brand.name)" class="max-h-9 sm:max-h-10 max-w-[80%] w-auto object-contain opacity-80 [filter:brightness(0)]" loading="lazy" />
+            }
+          </li>
+        }
+      </ul>
+      <p class="mt-12 max-w-[60ch] mx-auto text-center text-lg sm:text-xl leading-relaxed text-[#1D302C]">“A destination where nature, science and gentle rituals meet — haircare chosen to turn an everyday routine into a moment of care.”</p>
+    </div>
+  </section>
+
+<!-- Hair routine quiz · compact split: invitation left, example ritual right -->
+  <section class="fm-section" aria-labelledby="quiz-heading">
+    <div class="grid lg:grid-cols-2">
+      <div class="fm-surface-forest text-white px-6 py-10 sm:px-10 lg:px-14 lg:py-12 flex flex-col justify-center">
+        <p class="fm-eyebrow fm-eyebrow--light">The hair quiz</p>
+        <h2 id="quiz-heading" class="mt-3 text-[28px] sm:text-[34px] leading-[1.12] text-white">Four questions.<br /><i>One ritual made for your hair.</i></h2>
+        <p class="mt-3 max-w-md text-sm text-white/75 leading-relaxed">Tell us about your scalp, strands, habits and goal. We build a Cleanse, Condition, Treat and Style routine from products in stock today.</p>
+
+        <ol class="mt-6 border-t border-white/20">
+          @for (step of quizSteps; track step.title; let i = $index) {
+            <li class="flex items-baseline gap-4 py-2.5 border-b border-white/15">
+              <span class="font-display italic text-base text-[#A8C3B6] w-6">0{{ i + 1 }}</span>
+              <span class="flex-1 text-sm font-semibold">{{ step.title }}</span>
+              <span class="hidden sm:block text-xs text-white/60">{{ step.text }}</span>
+            </li>
+          }
+        </ol>
+
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a routerLink="/quiz" class="inline-flex items-center gap-3 bg-[#FF7F64] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.12em] text-[#0F3D32] shadow-[0_8px_24px_rgba(255,127,100,0.35)] hover:bg-[#FF9378] hover:-translate-y-0.5 transition-all duration-300">
+            Take the quiz
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+          </a>
+          <span class="text-xs text-white/60">About one minute · no account needed</span>
+        </div>
+      </div>
+
+      <div class="bg-white px-6 py-10 sm:px-10 lg:px-14 lg:py-12 flex flex-col justify-center">
+        <div class="flex items-baseline justify-between gap-4 border-b border-[#DCE5E0] pb-3">
+          <p class="fm-eyebrow">Example result</p>
+          <span class="font-display italic text-lg text-[#0F3D32]">A sample ritual</span>
+        </div>
+        <ul class="divide-y divide-[#DCE5E0]">
+          @for (item of sampleRoutine(); track item.step) {
+            <li>
+              <a [routerLink]="['/products', item.product.id]" class="flex items-center gap-4 py-3 group">
+                <span class="w-16 h-16 shrink-0 overflow-hidden bg-[#F0F3EF]"><img [src]="item.product.images[0]" [alt]="item.product.name" class="w-full h-full object-cover" loading="lazy" /></span>
+                <span class="min-w-0 flex-1">
+                  <span class="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#4F7F72]">Step {{ $index + 1 }} · {{ item.step }}</span>
+                  <span class="mt-1 block text-base font-medium text-[#0F3D32] group-hover:text-[#4F7F72] transition-colors duration-500 truncate">{{ item.product.name }}</span>
+                </span>
+                <span class="text-base font-medium text-[#0F3D32]">{{ item.price | usd }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+        <div class="flex items-baseline justify-between border-t border-[#0F3D32] pt-3">
+          <span class="text-xs uppercase tracking-[0.15em] text-[#5E6F68]">Ritual total</span>
+          <span class="font-display text-2xl text-[#0F3D32]">{{ sampleTotal() | usd }}</span>
+        </div>
+        <p class="mt-4 text-xs leading-relaxed text-[#85968E]">Your routine depends on your answers and live stock. Results are cosmetic advice, not a medical diagnosis.</p>
+      </div>
+    </div>
+  </section>
+</section>

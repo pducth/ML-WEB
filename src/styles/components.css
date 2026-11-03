@@ -1,0 +1,139 @@
+/*
+ * Shared storefront utility classes (btn-primary, btn-secondary, badge-teal, badge-gold, modal-overlay,
+ * animate-fadeIn, field-input). Styled with the FOLMARÉ brand kit: forest for actions, sea mist
+ * for soft surfaces, coral reserved for small highlights.
+ */
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.4s var(--fm-ease, ease), color 0.4s var(--fm-ease, ease), border-color 0.4s var(--fm-ease, ease);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 14px 28px;
+}
+
+.btn-primary {
+    background: var(--fm-forest, #0F3D32);
+    color: #fff;
+    border: 1px solid var(--fm-forest, #0F3D32);
+}
+
+.btn-primary:hover {
+    background: var(--fm-forest-hover, #19594A);
+    border-color: var(--fm-forest-hover, #19594A);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--fm-forest, #0F3D32);
+    border: 1px solid var(--fm-forest, #0F3D32);
+}
+
+.btn-secondary:hover {
+    background: var(--fm-forest, #0F3D32);
+    color: #fff;
+}
+
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-cta-buy:disabled,
+.btn-cta-place-order:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    box-shadow: none;
+    transform: none;
+    filter: none;
+}
+
+.badge-teal,
+.badge-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 0;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+}
+
+.badge-teal {
+    background: var(--fm-pearl-mist, #E0EAE5);
+    color: var(--fm-forest, #0F3D32);
+    border-color: var(--fm-sea-mist, #A8C3B6);
+}
+
+.badge-gold {
+    background: #FFF1EC;
+    color: var(--fm-coral-deep, #C9503A);
+    border-color: #FFCDBF;
+}
+
+.modal-overlay {
+    background: rgba(10, 42, 34, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.55s var(--fm-ease, ease-out) both;
+}
+
+/* Shared form control used across storefront forms (same classes as the reference inputs). */
+.field-input {
+    width: 100%;
+    min-height: 46px;
+    font-size: 0.875rem;
+    border: 1px solid #B5C8BD;
+    border-radius: 0;
+    padding: 0.72rem 0.9rem;
+    background: #fff;
+    color: var(--fm-ink, #1D302C);
+    outline: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.field-input::placeholder {
+    color: #85968E;
+}
+
+.field-input:focus {
+    border-color: var(--fm-sage, #4F7F72);
+    box-shadow: 0 0 0 3px rgba(79, 127, 114, 0.18);
+}
+
+.field-input[aria-invalid='true'] {
+    border-color: #dc2626;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-fadeIn {
+        animation: none;
+    }
+}

@@ -1,0 +1,51 @@
+﻿date,rank,StockCode,product_id,product_name_simulated,category_simulated,source_description,quantity,revenue_gbp,invoice_count,warning
+2010-06-07,1,20727,8957916152025,Scalp Balancing Shampoo,shampoo,LUNCH BAG BLACK SKULL.,2654,3859.1,10,HairCare product identity/category is simulated.
+2010-06-07,2,20728,8161095155929,Weightless Hydrating Mask,hairmask,LUNCH BAG CARS BLUE,2443,3555.5099999999998,10,HairCare product identity/category is simulated.
+2010-06-07,3,20726,8161091649753,Curl Enhancing Conditioner,conditioner,LUNCH BAG WOODLAND,2414,3512.78,8,HairCare product identity/category is simulated.
+2010-06-07,4,85123A,8161090633945,Blonde Perfecting Purple Shampoo,shampoo,WHITE HANGING HEART T-LIGHT HOLDER,609,1600.63,23,HairCare product identity/category is simulated.
+2010-06-07,5,22423,8161091485913,Color Care Shampoo,shampoo,REGENCY CAKESTAND 3 TIER,78,946.3199999999999,15,HairCare product identity/category is simulated.
+2010-11-11,1,84879,8513169162457,Frizz Control Shampoo,shampoo,ASSORTED COLOUR BIRD ORNAMENT,3136,4620.639999999999,14,HairCare product identity/category is simulated.
+2010-11-11,2,85099B,8161091289305,Clarifying Shampoo,shampoo,JUMBO BAG RED RETROSPOT,1343,2269.4900000000002,18,HairCare product identity/category is simulated.
+2010-11-11,3,85099F,8957917987033,Scalp Balancing Conditioner,conditioner,JUMBO BAG STRAWBERRY,1030,1708.5,9,HairCare product identity/category is simulated.
+2010-11-11,4,22423,8161091485913,Color Care Shampoo,shampoo,REGENCY CAKESTAND 3 TIER,101,1223.51,17,HairCare product identity/category is simulated.
+2010-11-11,5,22379,9217377763545,Texture & Volume Hair Powder,hairstyling,RECYCLING BAG RETROSPOT,570,1065.83,9,HairCare product identity/category is simulated.
+2010-11-15,1,22086,8161091748057,Dry Shampoo Dark Tones,dry shampoo,PAPER CHAIN KIT 50'S CHRISTMAS,1032,6527.04,11,HairCare product identity/category is simulated.
+2010-11-15,2,22197,8161091322073,Cocoa Color Depositing Mask,hairmask,SMALL POPCORN HOLDER,1058,1912.52,7,HairCare product identity/category is simulated.
+2010-11-15,3,22457,8161093353689,Moroccanoil Treatment Original,treatment,NATURAL SLATE HEART CHALKBOARD,223,1188.41,9,HairCare product identity/category is simulated.
+2010-11-15,4,22386,8161091453145,Copper Color Depositing Mask,hairmask,JUMBO BAG PINK POLKADOT,442,1133.42,6,HairCare product identity/category is simulated.
+2010-11-15,5,84946,8161091813593,Dry Texture Spray,hairstyling,ANTIQUE SILVER TEA GLASS ETCHED,369,874.61,8,HairCare product identity/category is simulated.
+2010-11-25,1,85123A,8161090633945,Blonde Perfecting Purple Shampoo,shampoo,WHITE HANGING HEART T-LIGHT HOLDER,896,2344.2000000000003,22,HairCare product identity/category is simulated.
+2010-11-25,2,22423,8161091485913,Color Care Shampoo,shampoo,REGENCY CAKESTAND 3 TIER,148,1690.94,16,HairCare product identity/category is simulated.
+2010-11-25,3,85099B,8161091289305,Clarifying Shampoo,shampoo,JUMBO BAG RED RETROSPOT,456,805.98,18,HairCare product identity/category is simulated.
+2010-11-25,4,22086,8161091748057,Dry Shampoo Dark Tones,dry shampoo,PAPER CHAIN KIT 50'S CHRISTMAS,207,644.97,21,HairCare product identity/category is simulated.
+2010-11-25,5,22112,8161093026009,Luminous Hairspray Extra Strong,hairstyling,CHOCOLATE HOT WATER BOTTLE,130,593.1,14,HairCare product identity/category is simulated.
+2011-01-11,1,85123A,8161090633945,Blonde Perfecting Purple Shampoo,shampoo,WHITE HANGING HEART T-LIGHT HOLDER,3114,8656.0,11,HairCare product identity/category is simulated.
+2011-01-11,2,22470,8161091354841,Color Care Conditioner,conditioner,HEART OF WICKER LARGE,1292,4145.240000000001,3,HairCare product identity/category is simulated.
+2011-01-11,3,21175,8161093451993,Perfect Defense Heat Protectant,hairstyling,GIN + TONIC DIET METAL SIGN,2060,3836.8,4,HairCare product identity/category is simulated.
+2011-01-11,4,21733,8229545836761,Frizz Shield Spray,hairstyling,RED HANGING HEART T-LIGHT HOLDER,906,2909.3,5,HairCare product identity/category is simulated.
+2011-01-11,5,22469,8161092894937,Intense Hydrating Mask,hairmask,HEART OF WICKER SMALL,1405,2689.93,4,HairCare product identity/category is simulated.
+2011-03-29,1,85099B,8161091289305,Clarifying Shampoo,shampoo,JUMBO BAG RED RETROSPOT,563,1700.81,16,HairCare product identity/category is simulated.
+2011-03-29,2,47566,8161092731097,Hydrating Shampoo,shampoo,PARTY BUNTING,172,1480.92,7,HairCare product identity/category is simulated.
+2011-03-29,3,22197,8161091322073,Cocoa Color Depositing Mask,hairmask,SMALL POPCORN HOLDER,663,1284.5300000000002,5,HairCare product identity/category is simulated.
+2011-03-29,4,21929,8161094369497,Root Boost,hairstyling,JUMBO BAG PINK VINTAGE PAISLEY,294,1080.32,9,HairCare product identity/category is simulated.
+2011-03-29,5,85099F,8957917987033,Scalp Balancing Conditioner,conditioner,JUMBO BAG STRAWBERRY,272,1016.12,8,HairCare product identity/category is simulated.
+2011-08-04,1,84879,8513169162457,Frizz Control Shampoo,shampoo,ASSORTED COLOUR BIRD ORNAMENT,3359,4908.71,10,HairCare product identity/category is simulated.
+2011-08-04,2,22197,8161091322073,Cocoa Color Depositing Mask,hairmask,POPCORN HOLDER,2036,1475.28,7,HairCare product identity/category is simulated.
+2011-08-04,3,47566,8161092731097,Hydrating Shampoo,shampoo,PARTY BUNTING,221,933.95,6,HairCare product identity/category is simulated.
+2011-08-04,4,22423,8161091485913,Color Care Shampoo,shampoo,REGENCY CAKESTAND 3 TIER,80,920.61,11,HairCare product identity/category is simulated.
+2011-08-04,5,21731,8161094992089,Thickening Lotion,hairstyling,RED TOADSTOOL LED NIGHT LIGHT,624,914.4000000000001,5,HairCare product identity/category is simulated.
+2011-09-20,1,22111,8161093124313,Mending Infusion,hairstyling,SCOTTIE DOG HOT WATER BOTTLE,555,2803.0699999999997,6,HairCare product identity/category is simulated.
+2011-09-20,2,22138,8161091911897,Extra Volume Conditioner,conditioner,BAKING SET 9 PIECE RETROSPOT,420,2141.4,3,HairCare product identity/category is simulated.
+2011-09-20,3,22470,8161091354841,Color Care Conditioner,conditioner,HEART OF WICKER LARGE,672,2130.14,9,HairCare product identity/category is simulated.
+2011-09-20,4,22666,8161093583065,Protect & Prevent Spray,hairstyling,RECIPE BOX PANTRY YELLOW DESIGN,644,2058.36,5,HairCare product identity/category is simulated.
+2011-09-20,5,22114,8161094795481,Smoothing Lotion,hairstyling,HOT WATER BOTTLE TEA AND SYMPATHY,399,2005.83,9,HairCare product identity/category is simulated.
+2011-11-03,1,85123A,8161090633945,Blonde Perfecting Purple Shampoo,shampoo,WHITE HANGING HEART T-LIGHT HOLDER,1265,4028.63,7,HairCare product identity/category is simulated.
+2011-11-03,2,22086,8161091748057,Dry Shampoo Dark Tones,dry shampoo,PAPER CHAIN KIT 50'S CHRISTMAS,1079,2786.41,9,HairCare product identity/category is simulated.
+2011-11-03,3,21733,8229545836761,Frizz Shield Spray,hairstyling,RED HANGING HEART T-LIGHT HOLDER,544,1740.8000000000002,2,HairCare product identity/category is simulated.
+2011-11-03,4,22469,8161092894937,Intense Hydrating Mask,hairmask,HEART OF WICKER SMALL,696,1324.8000000000002,7,HairCare product identity/category is simulated.
+2011-11-03,5,22666,8161093583065,Protect & Prevent Spray,hairstyling,RECIPE BOX PANTRY YELLOW DESIGN,355,929.89,5,HairCare product identity/category is simulated.
+2011-11-14,1,22086,8161091748057,Dry Shampoo Dark Tones,dry shampoo,PAPER CHAIN KIT 50'S CHRISTMAS,914,5483.700000000001,12,HairCare product identity/category is simulated.
+2011-11-14,2,22197,8161091322073,Cocoa Color Depositing Mask,hairmask,POPCORN HOLDER,1767,2708.03,15,HairCare product identity/category is simulated.
+2011-11-14,3,85123A,8161090633945,Blonde Perfecting Purple Shampoo,shampoo,WHITE HANGING HEART T-LIGHT HOLDER,380,1205.24,9,HairCare product identity/category is simulated.
+2011-11-14,4,85099B,8161091289305,Clarifying Shampoo,shampoo,JUMBO BAG RED RETROSPOT,660,1190.8,7,HairCare product identity/category is simulated.
+2011-11-14,5,22114,8161094795481,Smoothing Lotion,hairstyling,HOT WATER BOTTLE TEA AND SYMPATHY,218,1054.88,11,HairCare product identity/category is simulated.

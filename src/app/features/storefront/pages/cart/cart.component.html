@@ -1,0 +1,101 @@
+<section class="app-screen animate-fadeIn">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2">
+      <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
+      <span>/</span>
+      <span class="text-[#0F3D32] font-semibold">Shopping Bag</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#DCE5E0] gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl font-extrabold text-[#0F3D32]">Your Shopping Bag <span class="text-[#19594A]">({{ cart.itemCount() }})</span></h1>
+        <p class="text-xs text-[#5E6F68] mt-1">
+          @if (auth.isLoggedIn()) { Saved to your account. } @else { Saved on this device — sign in at checkout and it will be merged into your account. }
+        </p>
+      </div>
+      <a routerLink="/shop" class="btn-secondary text-xs px-5 py-2.5">Continue Shopping</a>
+    </div>
+
+    @if (cart.view().length) {
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-7 space-y-4">
+          @for (item of cart.view(); track item.line.variantId) {
+            <div class="flex gap-4 sm:gap-5 p-4 bg-white rounded-2xl border shadow-sm" [ngClass]="item.issue ? 'border-red-300 bg-red-50/30' : 'border-[#DCE5E0]'">
+              <a [routerLink]="['/products', item.line.productId]" class="shrink-0">
+                <img [src]="item.variant?.image ?? item.product?.images?.[0]" [alt]="item.product?.name" class="w-24 h-24 object-cover rounded-xl bg-[#F7F8F4] border border-[#DCE5E0]" />
+              </a>
+              <div class="flex-1 min-w-0 flex flex-col justify-between gap-2">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="min-w-0">
+                    <a [routerLink]="['/products', item.line.productId]" class="text-sm sm:text-base font-semibold text-[#0F3D32] hover:text-[#19594A] line-clamp-1">{{ item.product?.name ?? 'Unavailable item' }}</a>
+                    <span class="inline-block text-xs text-[#5E6F68] bg-[#EEF3EF] px-2 py-0.5 rounded mt-1">Size: {{ item.variant?.sizeLabel }} · {{ item.variant?.volume }}</span>
+                    <p class="text-xs text-[#85968E] mt-1">{{ item.variant?.price ?? 0 | usd }} each</p>
+                    @if (item.issue) { <p class="text-xs font-semibold text-red-600 mt-1" role="alert">{{ issueText[item.issue] }}@if (item.issue === 'exceeds_stock') { (only {{ item.available }} left)}</p> }
+                  </div>
+                  <button type="button" (click)="cart.remove(item.line.variantId)" class="text-xs font-semibold text-[#85968E] hover:text-red-500 transition-colors">Remove</button>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center border border-[#DCE5E0] rounded-lg bg-[#F7F8F4]">
+                    <button type="button" (click)="changeQty(item, item.line.quantity - 1)" class="w-8 h-8 flex items-center justify-center text-[#0F3D32] hover:bg-[#DCE5E0] rounded-l-lg font-semibold" aria-label="Decrease quantity">-</button>
+                    <span class="w-10 text-center text-sm font-semibold text-[#0F3D32]">{{ item.line.quantity }}</span>
+                    <button type="button" (click)="changeQty(item, item.line.quantity + 1)" [disabled]="item.line.quantity >= item.available" class="w-8 h-8 flex items-center justify-center text-[#0F3D32] hover:bg-[#DCE5E0] rounded-r-lg font-semibold disabled:opacity-30" aria-label="Increase quantity">+</button>
+                  </div>
+                  <span class="text-base font-bold text-[#19594A]">{{ item.lineTotal | usd }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#DCE5E0] shadow-sm space-y-5 lg:sticky lg:top-28">
+            <h3 class="text-lg font-bold text-[#0F3D32] border-b border-[#DCE5E0] pb-3">Order Summary</h3>
+
+            @if (cart.voucherCode(); as code) {
+              <div class="flex items-center justify-between text-xs bg-[#4F7F72]/10 text-[#3B6B5E] rounded-xl px-3 py-2.5">
+                <span class="font-bold">{{ code }} @if (cart.voucher()?.error) { <span class="text-red-600 font-semibold block mt-0.5">{{ cart.voucher()?.error }}</span> } @else { <span class="font-semibold">— {{ cart.voucher()?.voucher?.description }}</span> }</span>
+                <button type="button" (click)="cart.removeVoucher()" class="font-bold hover:underline shrink-0 ml-2">Remove</button>
+              </div>
+            } @else {
+              <div>
+                <label for="cart-coupon" class="block text-xs font-bold text-[#0F3D32] mb-1">Discount code</label>
+                <div class="flex gap-2">
+                  <input id="cart-coupon" #coupon type="text" placeholder="e.g. WELCOME10" (keydown.enter)="applyCoupon(coupon.value)"
+                    class="flex-1 text-sm border border-[#DCE5E0] rounded-xl px-3 py-2.5 bg-[#F7F8F4] outline-none uppercase font-semibold text-[#0F3D32] focus:border-[#19594A]" />
+                  <button type="button" (click)="applyCoupon(coupon.value)" class="px-5 py-2.5 bg-[#19594A] text-white text-xs font-bold rounded-xl hover:bg-[#0F3D32] transition-colors">Apply</button>
+                </div>
+                @if (couponError()) { <p class="text-xs text-red-600 font-semibold mt-1.5" role="alert">{{ couponError() }}</p> }
+                <p class="text-[11px] text-[#85968E] mt-1.5">One code per order.</p>
+              </div>
+            }
+
+            <div class="pt-4 border-t border-[#DCE5E0] space-y-2 text-sm">
+              <div class="flex justify-between text-[#5E6F68]"><span>Subtotal</span><span class="font-semibold text-[#0F3D32]">{{ cart.subtotal() | usd }}</span></div>
+              <div class="flex justify-between text-[#4F7F72]"><span>Voucher Discount</span><span class="font-semibold">-{{ cart.discount() | usd }}</span></div>
+              <div class="flex justify-between text-[#5E6F68]"><span>Standard Shipping</span><span class="font-semibold text-[#0F3D32]">{{ cart.shippingFee() | usd }}</span></div>
+              <div class="pt-3 border-t border-[#DCE5E0] flex justify-between text-lg font-extrabold text-[#0F3D32]"><span>Order Total</span><span class="text-[#19594A]">{{ cart.total() | usd }}</span></div>
+            </div>
+
+            @if (cart.hasBlockingIssues()) {
+              <p class="text-xs font-semibold text-red-600 text-center" role="alert">Remove or update the highlighted items to continue to checkout.</p>
+              <button type="button" disabled class="btn-cta-buy w-full py-4 text-base font-bold">Proceed to Checkout</button>
+            } @else {
+              <a routerLink="/checkout" class="btn-cta-buy w-full py-4 text-base font-bold shadow-lg">Proceed to Checkout</a>
+            }
+            @if (!auth.isLoggedIn()) { <p class="text-[11px] text-[#85968E] text-center">You'll be asked to sign in or create an account before placing your order.</p> }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="py-16 text-center text-[#5E6F68] bg-white border border-[#DCE5E0]">
+        <p class="fm-eyebrow">Your bag</p>
+        <h2 class="mt-3 text-2xl text-[#0F3D32]">Your cart is empty</h2>
+        <p class="text-sm mt-2">Discover our collection of pure argan essentials, or let the Hair Quiz build your routine.</p>
+        <div class="flex justify-center gap-3 mt-6">
+          <a routerLink="/shop" class="btn-primary">Explore Products</a>
+          <a routerLink="/quiz" class="btn-secondary">Take the Hair Quiz</a>
+        </div>
+      </div>
+    }
+  </div>
+</section>

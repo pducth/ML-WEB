@@ -1,0 +1,107 @@
+<div class="forecast-overview">
+  <div class="card forecast-card">
+    <div class="section-heading">
+      <h3>Demand forecast</h3>
+      <label class="range-label"><span>Category</span>
+        <select aria-label="Forecast category" (change)="chartCategory.set($any($event.target).value)">
+          <option value="all" [selected]="chartCategory() === 'all'">All categories</option>
+          @for (c of categories; track c) { <option [value]="c" [selected]="chartCategory() === c">{{ c }}</option> }
+        </select>
+      </label>
+    </div>
+    <app-line-chart [actual]="chart().actual" [forecast]="chart().forecast" [height]="260" label="Weekly units: actual vs model" />
+    <div class="chart-legend"><span><i></i>Actual units (backtest weeks)</span><span><i class="projected"></i>Model prediction &amp; next 14 days</span></div>
+    <p class="chart-note">Next {{ forecast.forecast().horizonDays }} days: <b>{{ chart().next | number }}</b> units · Model trained {{ forecast.forecast().lastTrainedAt | date: 'medium' }} · {{ forecast.forecast().source }}</p>
+  </div>
+</div>
+
+@if (forecast.driftCategories().length) {
+  <div class="alert">
+    <b>Model Drift:</b>
+    @for (c of forecast.driftCategories(); track c.category) { {{ c.category }}@if (!$last) {, } }
+    WAPE has exceeded {{ settings().wapeThreshold }}% for two consecutive weeks. Model retraining is recommended — treat these forecasts as Low Confidence.
+    <button class="btn or sm" type="button" style="margin-left:auto" (click)="retrainOpen.set(true)">Retrain Model</button>
+  </div>
+}
+
+<div class="grid g4">
+  @for (c of forecast.categories(); track c.category) {
+    <div class="card">
+      <div class="l" style="color:var(--mut);font-weight:700;display:flex;justify-content:space-between;gap:6px">{{ c.category }} @if (c.drift) { <span class="b w">Low confidence</span> }</div>
+      <div style="font-size:24px;font-weight:800" [style.color]="c.latestWape > settings().wapeThreshold ? 'var(--or)' : 'var(--teal-d)'">{{ c.latestWape }}%</div>
+      <div class="bar" [class.o]="c.latestWape > settings().wapeThreshold"><i [style.width.%]="c.latestWape > 100 ? 100 : c.latestWape"></i></div>
+      <small style="color:var(--mut)">WAPE · {{ c.selectedModel }} · 14-day: {{ c.forecast14d }} units</small>
+    </div>
+  }
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h3>Model selection <em>{{ forecast.forecast().metric }} · lowest WAPE wins · target &lt; {{ settings().wapeThreshold }}%</em></h3>
+  <div class="tw">
+    <table>
+      <tr><th>Category</th><th>Selected model</th><th>Avg WAPE</th><th>Runner-up</th><th>Last 2 weeks</th></tr>
+      @for (c of forecast.categories(); track c.category) {
+        <tr>
+          <td>{{ c.category }}</td>
+          <td><b>{{ c.candidates[0]?.model }}</b></td>
+          <td>{{ c.candidates[0]?.wape }}%</td>
+          <td class="muted">{{ c.candidates[1]?.model }} ({{ c.candidates[1]?.wape }}%)</td>
+          <td>@for (w of c.weeklyWape.slice(-2); track $index) { <span [class]="w > settings().wapeThreshold ? 'b w' : 'b g'">{{ w }}%</span> }</td>
+        </tr>
+      }
+    </table>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h3>Restock recommendations by SKU <em>Reorder = max(0, 14-day forecast + Safety stock − (Available + Incoming))</em></h3>
+  <div class="tool">
+    <input type="search" placeholder="Search SKUs or products…" aria-label="Search SKUs" [value]="search()" (input)="search.set($any($event.target).value)" />
+    <select aria-label="Category" (change)="filterCategory.set($any($event.target).value)">
+      <option value="all">All categories</option>
+      @for (c of categories; track c) { <option [value]="c">{{ c }}</option> }
+    </select>
+    <label style="display:flex;gap:6px;align-items:center;font-weight:600;font-size:13px"><input type="checkbox" style="min-height:auto" [checked]="onlyReorder()" (change)="onlyReorder.set($any($event.target).checked)" /> Needs action only ({{ reorderCount() }})</label>
+  </div>
+  <div class="tw">
+    <table>
+      <tr><th>SKU</th><th>Product</th><th>Size</th><th>14-day forecast</th><th>Safety stock</th><th>Available</th><th>Incoming</th><th>Suggested quantity</th><th></th></tr>
+      @for (row of rows(); track row.variant.id) {
+        <tr>
+          <td>{{ row.variant.sku }}</td>
+          <td class="wrap">{{ row.product.name }}</td>
+          <td>{{ row.variant.sizeLabel }}</td>
+          <td>@if (row.coldStart) { <span class="b x" title="Less than 60 days of sales — category-level forecast shown">Cold start · cat. {{ row.categoryForecast }}</span> } @else { {{ row.forecast14d }} <small class="muted">({{ row.share | percent: '1.0-0' }})</small> }</td>
+          <td>{{ row.safetyStock }}</td>
+          <td>{{ row.available }}</td>
+          <td>{{ row.incoming }}</td>
+          <td>
+            @if (row.coldStart) { <span class="b x">Admin decides</span> }
+            @else if (row.suggested) { <span class="b w">{{ row.suggested }}</span> }
+            @else { <span class="b g">Sufficient stock</span> }
+          </td>
+          <td>@if (row.coldStart || row.suggested) { <button class="btn sm" type="button" (click)="openOrder(row)">Order Stock</button> }</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="9" class="muted">No SKUs need restocking with the current filters.</td></tr>
+      }
+    </table>
+  </div>
+</div>
+
+<app-admin-modal [open]="orderTarget() !== null" title="Place stock order" confirmLabel="Order Stock" [confirmDisabled]="!(orderQty() > 0)" (closed)="orderTarget.set(null)" (confirmed)="confirmOrder()">
+  @if (orderTarget(); as row) {
+    <p style="margin:0">{{ row.product.name }} · {{ row.variant.sizeLabel }} <span class="muted">({{ row.variant.sku }})</span></p>
+    <label>Order quantity<input type="number" min="1" step="1" [value]="orderQty()" (input)="orderQty.set($any($event.target).valueAsNumber)" /></label>
+    <small class="muted">
+      @if (row.coldStart) { New SKU (&lt; 60 days of sales): the {{ row.product.category }} category forecast is {{ row.categoryForecast }} units for 14 days. }
+      @else { Suggested {{ row.suggested }} = {{ row.forecast14d }} + {{ row.safetyStock }} − ({{ row.available }} + {{ row.incoming }}). }
+      Incoming stock increases to prevent duplicate recommendations; receive it in Inventory when it arrives.
+    </small>
+  }
+</app-admin-modal>
+
+<app-admin-modal [open]="retrainOpen()" title="Retrain model" confirmLabel="Retrain" tone="brown" (closed)="retrainOpen.set(false)" (confirmed)="confirmRetrain()">
+  <p style="margin:0">Queue the offline batch pipeline to retrain all candidate models on the latest order data and keep the one with the lowest WAPE per category?</p>
+  <small class="muted">Last trained {{ forecast.forecast().lastTrainedAt | date: 'medium' }}.</small>
+</app-admin-modal>

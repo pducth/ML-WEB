@@ -1,0 +1,117 @@
+<section class="app-screen animate-fadeIn">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2">
+      <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
+      <span>/</span>
+      <span class="text-[#0F3D32] font-semibold">Shop the Edit</span>
+    </div>
+
+    <div class="space-y-4">
+      <div class="sticky top-0 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[#F7F8F4]/95 backdrop-blur border-y border-[#DCE5E0]">
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+
+          <div class="relative flex-1 min-w-[200px]">
+            <label for="shop-search" class="sr-only">Search</label>
+            <input id="shop-search" #search type="search" [value]="query().q" placeholder="Search name, benefit, ingredient…" (keydown.enter)="update({ q: search.value })" (search)="update({ q: search.value })"
+              class="w-full text-sm border border-[#DCE5E0] p-2.5 pl-9 bg-white text-[#0F3D32] focus:border-[#19594A] outline-none" />
+            <svg class="w-4 h-4 text-[#85968E] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+
+          <div class="flex items-center gap-3 min-w-[240px]">
+            <label for="shop-price" class="text-xs font-bold uppercase tracking-[0.12em] text-[#5E6F68] whitespace-nowrap">Up to</label>
+            <input id="shop-price" #price type="range" min="0" [max]="priceCeiling()" step="5" [value]="query().maxPrice ?? priceCeiling()"
+              (input)="priceDraft.set(+price.value)" (change)="priceDraft.set(null); update({ max: +price.value >= priceCeiling() ? null : price.value })"
+              class="flex-1 accent-[#19594A] cursor-pointer" aria-label="Maximum price" />
+            <span class="w-12 text-sm font-bold text-[#0F3D32] tabular-nums">${{ priceDraft() ?? query().maxPrice ?? priceCeiling() }}</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label for="shop-sort" class="text-xs font-bold uppercase tracking-[0.12em] text-[#5E6F68] whitespace-nowrap">Sort</label>
+            <select id="shop-sort" (change)="update({ sort: $any($event.target).value })"
+              class="text-sm border border-[#DCE5E0] p-2.5 bg-white text-[#0F3D32] focus:border-[#19594A]">
+              <option value="best-sellers" [selected]="query().sort === 'best-sellers'">{{ query().q ? 'Best match' : 'Best Sellers' }}</option>
+              <option value="price-asc" [selected]="query().sort === 'price-asc'">Price: Low to High</option>
+              <option value="price-desc" [selected]="query().sort === 'price-desc'">Price: High to Low</option>
+              <option value="newest" [selected]="query().sort === 'newest'">Newest Arrivals</option>
+              <option value="name-asc" [selected]="query().sort === 'name-asc'">Name: A to Z</option>
+              <option value="name-desc" [selected]="query().sort === 'name-desc'">Name: Z to A</option>
+            </select>
+          </div>
+
+          @if (hasFilters()) {
+            <button type="button" (click)="clearFilters()" class="text-xs font-bold text-[#19594A] hover:underline whitespace-nowrap">Clear all</button>
+          }
+
+          <div class="ml-auto text-xs uppercase tracking-[0.12em] font-semibold text-[#5E6F68] whitespace-nowrap" aria-live="polite">
+            Showing: <span class="font-bold text-[#0F3D32]">{{ results().length }} products</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+
+        <div class="md:flex md:items-center">
+          <span class="block text-xs font-bold uppercase tracking-[0.12em] text-[#5E6F68] mb-2 md:mb-0 md:w-24 md:shrink-0">Brand</span>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by brand">
+            <button type="button" (click)="update({ brand: 'all' })" class="text-[11px] font-semibold uppercase tracking-[0.14em] px-4 py-2.5 border transition-colors inline-flex items-center gap-2"
+              [ngClass]="query().brand === 'all' ? 'bg-[#0F3D32] border-[#0F3D32] text-white' : 'border-[#DCE5E0] bg-white text-[#0F3D32] hover:border-[#4F7F72]'" [attr.aria-pressed]="query().brand === 'all'">
+              <span>All brands</span> <span class="text-[11px] tracking-normal opacity-60">{{ totalActive() }}</span>
+            </button>
+            @for (brand of brands(); track brand) {
+              <button type="button" (click)="update({ brand: brand.toLowerCase() })" class="text-[11px] font-semibold uppercase tracking-[0.14em] px-4 py-2.5 border transition-colors inline-flex items-center gap-2"
+                [ngClass]="query().brand === brand ? 'bg-[#0F3D32] border-[#0F3D32] text-white' : 'border-[#DCE5E0] bg-white text-[#0F3D32] hover:border-[#4F7F72]'" [attr.aria-pressed]="query().brand === brand">
+                <span>{{ brand }}</span> <span class="text-[11px] tracking-normal opacity-60">{{ brandCounts().get(brand) }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="md:flex md:items-center">
+          <span class="block text-xs font-bold uppercase tracking-[0.12em] text-[#5E6F68] mb-2 md:mb-0 md:w-24 md:shrink-0">Category</span>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+            <button type="button" (click)="update({ category: 'all' })" class="text-[11px] font-semibold uppercase tracking-[0.14em] px-4 py-2.5 border transition-colors inline-flex items-center gap-2"
+              [ngClass]="query().category === 'all' ? 'bg-[#0F3D32] border-[#0F3D32] text-white' : 'border-[#DCE5E0] bg-white text-[#0F3D32] hover:border-[#4F7F72]'" [attr.aria-pressed]="query().category === 'all'">
+              <span>All</span> <span class="text-[11px] tracking-normal opacity-60">{{ totalActive() }}</span>
+            </button>
+            @for (category of categories; track category) {
+              <button type="button" (click)="update({ category })" class="text-[11px] font-semibold uppercase tracking-[0.14em] px-4 py-2.5 border transition-colors inline-flex items-center gap-2"
+                [ngClass]="query().category === category ? 'bg-[#0F3D32] border-[#0F3D32] text-white' : 'border-[#DCE5E0] bg-white text-[#0F3D32] hover:border-[#4F7F72]'" [attr.aria-pressed]="query().category === category">
+                <span>{{ category }}</span> <span class="text-[11px] tracking-normal opacity-60">{{ categoryCounts().get(category) ?? 0 }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        @if (query().q) {
+          <p class="text-sm text-[#5E6F68] mb-4">Results for <strong class="text-[#0F3D32]">“{{ query().q }}”</strong> — matching names, categories, benefits and ingredients (typos are tolerated).</p>
+        }
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
+          @for (product of pageItems(); track product.id) {
+            <app-product-card [product]="product" />
+          } @empty {
+            <div class="col-span-full py-16 text-center bg-white border border-[#DCE5E0]">
+              <p class="fm-eyebrow">No results</p>
+              <h2 class="mt-3 text-2xl text-[#0F3D32]">No products match your search</h2>
+              <p class="text-sm text-[#5E6F68] mt-2">Try another keyword or remove some filters.</p>
+              <button type="button" (click)="clearFilters()" class="btn-secondary mt-6">Clear filters</button>
+            </div>
+          }
+        </div>
+
+        @if (pageCount() > 1) {
+          <nav class="flex items-center justify-center gap-2 mt-10" aria-label="Pagination">
+            <button type="button" (click)="update({ page: page() - 1 })" [disabled]="page() === 1" class="px-4 py-2  border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Previous</button>
+            @for (n of pages(); track n) {
+              <button type="button" (click)="update({ page: n })" [attr.aria-current]="n === page() ? 'page' : null"
+                class="w-9 h-9  text-xs font-bold transition-colors"
+                [ngClass]="n === page() ? 'bg-[#19594A] text-white' : 'text-[#0F3D32] hover:bg-[#EEF3EF]'">{{ n }}</button>
+            }
+            <button type="button" (click)="update({ page: page() + 1 })" [disabled]="page() === pageCount()" class="px-4 py-2  border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Next</button>
+          </nav>
+        }
+      </div>
+    </div>
+  </div>
+</section>

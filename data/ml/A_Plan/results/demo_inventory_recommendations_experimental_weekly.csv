@@ -1,0 +1,60 @@
+﻿product_id,product_name,category,forecast_quantity,forecast_revenue_gbp,recent_weekly_quantity_std,current_stock_demo,safety_stock_demo,recommended_order_qty_demo,lead_time_days_assumed,review_period_days_assumed,quantity_model,revenue_model,forecast_granularity
+8161091322073,Cocoa Color Depositing Mask,hairmask,1261.650940817161,5336.031648105329,1339.0796687890165,50,2210,3422,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091748057,Dry Shampoo Dark Tones,dry shampoo,1073.5452387560736,7974.579097988128,548.683985438725,50,906,1930,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091289305,Clarifying Shampoo,shampoo,832.9346263609789,3402.7795752606144,646.0025001777449,50,1066,1849,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8513169162457,Frizz Control Shampoo,shampoo,927.1911367757506,3034.102614539326,328.16631215097203,50,542,1420,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161090633945,Blonde Perfecting Purple Shampoo,shampoo,716.6228252029098,5014.962262936862,410.703770443382,50,678,1345,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091584217,Curl Control Mousse,hairstyling,571.823059935633,1975.5364527063516,407.26130466436786,50,672,1194,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091813593,Dry Texture Spray,hairstyling,530.3792475321937,1525.3197456043372,259.5419331368445,50,429,910,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091616985,Curl Defining Cream,hairstyling,408.1638002039602,1808.9522930599292,306.69499543624937,50,507,866,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8210592465113,Curl Enhancing Shampoo,shampoo,463.20411432968484,911.3084837057792,263.2947693541039,50,435,849,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091453145,Copper Color Depositing Mask,hairmask,281.792852701519,1246.2007262754928,358.0714876339781,50,591,823,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161092862169,Intense Curl Cream,hairstyling,527.5718656150075,2148.4802667734007,186.81373007247015,50,309,787,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161092894937,Intense Hydrating Mask,hairmask,252.76399181957484,1368.3422921614551,326.7190489450987,50,540,743,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8672695582937,Moroccanoil Treatment Purple,treatment,454.16422038096215,1471.771417681986,148.2524225771707,50,245,650,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161092763865,Hydrating Conditioner,conditioner,358.7079880889356,828.4652768763256,193.66132738127382,50,320,629,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161090666713,Blonde Perfecting Purple Conditioner,conditioner,267.55023096698403,459.05355716851585,238.57108282223635,50,394,612,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094795481,Smoothing Lotion,hairstyling,409.56327704888054,3865.229487977962,147.21135338044604,50,243,603,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094992089,Thickening Lotion,hairstyling,322.60071970243985,1296.6486176486392,189.4943633015951,50,313,586,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091354841,Color Care Conditioner,conditioner,154.40754971464673,1672.652519662637,268.67574489975067,50,444,549,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8957917987033,Scalp Balancing Conditioner,conditioner,113.70415659379904,899.9595574326426,288.93221886358714,50,477,541,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+9820045770969,Overnight Leave-in Mask,hairmask,215.85036150582957,395.20081016353294,217.20941869364404,50,359,525,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093583065,Protect & Prevent Spray,hairstyling,225.29631741201734,1744.3374190812601,210.23502286970552,50,347,523,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093255385,Moisture Repair Shampoo,shampoo,268.20572161791273,1013.7503572347518,173.3341763687585,50,287,506,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093026009,Luminous Hairspray Extra Strong,hairstyling,322.24779859732854,3208.3165966774213,139.24855725441427,50,230,503,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093124313,Mending Infusion,hairstyling,272.5720013954642,2065.0148415554286,161.7022517960013,50,267,490,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093353689,Moroccanoil Treatment Original,treatment,271.67346713436024,2346.755002591871,156.87185977651808,50,259,481,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091551449,Coral Color Depositing Mask,hairmask,251.08978422590388,1410.0495227058877,163.7738042983644,50,271,473,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091977433,Extra Volume Shampoo,shampoo,322.37802409589506,1418.1594976092197,118.69978022574861,50,196,469,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8229545836761,Frizz Shield Spray,hairstyling,254.46194384196218,1437.3264878070772,156.0091890127317,50,258,463,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093189849,Moisture Repair Conditioner,conditioner,265.183656632477,1257.0512747508574,148.1758380248243,50,245,461,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094926553,Styling Gel - Strong,hairstyling,286.7361823342365,942.7786573386261,92.35800255471874,50,153,390,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093451993,Perfect Defense Heat Protectant,hairstyling,246.7525082232125,1227.6003138545589,98.53440466438157,50,163,360,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+9719292690649,Sculpting Pomade,hairstyling,232.4760272745525,726.5169264614749,102.76233012299637,50,170,353,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094369497,Root Boost,hairstyling,144.54054445201058,881.1879453880789,149.7858456905417,50,248,343,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091223769,Bordeaux Color Depositing Mask,hairmask,200.17119070643164,1237.6182567398346,106.22674693363514,50,176,327,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8957916152025,Scalp Balancing Shampoo,shampoo,204.18547827239854,965.3448545477995,101.49345119709663,50,168,323,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091485913,Color Care Shampoo,shampoo,230.05651660018975,8191.505839265447,82.95495299040935,50,137,318,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161092796633,Hydrating Styling Cream,hairstyling,205.36810666456745,907.1311466328827,93.7017887249566,50,155,311,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091911897,Extra Volume Conditioner,conditioner,182.4064578915968,1672.423567281188,103.4755926628259,50,171,304,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8173172064473,High Shine Gloss Mask,hairmask,157.7927340856839,730.5275267854965,116.51535389084003,50,193,301,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+9217377763545,Texture & Volume Hair Powder,hairstyling,67.32087683810545,576.2734008482212,168.7390581447867,50,279,297,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091780825,Dry Shampoo Light Tones,dry shampoo,150.09522418745843,1029.5400614268763,101.63982159239224,50,168,269,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094959321,Texture Clay,hairstyling,184.18108477660462,926.2754332063329,80.78737956782543,50,134,269,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+9280645595353,Moroccanoil Treatment Mist,treatment,191.77274629422087,1246.4738698040205,71.55288393908381,50,119,261,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161092731097,Hydrating Shampoo,shampoo,124.23501859904272,2039.4114715745943,106.94013077058942,50,177,252,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161095123161,Volumizing Mousse,hairstyling,166.22797033481592,511.37954800860473,80.8986930895039,50,134,251,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093517529,Platinum Color Depositing Mask,hairmask,171.91530816008702,444.77807617806263,71.56947365304818,50,119,241,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093222617,Molding Cream,hairstyling,59.25937029896025,962.9551485086081,133.9817802385735,50,222,232,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161095155929,Weightless Hydrating Mask,hairmask,142.06969043961936,778.8705732878896,81.08428840189093,50,134,227,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8957889020121,Purifying Pre-Wash Scalp Scrub,shampoo,145.28289944397685,823.7615000676461,61.56246875308331,50,102,198,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094402265,Rose Gold Color Depositing Mask,hairmask,145.30668406999172,1580.69110935863,61.74985369026578,50,102,198,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161091649753,Curl Enhancing Conditioner,conditioner,137.97456899483788,748.4121222117715,65.62463671205913,50,109,197,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161090765017,Intense Smoothing Serum,treatment,139.46505975595008,1028.6550504088748,57.89319502989302,50,96,186,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161094336729,Restorative Hair Mask,hairmask,118.73651683868735,673.2575201051915,65.66503577305751,50,109,178,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161095090393,Volumizing Mist,hairstyling,63.336484283655054,1540.765301449032,49.2033292598825,50,82,96,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161115275481,Leave-in Conditioner,hairstyling,59.04073693850415,1316.2606323296645,31.197049498885264,50,52,62,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093058777,Luminous Hairspray Medium,hairstyling,62.79307153542484,735.1024561518277,21.307140490864462,50,36,49,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8513170997465,Frizz Control Conditioner,conditioner,49.989406951627785,205.4961755804577,21.88170105420602,50,37,37,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093091545,Luminous Hairspray Strong,hairstyling,41.123913152360984,586.8700851140636,20.25338414267524,50,34,26,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
+8161093288153,Moroccanoil Treatment Light,treatment,47.990257445404765,804.3329851274193,15.087518359770444,50,25,23,7,7,CatBoost,Linear Regression,2 weekly periods; experimental
