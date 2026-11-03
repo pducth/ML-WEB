@@ -25,7 +25,7 @@
                 "output": "/"
               },
               {
-                "glob": "*.json",
+                "glob": "hair_routine_rules.json",
                 "input": "docs/HairRoutineEngine",
                 "output": "/assets/hair-routine"
               }
@@ -49,8 +49,8 @@
               "outputHashing": "all",
               "fileReplacements": [
                 {
-                  "replace": "src/core/environment/environment.ts",
-                  "with": "src/core/environment/environment.prod.ts"
+                  "replace": "src/app/core/environment/environment.ts",
+                  "with": "src/app/core/environment/environment.prod.ts"
                 }
               ]
             },

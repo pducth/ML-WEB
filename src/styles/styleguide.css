@@ -1,39 +1,39 @@
 :root {
-    /* TYPOGRAPHY - MODERN SANS-SERIF (PLUS JAKARTA SANS) */
-    --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* TYPOGRAPHY - MODERN SANS-SERIF (MONTSERRAT) */
+    --font-primary: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    /* MOROCCANOIL COLOR SYSTEM OVERHAUL */
+    /* FOLMARE COLOR SYSTEM (legacy token names kept) */
     /* Primary Brown - Dầu Argan nguyên chất, sang trọng, ấm áp */
-    --color-primary-brown: #6E473B;
-    --color-primary-brown-light: #8A5B4D;
-    --color-primary-brown-dark: #58372D;
+    --color-primary-brown: #19594A;
+    --color-primary-brown-light: #4F7F72;
+    --color-primary-brown-dark: #0F3D32;
 
     /* Deep Brown - Text tiêu đề, button hover */
-    --color-deep-brown: #4A2E2B;
-    --color-deep-brown-dark: #37211E;
+    --color-deep-brown: #0F3D32;
+    --color-deep-brown-dark: #0A2A22;
 
     /* Soft Cream / Sand - Nền chính toàn trang */
-    --color-cream-sand: #FDFBF7;
-    --color-cream-subtle: #F7F3EC;
+    --color-cream-sand: #F7F8F4;
+    --color-cream-subtle: #EEF3EF;
     --color-surface-card: #FFFFFF;
 
     /* Moroccanoil Teal - Secondary Accent (Điểm xuyết nhẹ: Badge Best Seller, 5 sao, tag) */
-    --color-moroccan-teal: #00A3A6;
-    --color-moroccan-teal-light: #E0F7F7;
-    --color-moroccan-teal-dark: #008285;
+    --color-moroccan-teal: #4F7F72;
+    --color-moroccan-teal-light: #E0EAE5;
+    --color-moroccan-teal-dark: #3B6B5E;
 
     /* Warm Gold - Membership / Luxury accents */
-    --color-warm-gold: #C89B58;
+    --color-warm-gold: #FF7F64;
     --color-warm-gold-light: #FBF4E8;
 
     /* Border & Divider */
-    --color-border-subtle: #E7E3DC;
-    --color-border-strong: #D5CEBF;
+    --color-border-subtle: #DCE5E0;
+    --color-border-strong: #B5C8BD;
 
     /* Text colors */
-    --color-text-main: #2C2420;
-    --color-text-muted: #6B625B;
-    --color-text-light: #9B938B;
+    --color-text-main: #1D302C;
+    --color-text-muted: #5E6F68;
+    --color-text-light: #85968E;
 
     /* Radii */
     --radius-sm: 6px;
@@ -43,7 +43,7 @@
     --radius-pill: 9999px;
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px -2px rgba(110, 71, 59, 0.08);
-    --shadow-hover: 0 12px 30px -4px rgba(74, 46, 43, 0.15);
-    --shadow-card: 0 2px 12px rgba(110, 71, 59, 0.05);
+    --shadow-soft: 0 4px 20px -2px rgba(15, 61, 50, 0.08);
+    --shadow-hover: 0 12px 30px -4px rgba(15, 61, 50, 0.15);
+    --shadow-card: 0 2px 12px rgba(15, 61, 50, 0.05);
 }
