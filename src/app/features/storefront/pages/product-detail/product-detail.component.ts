@@ -19,7 +19,7 @@ type ReviewKind = 'all' | 'comment' | 'photo' | 'video';
 
 const REVIEWS_PER_PAGE = 6;
 
-/** C03 — Product detail page. */
+/** C03: Product detail page. */
 @Component({
   selector: 'app-product-detail',
   standalone: true,
@@ -46,13 +46,14 @@ export class ProductDetailComponent {
   readonly selectedVariantId = signal<string | null>(null);
   readonly selectedImage = signal<string | null>(null);
   readonly quantity = signal(1);
-  /** Accordion under the buy buttons; Details starts open. */
+  /** Accordion under the buy buttons; all start closed. */
   readonly sections: { id: SectionId; label: string }[] = [
     { id: 'details', label: 'Details' },
     { id: 'ingredients', label: 'Ingredients' },
     { id: 'usage', label: 'How to use' },
   ];
-  readonly openSections = signal<Set<SectionId>>(new Set(['details']));
+  /** Sections the shopper opened; every section starts closed. */
+  readonly toggled = signal<Set<SectionId>>(new Set());
 
   /** Description and key benefits as one text: paragraphs, bullets and footnotes, with benefits the description does not already list. */
   readonly detailBlocks = computed<DetailBlock[]>(() => {
@@ -137,7 +138,7 @@ export class ProductDetailComponent {
       this.selectedVariantId.set(null);
       this.selectedImage.set(null);
       this.quantity.set(1);
-      this.openSections.set(new Set(['details']));
+      this.toggled.set(new Set());
       this.zoomOpen.set(false);
       this.clearFilters();
       this.lightbox.set(null);
@@ -145,11 +146,11 @@ export class ProductDetailComponent {
   }
 
   isOpen(id: SectionId): boolean {
-    return this.openSections().has(id);
+    return this.toggled().has(id);
   }
 
   toggleSection(id: SectionId): void {
-    this.openSections.update((open) => {
+    this.toggled.update((open) => {
       const next = new Set(open);
       if (!next.delete(id)) next.add(id);
       return next;

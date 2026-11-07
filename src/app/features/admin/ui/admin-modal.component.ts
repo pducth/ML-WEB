@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
-/** Admin dialog — the reference `.ov > .md` modal (title, body, right-aligned actions). */
+/** Admin dialog, the reference `.ov > .md` modal (title, body, right-aligned actions). */
 @Component({
   selector: 'app-admin-modal',
   standalone: true,

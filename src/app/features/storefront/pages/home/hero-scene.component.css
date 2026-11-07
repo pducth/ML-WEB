@@ -4,9 +4,13 @@
   display: block;
   isolation: isolate;
   overflow: hidden;
-  height: clamp(680px, min(46.875vw, 100svh), 980px);
+  height: max(680px, 100svh);
   border-radius: 0;
-  background: #f7a38b url('/assets/folmare/home/sky.jpg') center / cover no-repeat;
+  background:
+    radial-gradient(ellipse 55% 60% at 12% 8%, #FFFFFF 0%, rgb(255 255 255 / 0%) 70%),
+    radial-gradient(ellipse 60% 70% at 95% 100%, #7FB39F 0%, rgb(127 179 159 / 0%) 75%),
+    radial-gradient(ellipse 45% 50% at 85% 5%, #E6F1EA 0%, rgb(230 241 234 / 0%) 70%),
+    linear-gradient(160deg, #F4F9F6 0%, #CFE3D8 55%, #A9CDBB 100%);
 }
 
 :host::before {
@@ -14,7 +18,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgb(255 250 244 / 15%);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -55,15 +59,15 @@
   color: #0F3D32;
   text-align: center;
   text-decoration: none;
-  opacity: 0;
-  box-shadow: 0 2cqw 4cqw rgb(120 50 30 / 18%), inset 0 0 2cqw rgb(255 255 255 / 40%);
+  opacity: 0.9;
+  box-shadow: 0 2cqw 4cqw rgb(15 61 50 / 20%), inset 0 0 2cqw rgb(255 255 255 / 40%);
   will-change: transform;
 }
 
-.fm-scene__card--cream { background: linear-gradient(170deg, #FFF9F2, #F8E4D5); }
-.fm-scene__card--peach { background: linear-gradient(170deg, #FFE6D6, #F8C8AE); }
-.fm-scene__card--sage { background: linear-gradient(170deg, #EAF3EC, #C7DDCF); }
-.fm-scene__card--sand { background: linear-gradient(170deg, #FDF0E2, #EBCFB5); }
+.fm-scene__card--cream { background: linear-gradient(170deg, #FFFFFF, #E4F0E9); }
+.fm-scene__card--peach { background: linear-gradient(170deg, #F3FAF6, #BFDCCD); }
+.fm-scene__card--sage { background: linear-gradient(170deg, #FBFEFC, #D3E8DC); }
+.fm-scene__card--sand { background: linear-gradient(170deg, #EEF6F1, #A9CDBB); }
 
 .fm-scene__card-brand {
   font-size: clamp(8px, 0.58cqw, 12px);
@@ -91,7 +95,7 @@
   height: auto;
   object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0 0.9cqw 0.9cqw rgb(60 30 10 / 20%));
+  filter: drop-shadow(0 0.9cqw 0.9cqw rgb(15 61 50 / 22%));
 }
 
 .fm-scene__card-name {

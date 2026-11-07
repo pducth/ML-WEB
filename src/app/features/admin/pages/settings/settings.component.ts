@@ -6,7 +6,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 
 type NumericKey = 'shippingFee' | 'paymentTimeoutMinutes' | 'lowStockThreshold' | 'safetyStock' | 'leadTimeDays' | 'reviewPeriodDays' | 'wapeThreshold' | 'returnWindowDays';
 
-/** A12 — Store, payment, inventory and ML parameters. */
+/** A12: Store, payment, inventory and ML parameters. */
 @Component({
   selector: 'app-settings',
   standalone: true,

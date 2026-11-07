@@ -10,7 +10,7 @@ interface AdminSession {
 
 const ADMIN_SESSION_KEY = 'haircare-insight:admin-session';
 
-/** A01 — the admin portal uses its own account store and session, separate from customers. */
+/** A01: the admin portal uses its own account store and session, separate from customers. */
 @Injectable({ providedIn: 'root' })
 export class AdminAuthService {
   private readonly store = inject(MockDbService);

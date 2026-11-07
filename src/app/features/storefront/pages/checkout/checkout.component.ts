@@ -12,7 +12,7 @@ import { SettingsService } from '../../../../core/services/settings.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { UsdPipe } from '../../../../shared/ui/usd.pipe';
 
-/** C07 — Checkout. Requires sign-in (authGuard). */
+/** C07: Checkout. Requires sign-in (authGuard). */
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -87,7 +87,8 @@ export class CheckoutComponent {
         shipping = { recipientName: address.recipientName, phone: address.phone, addressLine: formatAddress(address), note: this.note() };
       }
       const order = this.orders.placeOrder({ shipping, paymentMethod: this.paymentMethod(), idempotencyKey: this.idempotencyKey }, this.cart.voucherCode());
-      this.cart.removeVoucher();
+      // A bank transfer keeps the discount code until the money arrives.
+      if (order.paymentMethod !== 'BANK_TRANSFER') this.cart.removeVoucher();
       if (this.selectedAddressId() === 'new' && this.saveAddress()) {
         try {
           this.addressService.save(this.draft());

@@ -1,92 +1,141 @@
 <section class="app-screen animate-fadeIn">
   @if (result(); as r) {
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
-      <div class="bg-gradient-to-r from-[#0F3D32] to-[#19594A] text-white p-8 sm:p-12 rounded-3xl shadow-xl text-center space-y-3">
-        <span class="badge-teal bg-white/20 text-white border-white/30">YOUR TAILORED HAIRCARE REGIMEN</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">{{ r.diagnosis.title }} Routine</h2>
-        <p class="text-sm sm:text-base text-[#F7F8F4]/90 max-w-2xl mx-auto">{{ r.diagnosis.advice }}</p>
-        @if (r.diagnosis.secondaryTitle) {
-          <p class="text-xs text-[#F7F8F4]/80">Secondary need: <strong>{{ r.diagnosis.secondaryTitle }}</strong> — {{ r.diagnosis.secondaryAdvice }}</p>
-        }
-        <div class="flex flex-wrap justify-center gap-2 pt-2">
-          @for (label of r.activeLabels; track label) {
-            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full" [class]="label === r.primaryLabel ? 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white text-[#0F3D32]' : 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/15 text-white'">{{ label }}</span>
-          }
+    <!-- Report header -->
+    <div class="relative overflow-hidden bg-gradient-to-br from-[#082A22] via-[#0F3D32] to-[#3F7F6B]">
+      <div class="absolute -top-24 -right-24 w-[26rem] h-[26rem] rounded-full bg-[#9CC3B4]/25 blur-3xl" aria-hidden="true"></div>
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-center">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#9CC3B4]">Your hair report</span>
+          <h1 class="text-4xl sm:text-5xl fm-display font-medium text-white mt-4 leading-[1.05]">Your {{ r.diagnosis.title }} Routine</h1>
+          <p class="text-sm sm:text-base text-white/80 mt-5 max-w-lg leading-relaxed">{{ r.diagnosis.advice }}</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <button type="button" (click)="addRoutine()" [disabled]="!routineProducts().length" class="inline-flex items-center justify-center px-6 py-3 bg-white text-[#0F3D32] text-[0.8125rem] font-semibold uppercase tracking-[0.12em] hover:bg-[#EEF3EF] transition-colors disabled:opacity-50">Add routine to bag · {{ routineTotal() | usd }}</button>
+            <button type="button" (click)="save()" class="inline-flex items-center justify-center px-6 py-3 border border-white/60 text-white text-[0.8125rem] font-semibold uppercase tracking-[0.12em] hover:bg-white hover:text-[#0F3D32] transition-colors">Save to Hair Profile</button>
+          </div>
         </div>
-      </div>
-
-      @if (r.notes.length) {
-        <div class="mt-6 bg-[#EEF3EF] p-4 rounded-2xl border border-[#DCE5E0] space-y-1.5" role="status">
-          @for (note of r.notes; track $index) { <p class="text-xs text-[#5E6F68] flex gap-2"><span class="text-[#C9503A]">ℹ</span>{{ note }}</p> }
-        </div>
-      }
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
-        @for (step of r.steps; track step.id) {
-          <div class="bg-white p-6 rounded-2xl border border-[#DCE5E0] shadow-sm flex flex-col justify-between" [class.opacity-60]="!step.product">
-            <div>
-              <span class="text-xs font-bold px-3 py-1 rounded-full" [class]="'text-xs font-bold px-3 py-1 rounded-full ' + stepStyle[step.id]">STEP {{ step.order }}: {{ step.title.toUpperCase() }}</span>
-              @if (step.product; as p) {
-                <a [routerLink]="['/products', p.id]" class="block mt-4 aspect-square rounded-xl overflow-hidden bg-[#F0F3EF]"><img [src]="p.images[0]" [alt]="p.name" class="w-full h-full object-cover" /></a>
-                <a [routerLink]="['/products', p.id]" class="font-bold text-[#0F3D32] text-base mt-3 block hover:text-[#19594A]">{{ p.name }} ({{ defaultVariant(p)?.sizeLabel }})</a>
-                <p class="text-xs text-[#5E6F68] mt-1">{{ p.category }}</p>
-              } @else {
-                <p class="text-sm font-semibold text-[#0F3D32] mt-4">Step skipped</p>
-                <p class="text-xs text-[#5E6F68] mt-1">{{ step.note }}</p>
-              }
-            </div>
-            @if (step.product; as p) {
-              <div class="mt-6 pt-4 border-t border-[#DCE5E0] space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-[#19594A]">{{ defaultVariant(p)?.price ?? 0 | usd }}</span>
-                  @if (step.status === 'substituted') {
-                    <span class="text-xs text-[#805719] font-semibold" [title]="step.note ?? ''">Substitute</span>
-                  } @else {
-                    <span class="text-xs text-green-700 font-semibold">Recommended</span>
-                  }
-                </div>
-                <button type="button" (click)="addAddon(p)" [disabled]="!defaultVariant(p)" class="btn-cta-buy w-full text-xs px-4 py-2">Add to bag</button>
+        <div class="md:border-l md:border-white/25 md:pl-12">
+          <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-[#B7D3C7]">Based on your answers</span>
+          <dl class="mt-5 divide-y divide-white/15">
+            @for (row of answerRows(); track row.name) {
+              <div class="flex items-baseline justify-between gap-6 py-2.5 first:pt-0">
+                <dt class="text-[10px] font-bold uppercase tracking-[0.14em] text-[#B7D3C7] shrink-0">{{ row.name }}</dt>
+                <dd class="text-sm text-white text-right">{{ row.value }}</dd>
               </div>
             }
-          </div>
-        }
-      </div>
-
-      <div class="bg-[#EEF3EF] p-8 rounded-3xl border border-[#DCE5E0] flex flex-col lg:flex-row items-center justify-between gap-6">
-        <div>
-          <span class="badge-gold">COMPLETE {{ routineProducts().length }}-STEP REGIMEN</span>
-          <h3 class="text-xl font-bold text-[#0F3D32] mt-1">Your {{ r.diagnosis.title }} Ritual</h3>
-          <p class="text-xs text-[#5E6F68] mt-1">
-            @for (p of routineProducts(); track p.id) { {{ p.name }}@if (!$last) { + } }
-          </p>
-          <div class="flex items-center gap-3 mt-3">
-            <span class="text-2xl font-extrabold text-[#19594A]">{{ routineTotal() | usd }}</span>
-            <span class="text-xs text-[#85968E]">default sizes · before shipping</span>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-          <button type="button" (click)="addRoutine()" [disabled]="!routineProducts().length" class="btn-primary text-sm px-6 py-3"><span>Add Full Routine to Bag</span></button>
-          <button type="button" (click)="save()" class="btn-secondary text-sm px-5 py-3"><span>Save to Hair Profile</span></button>
-          <button type="button" (click)="retake()" class="btn-secondary text-sm px-5 py-3"><span>Retake Quiz</span></button>
+          </dl>
         </div>
       </div>
+    </div>
 
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
+      @if (r.notes.length) {
+        <div class="bg-[#EEF3EF] p-4 border border-[#DCE5E0] space-y-1.5" role="status">
+          @for (note of r.notes; track $index) { <p class="text-xs text-[#5E6F68] flex gap-2"><span class="text-[#4F7F72]">•</span>{{ note }}</p> }
+        </div>
+      }
+
+      <!-- Why this routine -->
+      <section aria-labelledby="why-heading">
+        <span class="fm-eyebrow">The reasoning</span>
+        <h2 id="why-heading" class="fm-display text-2xl sm:text-3xl text-[#0F3D32] mt-2">Why this routine</h2>
+        <div class="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          @for (area of focusAreas(); track area.label; let i = $index) {
+            <div class="border-t border-[#0F3D32] pt-5">
+              <div class="flex items-baseline gap-3">
+                <span class="fm-display text-lg text-[#4F7F72]">0{{ i + 1 }}</span>
+                <h3 class="fm-display text-xl text-[#0F3D32]">{{ area.title }}</h3>
+                @if (area.main) { <span class="ml-auto text-[10px] font-bold uppercase tracking-wider text-white bg-[#0F3D32] px-2 py-1">Main focus</span> }
+              </div>
+              <ul class="mt-3 space-y-2">
+                @for (reason of area.reasons; track reason) {
+                  <li class="flex gap-2.5 text-sm text-[#2C3E37] leading-relaxed"><span class="text-[#19594A] shrink-0" aria-hidden="true">•</span><span>{{ reason }}</span></li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Routine, step by step -->
+      <section aria-labelledby="routine-heading">
+        <span class="fm-eyebrow">Step by step</span>
+        <h2 id="routine-heading" class="fm-display text-2xl sm:text-3xl text-[#0F3D32] mt-2">Your {{ r.steps.length }}-step routine</h2>
+        <div class="mt-8 border-t border-[#DCE5E0]">
+          @for (step of r.steps; track step.id) {
+            <article class="grid gap-5 md:gap-8 md:grid-cols-[88px_168px_1fr_auto] items-start py-8 border-b border-[#DCE5E0]" [class.opacity-60]="!step.product">
+              <div>
+                <span class="fm-display text-4xl text-[#B5C8BD] leading-none">0{{ step.order }}</span>
+                <span class="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#4F7F72] mt-2">{{ step.title }}</span>
+              </div>
+              @if (step.product; as p) {
+                <a [routerLink]="['/products', p.id]" class="block aspect-square bg-[#F0F3EF] overflow-hidden w-full max-w-[168px]"><img [src]="p.images[0]" [alt]="p.name" class="w-full h-full object-cover" loading="lazy" /></a>
+                <div class="min-w-0">
+                  <p class="fm-brand-chip">{{ p.brand }}</p>
+                  <a [routerLink]="['/products', p.id]" class="fm-display text-xl text-[#0F3D32] mt-1 block hover:text-[#4F7F72] transition-colors">{{ p.name }}</a>
+                  <p class="text-xs text-[#5E6F68] mt-1">{{ p.category }} · {{ defaultVariant(p)?.sizeLabel }} · {{ defaultVariant(p)?.volume }}@if (step.status === 'substituted') { · <span class="font-semibold text-[#805719]" [title]="step.note ?? ''">Substitute</span> }</p>
+                  @if (benefits(p).length) {
+                    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                      @for (b of benefits(p); track b) { <li class="text-xs font-semibold text-[#19594A] flex items-center gap-1.5"><span aria-hidden="true">✓</span>{{ b }}</li> }
+                    </ul>
+                  }
+                  <p class="mt-3 text-sm text-[#2C3E37] leading-relaxed"><span class="text-[10px] font-bold uppercase tracking-[0.14em] text-[#85968E] mr-2">How to use</span>{{ howTo(p) || stepHow[step.id].tip }}</p>
+                </div>
+                <div class="md:text-right md:min-w-[140px]">
+                  <span class="block fm-display text-xl text-[#0F3D32]">{{ defaultVariant(p)?.price ?? 0 | usd }}</span>
+                  <button type="button" (click)="addAddon(p)" [disabled]="!defaultVariant(p)" class="btn-cta-buy text-xs px-5 py-2.5 mt-3">Add to bag</button>
+                </div>
+              } @else {
+                <div class="md:col-span-3">
+                  <p class="fm-display text-xl text-[#0F3D32]">Step skipped</p>
+                  <p class="text-sm text-[#5E6F68] mt-1">{{ step.note }}</p>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      </section>
+
+      <!-- Rhythm -->
+      <section aria-labelledby="rhythm-heading">
+        <span class="fm-eyebrow">Making it a ritual</span>
+        <h2 id="rhythm-heading" class="fm-display text-2xl sm:text-3xl text-[#0F3D32] mt-2">How to use it week to week</h2>
+        @if (washRhythm()) { <p class="text-sm text-[#5E6F68] mt-2">You told us about {{ washRhythm() }}, so the routine is built around that rhythm.</p> }
+        <div class="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          @for (step of r.steps; track step.id) {
+            @if (step.product) {
+              <div class="border-t border-[#0F3D32] pt-5">
+                <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-[#4F7F72]">{{ stepHow[step.id].when }}</span>
+                <p class="fm-display text-lg text-[#0F3D32] mt-1">{{ step.title }}</p>
+                <p class="text-xs text-[#85968E] mt-0.5 line-clamp-1">{{ step.product.name }}</p>
+                <p class="text-sm text-[#2C3E37] mt-3 leading-relaxed">{{ stepHow[step.id].tip }}</p>
+              </div>
+            }
+          }
+        </div>
+      </section>
+
+      <!-- Add-on and actions -->
       @if (r.addon; as addon) {
-        <div class="mt-6 bg-white p-6 rounded-3xl border border-dashed border-[#FF7F64] flex flex-col sm:flex-row items-center gap-5">
-          <img [src]="addon.images[0]" [alt]="addon.name" class="w-24 h-24 rounded-2xl object-cover border border-[#DCE5E0]" />
-          <div class="flex-1 text-center sm:text-left">
-            <span class="text-[10px] font-bold text-[#805719] uppercase tracking-wider">Optional add-on · for your {{ r.diagnosis.secondaryTitle }} need</span>
-            <a [routerLink]="['/products', addon.id]" class="block font-bold text-[#0F3D32] mt-1 hover:text-[#19594A]">{{ addon.name }}</a>
-            <p class="text-xs text-[#5E6F68]">Not part of the core routine — add it only if you'd like extra care.</p>
+        <div class="border-y border-[#DCE5E0] py-5 flex items-center gap-4 sm:gap-6">
+          <a [routerLink]="['/products', addon.id]" class="block w-20 h-20 sm:w-24 sm:h-24 shrink-0 bg-[#F0F3EF] overflow-hidden"><img [src]="addon.images[0]" [alt]="addon.name" class="w-full h-full object-cover" /></a>
+          <div class="flex-1 min-w-0">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#19594A]">Optional add-on</span>
+            <a [routerLink]="['/products', addon.id]" class="block font-bold text-[#0F3D32] mt-1 leading-snug hover:text-[#19594A]">{{ addon.name }}</a>
           </div>
-          <div class="text-center">
-            <span class="block font-bold text-[#19594A] mb-2">{{ defaultVariant(addon)?.price ?? 0 | usd }}</span>
-            <button type="button" (click)="addAddon(addon)" class="btn-cta-buy text-xs px-4 py-2">Add Add-on</button>
+          <div class="text-right shrink-0">
+            <span class="block font-extrabold text-[#19594A] mb-2">{{ defaultVariant(addon)?.price ?? 0 | usd }}</span>
+            <button type="button" (click)="addAddon(addon)" class="btn-cta-buy text-xs px-4 py-2">Add to bag</button>
           </div>
         </div>
       }
 
-      <p class="text-[11px] text-[#85968E] text-center mt-8 italic">{{ r.disclaimer }}. · Ruleset v{{ r.rulesetVersion }}</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button type="button" (click)="addRoutine()" [disabled]="!routineProducts().length" class="btn-primary text-sm px-6 py-3">Add routine to bag · {{ routineTotal() | usd }}</button>
+        <button type="button" (click)="save()" class="btn-secondary text-sm px-5 py-3">Save to Hair Profile</button>
+        <button type="button" (click)="retake()" class="btn-secondary text-sm px-5 py-3">Retake quiz</button>
+      </div>
+
+      <p class="text-[11px] text-[#85968E] text-center italic">{{ r.disclaimer }}</p>
     </div>
 
     <app-store-modal [open]="confirmOpen()" title="Replace your Hair Profile?" (closed)="cancelOverwrite()">

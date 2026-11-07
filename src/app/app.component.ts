@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { RouterOutlet } from '@angular/router';
 import { OrderService } from './core/services/order.service';
 import { ToastService } from './core/services/toast.service';
+import { ConfirmDialogComponent } from './shared/ui/confirm-dialog.component';
 import { CartDrawerComponent } from './shared/components/cart-drawer/cart-drawer.component';
 import { ToastComponent } from './shared/components/toast/toast.component';
 
@@ -11,10 +12,11 @@ const PAYMENT_EXPIRY_SCAN_MS = 10_000;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastComponent, CartDrawerComponent],
+  imports: [RouterOutlet, ToastComponent, CartDrawerComponent, ConfirmDialogComponent],
   template: `
     <router-outlet></router-outlet>
     <app-cart-drawer></app-cart-drawer>
+    <app-confirm-dialog></app-confirm-dialog>
     <!-- Tracking by id re-creates the toast so a repeated message restarts its timer. -->
     @for (id of [notifications.id()]; track id) {
       <app-toast

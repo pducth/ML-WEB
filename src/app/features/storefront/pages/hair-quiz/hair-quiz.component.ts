@@ -17,7 +17,7 @@ const STEP_SHORT: Record<string, string> = { scalp: 'Scalp', hair_condition: 'St
 const AUTO_ADVANCE_MS = 350;
 const ANALYZING_MS = 1600;
 
-/** C04 — full-screen Hair Routine Quiz: one question per screen (hair texture and thickness are illustrated), then the C05 routine with per-item and full-set add to bag. */
+/** C04: full-screen Hair Routine Quiz: one question per screen (hair texture and thickness are illustrated), then the C05 routine with per-item and full-set add to bag. */
 @Component({
   selector: 'app-hair-quiz',
   standalone: true,

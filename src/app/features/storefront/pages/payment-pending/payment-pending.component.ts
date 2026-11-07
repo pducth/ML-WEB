@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { MockDbService, errorMessage } from '../../../../core/data/mock-db.service';
 import { OrderStatus } from '../../../../core/models';
 import { ClockService } from '../../../../core/services/clock.service';
+import { CartService } from '../../../../core/services/cart.service';
 import { OrderService } from '../../../../core/services/order.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { ToastService } from '../../../../core/services/toast.service';
@@ -10,7 +11,7 @@ import { UsdPipe } from '../../../../shared/ui/usd.pipe';
 
 const POLL_MS = 5000;
 
-/** C08 — Bank transfer awaiting payment (30-minute window, webhook/polling, sandbox simulation). */
+/** C08: Bank transfer awaiting payment (QR valid for the payment window, webhook/polling, sandbox simulation). Leaving the page drops the transfer. */
 @Component({
   selector: 'app-payment-pending',
   standalone: true,
@@ -23,6 +24,7 @@ export class PaymentPendingComponent {
   private readonly store = inject(MockDbService);
   private readonly clock = inject(ClockService);
   private readonly toast = inject(ToastService);
+  private readonly cart = inject(CartService);
   private readonly router = inject(Router);
   readonly settings = inject(SettingsService).settings;
 
@@ -49,11 +51,16 @@ export class PaymentPendingComponent {
       this.orders.expireOverduePayments();
       this.lastChecked.set(Date.now());
     }, POLL_MS);
-    inject(DestroyRef).onDestroy(() => clearInterval(timer));
+    inject(DestroyRef).onDestroy(() => {
+      clearInterval(timer);
+      // Leaving this page ends the transfer: the order is dropped and the bag stays as it was.
+      this.orders.abandonPayment(this.orderId());
+    });
 
     effect(() => {
       const order = this.order();
       if (order && order.paymentStatus === 'Paid' && order.status !== OrderStatus.Cancelled) {
+        this.cart.removeVoucher();
         void this.router.navigate(['/order-success', order.id], { replaceUrl: true });
       }
     });
@@ -73,7 +80,7 @@ export class PaymentPendingComponent {
     this.simulating.set(true);
     try {
       this.orders.confirmPayment(order.paymentRef, order.total);
-      this.toast.show('Payment received — thank you!');
+      this.toast.show('Payment received. Thank you!');
     } catch (error) {
       this.toast.error(errorMessage(error));
       this.simulating.set(false);

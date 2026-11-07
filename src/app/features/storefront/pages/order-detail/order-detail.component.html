@@ -1,6 +1,6 @@
 <section class="app-screen animate-fadeIn">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="text-xs text-[#85968E] mb-6 flex items-center gap-2">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <div class="text-xs text-[#85968E] mb-8 flex items-center gap-2">
       <a routerLink="/" class="hover:text-[#19594A] cursor-pointer">Home</a>
       <span>/</span>
       <a routerLink="/orders" class="hover:text-[#19594A] cursor-pointer">Order History</a>
@@ -9,84 +9,57 @@
     </div>
 
     @if (order(); as o) {
-      <div class="bg-white rounded-3xl border border-[#DCE5E0] shadow-sm p-6 sm:p-8 space-y-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#DCE5E0]">
-          <div>
-            <h1 class="text-lg sm:text-xl font-bold text-[#0F3D32]">Order Details #{{ o.code }}</h1>
-            <p class="text-xs text-[#85968E]">Placed {{ o.createdAt | date: 'medium' }}</p>
+      <div class="bg-white border border-[#DCE5E0] p-6 sm:p-10">
+      <!-- Header -->
+      <header class="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
+        <div>
+          <span class="fm-eyebrow">Order</span>
+          <div class="mt-1 flex items-center gap-x-4 gap-y-2 flex-wrap">
+            <h1 class="fm-display text-3xl sm:text-4xl text-[#0F3D32] leading-tight">#{{ o.code }}</h1>
+            <app-order-status-pill [status]="o.status" [compact]="true" />
           </div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <app-order-status-pill [status]="o.status" />
-            @if (o.status === 'Payment Pending') { <a [routerLink]="['/payment', o.id]" class="btn-cta-buy text-xs px-4 py-2">Pay Now</a> }
-            @if (canCancel()) { <button type="button" (click)="openCancel()" class="text-xs font-bold text-red-600 px-4 py-2 rounded-full border border-red-200 hover:bg-red-50">Cancel Order</button> }
-            @if (canReturn()) { <button type="button" (click)="openReturn()" class="btn-secondary text-xs px-4 py-2">Request Return</button> }
-          </div>
+          <p class="text-sm text-[#5E6F68] mt-2">Placed {{ o.createdAt | date: 'MMM d, y' }}</p>
         </div>
-
-        <!-- Progress -->
-        <div class="flex flex-wrap gap-2">
-          @for (step of steps(); track step.status) {
-            <span class="flex-1 min-w-[110px] text-center px-2 py-2 rounded-xl text-[11px] font-bold"
-              [ngClass]="step.current ? 'bg-[#19594A] text-white' : step.done ? 'bg-[#4F7F72] text-white' : 'bg-[#EEF3EF] text-[#85968E]'">{{ step.done && !step.current ? '✓ ' : '' }}{{ step.status }}</span>
-          }
+        <div class="flex items-center gap-3 flex-wrap">
+          @if (canCancel()) { <button type="button" (click)="openCancel()" class="text-xs font-bold uppercase tracking-[0.12em] text-[#C9503A] px-5 py-2.5 border border-[#C9503A] hover:bg-[#C9503A] hover:text-white transition-colors">Cancel order</button> }
+          @if (canReturn()) { <button type="button" (click)="openReturn()" class="btn-secondary text-xs px-5 py-2.5">Request return</button> }
         </div>
+      </header>
 
-        @if (o.returnRequest; as rr) {
-          <div class="p-4 rounded-2xl border" [ngClass]="rr.rejectReason ? 'border-red-200 bg-red-50' : o.status === 'Returned' ? 'border-green-200 bg-green-50' : 'border-orange-200 bg-orange-50'">
-            <p class="text-sm font-bold text-[#0F3D32]">
-              @if (rr.rejectReason) { Return request declined } @else if (o.status === 'Returned') { Return approved — refunded {{ o.refundAmount | usd }} } @else { Return request under review }
-            </p>
-            <p class="text-xs text-[#5E6F68] mt-1">Reason: {{ rr.reason }} · requested {{ rr.requestedAt | date: 'medium' }}</p>
-            @if (rr.rejectReason) { <p class="text-xs text-red-700 mt-1">Store response: {{ rr.rejectReason }}</p> }
-          </div>
+      <!-- Progress -->
+      <ol class="mt-8 grid gap-3" [style.grid-template-columns]="'repeat(' + steps().length + ', minmax(0, 1fr))'">
+        @for (step of steps(); track step.status) {
+          <li>
+            <span class="block text-[11px] font-bold uppercase tracking-[0.14em] truncate" [ngClass]="step.current ? 'text-[#0F3D32]' : step.done ? 'text-[#4F7F72]' : 'text-[#B5C8BD]'">{{ step.done && !step.current ? '✓ ' : '' }}{{ step.status }}</span>
+            <span class="block mt-3 h-[2px]" [ngClass]="step.done || step.current ? 'bg-[#0F3D32]' : 'bg-[#DCE5E0]'"></span>
+          </li>
         }
-        @if (o.status === 'Cancelled') {
-          <div class="p-4 rounded-2xl border border-gray-200 bg-gray-50">
-            <p class="text-sm font-bold text-[#0F3D32]">This order was cancelled</p>
-            <p class="text-xs text-[#5E6F68] mt-1">Reason: {{ o.cancelReason }}@if (o.paymentStatus === 'Refunded') { · {{ o.refundAmount | usd }} refunded to your original payment method }</p>
-          </div>
-        }
-        @if (canReturn() && returnDeadline()) {
-          <p class="text-xs text-[#5E6F68] bg-[#EEF3EF] rounded-xl p-3">You can request a return of the whole order until <strong>{{ returnDeadline() | date: 'medium' }}</strong> (products must be unopened with the original seal, unless they arrived defective or wrong).</p>
-        }
+      </ol>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-3">Shipping Timeline</h4>
-            <div class="space-y-4 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#DCE5E0]">
-              @for (entry of timeline(); track $index) {
-                <div class="flex items-start gap-3 relative">
-                  <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold z-10" [ngClass]="$first ? 'bg-[#4F7F72] text-white shadow' : 'bg-gray-200 text-gray-500'">{{ $first ? '✓' : '•' }}</div>
-                  <div>
-                    <p class="text-sm font-semibold text-[#0F3D32]">{{ entry.status }}@if (entry.note) { <span class="font-normal text-[#5E6F68]"> — {{ entry.note }}</span> }</p>
-                    <p class="text-xs text-[#85968E]">{{ entry.at | date: 'medium' }}</p>
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div class="bg-[#F7F8F4] p-4 rounded-xl border border-[#DCE5E0]">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Shipping Address</h4>
-              <p class="text-sm font-semibold text-[#0F3D32]">{{ o.shipping.recipientName }} - {{ o.shipping.phone }}</p>
-              <p class="text-xs text-[#5E6F68] mt-1">{{ o.shipping.addressLine }}</p>
-              @if (o.shipping.note) { <p class="text-xs text-[#85968E] mt-1 italic">Note: {{ o.shipping.note }}</p> }
-            </div>
-            <div class="bg-[#F7F8F4] p-4 rounded-xl border border-[#DCE5E0]">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Payment</h4>
-              <p class="text-sm font-semibold text-[#0F3D32]">{{ o.paymentMethod === 'COD' ? 'Cash on Delivery (COD)' : 'Bank Transfer' }} · {{ o.paymentStatus }}</p>
-              @if (o.paymentRef) { <p class="text-xs text-[#5E6F68] mt-1">Reference: <span class="font-mono text-[#4F7F72]">{{ o.paymentRef }}</span></p> }
-            </div>
-          </div>
-        </div>
+      <!-- One line for how a return or cancellation ended -->
+      @if (o.returnRequest; as rr) {
+        <p class="mt-6 text-sm text-[#2C3E37] border-l-2 pl-4" [ngClass]="rr.rejectReason ? 'border-[#C9503A]' : 'border-[#0F3D32]'">
+          <strong class="text-[#0F3D32]">@if (rr.rejectReason) { Return declined } @else if (o.status === 'Returned') { Return approved, {{ o.refundAmount | usd }} refunded } @else { Return under review }</strong>
+          <span class="text-[#5E6F68]"> · {{ rr.reason }}@if (rr.rejectReason) { · {{ rr.rejectReason }} }</span>
+        </p>
+      }
+      @if (o.status === 'Cancelled') {
+        <p class="mt-6 text-sm text-[#2C3E37] border-l-2 border-[#85968E] pl-4">
+          <strong class="text-[#0F3D32]">Cancelled</strong>
+          <span class="text-[#5E6F68]"> · {{ o.cancelReason }}@if (o.paymentStatus === 'Refunded') { · {{ o.refundAmount | usd }} refunded }</span>
+        </p>
+      }
 
+      <div class="mt-8 pt-8 border-t border-[#DCE5E0] grid grid-cols-1 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-start">
+        <!-- Items and totals -->
+        <div>
         <div id="review" class="scroll-mt-28">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-[#5E6F68] mb-2">Order Items</h4>
-          <div class="divide-y divide-[#DCE5E0] border border-[#DCE5E0] rounded-2xl">
+          <h2 class="fm-display text-xl text-[#0F3D32] mb-4">Items</h2>
+          <div class="divide-y divide-[#DCE5E0] border border-[#DCE5E0] ">
             @for (item of o.items; track item.variantId) {
               <div class="p-4 space-y-3">
                 <div class="flex items-center gap-3">
-                  <a [routerLink]="['/products', item.productId]"><img [src]="item.imageUrl" [alt]="item.productName" class="w-14 h-14 rounded-xl object-cover border border-[#DCE5E0]" /></a>
+                  <a [routerLink]="['/products', item.productId]"><img [src]="item.imageUrl" [alt]="item.productName" class="w-14 h-14 object-cover border border-[#DCE5E0]" /></a>
                   <div class="flex-1 min-w-0">
                     <a [routerLink]="['/products', item.productId]" class="text-sm font-semibold text-[#0F3D32] hover:text-[#19594A] line-clamp-1">{{ item.productName }}</a>
                     <p class="text-xs text-[#5E6F68]">{{ item.sizeLabel }} {{ item.volume }} · {{ item.unitPrice | usd }} × {{ item.quantity }}</p>
@@ -96,8 +69,8 @@
 
                 @if (canReview()) {
                   @let review = myReview(item);
-                  @if (review && !isEditing(item)) {
-                    <div class="bg-[#F7F8F4] rounded-xl p-3 border border-[#DCE5E0] flex items-start justify-between gap-3">
+                  @if (review) {
+                    <div class="bg-[#F7F8F4] p-3 border border-[#DCE5E0] flex items-start justify-between gap-3">
                       <div>
                         <p class="text-sm text-[#4F7F72]">{{ '★'.repeat(review.rating) }}<span class="text-[#DCE5E0]">{{ '★'.repeat(5 - review.rating) }}</span>
                           @if (review.status === 'Hidden') { <span class="ml-2 text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full align-middle">Hidden by store</span> }
@@ -114,11 +87,10 @@
                           </div>
                         }
                       </div>
-                      <button type="button" (click)="startEditing(item)" class="text-xs font-bold text-[#19594A] hover:underline shrink-0">Edit review</button>
                     </div>
                   } @else {
                     @let draft = draftFor(item);
-                    <div class="bg-[#F7F8F4] rounded-xl p-3 border border-[#DCE5E0] space-y-2">
+                    <div class="bg-[#F7F8F4] p-3 border border-[#DCE5E0] space-y-2">
                       <div class="flex items-center gap-1" role="radiogroup" [attr.aria-label]="'Rate ' + item.productName">
                         <span class="text-xs font-bold text-[#0F3D32] mr-2">Your rating:</span>
                         @for (n of [1, 2, 3, 4, 5]; track n) {
@@ -127,7 +99,7 @@
                         }
                       </div>
                       <textarea rows="2" [maxlength]="maxLength" [ngModel]="draft.comment" (ngModelChange)="setDraft(item, { comment: $event })" placeholder="Share how it worked for your hair (optional)"
-                        class="w-full text-sm border border-[#DCE5E0] rounded-xl p-3 bg-white outline-none focus:border-[#19594A]"></textarea>
+                        class="w-full text-sm border border-[#DCE5E0] p-3 bg-white outline-none focus:border-[#19594A]"></textarea>
                       <div class="flex flex-wrap items-center gap-2">
                         @for (m of draft.media; track $index) {
                           <span class="relative w-14 h-14 overflow-hidden border border-[#DCE5E0] bg-white">
@@ -149,7 +121,7 @@
                       </div>
                       <div class="flex items-center justify-between">
                         <span class="text-[10px] text-[#85968E]">{{ draft.comment.length }}/{{ maxLength }}</span>
-                        <button type="button" (click)="submitReview(item)" [disabled]="!draft.rating" class="btn-primary text-xs px-4 py-2">{{ review ? 'Update Review' : 'Submit Review' }}</button>
+                        <button type="button" (click)="submitReview(item)" [disabled]="!draft.rating" class="btn-primary text-xs px-4 py-2">Submit review</button>
                       </div>
                     </div>
                   }
@@ -157,18 +129,51 @@
               </div>
             }
           </div>
-          @if (o.status === 'Return Pending' || o.status === 'Returned') {
-            <p class="text-[11px] text-[#85968E] mt-2">Reviews are locked while an order is being returned.</p>
-          }
         </div>
 
-        <div class="pt-3 border-t border-[#DCE5E0] space-y-1.5 text-sm max-w-sm ml-auto">
+        <div class="pt-5 mt-5 border-t border-[#DCE5E0] space-y-2 text-sm">
           <div class="flex justify-between text-[#5E6F68]"><span>Subtotal</span><span>{{ o.subtotal | usd }}</span></div>
-          <div class="flex justify-between text-[#4F7F72]"><span>Voucher {{ o.voucherCode ?? '' }}</span><span>-{{ o.discount | usd }}</span></div>
+          @if (o.discount) { <div class="flex justify-between text-[#19594A]"><span>Voucher {{ o.voucherCode }}</span><span>-{{ o.discount | usd }}</span></div> }
           <div class="flex justify-between text-[#5E6F68]"><span>Shipping</span><span>{{ o.shippingFee | usd }}</span></div>
-          <div class="pt-2 border-t border-[#DCE5E0] flex justify-between text-base font-bold text-[#0F3D32]"><span>Order Total</span><span class="text-[#19594A]">{{ o.total | usd }}</span></div>
+          <div class="pt-3 border-t border-[#DCE5E0] flex justify-between items-baseline"><span class="font-semibold text-[#0F3D32]">Order total</span><span class="fm-display text-2xl text-[#0F3D32]">{{ o.total | usd }}</span></div>
           @if (o.refundAmount) { <div class="flex justify-between text-xs text-green-700 font-semibold"><span>Refunded</span><span>{{ o.refundAmount | usd }}</span></div> }
         </div>
+        </div>
+
+        <!-- Delivery, payment, timeline -->
+        <aside class="space-y-9 lg:pl-10 lg:border-l border-[#DCE5E0]">
+          <div>
+            <h2 class="fm-display text-xl text-[#0F3D32]">Delivery</h2>
+            <div class="mt-4 space-y-1.5 text-sm leading-relaxed">
+              <p class="font-semibold text-[#0F3D32]">{{ o.shipping.recipientName }}</p>
+              <p class="text-[#5E6F68]">{{ o.shipping.phone }}</p>
+              <p class="text-[#5E6F68]">{{ o.shipping.addressLine }}</p>
+              @if (o.shipping.note) { <p class="text-xs text-[#85968E] italic">{{ o.shipping.note }}</p> }
+            </div>
+          </div>
+          <div>
+            <h2 class="fm-display text-xl text-[#0F3D32]">Payment</h2>
+            <div class="mt-4 space-y-1.5 text-sm">
+              <p class="text-[#0F3D32]"><span class="font-semibold">{{ o.paymentMethod === 'COD' ? 'Cash on delivery' : 'Bank transfer' }}</span> · <span class="text-[#5E6F68]">{{ o.paymentStatus }}</span></p>
+              @if (o.paymentRef) { <p class="text-xs text-[#5E6F68]">Ref <span class="tabular-nums text-[#4F7F72]">{{ o.paymentRef }}</span></p> }
+            </div>
+          </div>
+          <div>
+            <h2 class="fm-display text-xl text-[#0F3D32]">Timeline</h2>
+            <ol class="mt-5 space-y-5 relative before:absolute before:left-[5px] before:top-2 before:bottom-2 before:w-px before:bg-[#DCE5E0]">
+              @for (entry of timeline(); track $index) {
+                <li class="flex items-start gap-4 relative">
+                  <span class="mt-1.5 w-[11px] h-[11px] shrink-0 z-10 border-2" [ngClass]="$first ? 'bg-[#0F3D32] border-[#0F3D32]' : 'bg-white border-[#B5C8BD]'"></span>
+                  <div>
+                    <p class="text-sm font-semibold text-[#0F3D32]">{{ entry.status }}</p>
+                    <p class="text-xs text-[#85968E] mt-0.5">{{ entry.at | date: 'MMM d, h:mm a' }}</p>
+                  </div>
+                </li>
+              }
+            </ol>
+          </div>
+        </aside>
+      </div>
       </div>
 
       <app-store-modal [open]="cancelOpen()" title="Cancel this order?" (closed)="cancelOpen.set(false)">
@@ -186,7 +191,7 @@
       </app-store-modal>
 
       <app-store-modal [open]="returnOpen()" title="Request a return" size="lg" (closed)="returnOpen.set(false)">
-        <p class="text-sm text-[#5E6F68]">Returns apply to the whole order. Once approved, items are restocked and you are refunded the order total minus the {{ o.shippingFee | usd }} shipping fee — or in full if the store made a mistake.</p>
+        <p class="text-sm text-[#5E6F68]">Returns apply to the whole order. Once approved, items are restocked and you are refunded the order total minus the {{ o.shippingFee | usd }} shipping fee, or in full if the store made a mistake.</p>
         <label for="return-reason" class="block text-xs font-bold text-[#0F3D32] mt-4 mb-1">Reason *</label>
         <select id="return-reason" (change)="returnReason.set($any($event.target).value)" class="field-input">
           <option value="" [selected]="!returnReason()">Select a reason…</option>
@@ -199,7 +204,7 @@
               <span>I confirm all products are unopened with their original seal intact.</span>
             </label>
           } @else {
-            <p class="text-xs text-[#3B6B5E] bg-[#4F7F72]/10 rounded-xl p-3 mt-4">Store error — the seal requirement does not apply and shipping is refunded too.</p>
+            <p class="text-xs text-[#3B6B5E] bg-[#4F7F72]/10 p-3 mt-4">Store error: the seal requirement does not apply and shipping is refunded too.</p>
           }
           <p class="text-sm font-bold text-[#0F3D32] mt-4">Estimated refund: <span class="text-[#19594A]">{{ refundPreview() | usd }}</span></p>
         }
@@ -210,7 +215,7 @@
         </div>
       </app-store-modal>
     } @else {
-      <div class="py-16 text-center bg-white rounded-3xl border border-[#DCE5E0]">
+      <div class="py-16 text-center bg-white border border-[#DCE5E0]">
         <p class="font-bold text-[#0F3D32]">Order not found</p>
         <a routerLink="/orders" class="btn-primary text-sm px-6 py-2.5 mt-5">Back to Order History</a>
       </div>

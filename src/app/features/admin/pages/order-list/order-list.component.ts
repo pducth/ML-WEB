@@ -9,7 +9,7 @@ import { ORDER_BADGE, PAYMENT_BADGE } from '../../ui/badges';
 
 const PAGE = 20;
 
-/** A08 — Order list. */
+/** A08: Order list. */
 @Component({
   selector: 'app-order-list',
   standalone: true,

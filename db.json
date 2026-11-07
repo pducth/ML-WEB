@@ -7,11 +7,11 @@
   "warehouseAddress": "123 Lê Lợi, Bến Nghé, Quận 1, TP. Hồ Chí Minh",
   "currency": "USD",
   "shippingFee": 5.0,
-  "paymentTimeoutMinutes": 30,
+  "paymentTimeoutMinutes": 15,
   "bank": {
    "bankName": "Techcombank",
    "accountNumber": "1903 8888 6868",
-   "accountName": "HAIRCARE INSIGHT VIETNAM CO., LTD."
+   "accountName": "FOLMARÉ VIETNAM CO., LTD."
   },
   "paymentSimulation": true,
   "lowStockThreshold": 15,

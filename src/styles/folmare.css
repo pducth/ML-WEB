@@ -1,5 +1,14 @@
+/* Absans: headline face. It has a single weight and no italic, and no Vietnamese ơ, ư or tone marks, so Lora fills in. */
+@font-face {
+  font-family: 'Absans';
+  src: url('/assets/font/Absans-Regular.woff2') format('woff2'), url('/assets/font/Absans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
- * FOLMARÉ — Botanical Haircare Edit.
+ * FOLMARÉ, Botanical Haircare Edit.
  * Brand layer adapted from the FOLMARÉ brand kit CSS (tokens, components, motion); see docs/brand-kit/README.md.
  * The kit's element reset (base.css) is intentionally left out so Tailwind utilities keep control
  * of page layout; only class-scoped components and the editorial heading face are applied here.
@@ -21,7 +30,7 @@
   --fm-outline: #DCE5E0;
 
   --fm-font-body: 'Montserrat', 'Inter', 'Segoe UI', Arial, sans-serif;
-  --fm-font-display: 'Lora', Georgia, serif;
+  --fm-font-display: 'Absans', 'Lora', Georgia, serif;
 
   --fm-gradient-hero: linear-gradient(112deg, #D7E7DF 0%, #F6DED0 44%, #FF987E 78%, #FF7F64 100%);
   --fm-gradient-soft: linear-gradient(125deg, #EFF5F0 0%, #F8F6F1 58%, #F4DED3 100%);
@@ -33,17 +42,23 @@
   --fm-ease: cubic-bezier(.22, 1, .36, 1);
 }
 
-/* ---------- Typography: Lora for editorial headlines, Montserrat for UI ---------- */
+/* ---------- Typography: Absans for headlines, Lora italic for the accent word, Montserrat for UI ---------- */
 app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow),
 .fm-display {
   font-family: var(--fm-font-display);
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.01em;
+}
+
+/* Absans has no italic: the accent word inside a headline stands upright instead of a slanted fake. */
+app-storefront-layout :is(h1, h2, .fm-display) :is(i, em) {
+  font-style: normal;
 }
 
 /* Heavy sans weights from the old theme read as a different typeface in Lora — soften them. */
 app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow):is(.font-extrabold, .font-bold, .font-black, .font-semibold) {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .fm-italic {
@@ -123,6 +138,15 @@ app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow):is(.font-extrabol
 .fm-header-bar--overlay nav {
   border-color: rgb(15 61 50 / 14%);
 }
+
+/* Over a video the bar is white: wordmark, links and the icons */
+.fm-header-bar--light nav { border-color: rgb(255 255 255 / 30%); }
+.fm-header-bar--light img[src*='wordmark'] { filter: brightness(0) invert(1); }
+.fm-header-bar--light .fm-nav-link,
+.fm-header-bar--light .fm-nav-link:hover,
+.fm-header-bar--light .fm-nav-link.is-active,
+.fm-header-bar--light nav > div > button { color: #fff !important; }
+.fm-header-bar--light .fm-nav-link::after { background: #fff; }
 
 .fm-nav-link {
   position: relative;
@@ -287,6 +311,19 @@ app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow):is(.font-extrabol
   box-shadow: var(--fm-shadow-float);
 }
 
+.fm-brand-tile--logo {
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .fm-brand-tile--logo {
+    aspect-ratio: 2 / 1;
+  }
+}
+
 .fm-brand-tile__product {
   position: absolute;
   left: 50%;
@@ -383,6 +420,18 @@ app-storefront-layout :is(h1, h2):not(.uppercase, .fm-eyebrow):is(.font-extrabol
 
 @media (prefers-reduced-motion: reduce) {
   .fm-animate-in, .fm-float, .fm-twinkle { animation: none; }
+}
+
+/* Scroll reveal: a bar slides in once, the first time it comes into view */
+.fm-reveal {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.7s var(--fm-ease), transform 0.7s var(--fm-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.fm-reveal.is-revealed { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fm-reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Editorial layout helpers (Crown Affair-style rhythm) ---------- */

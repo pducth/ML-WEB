@@ -34,7 +34,7 @@ function toPublic(user: User): PublicUser {
   return rest;
 }
 
-/** Customer authentication (C10–C13) — BR-ACC rules. Admin sign-in lives in AdminAuthService. */
+/** Customer authentication (C10–C13), BR-ACC rules. Admin sign-in lives in AdminAuthService. */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly store = inject(MockDbService);
@@ -151,10 +151,18 @@ export class AuthService {
     });
   }
 
-  changePassword(current: string, next: string, confirm: string): void {
+  /** Runs every check a password change needs without changing anything, so the UI can confirm only a valid request. */
+  checkPasswordChange(current: string, next: string, confirm: string): void {
     const user = this.requireUser();
+    if (!current) throw new DomainError('Please enter your current password.');
+    if (this.store.db().users.find((u) => u.id === user.id)?.password !== current) throw new DomainError('Current password is incorrect.');
     if (!isStrongPassword(next)) throw new DomainError(`New password must have ${PASSWORD_RULE.toLowerCase()}`);
     if (next !== confirm) throw new DomainError('New passwords do not match.');
+  }
+
+  changePassword(current: string, next: string, confirm: string): void {
+    const user = this.requireUser();
+    this.checkPasswordChange(current, next, confirm);
     this.store.mutate((db) => {
       const target = db.users.find((u) => u.id === user.id)!;
       if (target.password !== current) throw new DomainError('Current password is incorrect.');

@@ -1,3 +1,4 @@
+import { RevealDirective } from '../../../../shared/ui/reveal.directive';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { errorMessage } from '../../../../core/data/mock-db.service';
@@ -10,15 +11,8 @@ import { ProductMediaComponent } from '../../../../shared/ui/product-media.compo
 import { StarsComponent } from '../../../../shared/ui/stars.component';
 import { CompactPipe } from '../../../../shared/ui/compact.pipe';
 import { UsdPipe } from '../../../../shared/ui/usd.pipe';
+import { WishlistHeartComponent } from '../../../../shared/ui/wishlist-heart.component';
 import { HeroSceneComponent, type HeroProduct } from './hero-scene.component';
-
-/** One signature product from each of the four houses, one per routine step, shown as an example result next to the quiz call-to-action. */
-const SAMPLE_ROUTINE: Array<{ step: string; key: string }> = [
-  { step: 'Cleanse', key: 'aromatica-rosemary-scalp-scaling-shampoo' },
-  { step: 'Condition', key: 'rahua-classic-conditioner' },
-  { step: 'Treat', key: 'davines-oi-hair-butter' },
-  { step: 'Style', key: 'perfect-defense-heat-protectant' },
-];
 
 /** Signature product of each house standing in the hero scene (catalog keys; cut-outs from scripts/build_hero_cutouts.py). */
 const HERO_PICKS: Array<{ brand: string; key: string }> = [
@@ -28,11 +22,11 @@ const HERO_PICKS: Array<{ brand: string; key: string }> = [
   { brand: 'DAVINES', key: 'davines-oi-hair-butter' },
 ];
 
-/** C01 — Home page. */
+/** C01: Home page. */
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, UsdPipe, CompactPipe, StarsComponent, ProductMediaComponent, HeroSceneComponent],
+  imports: [RouterLink, RevealDirective, UsdPipe, CompactPipe, StarsComponent, ProductMediaComponent, HeroSceneComponent, WishlistHeartComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,10 +39,10 @@ export class HomeComponent {
 
   /** The four houses of the FOLMARÉ curated edit, with their tile tints from the brand board. */
   readonly brands = [
-    { name: 'AROMATICA', logo: '/assets/brand/aromatica-logo.svg', image: '/assets/hero/aromatica-rosemary-scalp-scaling-shampoo.webp', role: 'Scalp care & aromatherapy', background: 'linear-gradient(165deg, #EEF4EF 0%, #C9DCD1 100%)', ink: '#0F3D32', glow: '#FFFFFF' },
-    { name: 'RAHUA', logo: '/assets/brand/rahua-logo.svg', image: '/assets/hero/rahua-classic-shampoo.webp', role: 'Amazon botanicals & nourishment', background: 'linear-gradient(165deg, #FBEBE0 0%, #F2B79C 100%)', ink: '#8A4A33', glow: '#FFF5E3' },
-    { name: 'DAVINES', logo: '/assets/brand/davines-logo.svg', image: '/assets/hero/davines-oi-oil.webp', role: 'Professional care & sustainable beauty', background: 'linear-gradient(165deg, #F9F8F3 0%, #E6DED1 100%)', ink: '#6E5A43', glow: '#FFFFFF' },
-    { name: 'MOROCCANOIL', logo: '/assets/brand/moroccanoil-wordmark.png', image: '/assets/hero/moroccanoil-treatment-original.webp', role: 'Argan oil & hair radiance', background: 'linear-gradient(165deg, #EDF1E6 0%, #B9CBB0 100%)', ink: '#2F5A3E', glow: '#FFE7C2' },
+    { name: 'AROMATICA', logo: '/assets/brand/aromatica-logo.svg', logoClass: 'h-6 sm:h-7' },
+    { name: 'RAHUA', logo: '/assets/brand/rahua-logo.png', logoClass: 'h-16 sm:h-20' },
+    { name: 'DAVINES', logo: '/assets/brand/davines-logo.svg', logoClass: 'h-9 sm:h-11' },
+    { name: 'MOROCCANOIL', logo: '/assets/brand/moroccanoil-logo.png', logoClass: 'h-14 sm:h-16' },
   ];
 
   /** Brand logos that failed to load fall back to the house name in type (drop the files into public/assets/brand/). */
@@ -59,10 +53,10 @@ export class HomeComponent {
   }
 
   readonly quizSteps = [
-    { title: 'Scalp', text: 'Balanced, oily, sensitive or flaky' },
-    { title: 'Strands', text: 'Condition, texture and thickness' },
-    { title: 'Habits', text: 'Washing, colour and heat styling' },
-    { title: 'Goal', text: 'Repair, hydrate, define, protect' },
+    { title: 'Scalp', text: 'Balanced, oily, sensitive, flaky or thinning' },
+    { title: 'Strands', text: 'Texture, thickness and condition' },
+    { title: 'Color & Wash', text: 'Color treatments and wash routine' },
+    { title: 'Goal', text: 'Repair, hydrate, define, protect, style' },
   ];
 
   readonly pillars = [
@@ -85,30 +79,30 @@ export class HomeComponent {
     }),
   );
 
-  /** Signature products that define each house, interleaved so the carousel never shows one brand in a row. */
-  private static readonly SIGNATURES = [
+  /** The first four cards, one per house, in this order; all four are in the top ten. */
+  private static readonly LEADERS = [
     'moroccanoil-treatment-original',
-    'aromatica-rosemary-scalp-scaling-shampoo',
-    'rahua-classic-shampoo',
-    'davines-oi-oil',
-    'intense-hydrating-mask',
-    'aromatica-rosemary-root-enhancer',
-    'rahua-legendary-amazon-oiltm',
     'davines-oi-shampoo',
+    'rahua-aloe-vera-shampoo',
+    'aromatica-rosemary-root-enhancer',
   ];
 
-  readonly bestSellers = computed(() =>
-    HomeComponent.SIGNATURES.flatMap((key) => {
-      const product = this.products.activeProducts().find((p) => p.key === key);
-      return product ? [product] : [];
-    })
+  /** Exactly the products carrying the "Best Seller" tag: the leaders first, the rest by sales. */
+  readonly bestSellers = computed(() => {
+    const ids = this.products.bestSellerIds();
+    const ranked = this.products.bestSellers().filter((p) => ids.has(p.id));
+    const leaders = HomeComponent.LEADERS.flatMap((key) => {
+      const top = ranked.find((p) => p.key === key);
+      return top ? [top] : [];
+    });
+    return [...leaders, ...ranked.filter((p) => !leaders.includes(p))]
       .map((product) => ({
         product,
         variant: defaultVariant(product),
         inStock: productAvailable(product) > 0,
         stats: this.reviews.statsFor(product.id),
-      })),
-  );
+      }));
+  });
 
   /** Category tiles show the product texture (not a single brand's bottle) so no house is favoured. */
   private static readonly CATEGORY_TEXTURES: Record<string, string> = {
@@ -125,15 +119,6 @@ export class HomeComponent {
       const count = this.products.bestSellers().filter((p) => p.category === category).length;
       return { category, count, image: HomeComponent.CATEGORY_TEXTURES[category] ?? '' };
     }),
-  );
-
-  readonly sampleTotal = computed(() => this.sampleRoutine().reduce((sum, item) => sum + item.price, 0));
-
-  readonly sampleRoutine = computed(() =>
-    SAMPLE_ROUTINE.map(({ step, key }) => {
-      const product = this.products.products().find((p) => p.key === key && p.status === 'Active');
-      return product ? { step, product, price: defaultVariant(product)?.price ?? 0 } : null;
-    }).filter((item): item is NonNullable<typeof item> => item !== null),
   );
 
   addToCart(product: Product): void {

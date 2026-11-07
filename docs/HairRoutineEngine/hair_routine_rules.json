@@ -36,7 +36,7 @@
       "order": 1,
       "title_vi": "Tình trạng da đầu",
       "title_en": "Your scalp",
-      "subtitle_en": "Start at the root — your scalp sets the tone for the whole routine.",
+      "subtitle_en": "Start at the root. Your scalp sets the tone for the whole routine.",
       "questions": [
         {
           "id": "scalp_condition",
@@ -321,7 +321,7 @@
               "label_vi": "Mượt và tạo kiểu",
               "description_vi": "Suôn mượt, giảm xù, hoặc tạo texture, giữ nếp",
               "label_en": "Smooth & style",
-              "hint_en": "Sleek, frizz-free finishes — or texture and hold"
+              "hint_en": "Sleek, frizz-free finishes, or texture and hold"
             }
           ]
         },
@@ -431,7 +431,8 @@
         "q": "hair_damage",
         "op": "eq",
         "value": "damaged"
-      }
+      },
+      "reason_en": "Your hair is damaged, so rebuilding it comes first."
     },
     {
       "id": "R-REP-02",
@@ -456,7 +457,8 @@
             ]
           }
         ]
-      }
+      },
+      "reason_en": "Chemical lightening or perming plus dry or damaged strands calls for restorative care."
     },
     {
       "id": "R-REP-03",
@@ -466,7 +468,8 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "repair"
-      }
+      },
+      "reason_en": "Repairing damage is your main goal."
     },
     {
       "id": "R-SCA-01",
@@ -479,7 +482,8 @@
           "dry_sensitive",
           "flaky"
         ]
-      }
+      },
+      "reason_en": "A dry, itchy, sensitive or flaky scalp needs gentle, soothing care."
     },
     {
       "id": "R-SCA-02",
@@ -489,7 +493,8 @@
         "q": "scalp_condition",
         "op": "eq",
         "value": "oily"
-      }
+      },
+      "reason_en": "A scalp that turns oily quickly benefits from balancing care."
     },
     {
       "id": "R-SCA-03",
@@ -499,7 +504,8 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "scalp_care"
-      }
+      },
+      "reason_en": "Caring for your scalp is your main goal."
     },
     {
       "id": "R-SCA-04",
@@ -509,7 +515,8 @@
         "q": "scalp_condition",
         "op": "eq",
         "value": "thinning"
-      }
+      },
+      "reason_en": "Thinning or shedding calls for a scalp-first routine."
     },
     {
       "id": "R-COL-01",
@@ -522,7 +529,8 @@
           "dyed",
           "bleached"
         ]
-      }
+      },
+      "reason_en": "Color-treated or lightened hair needs color-safe care."
     },
     {
       "id": "R-COL-02",
@@ -532,7 +540,8 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "color_protect"
-      }
+      },
+      "reason_en": "Protecting or toning your color is your main goal."
     },
     {
       "id": "R-CUR-01",
@@ -542,7 +551,8 @@
         "q": "hair_texture",
         "op": "eq",
         "value": "curly"
-      }
+      },
+      "reason_en": "Curly hair thrives on curl-specific moisture and definition."
     },
     {
       "id": "R-CUR-02",
@@ -561,7 +571,8 @@
             "value": "define_curls"
           }
         ]
-      }
+      },
+      "reason_en": "Wavy hair and a goal of defining curls point to curl care."
     },
     {
       "id": "R-CUR-03",
@@ -582,7 +593,8 @@
             "value": "define_curls"
           }
         ]
-      }
+      },
+      "reason_en": "Permed hair and a goal of defining curls point to curl care."
     },
     {
       "id": "R-HYD-01",
@@ -592,7 +604,8 @@
         "q": "hair_damage",
         "op": "eq",
         "value": "dry_frizzy"
-      }
+      },
+      "reason_en": "Dry, frizzy hair is asking for moisture."
     },
     {
       "id": "R-HYD-02",
@@ -602,7 +615,8 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "hydrate"
-      }
+      },
+      "reason_en": "Adding hydration is your main goal."
     },
     {
       "id": "R-HYD-03",
@@ -625,7 +639,8 @@
             ]
           }
         ]
-      }
+      },
+      "reason_en": "Frequent washing plus chemical services can dry hair out, so extra moisture helps."
     },
     {
       "id": "R-VOL-01",
@@ -635,7 +650,8 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "volume"
-      }
+      },
+      "reason_en": "Adding volume is your main goal."
     },
     {
       "id": "R-VOL-02",
@@ -654,7 +670,8 @@
             "value": "oily"
           }
         ]
-      }
+      },
+      "reason_en": "Fine hair with an oily scalp needs light, lifting formulas."
     },
     {
       "id": "R-STY-01",
@@ -664,13 +681,15 @@
         "q": "primary_goal",
         "op": "eq",
         "value": "smooth_style"
-      }
+      },
+      "reason_en": "Smoothing and styling is your main goal."
     }
   ],
   "fallback": {
     "rule_id": "R-DEFAULT",
     "label": "Hydration",
-    "description": "Không khớp luật đặc trị nào thì trả về routine Cấp ẩm hằng ngày (BR-QUZ-06)"
+    "description": "Không khớp luật đặc trị nào thì trả về routine Cấp ẩm hằng ngày (BR-QUZ-06)",
+    "reason_en": "Nothing in your answers called for a specialist routine, so we chose gentle daily hydration."
   },
   "routine": {
     "steps": [

@@ -26,7 +26,7 @@ export interface CategoryHealth extends ForecastCategory {
 const DAY = 86400_000;
 
 /**
- * A03 — category-level demand forecast (from the ML pipeline output in the seed) allocated to SKUs by
+ * A03: category-level demand forecast (from the ML pipeline output in the seed) allocated to SKUs by
  * their 8-week sales share, plus the closed-loop reorder formula:
  *   Reorder = max(0, 14-day forecast + Safety stock − (Available + Incoming))
  */

@@ -20,7 +20,7 @@ interface ReviewDraft {
   media: ReviewMedia[];
 }
 
-/** C15 — Order detail, cancellation, 7-day return and verified reviews. */
+/** C15: Order detail, cancellation, 7-day return and verified reviews. */
 @Component({
   selector: 'app-order-detail',
   standalone: true,
@@ -35,7 +35,7 @@ export class OrderDetailComponent {
   readonly settings = inject(SettingsService).settings;
 
   readonly orderId = input.required<string>();
-  readonly order = computed(() => this.orders.getMine(this.orderId()));
+  readonly order = computed(() => this.orders.getPlacedMine(this.orderId()));
 
   readonly cancelReasons = CANCEL_REASONS;
   readonly returnReasons = RETURN_REASONS;
@@ -49,7 +49,6 @@ export class OrderDetailComponent {
   readonly sealIntact = signal(false);
   readonly modalError = signal('');
   readonly drafts = signal<Record<string, ReviewDraft>>({});
-  readonly editing = signal<Record<string, boolean>>({});
 
   readonly canCancel = computed(() => (this.order() ? this.orders.canCancel(this.order()!) : false));
   readonly canReturn = computed(() => (this.order() ? this.orders.canRequestReturn(this.order()!) : false));
@@ -67,7 +66,7 @@ export class OrderDetailComponent {
     const order = this.order();
     if (!order) return [];
     const reached = new Set(order.timeline.map((t) => t.status));
-    const flow = order.paymentMethod === 'COD' ? FLOW.slice(1) : FLOW;
+    const flow = FLOW.slice(1);
     const extra = [OrderStatus.Cancelled, OrderStatus.ReturnPending, OrderStatus.Returned].filter((s) => reached.has(s));
     return [...flow, ...extra].map((status) => ({ status, done: reached.has(status), current: order.status === status }));
   });
@@ -114,23 +113,15 @@ export class OrderDetailComponent {
     this.setDraft(item, { media: this.draftFor(item).media.filter((_, i) => i !== index) });
   }
 
-  isEditing(item: OrderItem): boolean {
-    return !this.myReview(item) || this.editing()[item.productId] === true;
-  }
-
-  startEditing(item: OrderItem): void {
-    this.editing.update((all) => ({ ...all, [item.productId]: true }));
-  }
-
   submitReview(item: OrderItem): void {
     const order = this.order();
     if (!order) return;
     const draft = this.draftFor(item);
+    // A review is final: once it exists the page shows it read-only.
+    if (this.myReview(item)) return;
     try {
-      const updating = !!this.myReview(item);
       this.reviews.submit(order, item.productId, draft.rating, draft.comment, draft.media);
-      this.editing.update((all) => ({ ...all, [item.productId]: false }));
-      this.toast.show(updating ? 'Your review has been updated.' : 'Thank you for your review!');
+      this.toast.show('Thank you for your review!');
     } catch (error) {
       this.toast.error(errorMessage(error));
     }
@@ -146,7 +137,7 @@ export class OrderDetailComponent {
     try {
       this.orders.cancel(this.orderId(), this.cancelReason());
       this.cancelOpen.set(false);
-      this.toast.show(this.order()?.paymentStatus === 'Refunded' ? 'Order cancelled — a full refund has been issued.' : 'Your order has been cancelled.', 'info');
+      this.toast.show(this.order()?.paymentStatus === 'Refunded' ? 'Order cancelled. A full refund has been issued.' : 'Your order has been cancelled.', 'info');
     } catch (error) {
       this.modalError.set(errorMessage(error));
     }
@@ -163,7 +154,7 @@ export class OrderDetailComponent {
     try {
       this.orders.requestReturn(this.orderId(), this.returnReason(), this.sealIntact());
       this.returnOpen.set(false);
-      this.toast.show('Return requested — we will review it shortly.');
+      this.toast.show('Return requested. We will review it shortly.');
     } catch (error) {
       this.modalError.set(errorMessage(error));
     }

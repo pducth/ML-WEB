@@ -21,9 +21,9 @@ export interface CartLineView {
 }
 
 export const CART_ISSUE_TEXT: Record<CartIssue, string> = {
-  inactive: 'No longer sold — remove it to check out',
-  out_of_stock: 'Out of stock — remove it to check out',
-  exceeds_stock: 'Not enough stock — lower the quantity to check out',
+  inactive: 'No longer sold. Remove it to check out',
+  out_of_stock: 'Out of stock. Remove it to check out',
+  exceeds_stock: 'Not enough stock. Lower the quantity to check out',
   missing: 'This item is no longer available',
 };
 
@@ -112,6 +112,32 @@ export class CartService {
     });
   }
 
+  /** Swaps a line to another size of the same product, keeping its quantity (merged if that size is already in the bag). */
+  changeVariant(fromVariantId: string, toVariantId: string): void {
+    if (fromVariantId === toVariantId) return;
+    const current = this.lines().find((line) => line.variantId === fromVariantId);
+    if (!current) return;
+    const product = this.store.db().products.find((p) => p.id === current.productId);
+    const target = product?.variants.find((v) => v.id === toVariantId);
+    if (!product || !target || product.status !== 'Active' || !target.forSale) throw new DomainError('This size is not available.');
+    const available = availableOf(target);
+    if (available === 0) throw new DomainError(`${product.name} (${target.sizeLabel}) is out of stock.`);
+    const merged = (this.lines().find((line) => line.variantId === toVariantId)?.quantity ?? 0) + current.quantity;
+    if (merged > available) {
+      throw new DomainError(`Only ${available} unit${available > 1 ? 's' : ''} of ${target.sizeLabel} available. Lower the quantity first.`);
+    }
+    this.write((lines) => {
+      const existing = lines.find((l) => l.variantId === toVariantId);
+      const line = lines.find((l) => l.variantId === fromVariantId)!;
+      if (existing) {
+        existing.quantity = merged;
+        lines.splice(lines.indexOf(line), 1);
+      } else {
+        line.variantId = toVariantId;
+      }
+    });
+  }
+
   remove(variantId: string): void {
     this.write((lines) => lines.splice(0, lines.length, ...lines.filter((l) => l.variantId !== variantId)));
   }
@@ -158,7 +184,7 @@ export class CartService {
         // Unavailable lines are kept as-is (flagged in the bag) rather than dropped.
         const quantity = available > 0 ? Math.min(wanted, available) : wanted;
         if (available > 0 && quantity < wanted && product && variant) {
-          notes.push(`${product.name} (${variant.sizeLabel}) was reduced to ${quantity} — only ${available} in stock.`);
+          notes.push(`${product.name} (${variant.sizeLabel}) was reduced to ${quantity}. Only ${available} in stock.`);
         }
         if (existing) existing.quantity = quantity;
         else cart.items.push({ ...line, quantity });

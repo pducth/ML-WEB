@@ -46,8 +46,8 @@ interface Ruleset {
   ruleset_version: string;
   steps: RulesetStep[];
   labels: { priority_order: string[]; goal_to_label?: Record<string, string>; definitions: Record<string, { display_en: string }> };
-  rules: Array<{ id: string; label: string; description: string; when: RuleCondition }>;
-  fallback: { rule_id: string; label: string; description: string };
+  rules: Array<{ id: string; label: string; description: string; reason_en?: string; when: RuleCondition }>;
+  fallback: { rule_id: string; label: string; description: string; reason_en?: string };
   routine: {
     steps: Array<{ id: RoutineStep; order: number; title_en: string }>;
     min_steps: number;
@@ -97,7 +97,7 @@ export interface HairRoutineResult {
   secondaryLabel: string | null;
   activeLabels: string[];
   fallbackUsed: boolean;
-  matchedRules: Array<{ id: string; label: string; description: string }>;
+  matchedRules: Array<{ id: string; label: string; description: string; reason: string }>;
   diagnosis: { title: string; advice: string; secondaryTitle: string | null; secondaryAdvice: string | null };
   steps: RoutineStepResult[];
   addon: Product | null;
@@ -128,7 +128,7 @@ const LABEL_SECONDARY: Record<string, string> = {
 };
 
 /**
- * Deterministic rule-based Hair Routine Engine (C04/C05) — a TypeScript port of
+ * Deterministic rule-based Hair Routine Engine (C04/C05), a TypeScript port of
  * docs/HairRoutineEngine/hair_routine_engine.py using the same JSON ruleset. Inventory is read
  * live from the store: a product is eligible only if Active and Available > 0 (BR-QUZ-05).
  */
@@ -228,8 +228,8 @@ export class HairRoutineEngineService {
       activeLabels: active,
       fallbackUsed,
       matchedRules: fired.length
-        ? fired.map(({ id, label, description }) => ({ id, label, description }))
-        : [{ id: ruleset.fallback.rule_id, label: ruleset.fallback.label, description: ruleset.fallback.description }],
+        ? fired.map(({ id, label, description, reason_en }) => ({ id, label, description, reason: reason_en ?? description }))
+        : [{ id: ruleset.fallback.rule_id, label: ruleset.fallback.label, description: ruleset.fallback.description, reason: ruleset.fallback.reason_en ?? ruleset.fallback.description }],
       diagnosis: {
         title: this.labelTitle(primary),
         advice: LABEL_ADVICE[primary] ?? '',
@@ -282,7 +282,7 @@ export class HairRoutineEngineService {
 
   private chosen(base: { id: RoutineStep; order: number; title: string }, product: Product, preferred: Product): RoutineStepResult {
     if (product.key === preferred.key) return { ...base, status: 'ok', product, substitutedFor: null, note: null };
-    return { ...base, status: 'substituted', product, substitutedFor: preferred, note: `${preferred.name} is temporarily out of stock — replaced with ${product.name}, which offers the same benefits.` };
+    return { ...base, status: 'substituted', product, substitutedFor: preferred, note: `${preferred.name} is temporarily out of stock, so it was replaced with ${product.name}, which offers the same benefits.` };
   }
 
   /** The optional formula preference only reorders products that already suit the shopper; it never drops one. */

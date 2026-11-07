@@ -10,7 +10,7 @@
   </div>
 
   <!-- Main bar: search left, wordmark centred, account & bag right; navigation on its own row below -->
-  <div class="fm-header-bar" [class.fm-header-bar--overlay]="overlay() && !compact()">
+  <div class="fm-header-bar" [class.fm-header-bar--overlay]="overlay() && !compact()" [class.fm-header-bar--light]="overVideo() && !compact()">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-0 flex flex-wrap items-center gap-x-6 gap-y-3 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-y-0">
       <!-- Search -->
       <form class="order-3 w-full lg:w-full lg:max-w-[360px] lg:order-none lg:col-start-1 lg:row-start-1 relative lg:my-5" role="search" (submit)="$event.preventDefault(); search(searchBox.value)">
@@ -40,9 +40,9 @@
                   <span class="block font-display text-base text-[#0F3D32]">Hi, {{ firstName() }}</span>
                   <span class="block text-[11px] text-[#85968E]">Welcome back to your ritual</span>
                 </p>
-                <a routerLink="/profile" class="block px-3 py-2 hover:bg-[#EEF3EF]">Profile &amp; addresses</a>
+                <a routerLink="/profile" class="block px-3 py-2 hover:bg-[#EEF3EF]">My profile</a>
                 <a routerLink="/orders" class="block px-3 py-2 hover:bg-[#EEF3EF]">My orders</a>
-                <a routerLink="/profile" class="block px-3 py-2 hover:bg-[#EEF3EF]">Hair Profile</a>
+                <a routerLink="/wishlist" class="flex items-center justify-between px-3 py-2 hover:bg-[#EEF3EF]">Wishlist @if (wishlist.count()) { <span class="text-[11px] font-semibold text-[#4F7F72]">{{ wishlist.count() }}</span> }</a>
                 <button type="button" (click)="signOut()" class="w-full text-left px-3 py-2 mt-1 text-[#C9503A] hover:bg-[#FFF1EC]">Sign out</button>
               </div>
             </div>
@@ -94,7 +94,7 @@
                 <span>
                   <span class="fm-eyebrow fm-eyebrow--light">Not sure where to start?</span>
                   <span class="block mt-2 font-display text-[19px] leading-snug">Find a ritual <i>made for your hair</i></span>
-                  <span class="block mt-2 text-[11px] text-white/70 leading-relaxed">Four questions, one personalised routine.</span>
+                  <span class="block mt-2 text-[11px] text-white/70 leading-relaxed">Four steps, one personalised routine.</span>
                 </span>
                 <span class="mt-4 -mx-5 px-5 h-12 flex items-center justify-between border-t border-white/15 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
                   Take the Quiz
@@ -111,17 +111,39 @@
             { key: 'home', label: 'Home', path: '/', params: null },
             { key: 'best', label: 'Best Sellers', path: '/shop', params: { sort: 'best-sellers' } },
             { key: 'new', label: 'New Arrivals', path: '/shop', params: { sort: 'newest' } },
-            { key: 'quiz', label: 'Hair Quiz', path: '/quiz', params: null },
-            { key: 'story', label: 'About', path: '/about', params: null }
+            { key: 'quiz', label: 'Hair Quiz', path: '/quiz', params: null }
           ]; track link.key) {
             <a [routerLink]="link.path" [queryParams]="link.params" class="fm-nav-link" [class.is-active]="active() === link.key">
               {{ link.label }}
               @if (link.key === 'quiz') { <span class="bg-[#0F3D32] text-white px-1.5 py-px text-[9px] font-bold tracking-wider">NEW</span> }
             </a>
           }
+
+          <!-- About: one menu for the story, the policies and the FAQs -->
+          <button type="button" #aboutTrigger (click)="toggleAbout(aboutTrigger)" [attr.aria-expanded]="aboutOpen()" aria-haspopup="menu"
+            class="fm-nav-link shrink-0 gap-1.5" [class.is-active]="active() === 'story'">
+            About
+            <svg class="w-3.5 h-3.5 transition-transform duration-300" [class.rotate-180]="aboutOpen()" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+          </button>
         </div>
       </nav>
 
     </div>
   </div>
 </header>
+
+@if (aboutOpen()) {
+  <div appPortal class="fixed inset-0 z-[55]" (click)="aboutOpen.set(false)">
+    <ul role="menu" aria-label="About" (click)="$event.stopPropagation()"
+      class="absolute min-w-[230px] bg-white border border-[#DCE5E0] shadow-[0_12px_32px_rgba(15,61,50,0.14)] py-1 animate-fadeIn"
+      [style.top.px]="aboutPos().top" [style.left.px]="aboutPos().left">
+      @for (item of aboutLinks; track item.label) {
+        <li role="none">
+          <a role="menuitem" [routerLink]="item.path" [queryParams]="item.params" (click)="aboutOpen.set(false)"
+            class="block px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#0F3D32] hover:bg-[#F7F8F4] transition-colors"
+            [class.bg-[#EEF3EF]]="aboutActive() === item.id">{{ item.label }}</a>
+        </li>
+      }
+    </ul>
+  </div>
+}

@@ -26,28 +26,26 @@
         <div class="animate-fadeIn flex-1 flex flex-col">
           <div class="relative flex items-center min-h-[460px] md:min-h-[600px] overflow-hidden bg-[#E9DFD2]">
             <img src="/assets/folmare/about/quiz-hero.jpg" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#F7F8F4]/95 via-[#F7F8F4]/55 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#F7F8F4]/[0.88] via-[#F7F8F4]/[0.33] to-transparent"></div>
             <div class="relative w-full max-w-7xl mx-auto px-6 sm:px-10 py-16">
               <div class="max-w-xl space-y-5">
-                <span class="fm-eyebrow">Personalised hair diagnosis</span>
                 <h1 id="quiz-title" class="fm-display text-4xl sm:text-6xl text-[#0F3D32] leading-[1.05]">Find your perfect hair routine</h1>
                 <p class="text-sm sm:text-lg text-[#0F3D32]/85 text-balance">Answer a few questions about your hair and goals. We'll build a 4-step routine from cleanse to style.</p>
                 <div class="pt-2">
                   <button type="button" (click)="begin()" class="btn-primary">Start the quiz</button>
-                  <p class="text-[11px] text-[#5E6F68] mt-4">About 1 minute · {{ flow.length }} questions, the last one optional · Cosmetic advice, not a medical diagnosis.</p>
+                  <p class="text-[11px] text-[#5E6F68] mt-4">About 1 minute · {{ flow.length }} questions · Cosmetic advice, not a medical diagnosis.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="relative overflow-hidden bg-gradient-to-br from-[#082A22] via-[#0F3D32] to-[#3F7F6B]">
-            <div class="absolute -top-24 -right-24 w-[26rem] h-[26rem] rounded-full bg-[#9CC3B4]/25 blur-3xl" aria-hidden="true"></div>
-            <ol class="relative max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/20">
+          <div class="relative overflow-hidden bg-[#EEF3EF] border-y border-[#DCE5E0]">
+            <ol class="relative max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#DCE5E0]">
               @for (step of steps; track step.id; let i = $index) {
-                <li class="px-6 sm:px-8 py-10 text-center border-b lg:border-b-0 border-white/20">
-                  <span class="fm-display text-3xl text-[#B7D3C7]">{{ i < 9 ? '0' : '' }}{{ i + 1 }}</span>
-                  <span class="block fm-display text-xl text-white mt-2">{{ step.title }}</span>
-                  <span class="block text-xs text-white/70 mt-1.5 leading-relaxed">{{ step.subtitle }}</span>
+                <li class="px-6 sm:px-8 py-10 text-center border-b lg:border-b-0 border-[#DCE5E0]">
+                  <span class="fm-display text-3xl text-[#4F7F72]">{{ i < 9 ? '0' : '' }}{{ i + 1 }}</span>
+                  <span class="block fm-display text-xl text-[#0F3D32] mt-2">{{ step.title }}</span>
+                  <span class="block text-xs text-[#33463F] mt-1.5 leading-relaxed">{{ step.subtitle }}</span>
                 </li>
               }
             </ol>
@@ -55,7 +53,7 @@
 
           <div class="text-center px-6 py-14 flex flex-col items-center gap-4">
             <h2 class="text-2xl sm:text-3xl fm-display text-[#0F3D32]">Questions? We are happy to help.</h2>
-            <a [href]="'mailto:' + settings().supportEmail" class="inline-flex items-center justify-center px-7 py-3.5 border border-[#0F3D32] text-[#0F3D32] text-[0.8125rem] font-semibold uppercase tracking-[0.12em] hover:bg-[#0F3D32] hover:text-white transition-colors">{{ settings().supportEmail }}</a>
+            <a [href]="'https://mail.google.com/mail/?view=cm&fs=1&to=' + settings().supportEmail" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-7 py-3.5 border border-[#0F3D32] text-[#0F3D32] text-[0.8125rem] font-semibold uppercase tracking-[0.12em] hover:bg-[#0F3D32] hover:text-white transition-colors">{{ settings().supportEmail }}</a>
           </div>
         </div>
       }
@@ -142,7 +140,7 @@
                     }
                   </ol>
                   @if (r.diagnosis.secondaryTitle) {
-                    <p class="text-xs text-white/70 mt-8 leading-relaxed max-w-xs">Also: <strong class="text-white/90 font-semibold">{{ r.diagnosis.secondaryTitle }}</strong> — {{ r.diagnosis.secondaryAdvice }}</p>
+                    <p class="text-xs text-white/70 mt-8 leading-relaxed max-w-xs">Also: <strong class="text-white/90 font-semibold">{{ r.diagnosis.secondaryTitle }}</strong>: {{ r.diagnosis.secondaryAdvice }}</p>
                   }
                 </div>
               </div>
@@ -222,6 +220,7 @@
               <button type="button" (click)="retake()" class="btn-secondary text-sm px-5 py-3">Retake quiz</button>
               <a routerLink="/shop" class="btn-secondary text-sm px-5 py-3">Continue shopping</a>
             </div>
+            <p class="text-[11px] text-[#85968E] text-center mt-8 italic">{{ r.disclaimer }}</p>
                       </div>
           </div>
         }

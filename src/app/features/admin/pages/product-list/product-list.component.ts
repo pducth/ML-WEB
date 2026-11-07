@@ -10,7 +10,7 @@ import { AdminModalComponent } from '../../ui/admin-modal.component';
 const PAGE = 15;
 const STEP_LABEL: Record<string, string> = { cleanse: 'Cleanse', condition: 'Condition', treat: 'Treat', style_protect: 'Style' };
 
-/** A04 — Product list. */
+/** A04: Product list. */
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -42,7 +42,7 @@ const STEP_LABEL: Record<string, string> = { cleanse: 'Cleanse', condition: 'Con
               <td><button type="button" class="sw" [class.off]="p.status !== 'Active'" role="switch" [attr.aria-checked]="p.status === 'Active'" [attr.aria-label]="'Active: ' + p.name" (click)="toggle(p)"></button></td>
               <td>
                 <a class="btn sm gh" [routerLink]="['/admin/products', p.id, 'edit']">Edit</a>
-                <button type="button" class="btn sm gh" style="margin-left:6px" [disabled]="hasOrders(p)" [title]="hasOrders(p) ? 'Has order history — set Inactive instead' : 'Delete product'" (click)="toDelete.set(p)">Delete</button>
+                <button type="button" class="btn sm gh" style="margin-left:6px" [disabled]="hasOrders(p)" [title]="hasOrders(p) ? 'Has order history. Set Inactive instead' : 'Delete product'" (click)="toDelete.set(p)">Delete</button>
               </td>
             </tr>
           } @empty {
@@ -97,7 +97,7 @@ export class ProductListComponent {
   toggle(p: Product): void {
     const next = p.status === 'Active' ? 'Inactive' : 'Active';
     this.products.setStatus(p.id, next);
-    this.toast.show(`${p.name} is now ${next}${next === 'Inactive' ? ' — hidden from the store and the Hair Quiz' : ''}.`, 'info');
+    this.toast.show(`${p.name} is now ${next}${next === 'Inactive' ? ', hidden from the store and the Hair Quiz' : ''}.`, 'info');
   }
 
   confirmDelete(): void {

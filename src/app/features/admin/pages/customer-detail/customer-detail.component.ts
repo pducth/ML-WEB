@@ -12,7 +12,7 @@ import { ORDER_BADGE } from '../../ui/badges';
 
 const STEP_LABEL: Record<string, string> = { cleanse: 'Cleanse', condition: 'Condition', treat: 'Treat', style_protect: 'Style' };
 
-/** A13 — Customer profile: orders, address book, Hair Profile and lock/unlock. */
+/** A13: Customer profile: orders, address book, Hair Profile and lock/unlock. */
 @Component({
   selector: 'app-customer-detail',
   standalone: true,
@@ -38,11 +38,11 @@ const STEP_LABEL: Record<string, string> = { cleanse: 'Cleanse', condition: 'Con
         <div class="card">
           <h3>Saved hair profile</h3>
           @if (d.hairProfile; as hp) {
-            <p><span class="b">{{ title(hp.primaryLabel) }}</span> @if (hp.secondaryLabel) { <span class="b w">{{ title(hp.secondaryLabel) }}</span> } <small class="muted">saved {{ hp.savedAt | date: 'dd/MM/yyyy' }} · rules v{{ hp.rulesetVersion }}</small></p>
+            <p><span class="b">{{ title(hp.primaryLabel) }}</span> @if (hp.secondaryLabel) { <span class="b w">{{ title(hp.secondaryLabel) }}</span> } <small class="muted">saved {{ hp.savedAt | date: 'dd/MM/yyyy' }}</small></p>
             <div class="steps">
               @for (item of hp.routine; track item.step) { <span [class]="item.productId ? 'd' : ''" [title]="item.productName ?? 'Skipped'">{{ stepLabel[item.step] }}</span> }
             </div>
-            @for (item of hp.routine; track item.step) { <div class="row"><span class="muted">{{ stepLabel[item.step] }}</span><span>{{ item.productName ?? '—' }}</span></div> }
+            @for (item of hp.routine; track item.step) { <div class="row"><span class="muted">{{ stepLabel[item.step] }}</span><span>{{ item.productName ?? 'Skipped' }}</span></div> }
           } @else {
             <p class="muted">No Hair Profile saved.</p>
           }

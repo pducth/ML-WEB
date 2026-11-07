@@ -17,8 +17,10 @@ export type StockFilter = 'all' | 'in' | 'out';
 
 export interface ShopQuery {
   q: string;
-  category: ProductCategory | 'all';
-  brand: string | 'all';
+  /** Selected categories; empty means every category. */
+  category: ProductCategory[];
+  /** Selected brands, lower-case; empty means every brand. */
+  brand: string[];
   minPrice: number | null;
   maxPrice: number | null;
   stock: StockFilter;
@@ -115,8 +117,8 @@ export class ProductService {
 
   query(query: ShopQuery): Product[] {
     let list = query.q.trim() ? this.search(query.q) : this.activeProducts();
-    if (query.category !== 'all') list = list.filter((p) => p.category === query.category);
-    if (query.brand !== 'all') list = list.filter((p) => p.brand.toLowerCase() === query.brand.toLowerCase());
+    if (query.category.length) list = list.filter((p) => query.category.includes(p.category));
+    if (query.brand.length) list = list.filter((p) => query.brand.includes(p.brand.toLowerCase()));
     if (query.minPrice !== null) list = list.filter((p) => startingPrice(p) >= query.minPrice!);
     if (query.maxPrice !== null) list = list.filter((p) => startingPrice(p) <= query.maxPrice!);
     if (query.stock === 'in') list = list.filter((p) => productAvailable(p) > 0);
@@ -178,7 +180,8 @@ export class ProductService {
       case 'name-desc':
         return copy.sort((a, b) => b.name.localeCompare(a.name));
       case 'newest':
-        return copy.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+        // Same clock as the "New" badge (launch date), so tagged products always lead; edits don't bump a product up.
+        return copy.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt) || Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
       default:
         return copy.sort((a, b) => b.soldTotal - a.soldTotal || b.sourceReviewCount - a.sourceReviewCount);
     }
@@ -231,7 +234,7 @@ export class ProductService {
     });
   }
 
-  /** Stock quantities are not edited here — they are managed in A07 Inventory. */
+  /** Stock quantities are not edited here, they are managed in A07 Inventory. */
   update(id: string, input: ProductInput): void {
     this.validate(input, false);
     this.store.mutate((db) => {

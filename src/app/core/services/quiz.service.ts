@@ -51,7 +51,7 @@ export class QuizService {
     this.persist({ ...this.session(), answers: { ...this.session().answers, [questionId]: value } });
   }
 
-  /** Runs the engine and records an anonymous Quiz_Event (time, labels, ruleset version only — BR-QUZ-10). */
+  /** Runs the engine and records an anonymous Quiz_Event (time, labels, ruleset version only, BR-QUZ-10). */
   complete(): HairRoutineResult {
     const answers = Object.fromEntries(Object.entries(this.session().answers).filter(([, v]) => v !== null && v !== '' && !(Array.isArray(v) && !v.length)));
     const result = this.engine.infer(answers);
@@ -99,6 +99,15 @@ export class QuizService {
   clearPendingSave(): void {
     this.pendingSave.set(false);
     writeJson('session', PENDING_SAVE_KEY, null);
+  }
+
+  /** Removes the signed-in shopper's saved Hair Profile. */
+  deleteProfile(): void {
+    const user = this.auth.currentUser();
+    if (!user) throw new DomainError('Please sign in first.');
+    this.store.mutate((db) => {
+      db.hairProfiles = db.hairProfiles.filter((p) => p.userId !== user.id);
+    });
   }
 
   saveToProfile(): HairProfile {

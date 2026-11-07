@@ -5,7 +5,7 @@ import { normalizePhone } from '../../../../core/services/auth.service';
 import { CustomerAdminService } from '../../../../core/services/customer-admin.service';
 import { UsdPipe } from '../../../../shared/ui/usd.pipe';
 
-/** A13 — Customer management list. */
+/** A13: Customer management list. */
 @Component({
   selector: 'app-customer-list',
   standalone: true,

@@ -37,7 +37,7 @@
         </table>
       </div>
       <div class="row"><span>Subtotal</span><b>{{ o.subtotal | usd }}</b></div>
-      <div class="row"><span>Voucher</span><b>{{ o.voucherCode ? o.voucherCode + ' −' : '—' }}@if (o.voucherCode) { {{ o.discount | usd }} }</b></div>
+      <div class="row"><span>Voucher</span><b>{{ o.voucherCode ? o.voucherCode + ' -' : 'None' }}@if (o.voucherCode) { {{ o.discount | usd }} }</b></div>
       <div class="row"><span>Shipping fee</span><b>{{ o.shippingFee | usd }}</b></div>
       <div class="row"><span><b>Total</b></span><b style="font-size:18px;color:var(--teal-d)">{{ o.total | usd }}</b></div>
       @if (o.refundAmount) { <div class="row"><span>Refunded</span><b style="color:var(--err)">{{ o.refundAmount | usd }}</b></div> }
@@ -66,7 +66,7 @@
     @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
   </app-admin-modal>
   <app-admin-modal [open]="dialog() === 'complete'" title="Mark as Completed" confirmLabel="Mark as Completed" (closed)="dialog.set(null)" (confirmed)="confirm()">
-    <p style="margin:0">Confirm delivery of #{{ o.code }}?@if (o.paymentMethod === 'COD') { Cash collected — the payment becomes Paid. } The 7-day return window starts now.</p>
+    <p style="margin:0">Confirm delivery of #{{ o.code }}?@if (o.paymentMethod === 'COD') { Cash collected. The payment becomes Paid. } The 7-day return window starts now.</p>
     @if (modalError()) { <span class="err-text">{{ modalError() }}</span> }
   </app-admin-modal>
   <app-admin-modal [open]="dialog() === 'cancel'" title="Cancel order" confirmLabel="Cancel order" tone="danger" [confirmDisabled]="!reason()" (closed)="dialog.set(null)" (confirmed)="confirm()">

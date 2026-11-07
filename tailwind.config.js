@@ -31,7 +31,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Montserrat', 'Inter', '"Segoe UI"', 'system-ui', 'sans-serif'],
-        display: ['Lora', 'Georgia', 'serif']
+        display: ['Absans', 'Lora', 'Georgia', 'serif']
       }
     }
   },

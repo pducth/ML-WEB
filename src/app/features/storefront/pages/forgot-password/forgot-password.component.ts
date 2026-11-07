@@ -4,12 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { errorMessage } from '../../../../core/data/mock-db.service';
 import { AuthService, PASSWORD_RULE } from '../../../../core/services/auth.service';
 import { ClockService } from '../../../../core/services/clock.service';
+import { PasswordToggleDirective } from '../../../../shared/ui/password-toggle.directive';
 
-/** C12 — Forgot & reset password with a 6-digit OTP (10-minute validity, 5 attempts, 60 s resend). */
+/** C12: Forgot & reset password with a 6-digit OTP (10-minute validity, 5 attempts, 60 s resend). */
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [PasswordToggleDirective, FormsModule, RouterLink],
   templateUrl: './forgot-password.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

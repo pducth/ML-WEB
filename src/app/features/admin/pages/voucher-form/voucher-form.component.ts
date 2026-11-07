@@ -9,7 +9,7 @@ function toDateInput(iso: string): string {
   return iso ? iso.slice(0, 10) : '';
 }
 
-/** A11 — Create / edit voucher. */
+/** A11: Create / edit voucher. */
 @Component({
   selector: 'app-voucher-form',
   standalone: true,

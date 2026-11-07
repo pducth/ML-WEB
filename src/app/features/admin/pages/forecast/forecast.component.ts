@@ -9,7 +9,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { AdminModalComponent } from '../../ui/admin-modal.component';
 import { LineChartComponent } from '../../ui/charts.component';
 
-/** A03 — Sales forecast & ML replenishment (closed loop step 1: Order Stock → Incoming). */
+/** A03: Sales forecast & ML replenishment (closed loop step 1: Order Stock → Incoming). */
 @Component({
   selector: 'app-forecast',
   standalone: true,

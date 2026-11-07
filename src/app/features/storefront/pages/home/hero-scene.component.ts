@@ -41,7 +41,7 @@ const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(pr
         @for (item of products(); track item.product.id) {
           @let info = cardInfo(item.brand);
           <a class="fm-scene__card fm-scene__card--{{ info.tone }}" [routerLink]="['/products', item.product.id]" (click)="onCard($event)" draggable="false"
-            [attr.aria-label]="item.brand + ' — ' + item.product.name">
+            [attr.aria-label]="item.brand + ', ' + item.product.name">
             <span class="fm-scene__card-brand">{{ item.brand }}</span>
             <span class="fm-scene__card-media"><img [src]="'/assets/hero-hd/' + item.product.key + '.webp'" alt="" draggable="false" /></span>
             <span class="fm-scene__card-name">{{ item.product.name }}</span>
@@ -53,7 +53,6 @@ const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(pr
 
     <div class="fm-scene__content">
       <div class="fm-scene__copy">
-        <p class="fm-eyebrow fm-animate-in">FOLMARÉ · The curated edit</p>
         <h1 class="fm-animate-in fm-delay-1">Botanical Haircare <i>for Modern Rituals</i></h1>
         <p class="fm-scene__lead fm-animate-in fm-delay-2">Discover haircare from nature, curated just for you.</p>
       </div>
@@ -116,7 +115,7 @@ export class HeroSceneComponent {
       const front = (c + 1) / 2;
       const bob = reducedMotion() ? 0 : Math.sin(time / 900 + i * 1.7) * 0.7;
       const tilt = Math.sin(a);
-      el.style.transform = `translate(calc(-50% + ${(15.5 * tilt).toFixed(2)}cqw), ${(-(1 - c) * 3.4 + bob).toFixed(2)}cqw) perspective(70cqw) rotateY(${(-tilt * 38).toFixed(1)}deg) rotateX(${((1 - c) * 6).toFixed(1)}deg) rotate(${(tilt * 5 + Math.sin(time / 1700 + i) * 1.2).toFixed(2)}deg) scale(${(0.7 + 0.3 * c).toFixed(3)})`;
+      el.style.transform = `translate(calc(-50% + ${(17 * tilt).toFixed(2)}cqw), ${(-(1 - c) * 3.4 + bob).toFixed(2)}cqw) perspective(70cqw) rotateY(${(-tilt * 14).toFixed(1)}deg) rotateX(${((1 - c) * 3).toFixed(1)}deg) rotate(${(tilt * 1.5 + Math.sin(time / 1700 + i) * 1.2).toFixed(2)}deg) scale(${(0.7 + 0.3 * c).toFixed(3)})`;
       el.style.zIndex = String(10 + Math.round(c * 10));
       el.style.opacity = (0.62 + 0.38 * front).toFixed(2);
       el.style.filter = `brightness(${(0.86 + 0.14 * front).toFixed(2)}) saturate(${(0.8 + 0.2 * front).toFixed(2)}) blur(${((1 - front) * 0.9).toFixed(1)}px)`;
@@ -133,7 +132,8 @@ export class HeroSceneComponent {
   constructor() {
     afterNextRender(() => {
       const el = this.host.nativeElement;
-      this.cards = [...el.querySelectorAll<HTMLElement>('.fm-scene__card')];
+      const query = () => [...el.querySelectorAll<HTMLElement>('.fm-scene__card')];
+      this.cards = query();
       const layers = [...el.querySelectorAll<HTMLElement>('[data-depth]')];
       const reduced = reducedMotion();
       const loop = (time: number) => {
@@ -141,6 +141,8 @@ export class HeroSceneComponent {
           this.theta += (this.paused() || reduced ? 0 : 0.19) + this.vel;
           this.vel = Math.abs(this.vel) < 0.01 ? 0 : this.vel * 0.94;
         }
+        // The products can arrive after the first render: pick the cards up as soon as they exist.
+        if (this.cards.length !== this.products().length) this.cards = query();
         this.layoutCards(time);
         if (!reduced) this.tick(layers);
         this.frame = requestAnimationFrame(loop);

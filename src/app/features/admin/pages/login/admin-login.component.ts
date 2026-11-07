@@ -5,12 +5,13 @@ import { environment } from '../../../../core/environment/environment';
 import { errorMessage } from '../../../../core/data/mock-db.service';
 import { safeReturnUrl } from '../../../../core/services/account-flow.service';
 import { AdminAuthService } from '../../../../core/services/admin-auth.service';
+import { PasswordToggleDirective } from '../../../../shared/ui/password-toggle.directive';
 
-/** A01 — Admin sign-in at /admin/login. */
+/** A01: Admin sign-in at /admin/login. */
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, PasswordToggleDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="adm">
@@ -30,7 +31,7 @@ import { AdminAuthService } from '../../../../core/services/admin-auth.service';
                   <p>Enter your account details to continue.</p>
                 </div>
                 <label for="le">Email<input id="le" name="email" type="email" autocomplete="username" placeholder="admin@haircare.vn" [ngModel]="email()" (ngModelChange)="email.set($event); error.set('')" required /></label>
-                <label for="lp">Password<input id="lp" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" [ngModel]="password()" (ngModelChange)="password.set($event); error.set('')" [attr.aria-invalid]="error() ? true : null" required /></label>
+                <label for="lp">Password<input id="lp" name="password" type="password" appPasswordToggle autocomplete="current-password" placeholder="Enter your password" [ngModel]="password()" (ngModelChange)="password.set($event); error.set('')" [attr.aria-invalid]="error() ? true : null" required /></label>
                 @if (error()) { <div class="alert" role="alert">{{ error() }}</div> }
                 <button class="btn" type="submit">Sign in</button>
                 @if (devTools) { <small class="login-demo">Demo account: admin&#64;haircare.vn<br />Password: admin123</small> }

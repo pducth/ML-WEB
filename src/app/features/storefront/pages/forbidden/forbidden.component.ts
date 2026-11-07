@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-/** 403 — shown when a signed-in customer opens an /admin/* page (RBAC matrix). */
+/** 403, shown when a signed-in customer opens an /admin/* page (RBAC matrix). */
 @Component({
   selector: 'app-forbidden',
   standalone: true,

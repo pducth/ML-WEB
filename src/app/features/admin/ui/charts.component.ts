@@ -10,7 +10,7 @@ const W = 400;
 const BASE = 140;
 const HEIGHT = 125;
 
-/** Bar chart — App bars() from Admin.html (last bar highlighted in brown). */
+/** Bar chart, App bars() from Admin.html (last bar highlighted in brown). */
 @Component({
   selector: 'app-bar-chart',
   standalone: true,
@@ -36,7 +36,7 @@ export class BarChartComponent {
 }
 
 /**
- * Line chart — App lines() from Admin.html: solid teal for actuals, dashed brown for the
+ * Line chart, App lines() from Admin.html: solid teal for actuals, dashed brown for the
  * forecast, with a divider where the forecast starts. Values are auto-scaled to the plot height.
  */
 @Component({

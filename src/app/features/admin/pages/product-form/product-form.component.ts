@@ -34,7 +34,7 @@ const STEPS: Array<{ id: RoutineStep; label: string }> = [
 ];
 const MAX_IMAGE_SIDE = 800;
 
-/** A05 (create) & A06 (edit) — product form. Stock levels of existing sizes are managed in A07. */
+/** A05 (create) & A06 (edit): product form. Stock levels of existing sizes are managed in A07. */
 @Component({
   selector: 'app-product-form',
   standalone: true,

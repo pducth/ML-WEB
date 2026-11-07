@@ -7,7 +7,7 @@ import { VoucherService, voucherState } from '../../../../core/services/voucher.
 import { UsdPipe } from '../../../../shared/ui/usd.pipe';
 import { VOUCHER_BADGE } from '../../ui/badges';
 
-/** A10 — Voucher list. */
+/** A10: Voucher list. */
 @Component({
   selector: 'app-voucher-list',
   standalone: true,

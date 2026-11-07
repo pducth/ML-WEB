@@ -19,7 +19,7 @@
   <div class="alert">
     <b>Model Drift:</b>
     @for (c of forecast.driftCategories(); track c.category) { {{ c.category }}@if (!$last) {, } }
-    WAPE has exceeded {{ settings().wapeThreshold }}% for two consecutive weeks. Model retraining is recommended — treat these forecasts as Low Confidence.
+    WAPE has exceeded {{ settings().wapeThreshold }}% for two consecutive weeks. Model retraining is recommended. Treat these forecasts as Low Confidence.
     <button class="btn or sm" type="button" style="margin-left:auto" (click)="retrainOpen.set(true)">Retrain Model</button>
   </div>
 }
@@ -71,7 +71,7 @@
           <td>{{ row.variant.sku }}</td>
           <td class="wrap">{{ row.product.name }}</td>
           <td>{{ row.variant.sizeLabel }}</td>
-          <td>@if (row.coldStart) { <span class="b x" title="Less than 60 days of sales — category-level forecast shown">Cold start · cat. {{ row.categoryForecast }}</span> } @else { {{ row.forecast14d }} <small class="muted">({{ row.share | percent: '1.0-0' }})</small> }</td>
+          <td>@if (row.coldStart) { <span class="b x" title="Less than 60 days of sales. Category-level forecast shown">Cold start · cat. {{ row.categoryForecast }}</span> } @else { {{ row.forecast14d }} <small class="muted">({{ row.share | percent: '1.0-0' }})</small> }</td>
           <td>{{ row.safetyStock }}</td>
           <td>{{ row.available }}</td>
           <td>{{ row.incoming }}</td>

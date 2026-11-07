@@ -2,7 +2,7 @@ import { OrderStatus } from '../../../core/models';
 import type { StockStatus } from '../../../core/services/inventory.service';
 import type { VoucherState } from '../../../core/services/voucher.service';
 
-/** Badge colour classes (.b + w/g/r/x) — the `ST` map from ui-reference/admin/Admin.html. */
+/** Badge colour classes (.b + w/g/r/x), the `ST` map from ui-reference/admin/Admin.html. */
 export const ORDER_BADGE: Record<OrderStatus, string> = {
   [OrderStatus.PaymentPending]: 'b w',
   [OrderStatus.Processing]: 'b',

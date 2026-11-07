@@ -41,6 +41,14 @@ function pushTimeline(order: Order, status: OrderStatus, note = ''): void {
   order.timeline.push({ status, at, note });
 }
 
+/** Cancel reasons of a bank transfer the shopper never completed. Those orders were never really placed, so the customer never sees them. */
+const ABANDONED_PAYMENT_REASONS = ['Payment not completed', 'Payment window expired'];
+
+/** A bank transfer still waiting for payment, or one that was abandoned or expired: kept for the admin audit trail, hidden from the customer. */
+export function isUnplacedOrder(order: Order): boolean {
+  return order.status === OrderStatus.PaymentPending || (order.status === OrderStatus.Cancelled && ABANDONED_PAYMENT_REASONS.includes(order.cancelReason ?? ''));
+}
+
 function stockLines(order: Order) {
   return order.items.map((item) => ({ variantId: item.variantId, quantity: item.quantity }));
 }
@@ -73,7 +81,7 @@ export class OrderService {
   readonly orders = computed(() => [...this.store.db().orders].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)));
   readonly myOrders = computed(() => {
     const user = this.auth.currentUser();
-    return user ? this.orders().filter((order) => order.userId === user.id) : [];
+    return user ? this.orders().filter((order) => order.userId === user.id && !isUnplacedOrder(order)) : [];
   });
 
   getById(id: string): Order | undefined {
@@ -84,6 +92,12 @@ export class OrderService {
   getMine(id: string): Order | undefined {
     const order = this.getById(id);
     return order && order.userId === this.auth.currentUser()?.id ? order : undefined;
+  }
+
+  /** An order the customer may open from their account: placed orders only, never a pending or abandoned transfer. */
+  getPlacedMine(id: string): Order | undefined {
+    const order = this.getMine(id);
+    return order && !isUnplacedOrder(order) ? order : undefined;
   }
 
   /**
@@ -186,7 +200,8 @@ export class OrderService {
         voucher.usedCount += 1;
         db.voucherUsages.push({ id: newId('vu'), voucherId: voucher.id, userId: user.id, orderId: created.id, at: created.createdAt });
       }
-      cart.items = [];
+      // A bank transfer keeps the bag until the money arrives, so leaving the payment page loses nothing.
+      if (!isBank) cart.items = [];
       return created;
     });
 
@@ -208,6 +223,15 @@ export class OrderService {
       if (order.paymentDeadline && Date.parse(order.paymentDeadline) < Date.now()) throw new DomainError('The payment window has expired.');
       order.paymentStatus = 'Paid';
       pushTimeline(order, OrderStatus.Processing, `Payment ${paymentRef} received`);
+      // The order is placed now: take its items out of the owner's bag.
+      const bag = db.carts.find((c) => c.userId === order.userId);
+      if (bag) {
+        for (const item of order.items) {
+          const line = bag.items.find((l) => l.variantId === item.variantId);
+          if (line) line.quantity -= item.quantity;
+        }
+        bag.items = bag.items.filter((l) => l.quantity > 0);
+      }
       return order;
     });
   }
@@ -224,6 +248,16 @@ export class OrderService {
       }
     });
     return overdue.length;
+  }
+
+  /** The shopper left the payment page: the transfer is dropped, stock and the discount code are released, the bag stays as it was. */
+  abandonPayment(orderId: string): void {
+    const order = this.getById(orderId);
+    if (!order || order.status !== OrderStatus.PaymentPending) return;
+    this.store.mutate((db) => {
+      const target = db.orders.find((o) => o.id === orderId);
+      if (target && target.status === OrderStatus.PaymentPending) cancelOnDraft(db, target, 'Payment not completed');
+    });
   }
 
   canCancel(order: Order): boolean {

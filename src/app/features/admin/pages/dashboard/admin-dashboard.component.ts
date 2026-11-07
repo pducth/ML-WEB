@@ -8,7 +8,7 @@ import { MockDbService } from '../../../../core/data/mock-db.service';
 import { UsdPipe } from '../../../../shared/ui/usd.pipe';
 import { DonutChartComponent, LineChartComponent } from '../../ui/charts.component';
 
-/** A02 — Executive dashboard & KPIs. */
+/** A02: Executive dashboard & KPIs. */
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,

@@ -9,7 +9,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 
 const PAGE = 15;
 
-/** A14 — Review moderation (hidden reviews leave the PDP average and count). */
+/** A14: Review moderation (hidden reviews leave the PDP average and count). */
 @Component({
   selector: 'app-reviews',
   standalone: true,

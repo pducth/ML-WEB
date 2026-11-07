@@ -11,7 +11,7 @@ import { STOCK_BADGE } from '../../ui/badges';
 const ADJUST_REASONS = ['Stocktake', 'Damaged goods', 'Failed delivery – restock', 'Other'];
 const PAGE = 20;
 
-/** A07 — Variant inventory (closed loop step 2: Receive Stock moves Incoming into On Hand). */
+/** A07: Variant inventory (closed loop step 2: Receive Stock moves Incoming into On Hand). */
 @Component({
   selector: 'app-inventory',
   standalone: true,

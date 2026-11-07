@@ -12,7 +12,7 @@ import { ORDER_BADGE, PAYMENT_BADGE } from '../../ui/badges';
 type Dialog = 'cancel' | 'approve' | 'reject' | 'ship' | 'complete' | null;
 const FLOW = [OrderStatus.PaymentPending, OrderStatus.Processing, OrderStatus.Shipping, OrderStatus.Completed];
 
-/** A09 — Order detail & fulfilment. */
+/** A09: Order detail & fulfilment. */
 @Component({
   selector: 'app-admin-order-detail',
   standalone: true,
