@@ -152,7 +152,7 @@ const TIP_KEY = 'folmare.chat.tip';
 
     <!-- The button -->
     <button type="button" (click)="chat.toggle(); dismissTip()" [attr.aria-expanded]="chat.open()" aria-label="Chat with the FOLMARÉ assistant"
-      class="fixed z-[45] right-4 bottom-4 sm:right-6 sm:bottom-6 w-14 h-14 rounded-full bg-black text-white flex items-center justify-center shadow-[0_12px_30px_-8px_rgb(0_0_0/55%)] hover:scale-105 active:scale-95 transition-transform duration-200"
+      class="fixed z-[45] right-3 bottom-3 w-12 h-12 sm:right-6 sm:bottom-6 sm:w-14 sm:h-14 rounded-full bg-black text-white flex items-center justify-center shadow-[0_12px_30px_-8px_rgb(0_0_0/55%)] hover:scale-105 active:scale-95 transition-transform duration-200"
       [class.max-sm:hidden]="chat.open()">
       @if (chat.open()) {
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" /></svg>

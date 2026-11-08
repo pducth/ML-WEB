@@ -30,7 +30,7 @@
 .adm .card h3{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}.adm .card h3 em{margin-left:auto;font-style:normal;font-size:12px;color:var(--mut);font-weight:500}
 .adm .kpi .l{color:var(--mut);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}.adm .kpi .v{font-size:28px;font-weight:800;margin:4px 0}.adm .kpi{border-top:4px solid var(--teal)}.adm .kpi.o{border-top-color:var(--or)}
 .adm .up{color:var(--ok);font-size:12px;font-weight:700}.adm .dn{color:var(--err);font-size:12px;font-weight:700}
-.adm .tw{overflow-x:auto}.adm table{width:100%;border-collapse:collapse;min-width:620px}
+.adm .tw{overflow-x:auto;background:linear-gradient(90deg,var(--card) 30%,transparent),linear-gradient(90deg,transparent,var(--card) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgb(0 0 0/18%),transparent),radial-gradient(farthest-side at 100% 50%,rgb(0 0 0/18%),transparent) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}.adm table{width:100%;border-collapse:collapse;min-width:620px}
 .adm th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);padding:8px 10px;border-bottom:2px solid var(--teal-l);white-space:nowrap}
 .adm td{padding:11px 10px;border-bottom:1px solid var(--line);white-space:nowrap}.adm tr:hover td{background:var(--teal-l)}
 .adm .b{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700;background:var(--teal-l);color:var(--teal-d)}
@@ -95,8 +95,9 @@
 .adm .pager{display:flex;gap:8px;justify-content:flex-end;align-items:center;margin-top:12px;font-size:12px;color:var(--mut)}
 .adm td.wrap{white-space:normal;min-width:220px}
 .adm .thumb{width:40px;height:40px;border-radius:8px;object-fit:cover;border:1px solid var(--line);vertical-align:middle;margin-right:8px;background:#fff}
-.adm .donut-legend{display:grid;gap:6px;font-size:12px}
-.adm .donut-legend span{display:flex;align-items:center;gap:8px}
+.adm .donut-wrap{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:center}.adm .donut-legend{display:grid;gap:6px;font-size:12px;min-width:0}
+.adm .donut-legend span{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+@media(max-width:560px){.adm .donut-wrap{grid-template-columns:minmax(0,1fr)}}
 .adm .donut-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
 
 /* FOLMARÉ admin accents: forest sidebar with a soft coral glow, Lora page titles. */
@@ -105,3 +106,6 @@
 .adm .login-intro h1{font-style:italic}
 .adm .sub{color:#A8C3B6;letter-spacing:.16em;text-transform:uppercase}
 .adm .app.login main{background:linear-gradient(125deg,#EFF5F0 0%,#F8F6F1 58%,#F4DED3 100%)}
+
+/* Tablet: KPI cards in an even 2x2 grid instead of 3 + 1 orphan. */
+@media(min-width:561px) and (max-width:1100px){.adm .g4{grid-template-columns:repeat(2,minmax(0,1fr))}}

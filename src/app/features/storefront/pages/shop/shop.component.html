@@ -122,7 +122,7 @@
       @if (query().q) {
         <p class="text-sm text-[#5E6F68] mb-4">Results for <strong class="text-[#0F3D32]">“{{ query().q }}”</strong>: matching names, categories, benefits and ingredients (typos are tolerated).</p>
       }
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-5 gap-y-10">
         @for (product of pageItems(); track product.id) {
           <app-product-card [product]="product" />
         } @empty {
@@ -136,14 +136,14 @@
       </div>
 
       @if (pageCount() > 1) {
-        <nav class="flex items-center justify-center gap-2 mt-10" aria-label="Pagination">
-          <button type="button" (click)="update({ page: page() - 1 })" [disabled]="page() === 1" class="px-4 py-2  border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Previous</button>
+        <nav class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-10" aria-label="Pagination">
+          <button type="button" (click)="update({ page: page() - 1 })" [disabled]="page() === 1" class="px-3 sm:px-4 py-2 border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Previous</button>
           @for (n of pages(); track n) {
             <button type="button" (click)="update({ page: n })" [attr.aria-current]="n === page() ? 'page' : null"
               class="w-9 h-9  text-xs font-bold transition-colors"
               [ngClass]="n === page() ? 'bg-[#19594A] text-white' : 'text-[#0F3D32] hover:bg-[#EEF3EF]'">{{ n }}</button>
           }
-          <button type="button" (click)="update({ page: page() + 1 })" [disabled]="page() === pageCount()" class="px-4 py-2  border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Next</button>
+          <button type="button" (click)="update({ page: page() + 1 })" [disabled]="page() === pageCount()" class="px-3 sm:px-4 py-2 border border-[#DCE5E0] text-xs font-bold text-[#0F3D32] hover:border-[#19594A] disabled:opacity-40">Next</button>
         </nav>
       }
     </div>

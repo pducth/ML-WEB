@@ -25,7 +25,7 @@ import { ProductCardComponent } from '../../../../shared/ui/product-card.compone
         </header>
 
         @if (products().length) {
-          <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
+          <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-5 gap-y-10">
             @for (product of products(); track product.id) {
               <app-product-card [product]="product" />
             }

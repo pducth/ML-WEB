@@ -66,13 +66,13 @@ const TABS: Array<{ id: TabId; label: string; statuses: OrderStatus[] }> = [
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-x-3 gap-y-1.5 flex-wrap">
-                  <h2 class="fm-display text-lg text-[#0F3D32] whitespace-nowrap sm:w-[262px] sm:shrink-0">Order #{{ order.code }}</h2>
+                  <h2 class="fm-display text-base sm:text-lg text-[#0F3D32] break-words min-w-0 sm:whitespace-nowrap sm:w-[262px] sm:shrink-0">Order #{{ order.code }}</h2>
                   <app-order-status-pill [status]="order.status" [compact]="true" />
                 </div>
                 <p class="text-xs text-[#85968E] mt-1">{{ order.createdAt | date: 'mediumDate' }}</p>
               </div>
               <span class="fm-display text-lg text-[#0F3D32] w-24 text-right shrink-0 hidden sm:block">{{ order.total | usd }}</span>
-              <a [routerLink]="['/orders', order.id]" class="btn-secondary text-xs !px-4 !py-2 w-[132px] text-center shrink-0 hidden md:inline-flex justify-center">View details</a>
+              <a [routerLink]="['/orders', order.id]" class="btn-secondary text-xs !px-4 !py-2 w-[132px] text-center whitespace-nowrap shrink-0 hidden md:inline-flex justify-center">View details</a>
               <a [routerLink]="['/orders', order.id]" class="md:hidden text-[#0F3D32] shrink-0" aria-label="View details"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
             </li>
           }

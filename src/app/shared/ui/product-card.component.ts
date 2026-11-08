@@ -30,7 +30,7 @@ import { UsdPipe } from './usd.pipe';
         @if (outOfStock()) {
           <span class="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white bg-[#C9503A] px-2.5 py-1">Sold out</span>
         } @else {
-          <span class="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#0F3D32]">{{ p.category }}</span>
+          <span class="absolute top-3 left-3 right-[7.25rem] truncate text-[10px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#0F3D32]" [class.max-sm:hidden]="!!tag()">{{ p.category }}</span>
         }
         @if (tag(); as tag) {
           <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 border"
@@ -44,7 +44,7 @@ import { UsdPipe } from './usd.pipe';
         <p class="fm-brand-chip">{{ p.brand }}</p>
         <a [routerLink]="['/products', p.id]" class="mt-1.5 font-medium text-[#0F3D32] text-base leading-snug line-clamp-2 hover:text-[#4F7F72] transition-colors duration-500 cursor-pointer block">{{ p.name }}</a>
         <p class="text-[13px] text-[#5E6F68] mt-1 line-clamp-1">{{ sizes() }}</p>
-        <div class="flex items-center gap-1.5 mt-2 text-xs">
+        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-2 text-xs">
           @if (stats().count) {
             <app-stars [rating]="stats().average" />
             <span class="text-[#5E6F68]">({{ stats().count | compact }})</span>

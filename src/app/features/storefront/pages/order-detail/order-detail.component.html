@@ -30,7 +30,7 @@
       <ol class="mt-8 grid gap-3" [style.grid-template-columns]="'repeat(' + steps().length + ', minmax(0, 1fr))'">
         @for (step of steps(); track step.status) {
           <li>
-            <span class="block text-[11px] font-bold uppercase tracking-[0.14em] truncate" [ngClass]="step.current ? 'text-[#0F3D32]' : step.done ? 'text-[#4F7F72]' : 'text-[#B5C8BD]'">{{ step.done && !step.current ? '✓ ' : '' }}{{ step.status }}</span>
+            <span class="block text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.04em] sm:tracking-[0.14em] truncate" [ngClass]="step.current ? 'text-[#0F3D32]' : step.done ? 'text-[#4F7F72]' : 'text-[#B5C8BD]'">{{ step.done && !step.current ? '✓ ' : '' }}{{ step.status }}</span>
             <span class="block mt-3 h-[2px]" [ngClass]="step.done || step.current ? 'bg-[#0F3D32]' : 'bg-[#DCE5E0]'"></span>
           </li>
         }

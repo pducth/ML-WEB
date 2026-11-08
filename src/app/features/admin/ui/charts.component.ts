@@ -98,8 +98,8 @@ export const CATEGORY_COLORS = ['#4F7F72', '#0F3D32', '#FF7F64', '#A8C3B6', '#D8
   imports: [UsdPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div style="display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center">
-      <svg viewBox="0 0 42 42" width="150" height="150" role="img" [attr.aria-label]="label()">
+    <div class="donut-wrap">
+      <svg viewBox="0 0 42 42" width="150" height="150" style="justify-self:center" role="img" [attr.aria-label]="label()">
         <circle cx="21" cy="21" r="15.915" fill="none" stroke="var(--line)" stroke-width="6" />
         @for (seg of segments(); track seg.label) {
           <circle cx="21" cy="21" r="15.915" fill="none" [attr.stroke]="seg.color" stroke-width="6" [attr.stroke-dasharray]="seg.dash" [attr.stroke-dashoffset]="seg.offset" transform="rotate(-90 21 21)"><title>{{ seg.label }}: {{ seg.share.toFixed(1) }}%</title></circle>

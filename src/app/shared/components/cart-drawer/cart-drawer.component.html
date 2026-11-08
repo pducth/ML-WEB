@@ -1,4 +1,4 @@
-<div class="fixed inset-0 z-50 transition-opacity duration-300" [class.pointer-events-none]="!cart.drawerOpen()" [class.opacity-0]="!cart.drawerOpen()" [attr.aria-hidden]="!cart.drawerOpen()">
+<div class="fixed inset-0 z-50 transition-opacity duration-300" [class.pointer-events-none]="!cart.drawerOpen()" [class.opacity-0]="!cart.drawerOpen()" [attr.aria-hidden]="!cart.drawerOpen()" [attr.inert]="cart.drawerOpen() ? null : ''">
   <div (click)="cart.closeDrawer()" class="absolute inset-0 modal-overlay cursor-pointer"></div>
 
   <div role="dialog" aria-label="Your shopping bag"
