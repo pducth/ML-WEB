@@ -31,3 +31,10 @@ data/store/
 # Large local media and Office temp files
 docs/media/
 ~$*
+
+# Coursework material kept only locally (not needed to build or deploy the web app):
+# report, test evidence, figures, wireframes and partner-brand logos
+docs/report/
+docs/testing/
+docs/design/wireframes/
+docs/design/partner-logos/

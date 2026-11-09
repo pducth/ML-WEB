@@ -13,6 +13,11 @@ export const PRODUCT_CATEGORIES = [
 ] as const;
 export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
 
+/** The four houses carried by the store; the code is the SKU prefix (BR-PRD-02). */
+export const PRODUCT_BRANDS = ['Moroccanoil', 'Davines', 'Rahua', 'AROMATICA'] as const;
+export type ProductBrand = (typeof PRODUCT_BRANDS)[number];
+export const BRAND_SKU_CODE: Record<ProductBrand, string> = { Moroccanoil: 'MO', Davines: 'DV', Rahua: 'RA', AROMATICA: 'AR' };
+
 export const SIZE_LABELS = ['Travel', 'Full', 'Half-Liter', 'Liter'] as const;
 export type SizeLabel = (typeof SIZE_LABELS)[number];
 

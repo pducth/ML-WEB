@@ -1,12 +1,15 @@
 import { Injectable, computed, inject } from '@angular/core';
 import { DomainError, MockDbService, newId, nowIso } from '../data/mock-db.service';
 import {
+  BRAND_SKU_CODE,
   OrderStatus,
+  PRODUCT_BRANDS,
   PRODUCT_CATEGORIES,
   SIZE_LABELS,
   productAvailable,
   startingPrice,
   type Product,
+  type ProductBrand,
   type ProductCategory,
   type ProductStatus,
   type ProductVariant,
@@ -29,6 +32,7 @@ export interface ShopQuery {
 
 export interface ProductInput {
   name: string;
+  brand: string;
   category: ProductCategory;
   description: string;
   keyBenefits: string[];
@@ -199,7 +203,7 @@ export class ProductService {
         id,
         key,
         name: input.name.trim(),
-        brand: 'Moroccanoil',
+        brand: input.brand,
         category: input.category,
         description: input.description.trim(),
         keyBenefits: input.keyBenefits.filter(Boolean),
@@ -263,6 +267,7 @@ export class ProductService {
       this.assertUniqueSkus(db.products, variants.map((v) => v.sku), id);
       Object.assign(product, {
         name: input.name.trim(),
+        brand: input.brand,
         category: input.category,
         description: input.description.trim(),
         keyBenefits: input.keyBenefits.filter(Boolean),
@@ -297,14 +302,20 @@ export class ProductService {
     });
   }
 
-  suggestSku(category: ProductCategory, sizeLabel: string): string {
-    const code = CATEGORY_CODE[category];
-    const used = this.products().filter((p) => p.category === category).length + 1;
-    return `MO-${code}-${String(used).padStart(2, '0')}-${sizeLabel[0]}`;
+  /** Suggests the next free SKU in the brand's own series, e.g. DV-SH-12-F. Empty until a brand is chosen. */
+  suggestSku(brand: string, category: ProductCategory, sizeLabel: string): string {
+    const prefix = BRAND_SKU_CODE[brand as ProductBrand];
+    if (!prefix) return '';
+    const stem = `${prefix}-${CATEGORY_CODE[category]}-`;
+    const taken = new Set(this.products().flatMap((p) => p.variants.map((v) => v.sku)));
+    let n = this.products().filter((p) => p.brand === brand && p.category === category).length + 1;
+    while (taken.has(`${stem}${String(n).padStart(2, '0')}-${sizeLabel[0]}`)) n++;
+    return `${stem}${String(n).padStart(2, '0')}-${sizeLabel[0]}`;
   }
 
   private validate(input: ProductInput, creating: boolean): void {
     if (!input.name.trim()) throw new DomainError('Product name is required.');
+    if (!(PRODUCT_BRANDS as readonly string[]).includes(input.brand)) throw new DomainError('Please choose a brand.');
     if (!PRODUCT_CATEGORIES.includes(input.category)) throw new DomainError('Please choose a category.');
     if (!input.images.length) throw new DomainError('Please add at least one product image (the first is the main image).');
     if (input.images.length > 6) throw new DomainError('A product can have up to 6 images.');

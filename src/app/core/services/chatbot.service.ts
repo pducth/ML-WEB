@@ -54,6 +54,8 @@ interface Intent {
 
 const STORAGE_KEY = 'folmare.chat.v1';
 const MIN_SCORE = 2;
+/** Words that say nothing about a product, ignored when deciding whether a message names one. */
+const CHAT_STOPWORDS = new Set(['the', 'and', 'for', 'you', 'your', 'can', 'how', 'what', 'who', 'are', 'with', 'this', 'that', 'want', 'need', 'please', 'show', 'find', 'have', 'any', 'some']);
 
 /** The four houses, with the part of the ritual each one stands for (the same words as the About page). */
 const BRANDS: Array<{ name: string; key: string; pattern: RegExp; role: string; blurb: string }> = [
@@ -482,7 +484,11 @@ export class ChatbotService {
     },
     {
       id: 'returns',
-      rules: [[/return|refund|exchange|money back|cancel|doi tra|hoan tien|tra hang|huy don|damaged item|wrong item|defective/, 4]],
+      rules: [
+        [/return|refund|exchange|money back|cancel|doi tra|hoan tien|tra hang|huy don|damaged item|wrong item|defective/, 4],
+        // Specific wording outweighs the generic "ship" / "bao lau" of the shipping intent.
+        [/\bcancel|huy don|doi tra|tra hang|hoan tien|return (window|period|policy)|how long.{0,20}(return|refund)/, 3],
+      ],
       answer: (ctx) => {
         const cancel = /cancel|huy/.test(ctx.t);
         const amount = /how much|refunded|how long.{0,12}refund|hoan.{0,8}bao nhieu/.test(ctx.t) && /refund|hoan tien/.test(ctx.t);
@@ -496,7 +502,11 @@ export class ChatbotService {
     },
     {
       id: 'payment',
-      rules: [[/\bpay\b|payment|paying|\bcod\b|cash on delivery|bank transfer|transfer|\bqr\b|credit card|visa|momo|thanh toan|chuyen khoan|tien mat/, 4]],
+      rules: [
+        [/\bpay\b|payment|paying|\bcod\b|cash on delivery|bank transfer|transfer|\bqr\b|credit card|visa|momo|thanh toan|chuyen khoan|tien mat/, 4],
+        // "cash on delivery" also contains "delivery"; the payment meaning must win.
+        [/cash on delivery|\bcod\b|pay (by|with|in) cash|thanh toan khi nhan|tra tien khi nhan/, 4],
+      ],
       answer: () => ({
         text: this.faq(/which payment methods/) ?? 'You can pay by cash on delivery, or by bank transfer with a QR code.',
         actions: [{ label: 'Go to my bag', link: '/cart', kind: 'primary' }, { label: 'FAQs', link: '/faq', kind: 'secondary' }],
@@ -505,7 +515,11 @@ export class ChatbotService {
     },
     {
       id: 'discount',
-      rules: [[/discount|coupon|voucher|promo|promotion|welcome10|\bcode\b|sale|giam gia|ma giam|khuyen mai|uu dai/, 4]],
+      rules: [
+        [/discount|coupon|voucher|promo|promotion|welcome10|\bcode\b|sale|giam gia|ma giam|khuyen mai|uu dai/, 4],
+        // "What discount code can I use?" must not read as "what can I use" (product advice).
+        [/(discount|promo|coupon|voucher) codes?|ma giam gia|ma khuyen mai/, 4],
+      ],
       answer: () => ({
         text: 'New customers get 10% off their first order with the code WELCOME10. You can use one code per order, and you enter it in your bag or at checkout.',
         actions: [{ label: 'Go to my bag', link: '/cart', kind: 'primary' }, { label: 'Start shopping', link: '/shop', kind: 'secondary' }],
@@ -599,8 +613,9 @@ export class ChatbotService {
       return { text: faq.a, actions: [{ label: 'Open the FAQs', link: '/faq', kind: 'secondary' }], chips: ['Help me choose', 'Contact support'] };
     }
 
-    // A product or ingredient name typed on its own.
-    const found = t.length >= 3 ? this.products.search(raw).filter((p) => productAvailable(p) > 0) : [];
+    // A product or ingredient name typed on its own. The shop search is deliberately lenient (fuzzy, substring),
+    // so here at least half of the meaningful words must appear literally in the product, or nothing is shown.
+    const found = t.length >= 3 ? this.products.search(raw).filter((p) => productAvailable(p) > 0 && this.anchored(t, p)) : [];
     if (found.length && found.length <= 12) {
       return {
         text: found.length === 1 ? 'I found this product.' : 'I found these products.',
@@ -641,6 +656,15 @@ export class ChatbotService {
     const leaders = LEADERS.flatMap((key) => ranked.filter((p) => p.key === key));
     const rest = ranked.filter((p) => !leaders.includes(p));
     return [...leaders, ...rest].slice(0, limit);
+  }
+
+  /** True when at least half of the message's meaningful words (3+ letters) occur as-is in the product's text. */
+  private anchored(t: string, p: Product): boolean {
+    const words = t.split(' ').filter((w) => w.length >= 3 && !CHAT_STOPWORDS.has(w));
+    if (!words.length) return false;
+    const hay = normalise([p.name, p.brand, p.category, ...p.keyBenefits, p.ingredients].join(' ')).split(' ');
+    const hits = words.filter((w) => hay.some((h) => h.startsWith(w))).length;
+    return hits >= Math.ceil(words.length / 2);
   }
 
   private card(p: Product): ChatCard {

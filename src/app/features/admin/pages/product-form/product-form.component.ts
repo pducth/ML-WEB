@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal, untracked, type WritableSignal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { errorMessage } from '../../../../core/data/mock-db.service';
-import { HAIR_LABELS, PRODUCT_CATEGORIES, SIZE_LABELS, availableOf, type ProductCategory, type RoutineStep, type SizeLabel } from '../../../../core/models';
+import { HAIR_LABELS, PRODUCT_BRANDS, PRODUCT_CATEGORIES, SIZE_LABELS, availableOf, type ProductCategory, type RoutineStep, type SizeLabel } from '../../../../core/models';
 import { ProductService, type ProductInput } from '../../../../core/services/product.service';
 import { ToastService } from '../../../../core/services/toast.service';
 
@@ -51,12 +51,15 @@ export class ProductFormComponent {
   readonly editing = computed(() => !!this.productId());
   readonly existing = computed(() => (this.productId() ? this.products.getById(this.productId()!) : undefined));
 
+  readonly brands = PRODUCT_BRANDS;
   readonly categories = PRODUCT_CATEGORIES;
   readonly labels = HAIR_LABELS;
   readonly scalpOptions = SCALP_OPTIONS;
   readonly steps = STEPS;
 
   readonly name = signal('');
+  /** No default: the admin must pick the house explicitly so a product is never filed under the wrong brand. */
+  readonly brand = signal('');
   readonly category = signal<ProductCategory>('Shampoo');
   readonly description = signal('');
   readonly benefits = signal('');
@@ -85,6 +88,7 @@ export class ProductFormComponent {
       const p = this.existing();
       if (p) {
         this.name.set(p.name);
+        this.brand.set(p.brand);
         this.category.set(p.category);
         this.description.set(p.description);
         this.benefits.set(p.keyBenefits.join('\n'));
@@ -127,7 +131,29 @@ export class ProductFormComponent {
 
   enableVariant(index: number, enabled: boolean): void {
     const row = this.variants()[index];
-    this.updateVariant(index, { enabled, sku: row.sku || this.products.suggestSku(this.category(), row.sizeLabel) });
+    this.updateVariant(index, { enabled, sku: row.sku || this.products.suggestSku(this.brand(), this.category(), row.sizeLabel) });
+  }
+
+  /** Brand or category changed: refresh SKUs that are still empty or auto-suggested on sizes not saved yet. */
+  setBrand(brand: string): void {
+    this.brand.set(brand);
+    this.refreshSuggestedSkus();
+  }
+
+  setCategory(category: ProductCategory): void {
+    this.category.set(category);
+    this.refreshSuggestedSkus();
+  }
+
+  private refreshSuggestedSkus(): void {
+    const auto = /^[A-Z]{2}-[A-Z]{2}-\d{2,}-[A-Z]$/;
+    this.variants.update((rows) =>
+      rows.map((row) =>
+        row.enabled && !row.id && (!row.sku || auto.test(row.sku))
+          ? { ...row, sku: this.products.suggestSku(this.brand(), this.category(), row.sizeLabel) }
+          : row,
+      ),
+    );
   }
 
   addImageUrl(): void {
@@ -170,6 +196,7 @@ export class ProductFormComponent {
     this.error.set('');
     const input: ProductInput = {
       name: this.name(),
+      brand: this.brand(),
       category: this.category(),
       description: this.description(),
       keyBenefits: this.benefits().split('\n').map((s) => s.trim()).filter(Boolean),

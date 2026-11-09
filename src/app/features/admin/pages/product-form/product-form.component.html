@@ -8,8 +8,14 @@
       <h3>Basic information</h3>
       <div class="form">
         <label>Product name *<input [value]="name()" (input)="name.set($any($event.target).value)" /></label>
+        <label>Brand *
+          <select (change)="setBrand($any($event.target).value)">
+            <option value="" disabled [selected]="!brand()">Choose a brand</option>
+            @for (b of brands; track b) { <option [value]="b" [selected]="brand() === b">{{ b }}</option> }
+          </select>
+        </label>
         <label>Category *
-          <select (change)="category.set($any($event.target).value)">
+          <select (change)="setCategory($any($event.target).value)">
             @for (c of categories; track c) { <option [value]="c" [selected]="category() === c">{{ c }}</option> }
           </select>
         </label>
