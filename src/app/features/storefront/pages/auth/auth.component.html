@@ -64,6 +64,9 @@
 
           <button type="submit" [disabled]="busy()" class="btn-primary w-full !py-4">Sign In</button>
           <p class="text-center text-sm text-[#5E6F68]">Don't have an account? <button type="button" (click)="setMode('register')" class="font-bold text-[#0F3D32] hover:underline">Sign Up</button></p>
+          @if (devTools) {
+            <p class="p-3.5 text-xs leading-[1.8] text-center text-[#5E6F68] bg-[#EEF3EF] border border-dashed border-[#B5C8BD]">Demo account: bichngoc.duong&#64;mail.com<br />Password: Customer&#64;123</p>
+          }
         </form>
       </div>
       <div class="col-start-1 row-start-1" [class.invisible]="mode() !== 'register'" [attr.aria-hidden]="mode() !== 'register'">

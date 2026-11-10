@@ -13,7 +13,7 @@ const CLASSES: Record<OrderStatus, string> = {
 
 const BASE = 'inline-block text-[11px] font-bold uppercase tracking-[0.1em] leading-none px-3 py-2 border whitespace-nowrap';
 /** Smaller tag of one fixed width, so a column of them lines up in a list. */
-const COMPACT = 'inline-block w-[96px] text-center text-[9px] font-bold uppercase tracking-[0.08em] leading-none px-2 py-1 border whitespace-nowrap';
+const COMPACT = 'inline-block w-[116px] text-center text-[9px] font-bold uppercase tracking-[0.08em] leading-none px-2 py-1 border whitespace-nowrap';
 
 @Component({
   selector: 'app-order-status-pill',

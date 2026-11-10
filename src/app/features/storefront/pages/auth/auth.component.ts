@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { environment } from '../../../../core/environment/environment';
 import { errorMessage } from '../../../../core/data/mock-db.service';
 import { AccountFlowService } from '../../../../core/services/account-flow.service';
 import { AuthService, EMAIL_PATTERN, PASSWORD_RULE, PHONE_PATTERN, isStrongPassword, normalizePhone } from '../../../../core/services/auth.service';
@@ -51,6 +52,8 @@ export class AuthComponent {
   private readonly params = this.route.snapshot.queryParamMap;
   readonly pendingSave = inject(QuizService).pendingSave;
 
+  /** The demo account box is shown while the app runs in demo mode. */
+  readonly devTools = environment.devTools;
   readonly mode = signal<AuthMode>(this.route.snapshot.data['mode'] === 'register' ? 'register' : 'login');
   readonly returnUrl = this.params.get('returnUrl');
   readonly resetDone = this.params.get('reset') === '1';
